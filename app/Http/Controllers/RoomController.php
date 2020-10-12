@@ -74,20 +74,21 @@ class RoomController extends Controller
        $bbb= \Bigbluebutton::create($createMeeting);
 //       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
 
-       if($bbb->returncode=="SUCCESS"){
-           $rm=RoomModel::find($r->id);
-
+        $bba=json_decode($bbb, true);
+        $rm=RoomModel::find($r->id);
+       if($bba["returncode"]=="SUCCESS"){
            $rm->user_id=Auth::id();
-           $rm->bbb_returncode=$bbb->returncode;
-           $rm->internalMeetingID=$bbb->internalMeetingID;
-           $rm->parentMeetingID=$bbb->parentMeetingID;
-           $rm->voiceBridge=$bbb->voiceBridge;
-           $rm->createDate=$bbb->createDate;
-           $rm->createTime=$bbb->createTime;
+           $rm->bbb_returncode=$bba["returncode"];
+           $rm->internalMeetingID=$bba["internalMeetingID"];
+           $rm->parentMeetingID=$bba["parentMeetingID"];
+           $rm->voiceBridge=$bba["voiceBridge"];
+           $rm->createDate=$bba["createDate"];
+           $rm->createTime=$bba["createTime"];
            $rm->save();
 
            return redirect('room')->with('success', 'Room Created Successfully!');
        }else{
+           $rm->delete();
            return redirect('room')->with('error', 'Server Error while creating Meeting!');
        }
     }
@@ -114,6 +115,25 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'userName' => Auth::user()->name,
                 'password' => $i->password_moderator //which user role want to join set password here
+            ])
+        );
+    }
+
+    public function ajoin(Request $request){
+        $id=$request->input('id');
+
+        $i=RoomModel::find($id);
+
+        if(!$i){
+            return back()
+                ->with('error', 'Invalid Room!');
+        }
+
+        return redirect()->to(
+            Bigbluebutton::join([
+                'meetingID' => $i->id,
+                'userName' => "Guest",
+                'password' => $i->password_attendee //which user role want to join set password here
             ])
         );
     }

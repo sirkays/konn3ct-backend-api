@@ -187,7 +187,7 @@
 <script>
     function makePayment() {
         FlutterwaveCheckout({
-            public_key: {{env("RAVE_PUB_KEY")}},
+            public_key: "{{env('RAVE_PUB_KEY')}}",
             tx_ref: "konn3ct_{{rand().time()}}",
             amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif,
             currency: "USD",

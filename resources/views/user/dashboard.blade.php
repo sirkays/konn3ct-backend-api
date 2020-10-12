@@ -21,6 +21,12 @@
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                 <div class="row">
 
                     <div class="col-xl-3 col-12">
@@ -74,12 +80,21 @@
                                                 <span class="badge badge-success badge-lg">Active</span>
                                             </td>
                                             <td class="text-right">
-                                                <a class="waves-effect waves-light btn btn-app btn-success" href="https://konnect.com/{{$room->url}}">
+                                                <form action="/joinroom" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$room->id}}" />
+                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-success">
                                                     <i class="fa fa-arrow-right"></i> Konn3ct Now
-                                                </a>
-                                                <a class="waves-effect waves-light btn btn-app btn-danger" href="#">
+                                                </Button>
+                                                </form>
+
+                                                <form action="/deleteroom" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$room->id}}" />
+                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-danger">
                                                     <i class="fa fa-trash"></i> Delete
-                                                </a>
+                                                </Button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -174,14 +189,14 @@
                                                 </select>
                                             </div>
 
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" id="checkbox_123">
-                                                <label for="checkbox_123" class="block">Allow any user to start meeting</label>
-                                            </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" id="checkbox_234">
-                                                <label for="checkbox_234" class="block">All user join as moderator</label>
-                                            </div>
+{{--                                            <div class="c-inputs-stacked">--}}
+{{--                                                <input type="checkbox" id="checkbox_123">--}}
+{{--                                                <label for="checkbox_123" class="block">Allow any user to start meeting</label>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="c-inputs-stacked">--}}
+{{--                                                <input type="checkbox" id="checkbox_234">--}}
+{{--                                                <label for="checkbox_234" class="block">All user join as moderator</label>--}}
+{{--                                            </div>--}}
 
                                         </div>
                                         <!-- /.box-body -->

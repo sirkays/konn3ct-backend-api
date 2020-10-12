@@ -26,16 +26,15 @@ class RoomController extends Controller
         }
 
         if ($input['url']==""){
-            $num=Auth::user()->name.date('siyhy');
+            $num=trim(Auth::user()->name.date('siyhy'));
             $shuffled = str_shuffle($num);
             $sfinal=substr($shuffled, 0, 8);
 
             $input['url']=$sfinal;
         }
 
-        $input['user_id']=Auth::id();
-        $input['password_attendee']="";
-        $input['password_moderator']="";
+        $input['password_attendee']="attendee";
+        $input['password_moderator']="moderator";
         $input['welcome_message']="";
         $input['logout_url']="";
         $input['max_participants']=0;
@@ -50,7 +49,7 @@ class RoomController extends Controller
             'moderatorPW' => 'moderator',
         ]);
 
-        $createMeeting->setDuration(100); //overwrite default configuration
+        $createMeeting->setDuration(0); //overwrite default configuration
 //        $meetingParams->setMaxParticipants
 //$meetingParams->setLogoutUrl($
 //$meetingParams->setWelcomeMessage(
@@ -72,9 +71,25 @@ class RoomController extends Controller
 //$meetingParams->setLockSettingsLockedLayout
 //$meetingParams->setLockSettingsLockOnJoin
 //    $meetingParams->setFreeJoin
-       return \Bigbluebutton::create($createMeeting);
+       $bbb= \Bigbluebutton::create($createMeeting);
+//       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
 
-//        return redirect('room')->with('success', 'Room Created Successfully!');
+       if($bbb->returncode=="SUCCESS"){
+           $rm=RoomModel::find($r->id);
+
+           $rm->user_id=Auth::id();
+           $rm->bbb_returncode=$bbb->returncode;
+           $rm->internalMeetingID=$bbb->internalMeetingID;
+           $rm->parentMeetingID=$bbb->parentMeetingID;
+           $rm->voiceBridge=$bbb->voiceBridge;
+           $rm->createDate=$bbb->createDate;
+           $rm->createTime=$bbb->createTime;
+           $rm->save();
+
+           return redirect('room')->with('success', 'Room Created Successfully!');
+       }else{
+           return redirect('room')->with('error', 'Server Error while creating Meeting!');
+       }
     }
 
     public function show(){
@@ -82,5 +97,39 @@ class RoomController extends Controller
         $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
         return view('user.dashboard', $datas);
+    }
+
+    public function mjoin(Request $request){
+        $id=$request->input('id');
+
+        $i=RoomModel::find($id);
+
+        if(!$i){
+            return back()
+                ->with('error', 'Invalid Room!');
+        }
+
+        return redirect()->to(
+            Bigbluebutton::join([
+                'meetingID' => $i->id,
+                'userName' => Auth::user()->name,
+                'password' => $i->password_moderator //which user role want to join set password here
+            ])
+        );
+    }
+
+    public function delete(Request $request){
+        $id=$request->get('id');
+
+        $i=RoomModel::find($id);
+
+        if(!$i){
+            return back()
+                ->with('error', 'Invalid Room!');
+        }
+
+        $i->delete();
+
+        return redirect('room')->with('success', 'Room Deleted Successfully!');
     }
 }

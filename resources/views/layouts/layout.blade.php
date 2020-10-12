@@ -73,11 +73,11 @@
 
                                     <li><a href="/">
 {{--                                            <img src="/assets/img/logo/logo.png" alt="logo">--}}
-                                            Konn3ct Logo <br /> <span class="text-muted" style="font-size: 10px">Sign Up (It's free - No card is required)</span>
+                                            Konn3ct Logo <br /> <a href="{{ route('register') }}" class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</a>
                                         </a></li>
 
                                     <li><a href="/joinsession">Join Session</a></li>
-                                    <li><a href="#contact">Host a Session</a></li>
+                                    <li><a href="/room">Host a Session</a></li>
                                 </ul>
                             </nav>
                         </div>

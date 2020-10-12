@@ -8,13 +8,13 @@
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="w-p100 d-md-flex align-items-center justify-content-between">
-                            <h3 class="page-title">Invoice List</h3>
+                            <h3 class="page-title">Payment List</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Invoice</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Invoice List</li>
+                                        <li class="breadcrumb-item" aria-current="page">Payment</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Payment List</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -27,7 +27,7 @@
                     <div class="col-xl-10 col-lg-9 col-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h4 class="box-title">Invoice List</h4>
+                                <h4 class="box-title">Payment List</h4>
                                 <h6 class="box-subtitle">Export Invoice List to Copy, CSV, Excel, PDF & Print</h6>
                             </div>
                             <div class="box-body">

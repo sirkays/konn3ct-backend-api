@@ -1,0 +1,34 @@
+@extends('layouts.layout')
+
+@section('content')
+    <!-- main-area -->
+    <main>
+        <!-- pricing-area -->
+        <section id="pricing" class="pricing-area pt-113 pb-90">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                                                    <span>Join a Session</span>
+{{--                            <h2>Pricing & Plans​</h2>--}}
+                            <br/>
+                                <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter meeting name">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Konn3ct</button>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- pricing-area-end -->
+
+    </main>
+    <!-- main-area-end -->
+
+@endsection

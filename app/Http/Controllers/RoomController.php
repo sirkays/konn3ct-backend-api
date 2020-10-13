@@ -26,11 +26,11 @@ class RoomController extends Controller
         }
 
         if ($input['url']==""){
-            $num=trim(Auth::user()->name.date('siyhy'));
+            $num=trim(date('siyh'));
             $shuffled = str_shuffle($num);
-            $sfinal=substr($shuffled, 0, 8);
+            $sfinal=substr($shuffled, 0, 4);
 
-            $input['url']=$sfinal;
+            $input['url']=trim(substr(Auth::user()->name,0, 3).$sfinal);
         }
 
         $input['password_attendee']="attendee";
@@ -50,6 +50,10 @@ class RoomController extends Controller
         ]);
 
         $createMeeting->setDuration(0); //overwrite default configuration
+        $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
+        $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
+        $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 //        $meetingParams->setMaxParticipants
 //$meetingParams->setLogoutUrl($
 //$meetingParams->setWelcomeMessage(
@@ -134,10 +138,10 @@ class RoomController extends Controller
     }
 
     public function ajoin(Request $request){
-        $id=$request->input('id');
+        $url=$request->input('url');
         $name=$request->input('name');
 
-        $i=RoomModel::find($id);
+        $i=RoomModel::where('url',$url)->first();
 
         if(!$i){
             return back()

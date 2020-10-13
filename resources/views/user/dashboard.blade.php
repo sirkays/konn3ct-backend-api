@@ -55,10 +55,10 @@
                                     <table class="table no-border">
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
-                                            <th style="min-width: 250px"><span class="text-fade">Room Name</span></th>
-                                            <th style="min-width: 100px"><span class="text-fade">Room URL</span></th>
-                                            <th style="min-width: 130px"><span class="text-fade">Status</span></th>
-                                            <th style="min-width: 120px"></th>
+                                            <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
+                                            <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
+                                            <th style="min-width: 10px"><span class="text-fade">Status</span></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>

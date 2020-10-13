@@ -34,6 +34,10 @@ Route::get('/joinsession', function () {
     return view('join_session');
 });
 
+Route::get('/join/{url}', function ($url) {
+    return view('join_session', ['url'=>$url]);
+});
+
 Route::get('/features', function () {
     return view('features');
 });
@@ -52,7 +56,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(funct
 
     Route::get('/room', [RoomController::class, 'show'])->name('room');
 
-    Route::get('/dashboard', [RoomController::class, 'show'])->name('room');
+    Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
     Route::get('/payments', [PaymentController::class, 'list'])->name('payments');
 

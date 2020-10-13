@@ -110,7 +110,7 @@ class RoomController extends Controller
         $i=RoomModel::find($id);
 
         if(!$i){
-            return back()
+            return redirect('room')
                 ->with('error', 'Invalid Room!');
         }
 
@@ -144,14 +144,14 @@ class RoomController extends Controller
         $i=RoomModel::where('url',$url)->first();
 
         if(!$i){
-            return back()
+            return redirect('joinsession')
                 ->with('error', 'Invalid Room!');
         }
 
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
         if($ms!=1){
-            return back()
+            return redirect('joinsession')
                 ->with('error', 'Meeting has not started!');
         }
 

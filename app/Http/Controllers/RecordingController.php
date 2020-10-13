@@ -12,7 +12,7 @@ class RecordingController extends Controller
 
         $rc=RoomModel::where('user_id', Auth::id())->count();
         $r=RoomModel::where('user_id', Auth::id())->select('id')->first();
-        $r2=RoomModel::where('user_id', Auth::id())->pluck('id');
+        $r2=RoomModel::where('user_id', Auth::id())->select('id')->get();
         $datas['recordings']=[];
 
         if($rc==0){
@@ -30,9 +30,15 @@ class RecordingController extends Controller
             return view('user.recording', $datas);
 
         }else{
+            $er="";
+            foreach ($r2 as $r){
+                $er=$er."'".$r->id."',";
+            }
+            $fer="[".$er."]";
+
             $datas['recordings']=\Bigbluebutton::getRecordings([
 //                'meetingID' => $r->id,
-                'meetingID' => $r2, //pass as array if get multiple recordings
+                'meetingID' => $fer, //pass as array if get multiple recordings
                 //'recordID' => 'a3f1s',
                 //'recordID' => ['xyz.1','pqr.1'] //pass as array note :If a recordID is specified, the meetingID is ignored.
                 // 'state' => 'any' // It can be a set of states separate by commas

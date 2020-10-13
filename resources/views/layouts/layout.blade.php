@@ -69,12 +69,14 @@
                                 <ul>
                                     <li><a href="/features">Features</a></li>
                                     <li><a href="/pricing">Plans & Pricing</a></li>
-                                    <li><a href="#work">Support</a></li>
+                                    <li><a href="/contact">Contact Us</a></li>
+                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                                     <li><a href="/">
 {{--                                            <img src="/assets/img/logo/logo.png" alt="logo">--}}
-                                            Konn3ct Logo <br /> <a href="{{ route('register') }}" class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</a>
+                                            Konn3ct Logo <br /> <span class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</span>
                                         </a></li>
+                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                                     <li><a href="/joinsession">Join Session</a></li>
                                     <li><a href="/room">Host a Session</a></li>

@@ -3,80 +3,13 @@
 @section('content')
 <!-- main-area -->
 <main>
-    <!-- slider-area -->
-    <section id="home" class="slider-area fix p-relative">
-
-        <div class="slider-active">
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider_img01.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-2">
-                        </div>
-                        <div class="col-xl-8">
-                            <div class="slider-content s-slider-content text-center">
-                                <h2 data-animation="fadeInUp" data-delay=".4s">Ubiquitous <span>work</span></h2>
-                                <p data-animation="fadeInUp" data-delay=".6s">Dial-In | Customize Rooms | Do Audio, Video & Paper work</p>
-{{--                                <div class="slider-btn mt-55">--}}
-{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
-{{--                                </div>--}}
-                            </div>
-                        </div>
-                        <div class="col-xl-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-2">
-                        </div>
-                        <div class="col-xl-8">
-                            <div class="slider-content s-slider-content text-center">
-                                <h2 data-animation="fadeInUp" data-delay=".4s">Collaboration made <span>easy</span></h2>
-                                <p data-animation="fadeInUp" data-delay=".6s">Share chats, notes, screen, camera, whiteboard, emoji | Breakout Rooms | Workflow.</p>
-{{--                                <div class="slider-btn mt-55">--}}
-{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
-{{--                                </div>--}}
-                            </div>
-                        </div>
-                        <div class="col-xl-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img02.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-2">
-                        </div>
-                        <div class="col-xl-8">
-                            <div class="slider-content s-slider-content text-center">
-                                <h2 data-animation="fadeInUp" data-delay=".4s">You are <span>safe</span></h2>
-                                <p data-animation="fadeInUp" data-delay=".6s">TLS  & AES-256 Encryption | SSL Encryption  | GDPR Compliant​</p>
-{{--                                <div class="slider-btn mt-55">--}}
-{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
-{{--                                </div>--}}
-                            </div>
-                        </div>
-                        <div class="col-xl-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <a href="#about" class="down-arrow smoth-scroll"><i class="fas fa-long-arrow-alt-down"></i></a>
-    </section>
-    <!-- slider-area-end -->
-
     <!-- services-area -->
     <section id="services" class="services-area services-bg services-two pt-120 pb-90">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-10">
                     <div class="section-title text-center pl-40 pr-40 mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-{{--                        <span>our services</span>--}}
+                        {{--                        <span>our services</span>--}}
                         <h2>What you can do?​</h2>
                     </div>
                 </div>
@@ -170,6 +103,73 @@
         </div>
     </section>
     <!-- services-area-end -->
+
+    <!-- slider-area -->
+    <section id="home" class="slider-area fix p-relative">
+
+        <div class="slider-active">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider_img01.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-2">
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="slider-content s-slider-content text-center">
+                                <h2 data-animation="fadeInUp" data-delay=".4s">Ubiquitous <span>work</span></h2>
+                                <p data-animation="fadeInUp" data-delay=".6s">Dial-In | Customize Rooms | Do Audio, Video & Paper work</p>
+{{--                                <div class="slider-btn mt-55">--}}
+{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
+{{--                                </div>--}}
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-2">
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="slider-content s-slider-content text-center">
+                                <h2 data-animation="fadeInUp" data-delay=".4s">Collaboration made <span>easy</span></h2>
+                                <p data-animation="fadeInUp" data-delay=".6s">Share chats, notes, screen, camera, whiteboard, emoji | Breakout Rooms | Workflow.</p>
+{{--                                <div class="slider-btn mt-55">--}}
+{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
+{{--                                </div>--}}
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img02.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-2">
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="slider-content s-slider-content text-center">
+                                <h2 data-animation="fadeInUp" data-delay=".4s">You are <span>safe</span></h2>
+                                <p data-animation="fadeInUp" data-delay=".6s">TLS  & AES-256 Encryption | SSL Encryption  | GDPR Compliant​</p>
+{{--                                <div class="slider-btn mt-55">--}}
+{{--                                    <a href="#" class="btn ss-btn" data-animation="fadeInRight" data-delay=".8s">Get a Quote</a>--}}
+{{--                                </div>--}}
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a href="#about" class="down-arrow smoth-scroll"><i class="fas fa-long-arrow-alt-down"></i></a>
+    </section>
+    <!-- slider-area-end -->
 
     <!-- choose-area -->
     <section class="choose-area pt-120 pb-120 p-relative" style="background:#f5f8fa;">

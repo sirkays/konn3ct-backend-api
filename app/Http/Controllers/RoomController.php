@@ -110,17 +110,32 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        return redirect()->to(
-            Bigbluebutton::join([
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+
+        if($ms==1) {
+            return redirect()->to(
+                \Bigbluebutton::join([
+                    'meetingID' => $i->id,
+                    'userName' => Auth::user()->name,
+                    'password' => $i->password_moderator //which user role want to join set password here
+                ])
+            );
+        }else{
+            $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
-                'userName' => Auth::user()->name,
-                'password' => $i->password_moderator //which user role want to join set password here
-            ])
-        );
+                'moderatorPW' => $i->password_moderator, //moderator password set here
+                'attendeePW' => $i->password_attendee, //attendee password here
+                'userName' => Auth::user()->name,//for join meeting
+                //'redirect' => false // only want to create and meeting and get join url then use this parameter
+            ]);
+            return redirect()->to($url);
+        }
+
     }
 
     public function ajoin(Request $request){
         $id=$request->input('id');
+        $name=$request->input('name');
 
         $i=RoomModel::find($id);
 
@@ -129,10 +144,21 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+
+        if($ms!=1){
+            return back()
+                ->with('error', 'Meeting has not started!');
+        }
+
+        if($name==""){
+            $name="Konn3ct Guest";
+        }
+
         return redirect()->to(
-            Bigbluebutton::join([
+            \Bigbluebutton::join([
                 'meetingID' => $i->id,
-                'userName' => "Guest",
+                'userName' => $name,
                 'password' => $i->password_attendee //which user role want to join set password here
             ])
         );

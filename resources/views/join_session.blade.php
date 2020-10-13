@@ -29,7 +29,8 @@
                                 @csrf
                                 <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                                     <div class="form-group">
-                                        <input type="text" name="id" class="form-control" placeholder="Enter meeting name">
+                                        <input type="text" name="id" class="form-control" placeholder="Enter meeting name e.g sammyroom" required>
+                                        <input type="text" name="name" class="form-control" placeholder="Enter your name (Optional) e.g Samji Diamond">
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary">Konn3ct</button>

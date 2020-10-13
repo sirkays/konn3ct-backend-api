@@ -35,7 +35,7 @@ class PaymentController extends Controller
 
         $resp=json_decode($response, true);
 
-        if($response->status=="success"){
+        if($resp['status']=="success"){
 
             $data['user_id']=Auth::id();
             $data['plan']=Auth::user()->plan;

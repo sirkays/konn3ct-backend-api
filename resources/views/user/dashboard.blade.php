@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-10">
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
@@ -72,8 +72,8 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="text-dark font-weight-600 d-block font-size-16">
-													konnect.com/{{$room->url}}
+                                                <span id="c{{$room->id}}" class="text-dark font-weight-600 d-block font-size-16">
+													{{url('/join/')}}/{{$room->url}}
 												</span>
                                             </td>
                                             <td>
@@ -87,6 +87,14 @@
                                                     <i class="fa fa-arrow-right"></i> Konn3ct Now
                                                 </Button>
                                                 </form>
+
+                                                <Button class="waves-effect waves-light btn btn-app btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
+                                                    <i class="fa fa-copy"></i> Copy
+                                                </Button>
+
+                                                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">
+                                                    <i class="fa fa-calendar-check-o "></i> Schedule Now
+                                                </a>
 
                                                 <form action="/deleteroom" method="POST">
                                                     @csrf
@@ -105,7 +113,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="col-12">
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
@@ -218,10 +226,21 @@
             </div>
             <!-- /.modal -->
 
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+
 @endsection
 <script>
     import Button from "../../js/Jetstream/Button";
     export default {
         components: {Button}
     }
+
 </script>

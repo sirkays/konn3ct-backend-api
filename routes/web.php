@@ -38,6 +38,10 @@ Route::get('/features', function () {
     return view('features');
 });
 
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(function () {
 

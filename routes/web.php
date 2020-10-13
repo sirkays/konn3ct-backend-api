@@ -38,6 +38,8 @@ Route::get('/join/{url}', function ($url) {
     return view('join_session', ['url'=>$url]);
 });
 
+Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
+
 Route::get('/features', function () {
     return view('features');
 });
@@ -51,7 +53,6 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(funct
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
     Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
-    Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
     Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
     Route::get('/room', [RoomController::class, 'show'])->name('room');

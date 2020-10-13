@@ -43,7 +43,7 @@
                                                 <span class="badge badge-success badge-lg">{{$record['participants']}}</span>
                                             </td>
                                             <td class="text-right">
-                                                <a class="waves-effect waves-light btn btn-app btn-success" href="{{$record['playback->format->url']}}">
+                                                <a class="waves-effect waves-light btn btn-app btn-success" href="{{$record['playback']['format']['url']}}">
                                                     <i class="fa fa-eye"></i> View
                                                 </a>
                                                 <a class="waves-effect waves-light btn btn-app btn-danger" href="#">

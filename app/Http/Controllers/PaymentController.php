@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentModel;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,8 @@ class PaymentController extends Controller
             ),
         ));
 
-        $response = curl_exec($curl);
-//        $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6", "flw_ref": "FLW-M03K-02c21a8095c7e064b8b9714db834080b", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
+//        $response = curl_exec($curl);
+        $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6", "flw_ref": "FLW-M03K-02c21a8095c7e064b8b9714db834080b", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
 
         curl_close($curl);
 //        echo $response;
@@ -40,17 +41,17 @@ class PaymentController extends Controller
             $data['user_id']=Auth::id();
             $data['plan']=Auth::user()->plan;
             $data['gateway']="Flutterwave";
-            $data['amount']=$resp['amount'];
-            $data['date']=$resp['created_at'];
-            $data['reference']=$resp['tx_ref'];
-            $data['gateway_reference']=$resp['flw_ref'];
+            $data['amount']=$resp['data']['amount'];
+            $data['date']=$resp['data']['created_at'];
+            $data['reference']=$resp['data']['tx_ref'];
+            $data['gateway_reference']=$resp['data']['flw_ref'];
             $data['gateway_response']=$response;
 
             $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
 
             if(!$p) {
-                $data['status'] = $response->status;
-                User::where('id',Auth::id())->update(['subscription'=>'active']);
+                $data['status'] = $resp['status'];
+                User::where('id',Auth::id())->update(['subscription'=>Carbon::now()]);
                 return redirect('room')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';

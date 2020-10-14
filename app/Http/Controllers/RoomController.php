@@ -54,6 +54,10 @@ class RoomController extends Controller
         $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
         $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
+
+//        $meeting->setWelcome('Welecome message for all')
+//            ->setModeratorOnlyMessage('Only teacher can see this messsage');
+
 //        $meetingParams->setMaxParticipants
 //$meetingParams->setLogoutUrl($
 //$meetingParams->setWelcomeMessage(

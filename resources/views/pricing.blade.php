@@ -11,6 +11,8 @@
                     <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                        <span>Pricing List</span>--}}
                         <h2>Pricing & Plans​</h2>
+                        <br>
+                        <span onclick="myFunction()" id="myBtn">Click me to See Yearly Price</span>
                     </div>
                 </div>
             </div>
@@ -34,23 +36,19 @@
                                 <li>Screen Sharing - Yes</li>
                                 <li>Whiteboard & Annotation Tools - Yes</li>
                                 <li>User Status - Yes</li>
-                                <li style="text-decoration: line-through">Customize link - No</li>
                                 <li>Breakout Rooms - Yes</li>
                                 <li>Recording - Yes</li>
                                 <li>Full-Featured Admin Controls - Yes</li>
                                 <li>Share Webcam - Yes</li>
                                 <li>Shared Notes - Yes</li>
                                 <li>Share YouTube Videos - Yes</li>
-                                <li class="list-group-item-danger">Preload Presentations - No</li>
                                 <li>Pop-Up & Tone Notifications - Yes</li>
-                                <li>Dial In - No</li>
                                 <li>Chat (Private & Public) - Yes</li>
                                 <li>Waiting Room - Yes</li>
                                 <li>Save Participants’ List​ - Yes</li>
                                 <li>Download Chats in multi-formats - Yes</li>
                                 <li>Conduct Polls - Yes</li>
                                 <li>Web App - Yes</li>
-                                <li>Access Code - No</li>
                                 <li>Live Chat & Phone Support - Yes</li>
                                 <li>SSL Encryption - Yes</li>
                                 <li>TLS Encryption - Yes</li>
@@ -70,7 +68,15 @@
                         <div class="pricing-head">
                             <h4>Lite Plan</h4>
                             <div class="price-count mb-30">
-                                <h2><small>$</small>10.99 <span>/ Monthly</span></h2>
+                                <span id="monthly">
+                                    <h2><small>$</small>10.99 <span>/ Monthly</span></h2>
+                                    <h5>&#x20A6;4,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                </span>
+
+                                <span class="more" id="yearly">
+                                    <h2><small>$</small>120 <span>/ Yearly</span></h2>
+                                    <h5>&#x20A6;46,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                </span>
                             </div>
                         </div>
                         <div class="pricing-body mb-40 text-left">
@@ -111,7 +117,7 @@
                             </ul>
                         </div>
                         <div class="pricing-btn">
-                            <a href="/register/2" class="btn">Choose Plan</a>
+                            <a id="r1" href="/register/2" class="btn">Choose Plan</a>
                         </div>
                     </div>
                 </div>
@@ -120,7 +126,15 @@
                         <div class="pricing-head">
                             <h4>Pro Plan</h4>
                             <div class="price-count mb-30">
-                                <h2><small>$</small>15.99 <span>/ Monthly</span></h2>
+                                <span id="monthly2">
+                                    <h2><small>$</small>15.99 <span>/ Monthly</span></h2>
+                                    <h5>&#x20A6;6,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                </span>
+
+                                <span class="more" id="yearly2">
+                                    <h2><small>$</small>175 <span>/ Yearly</span></h2>
+                                    <h5>&#x20A6;67,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                </span>
                             </div>
                         </div>
                         <div class="pricing-body mb-40 text-left">
@@ -161,7 +175,7 @@
                             </ul>
                         </div>
                         <div class="pricing-btn">
-                            <a href="/register/3" class="btn">Choose Plan</a>
+                            <a id="r2" href="/register/3" class="btn">Choose Plan</a>
                         </div>
                     </div>
                 </div>
@@ -173,43 +187,50 @@
 </main>
 <!-- main-area-end -->
 
-<form>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <button type="button" onClick="makePayment()">Pay Now</button>
-</form>
-
 <script>
-    function makePayment() {
-        FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X",
-            tx_ref: "hooli-tx-1920bbtyt",
-            amount: 54600,
-            currency: "NGN",
-            country: "NG",
-            payment_options: "card, mobilemoneyghana, ussd",
-            redirect_url: // specified redirect URL
-                "https://callbacks.piedpiper.com/flutterwave.aspx?ismobile=34",
-            meta: {
-                consumer_id: 23,
-                consumer_mac: "92a3-912ba-1192a",
-            },
-            customer: {
-                email: "user@gmail.com",
-                phone_number: "08102909304",
-                name: "yemi desola",
-            },
-            callback: function (data) {
-                console.log(data);
-            },
-            onclose: function() {
-                // close modal
-            },
-            customizations: {
-                title: "My store",
-                description: "Payment for items in cart",
-                logo: "https://assets.piedpiper.com/logo.png",
-            },
-        });
+    function myFunction() {
+        var dots = document.getElementById("monthly");
+        var moreText = document.getElementById("yearly");
+        var register = document.getElementById("r1");
+        var dots2 = document.getElementById("monthly2");
+        var moreText2 = document.getElementById("yearly2");
+        var register2 = document.getElementById("r2");
+        var btnText = document.getElementById("myBtn");
+
+        if (dots.style.display === "none") {
+            btnText.innerHTML = "See Yearly Price";
+
+            dots.style.display = "inline";
+            moreText.style.display = "none";
+
+            var att = document.createAttribute("href");        // Create a "href" attribute
+            att.value = "/register/2";            // Set the value of the href attribute
+            register.setAttributeNode(att);
+
+            dots2.style.display = "inline";
+            moreText2.style.display = "none";
+
+            var att2 = document.createAttribute("href");        // Create a "href" attribute
+            att2.value = "/register/3";            // Set the value of the href attribute
+            register2.setAttributeNode(att2);
+
+        } else {
+            btnText.innerHTML = "See Monthly Price";
+
+            dots.style.display = "none";
+            moreText.style.display = "inline";
+
+            var att = document.createAttribute("href");        // Create a "href" attribute
+            att.value = "/register/21";            // Set the value of the href attribute
+            register.setAttributeNode(att);
+
+            dots2.style.display = "none";
+            moreText2.style.display = "inline";
+
+            var att2 = document.createAttribute("href");        // Create a "href" attribute
+            att2.value = "/register/31";            // Set the value of the href attribute
+            register2.setAttributeNode(att2);
+        }
     }
 </script>
 @endsection

@@ -40,6 +40,9 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Multi-User Whiteboard (with Zoom In & Out)​​​​</span>
                                     </li>
+
+                                    <span id="dots1"></span>
+                                    <span class="more" id="more1">
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Multiple participants can co-annotate​</span>
@@ -132,6 +135,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Conduct  Q&A​</span>
                                     </li>
+                                        </span>
+                                    <button class="btn btn-info" onclick="myFunction(1)" id="myBtn1">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -172,6 +177,9 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Control  participation using Access Code​</span>
                                     </li>
+
+                                    <span id="dots2"></span>
+                                    <span class="more" id="more2">
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Control participants  with mute/unmute, audio & video enablement​​</span>
@@ -196,6 +204,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Audio Test​​​</span>
                                     </li>
+                                        </span>
+                                    <button class="btn btn-info" onclick="myFunction(2)" id="myBtn2">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -236,6 +246,9 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Multiple participants can co-annotate​​​​</span>
                                     </li>
+
+                                    <span id="dots3"></span>
+                                    <span class="more" id="more3">
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Do unlimited recording of your meeting​​</span>
@@ -304,6 +317,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Session Timeout​​</span>
                                     </li>
+                                         </span>
+                                    <button class="btn btn-info" onclick="myFunction(3)" id="myBtn3">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -344,6 +359,10 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Open up to 9 whiteboards​</span>
                                     </li>
+
+                                    <span id="dots4"></span>
+                                    <span class="more" id="more4">
+
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Share screen in flexible aspect ratios for optimal visualization​</span>
@@ -380,6 +399,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Save, Copy & Delete Chats​</span>
                                     </li>
+                                        </span>
+                                    <button class="btn btn-info" onclick="myFunction(4)" id="myBtn4">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -420,6 +441,10 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Data Region​​​​</span>
                                     </li>
+
+                                    <span id="dots5"></span>
+                                    <span class="more" id="more5">
+
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>100% Host Node &  Network Uptime​</span>
@@ -428,6 +453,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS​​</span>
                                     </li>
+                                        </span>
+                                    <button class="btn btn-info" onclick="myFunction(5)" id="myBtn5">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -468,6 +495,9 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Single Sign On​​​​​</span>
                                     </li>
+
+                                    <span id="dots6"></span>
+                                    <span class="more" id="more6">
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Unlimited Cloud Storage​</span>
@@ -484,6 +514,8 @@
                                         <i class="icon dripicons-checkmark"></i>
                                         <span>Payment Gateway​</span>
                                     </li>
+                                        </span>
+                                    <button class="btn btn-info" onclick="myFunction(6)" id="myBtn6">Read more</button>
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}
@@ -498,5 +530,23 @@
         </div>
     </section>
     <!-- choose-area-end -->
+
+    <script>
+        function myFunction(i) {
+            var dots = document.getElementById("dots"+i);
+            var moreText = document.getElementById("more"+i);
+            var btnText = document.getElementById("myBtn"+i);
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read more";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+            }
+        }
+    </script>
 
 @endsection

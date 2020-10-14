@@ -10,7 +10,7 @@
                 <div class="col-xl-8 col-lg-10">
                     <div class="section-title text-center pl-40 pr-40 mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         {{--                        <span>our services</span>--}}
-                        <h2>What you can do?​</h2>
+                        <h2>What you can do with <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                     <div class="choose-wrap">
                         <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
-                            <h2>Why konn3ct ?​</h2>
+                            <h2>Why <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
                         </div>
                         <div class="choose-content wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <p>Pellentesque habitant morbi tristique senectus et netus et fames acturpis egestas. Vestibulum tortor quam, feugiat vitae, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. mivitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien.</p>--}}
@@ -231,7 +231,7 @@
                 <div class="col-xl-6 col-lg-8">
                     <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         {{--                        <span>Best Work</span>--}}
-                        <h2>Feature Highlights​</h2>
+                        <h2><a style="font-family: 'Century Gothic'">Konn3ct</a> Highlights​</h2>
                     </div>
                 </div>
             </div>

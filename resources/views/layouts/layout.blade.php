@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="/assets/css/default.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    <style>
+        .more {display: none;}
+    </style>
 
     <!-- Start of Async Drift Code -->
     <script>
@@ -88,7 +91,7 @@
                         <div class="header-btn second-header-btn">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn">Dashboard</a>
+                                    <a href="{{ url('/dashboard') }}" class="btn">Rooms</a>
                                 @else
                                     <a href="{{ route('login') }}" class="btn">Sign in</a>
                                     @if (Route::has('register'))

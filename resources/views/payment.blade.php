@@ -131,7 +131,8 @@
                                             <p class="text-dark my-10 font-size-16">
                                                 Kindly click on the button below to make payment and enjoy your plan in loyalty
                                             </p>
-                                            <button type="button" onClick="makePayment()" class="btn btn-success">Pay Now</button>
+                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">Pay Now in Dollars</button>
+                                            <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Pay Now in Naira</button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,32 +186,65 @@
 
 
 <script>
-    function makePayment() {
-        FlutterwaveCheckout({
-            public_key: "{{env('RAVE_PUB_KEY')}}",
-            tx_ref: "konn3ct_{{rand().time()}}",
-            amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif,
-            currency: "USD",
-            country: "NG",
-            payment_options: "card, mobilemoneyghana, ussd",
-            customer: {
-                email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
-                phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
-            },
-            callback: function (data) {
-                console.log(data);
-                window.location.href = "/payment/"+data.transaction_id;
-            },
-            onclose: function() {
-                // close modal
-                window.location.href = "/payment/3456789";
-            },
-            customizations: {
-                title: "Konn3ct Plan",
-                description: "Payment for Konn3ct plan",
-                logo: "https://assets.piedpiper.com/logo.png",
-            },
-        });
+    function makePayment(cur) {
+        if(cur=="USD") {
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
+                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==21) 120
+                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==31) 175 @endif,
+                currency: cur,
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    window.location.href = "/payment/3456789";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://assets.piedpiper.com/logo.png",
+                },
+            });
+        }else{
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 4000
+                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 46000 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==21) 6000
+                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==31) 67000 @endif,
+                currency: cur,
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    window.location.href = "/payment/3456789";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://assets.piedpiper.com/logo.png",
+                },
+            });
+        }
     }
 </script>

@@ -11,7 +11,7 @@
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <span>Contact</span>
-                        <h2>Get In Tuch</h2>
+                        <h2>Get In Touch</h2>
                     </div>
                 </div>
             </div>
@@ -29,11 +29,10 @@
                 <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
-                            <i class="far fa-clock"></i>
+                            <i class="far fa-anchor"></i>
                         </div>
-                        <h5>Working Hours</h5>
-                        <p>Monday to Friday 09:00 to 18:30 and <br>
-                            Saturday we work until 15:30</p>
+                        <h5>Support</h5>
+                        <p><a href="https://newwaves.drift.me/">Click me</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4">

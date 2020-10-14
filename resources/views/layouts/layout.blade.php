@@ -197,8 +197,7 @@
         "theme": "edgeless",
         "content": {
             "message": "Cookies help us deliver our services. By using our services, you agree to our use of cookies.",
-            "dismiss": "I Agree!",
-            "link": "{{url('/')}}/docs/COOKIESPOLICY.pdf"
+            "dismiss": "I Agree!"
         }
     });
 </script>

@@ -10,7 +10,7 @@
                 <div class="col-xl-8 col-lg-10">
                     <div class="section-title text-center pl-40 pr-40 mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         {{--                        <span>our services</span>--}}
-                        <h2 style="font-size: 18px">What you can do with <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
+                        <h2 data-animation="fadeInUp" data-delay=".4s">What you can do with <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@
                                     </li>
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
-                                        <span>Up To 20,000 Participants per Unlimited Session​</span>
+                                        <span>Up To 20,000 Participants​</span>
                                     </li>
                                 </ul>
                             </div>
@@ -318,6 +318,11 @@
                         <small>+</small>
                         <p>Whiteboard & Annotation Tools​​</p>
                     </div>
+                </div>
+
+
+                <div class="col-12 text-center">
+                    <a href="/features" class="btn btn-primary">See More</a>
                 </div>
 
             </div>

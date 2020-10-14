@@ -30,7 +30,7 @@
                                     </li>
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
-                                        <span>Enjoy HD Audio & Video in meetings for up-to 1000 participants​</span>
+                                        <span>Enjoy HD Audio & Video in meetings for up-to 1000 students​</span>
                                     </li>
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>

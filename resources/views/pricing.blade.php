@@ -4,7 +4,7 @@
 <!-- main-area -->
 <main>
     <!-- pricing-area -->
-    <section id="pricing" class="pricing-area pt-113 pb-90">
+{{--    <section id="pricing" class="pricing-area pt-113 pb-90">--}}
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
@@ -32,25 +32,25 @@
                                 <li>Session Timeout - 1 hour</li>
                                 <li>Cloud Storage - 1GB</li>
                                 <li>Number of Rooms - 1</li>
-                                <li>Audio & Video Preview Window - Yes</li>
-                                <li>Screen Sharing - Yes</li>
-                                <li>Whiteboard & Annotation Tools - Yes</li>
-                                <li>User Status - Yes</li>
-                                <li>Full-Featured Admin Controls - Yes</li>
-                                <li>Share Webcam - Yes</li>
-                                <li>Shared Notes - Yes</li>
-                                <li>Pop-Up & Tone Notifications - Yes</li>
-                                <li>Chat (Private & Public) - Yes</li>
-                                <li>Waiting Room - Yes</li>
-                                <li>Save Participants’ List​ - Yes</li>
-                                <li>Download Chats in multi-formats - Yes</li>
-                                <li>Conduct Polls - Yes</li>
-                                <li>Web App - Yes</li>
-                                <li>Live Chat - Yes</li>
-                                <li>SSL Encryption - Yes</li>
-                                <li>TLS Encryption - Yes</li>
-                                <li>AES-256 Encryption - Yes</li>
-                                <li>100% Host Node &  Network Uptime - Yes</li>
+                                <li>Audio & Video Preview Window</li>
+                                <li>Screen Sharing</li>
+                                <li>Whiteboard & Annotation Tools</li>
+                                <li>User Status</li>
+                                <li>Full-Featured Admin Controls</li>
+                                <li>Share Webcam</li>
+                                <li>Shared Notes</li>
+                                <li>Pop-Up & Tone Notifications</li>
+                                <li>Chat (Private & Public)</li>
+                                <li>Waiting Room</li>
+                                <li>Save Participants’ List​</li>
+                                <li>Download Chats in multi-formats</li>
+                                <li>Conduct Polls</li>
+                                <li>Web App</li>
+                                <li>Live Chat</li>
+                                <li>SSL Encryption</li>
+                                <li>TLS Encryption</li>
+                                <li>AES-256 Encryption</li>
+                                <li>100% Host Node &  Network Uptime</li>
                             </ul>
                         </div>
                         <div class="pricing-btn">
@@ -81,32 +81,32 @@
                                 <li>Session Timeout - 10 hour</li>
                                 <li>Cloud Storage - 5GB</li>
                                 <li>Number of Rooms - 5</li>
-                                <li>Audio & Video Preview Window - Yes</li>
-                                <li>Screen Sharing - Yes</li>
-                                <li>Whiteboard & Annotation Tools - Yes</li>
-                                <li>User Status - Yes</li>
-                                <li>Breakout Rooms - Yes</li>
-                                <li>Recording - Yes</li>
-                                <li>Full-Featured Admin Controls - Yes</li>
-                                <li>Share Webcam - Yes</li>
-                                <li>Shared Notes - Yes</li>
-                                <li>Share YouTube Videos - Yes</li>
-                                <li>Preload Presentations - Yes</li>
-                                <li>Pop-Up & Tone Notifications - Yes</li>
-                                <li>Dial In - Yes</li>
-                                <li>Chat (Private & Public) - Yes</li>
-                                <li>Waiting Room - Yes</li>
-                                <li>Save Participants’ List​ - Yes</li>
-                                <li>Download Chats in multi-formats - Yes</li>
-                                <li>Conduct Polls - Yes</li>
-                                <li>Web App - Yes</li>
-                                <li>Live Chat & Phone Support - Yes</li>
-                                <li>SSL Encryption - Yes</li>
-                                <li>TLS Encryption - Yes</li>
-                                <li>AES-256 Encryption - Yes</li>
-                                <li>100% Host Node &  Network Uptime - Yes</li>
+                                <li>Audio & Video Preview Window</li>
+                                <li>Screen Sharing</li>
+                                <li>Whiteboard & Annotation Tools</li>
+                                <li>User Status</li>
+                                <li>Breakout Rooms</li>
+                                <li>Recording</li>
+                                <li>Full-Featured Admin Controls</li>
+                                <li>Share Webcam</li>
+                                <li>Shared Notes</li>
+                                <li>Share YouTube Videos</li>
+                                <li>Preload Presentations</li>
+                                <li>Pop-Up & Tone Notifications</li>
+                                <li>Dial In</li>
+                                <li>Chat (Private & Public)</li>
+                                <li>Waiting Room</li>
+                                <li>Save Participants’ List​</li>
+                                <li>Download Chats in multi-formats</li>
+                                <li>Conduct Polls</li>
+                                <li>Web App</li>
+                                <li>Live Chat & Phone Support</li>
+                                <li>SSL Encryption</li>
+                                <li>TLS Encryption</li>
+                                <li>AES-256 Encryption</li>
+                                <li>100% Host Node &  Network Uptime</li>
                                 <li>Data Centre Compliance​
-                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS - Yes</li>
+                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS</li>
                             </ul>
                         </div>
                         <div class="pricing-btn">
@@ -137,34 +137,34 @@
                                 <li>Session Timeout - 24 hours</li>
                                 <li>Cloud Storage - 15GB</li>
                                 <li>Number of Rooms - Unlimited</li>
-                                <li>Audio & Video Preview Window - Yes</li>
-                                <li>Screen Sharing - Yes</li>
-                                <li>Whiteboard & Annotation Tools - Yes</li>
-                                <li>User Status - Yes</li>
-                                <li>Customize link - Yes</li>
-                                <li>Breakout Rooms - Yes</li>
-                                <li>Recording - Yes</li>
-                                <li>Full-Featured Admin Controls - Yes</li>
-                                <li>Share Webcam - Yes</li>
-                                <li>Shared Notes - Yes</li>
-                                <li>Share YouTube Videos - Yes</li>
-                                <li>Preload Presentations - Yes</li>
-                                <li>Pop-Up & Tone Notifications - Yes</li>
-                                <li>Dial In - Yes</li>
-                                <li>Chat (Private & Public) - Yes</li>
-                                <li>Waiting Room - Yes</li>
-                                <li>Save Participants’ List​ - Yes</li>
-                                <li>Download Chats in multi-formats - Yes</li>
-                                <li>Conduct Polls - Yes</li>
-                                <li>Web App - Yes</li>
-                                <li>Access Code - Yes</li>
-                                <li>Live Chat & Phone Support - Yes</li>
-                                <li>SSL Encryption - Yes</li>
-                                <li>TLS Encryption - Yes</li>
-                                <li>AES-256 Encryption - Yes</li>
-                                <li>100% Host Node &  Network Uptime - Yes</li>
+                                <li>Audio & Video Preview Window</li>
+                                <li>Screen Sharing</li>
+                                <li>Whiteboard & Annotation Tools</li>
+                                <li>User Status</li>
+                                <li>Customize link</li>
+                                <li>Breakout Rooms</li>
+                                <li>Recording</li>
+                                <li>Full-Featured Admin Controls</li>
+                                <li>Share Webcam</li>
+                                <li>Shared Notes</li>
+                                <li>Share YouTube Videos</li>
+                                <li>Preload Presentations</li>
+                                <li>Pop-Up & Tone Notifications</li>
+                                <li>Dial In</li>
+                                <li>Chat (Private & Public)</li>
+                                <li>Waiting Room</li>
+                                <li>Save Participants’ List​</li>
+                                <li>Download Chats in multi-formats</li>
+                                <li>Conduct Polls</li>
+                                <li>Web App</li>
+                                <li>Access Code</li>
+                                <li>Live Chat & Phone Support</li>
+                                <li>SSL Encryption</li>
+                                <li>TLS Encryption</li>
+                                <li>AES-256 Encryption</li>
+                                <li>100% Host Node &  Network Uptime</li>
                                 <li>Data Centre Compliance​
-                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS - Yes</li>
+                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS</li>
                             </ul>
                         </div>
                         <div class="pricing-btn">
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </section>
+{{--    </section>--}}
     <!-- pricing-area-end -->
 
 </main>

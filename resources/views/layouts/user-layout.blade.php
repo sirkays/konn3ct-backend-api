@@ -99,7 +99,8 @@
         <!-- Sample menu definition -->
         <ul id="main-menu" class="sm sm-blue">
             <li><a href="/room"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Room(s)</a></li>
-            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
+            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
+{{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
             <li><a href="/payments"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment(s)</a></li>
             <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a></li>
         </ul>

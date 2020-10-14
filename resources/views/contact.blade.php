@@ -5,7 +5,7 @@
 <main>
 
     <!-- contact-area -->
-    <section id="contact" class="contact-area contact-bg pt-120 pb-120 p-relative fix" style="background-image:url(img/bg/contact_bg.jpg)">
+{{--    <section id="contact" class="contact-area contact-bg pt-120 pb-120 p-relative fix" style="background-image:url(img/bg/contact_bg.jpg)">--}}
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
@@ -32,7 +32,10 @@
                             <i class="far fa-anchor"></i>
                         </div>
                         <h5>Support</h5>
-                        <p><a href="https://newwaves.drift.me/">Click me</a></p>
+                        <p>Let's Serve You Better
+                            <br />
+                            Hi,<br/>
+                            Drop your questions <a href="https://newwaves.drift.me/">here</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -51,7 +54,7 @@
 
         </div>
 
-    </section>
+{{--    </section>--}}
     <!-- contact-area-end -->
 
 @endsection

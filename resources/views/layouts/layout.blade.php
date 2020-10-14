@@ -22,7 +22,55 @@
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <style>
         .more {display: none;}
+        /* COMPACT CAPTCHA */
+
+        .capbox {
+            background-color: #BBBBBB;
+            background-image: linear-gradient(#BBBBBB, #9E9E9E);
+            border: #2A7D05 0px solid;
+            border-width: 2px 2px 2px 20px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            display: inline-block;
+            padding: 5px 8px 5px 8px;
+            border-radius: 4px 4px 4px 4px;
+        }
+
+        .capbox-inner {
+            font: bold 12px arial, sans-serif;
+            color: #000000;
+            background-color: #E3E3E3;
+            margin: 0px auto 0px auto;
+            padding: 3px 10px 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #CaptchaDiv {
+            color: #000000;
+            font: normal 25px Impact, Charcoal, arial, sans-serif;
+            font-style: italic;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            user-select: none;
+            display: inline-block;
+            padding: 3px 14px 3px 8px;
+            margin-right: 4px;
+            border-radius: 4px;
+        }
+
+        #CaptchaInput {
+            border: #38B000 2px solid;
+            margin: 3px 0px 1px 0px;
+            width: 105px;
+        }
+
     </style>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 
     <!-- Start of Async Drift Code -->
     <script>
@@ -112,6 +160,48 @@
 
 
 @yield("content")
+
+<!-- footer -->
+<footer class="footer-bg footer-p">
+    <div class="copyright-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="copyright-text">
+                        <p>&copy; 2020 Newwaves Ecosystem Limited</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="copyright-text">
+                        <p>Terms of Service | GDPR | NDPR | <a href="/docs/DATA,PRIVACY&PROTECTION.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer-end -->
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#216942",
+                "text": "#b2d192"
+            },
+            "button": {
+                "background": "#afed71"
+            }
+        },
+        "theme": "edgeless",
+        "content": {
+            "message": "Cookies help us deliver our services. By using our services, you agree to our use of cookies.",
+            "dismiss": "I Agree!",
+            "link": "{{url('/')}}/docs/COOKIESPOLICY.pdf"
+        }
+    });
+</script>
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>

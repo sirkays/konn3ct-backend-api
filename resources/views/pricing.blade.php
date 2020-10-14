@@ -12,11 +12,11 @@
 {{--                        <span>Pricing List</span>--}}
                         <h2>Pricing & Plans​</h2>
                         <br>
-                        <span onclick="myFunction()" id="myBtn">Click me to See Yearly Price</span>
+                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="planssi">
                 <div class="col-lg-4 col-md-6">
                     <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="pricing-head">
@@ -36,12 +36,9 @@
                                 <li>Screen Sharing - Yes</li>
                                 <li>Whiteboard & Annotation Tools - Yes</li>
                                 <li>User Status - Yes</li>
-                                <li>Breakout Rooms - Yes</li>
-                                <li>Recording - Yes</li>
                                 <li>Full-Featured Admin Controls - Yes</li>
                                 <li>Share Webcam - Yes</li>
                                 <li>Shared Notes - Yes</li>
-                                <li>Share YouTube Videos - Yes</li>
                                 <li>Pop-Up & Tone Notifications - Yes</li>
                                 <li>Chat (Private & Public) - Yes</li>
                                 <li>Waiting Room - Yes</li>
@@ -49,13 +46,11 @@
                                 <li>Download Chats in multi-formats - Yes</li>
                                 <li>Conduct Polls - Yes</li>
                                 <li>Web App - Yes</li>
-                                <li>Live Chat & Phone Support - Yes</li>
+                                <li>Live Chat - Yes</li>
                                 <li>SSL Encryption - Yes</li>
                                 <li>TLS Encryption - Yes</li>
                                 <li>AES-256 Encryption - Yes</li>
                                 <li>100% Host Node &  Network Uptime - Yes</li>
-                                <li>Data Centre Compliance​
-                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS - Yes</li>
                             </ul>
                         </div>
                         <div class="pricing-btn">
@@ -83,14 +78,13 @@
 {{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
                             <ul>
                                 <li>Participant - 100</li>
-                                <li>Session Timeout - 24 hour</li>
+                                <li>Session Timeout - 10 hour</li>
                                 <li>Cloud Storage - 5GB</li>
                                 <li>Number of Rooms - 5</li>
                                 <li>Audio & Video Preview Window - Yes</li>
                                 <li>Screen Sharing - Yes</li>
                                 <li>Whiteboard & Annotation Tools - Yes</li>
                                 <li>User Status - Yes</li>
-                                <li>Customize link - Yes</li>
                                 <li>Breakout Rooms - Yes</li>
                                 <li>Recording - Yes</li>
                                 <li>Full-Featured Admin Controls - Yes</li>
@@ -106,7 +100,6 @@
                                 <li>Download Chats in multi-formats - Yes</li>
                                 <li>Conduct Polls - Yes</li>
                                 <li>Web App - Yes</li>
-                                <li>Access Code - Yes</li>
                                 <li>Live Chat & Phone Support - Yes</li>
                                 <li>SSL Encryption - Yes</li>
                                 <li>TLS Encryption - Yes</li>
@@ -141,7 +134,7 @@
 {{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
                             <ul>
                                 <li>Participant - 250</li>
-                                <li>Session Timeout - Unlimited</li>
+                                <li>Session Timeout - 24 hours</li>
                                 <li>Cloud Storage - 15GB</li>
                                 <li>Number of Rooms - Unlimited</li>
                                 <li>Audio & Video Preview Window - Yes</li>
@@ -198,7 +191,7 @@
         var btnText = document.getElementById("myBtn");
 
         if (dots.style.display === "none") {
-            btnText.innerHTML = "See Yearly Price";
+            btnText.innerHTML = "See Annual Price";
 
             dots.style.display = "inline";
             moreText.style.display = "none";

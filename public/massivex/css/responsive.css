@@ -418,7 +418,7 @@
 .has-mega-menu{
         position:relative;
     }
-	 
+
     li.has-sub.has-mega-menu ul{
         position: relative;
         top: 0px; /*insert the needed value*/
@@ -431,9 +431,9 @@
     /*flexbox fallback for browsers that do not support CSS GRID lyout*/
         display: flex;
         flex-wrap: wrap;
-    /*CSS GRID lyout*/ 
+    /*CSS GRID lyout*/
         display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(100%, 1fr));   
+        grid-template-columns: repeat(auto-fit,minmax(100%, 1fr));
 		margin-left: 0px;
 		height:200px;
 		overflow:auto;
@@ -441,8 +441,8 @@
 	.timeline {
 
     padding: 50px 0px 50px 50px;
-   
-}	
+
+}
 	.tag-template img {
     width: 100% !important;
 }
@@ -508,7 +508,7 @@
 	.wp-block-gallery li {
     width: 50%;
 	}
-	
+
 .main-menu .has-sub > ul {
     display: none;
     position: relative;
@@ -527,7 +527,7 @@
     width: 100%;
     margin-bottom: 10px;
 	margin-left:0;
-	margin-top:0;	
+	margin-top:0;
 	padding-left:15px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
 	border-top:1px solid #f7f7f7;
@@ -677,7 +677,7 @@ border-bottom: none;
 }
 .breadcrumb-area {
     padding-top: 100px;
-    padding-bottom: 100px;   
+    padding-bottom: 100px;
 }
 .menu-area {
 	padding: 20px 0;
@@ -746,7 +746,7 @@ border-bottom: none;
 }
 .testimonial-active {
     width: 100%;
-   
+
 }
 .testimonial-active .slick-arrow {
     width: 87%;

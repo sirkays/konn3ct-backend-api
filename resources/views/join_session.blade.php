@@ -29,10 +29,10 @@
                                 @csrf
                                 <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                                     <div class="form-group">
-                                        <input type="text" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Enter meeting name e.g sammyroom" required>
+                                        <input type="text" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Enter room name or  e.g sammyroom" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->name ?? ''}}" placeholder="Enter your name (Optional) e.g Samji Diamond">
+                                        <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->name ?? ''}}" placeholder="Enter your name e.g Samji Diamond" required>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary">Konn3ct</button>

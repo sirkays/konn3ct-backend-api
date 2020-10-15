@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://www.multipurposethemes.com/admin/adminto-template/images/favicon.ico">
+    <link rel="icon" href="/assets/images/konn3ct_logo.ico">
 
     <title>Konn3ct - Home</title>
 
@@ -131,8 +131,22 @@
                                             <p class="text-dark my-10 font-size-16">
                                                 Kindly click on the button below to make payment and enjoy your plan in loyalty
                                             </p>
-                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">Pay Now in Dollars</button>
-                                            <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Pay Now in Naira</button>
+                                            <hr style="color: white">
+                                            <div class="col-12 mb-10 mt-10">
+                                                <h3>Pay Now Monthly</h3>
+                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
+                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
+                                            <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
+                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
+                                            </div>
+
+                                            <div class="col-12 mb-10 mt-10">
+                                                <h3>Pay Now Yearly</h3>
+                                            <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
+                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
+                                            <button type="button" onClick='makePayment("NGN2")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
+                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -191,10 +205,8 @@
             FlutterwaveCheckout({
                 public_key: "{{env('RAVE_PUB_KEY')}}",
                 tx_ref: "konn3ct_{{rand().time()}}",
-                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
-                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==21) 120
-                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==31) 175 @endif,
-                currency: cur,
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif,
+                currency: "USD",
                 country: "NG",
                 payment_options: "card, mobilemoneyghana, ussd",
                 customer: {
@@ -204,11 +216,65 @@
                 },
                 callback: function (data) {
                     console.log(data);
-                    window.location.href = "/payment/" + data.transaction_id;
+                    window.location.href = "/payment/1/transid/" + data.transaction_id;
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/3456789";
+                    window.location.href = "/payment/1/transid/876212";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://assets.piedpiper.com/logo.png",
+                },
+            });
+        }else if(cur=="USD2") {
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 120 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 175 @endif,
+                currency: "USD",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/2/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    window.location.href = "/payment/2/transid/4447895";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://assets.piedpiper.com/logo.png",
+                },
+            });
+        }else if(cur=="NGN"){
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 4000 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 6000 @endif,
+                currency: "NGN",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/1/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    window.location.href = "/payment/1/transid/5585221";
                 },
                 customizations: {
                     title: "Konn3ct Plan",
@@ -220,10 +286,8 @@
             FlutterwaveCheckout({
                 public_key: "{{env('RAVE_PUB_KEY')}}",
                 tx_ref: "konn3ct_{{rand().time()}}",
-                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 4000
-                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 46000 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==21) 6000
-                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==31) 67000 @endif,
-                currency: cur,
+                amount: @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 46000 @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 67000 @endif,
+                currency: "NGN",
                 country: "NG",
                 payment_options: "card, mobilemoneyghana, ussd",
                 customer: {
@@ -233,11 +297,11 @@
                 },
                 callback: function (data) {
                     console.log(data);
-                    window.location.href = "/payment/" + data.transaction_id;
+                    window.location.href = "/payment/2/transid/" + data.transaction_id;
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/3456789";
+                    window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
                     title: "Konn3ct Plan",

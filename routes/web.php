@@ -77,7 +77,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('payment');
     })->name('payment');
 
-    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+//    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+
+    Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
     Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy']
     )->name('logouts');

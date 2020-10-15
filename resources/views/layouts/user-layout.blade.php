@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://www.multipurposethemes.com/admin/adminto-template/images/favicon.ico">
+    <link rel="icon" href="/assets/images/konn3ct_logo.ico">
 
     <title>Konn3ct - Home</title>
 

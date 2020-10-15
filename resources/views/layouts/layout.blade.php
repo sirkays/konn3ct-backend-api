@@ -7,7 +7,7 @@
     <title>Konn3ct</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct_logo.ico">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -124,13 +124,18 @@
                                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                                     <li><a href="/">
-{{--                                            <img src="/assets/img/logo/logo.png" alt="logo">--}}
-                                            Konn3ct Logo <br /> <span class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</span>
+                                            <img src="/assets/images/konn3ct_logo.png" height="50px" width="170px" alt="logo">
+                                            <br /> <span class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</span>
                                         </a></li>
                                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                                     <li><a href="/joinsession">Join Session</a></li>
-                                    <li><a href="/room">Host a Session</a></li>
+
+                                    @auth
+                                        <li><a href="/room">Host a Session</a></li>
+                                    @else
+                                        <li><a href="{{ route('login') }}">Sign In</a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -141,9 +146,9 @@
                                 @auth
                                     <a href="{{ url('/dashboard') }}" class="btn">Rooms</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="btn">Sign in</a>
+{{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
                                     @if (Route::has('register'))
-                                        {{--                                        <li><a href="{{ route('register') }}">Register</a></li>--}}
+                                        <a href="{{ route('register') }}" class="btn">Register</a>
                                     @endif
                                 @endif
                             @endif

@@ -11,8 +11,8 @@
                     <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                        <span>Pricing List</span>--}}
                         <h2>Pricing & Plans​</h2>
-                        <br>
-                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>
+{{--                        <br>--}}
+{{--                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>--}}
                     </div>
                 </div>
             </div>
@@ -64,8 +64,8 @@
                             <h4>Lite Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly">
-                                    <h2><small>$</small>10.99 <span>/ Monthly</span></h2>
-                                    <h5>&#x20A6;4,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                    <h2><small>$</small>10.99<span style="font-size: 13px"> Monthly</span> /  <span>120<span style="font-size: 13px"> Yearly</span> </span></h2>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x20A6;4,000<span style="font-size: 13px; color: black"> Monthly</span> / 46,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
                                 <span class="more" id="yearly">
@@ -120,8 +120,8 @@
                             <h4>Pro Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly2">
-                                    <h2><small>$</small>15.99 <span>/ Monthly</span></h2>
-                                    <h5>&#x20A6;6,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                    <h2><small>$</small>15.99<span style="font-size: 13px"> Monthly</span> /  <span>175<span style="font-size: 13px"> Yearly</span> </span></h2>
+                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x20A6;6,000<span style="font-size: 13px; color: black"> Monthly</span> / 67,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
                                 <span class="more" id="yearly2">

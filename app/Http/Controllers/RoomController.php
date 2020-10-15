@@ -25,6 +25,25 @@ class RoomController extends Controller
                 ->withInput();
         }
 
+        if(Auth::user()->plan==1){
+            $r=1;
+            $duration=60;
+        }elseif(Auth::user()->plan==2){
+            $r=5;
+            $duration=600;
+        }else{
+            $r=10000;
+            $duration=1440;
+        }
+
+        $rc=RoomModel::where("user_id",Auth::id())->count();
+
+
+        if($rc >= $r){
+            return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
+        }
+
+
         if ($input['url']==""){
             $num=trim(date('siyh'));
             $shuffled = str_shuffle($num);
@@ -49,7 +68,7 @@ class RoomController extends Controller
             'moderatorPW' => 'moderator',
         ]);
 
-        $createMeeting->setDuration(0); //overwrite default configuration
+        $createMeeting->setDuration($duration); //overwrite default configuration
         $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
         $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration

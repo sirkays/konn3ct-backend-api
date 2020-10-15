@@ -220,12 +220,12 @@
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/1/transid/876212";
+                    // window.location.href = "/payment/1/transid/876212";
                 },
                 customizations: {
                     title: "Konn3ct Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://assets.piedpiper.com/logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
             });
         }else if(cur=="USD2") {
@@ -247,12 +247,12 @@
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/2/transid/4447895";
+                    // window.location.href = "/payment/2/transid/4447895";
                 },
                 customizations: {
                     title: "Konn3ct Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://assets.piedpiper.com/logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
             });
         }else if(cur=="NGN"){
@@ -274,12 +274,12 @@
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/1/transid/5585221";
+                    // window.location.href = "/payment/1/transid/5585221";
                 },
                 customizations: {
                     title: "Konn3ct Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://assets.piedpiper.com/logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
             });
         }else{
@@ -301,12 +301,12 @@
                 },
                 onclose: function () {
                     // close modal
-                    window.location.href = "/payment/2/transid/3456789";
+                    // window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
                     title: "Konn3ct Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://assets.piedpiper.com/logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
             });
         }

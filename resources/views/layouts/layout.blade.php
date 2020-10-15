@@ -178,7 +178,7 @@
                 </div>
                 <div class="col-6">
                     <div class="copyright-text">
-                        <p>Terms of Service | GDPR | NDPR | <a href="/docs/DATA,PRIVACY&PROTECTION.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                        <p>Terms of Service | GDPR | NDPR | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>

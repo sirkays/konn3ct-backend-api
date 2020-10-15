@@ -93,7 +93,11 @@
                                                 </Button>
 
                                                 <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">
-                                                    <i class="fa fa-calendar-check-o "></i> Schedule Now
+                                                    <i class="fa fa-calendar-check-o "></i> Add to Google Calender
+                                                </a>
+
+                                                <a href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">
+                                                    <i class="fa fa-calendar-check-o "></i> Add to Outlook Calender
                                                 </a>
 
                                                 <form action="/deleteroom" method="POST">

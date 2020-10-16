@@ -102,19 +102,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-inverse box-danger">
-                            <div class="box-body">
-                                <div class="flexbox">
-                                    <h5>Payment</h5>
-                                </div>
-
-                                <div class="text-center my-2">
-                                    <div class="font-size-60">{{$pp}}</div>
-                                    <span>Plan Variation</span>
-                                </div>
-                            </div>
-
-                        </div>
 
                     </div>
                 </div>

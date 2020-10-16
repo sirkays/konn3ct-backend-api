@@ -134,18 +134,41 @@
                                             <hr style="color: white">
                                             <div class="col-12 mb-10 mt-10">
                                                 <h3>Pay Now Monthly</h3>
-                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
-                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
-                                            <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
-                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
+                                                @if($plan ?? false)
+
+                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 11
+                                                @elseif($plan==3) 16 @endif</button>
+                                            <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
+                                                @elseif($plan==3)6000 @endif</button>
+
+                                                @else
+
+                                                    <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
+                                                    <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
+
+                                                @endif
                                             </div>
 
                                             <div class="col-12 mb-10 mt-10">
                                                 <h3>Pay Now Yearly</h3>
-                                            <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
-                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
-                                            <button type="button" onClick='makePayment("NGN2")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
-                                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
+
+                                                @if($plan ?? false)
+
+                                            <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if($plan==2)120
+                                                @elseif($plan==3)175 @endif</button>
+                                            <button type="button" onClick='makePayment("NGN2")' class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
+                                                @elseif($plan==3)67000 @endif</button>
+
+                                                @else
+
+                                                    <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
+                                                    <button type="button" onClick='makePayment("NGN2")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -201,6 +224,117 @@
 
 <script>
     function makePayment(cur) {
+        @if($plan ?? false)
+        if(cur=="USD") {
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if($plan==2) 11 @elseif($plan==3) 16 @endif,
+                currency: "USD",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/1/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    // window.location.href = "/payment/1/transid/876212";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                },
+            });
+        }else if(cur=="USD2") {
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if($plan==2) 120 @elseif($plan==3) 175 @endif,
+                currency: "USD",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/2/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    // window.location.href = "/payment/2/transid/4447895";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                },
+            });
+        }else if(cur=="NGN"){
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if($plan==2) 4000 @elseif($plan==3) 6000 @endif,
+                currency: "NGN",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/1/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    // window.location.href = "/payment/1/transid/5585221";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                },
+            });
+        }else{
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: @if($plan==2) 46000 @elseif($plan==3) 67000 @endif,
+                currency: "NGN",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/payment/2/transid/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    // window.location.href = "/payment/2/transid/3456789";
+                },
+                customizations: {
+                    title: "Konn3ct Plan",
+                    description: "Payment for Konn3ct plan",
+                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                },
+            });
+        }
+        @else
         if(cur=="USD") {
             FlutterwaveCheckout({
                 public_key: "{{env('RAVE_PUB_KEY')}}",
@@ -310,5 +444,6 @@
                 },
             });
         }
+        @endif
     }
 </script>

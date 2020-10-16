@@ -68,6 +68,35 @@
             width: 105px;
         }
 
+        #freg {
+            position:fixed;
+            width:120px;
+            height:50px;
+            bottom:190px;
+            right:40px;
+            background-color:#35ac39;
+            color:#FFF;
+            border-radius:30px;
+            text-align:center;
+            box-shadow: 2px 2px 3px #999;
+        }
+        #freg:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            transition: all 0.5s;
+            transform: translateZ(10px);
+        }
+        #t:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            transition: all 0.5s;
+            transform: translateZ(10px);
+        }
+
+        #container-floating:hover {
+            height: 400px;
+            width: 90px;
+            padding: 30px;
+        }
+
     </style>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />

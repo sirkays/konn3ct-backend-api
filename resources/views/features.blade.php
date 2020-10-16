@@ -3,6 +3,9 @@
 @section('content')
 <!-- main-area -->
 <main>
+    <a href="/register" id="freg">
+        <i id="t" class="fa my-float" style="margin-top:22px;">Register Now</i>
+    </a>
 
     <!-- choose-area -->
 {{--    <section class="choose-area pt-120 pb-120 p-relative" style="background:#f5f8fa;">--}}
@@ -137,6 +140,7 @@
                                     </li>
                                         </span>
                                     <button class="btn btn-info" onclick="myFunction(1)" id="myBtn1">Read more</button>
+
                                 </ul>
                             </div>
 {{--                            <div class="choose-btn">--}}

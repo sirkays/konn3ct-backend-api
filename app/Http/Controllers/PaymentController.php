@@ -30,7 +30,7 @@ class PaymentController extends Controller
         ));
 
         $response = curl_exec($curl);
-//        $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6", "flw_ref": "FLW-M03lrK-02c21a8095c7e064b8b9714db834080b", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
+//        $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6", "flw_ref": "FLW-M03ul5rK-052c21a8095c7e064b8b9714db834080b", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
 
         curl_close($curl);
 //        echo $response;
@@ -40,11 +40,11 @@ class PaymentController extends Controller
         if($resp['status']=="success"){
 
             $data['user_id']=Auth::id();
-            $data['plan']=Auth::user()->plan;
             $data['gateway']="Flutterwave";
             $data['amount']=$resp['data']['amount'];
             $data['date']=Carbon::now();
             $data['reference']=$resp['data']['tx_ref'];
+            $data['currency']=$resp['data']['currency'];
             $data['gateway_reference']=$resp['data']['flw_ref'];
             $data['gateway_response']=$response;
 
@@ -52,17 +52,40 @@ class PaymentController extends Controller
 
             if(!$p) {
                 $data['status'] = $resp['status'];
-                PaymentModel::create($data);
 
-                if($plan==1){
-                    User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth()]);
+                if(session('job')=="change_plan"){
+                    $data['plan']=session('plan');
+
+                    if($plan==1){
+                        $data['duration'] = "a month";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'plan'=>session('plan')]);
+                    }else{
+                        $data['duration'] = "a year";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'plan'=>session('plan')]);
+                    }
                 }else{
-                    User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear()]);
+                    $data['plan']=Auth::user()->plan;
+
+                    if($plan==1){
+                        $data['duration'] = "a month";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth()]);
+                    }else{
+                        $data['duration'] = "a year";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear()]);
+                    }
                 }
+
+                PaymentModel::create($data);
 
                 return redirect('room')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
+
+                if(session('job')=="change_plan") {
+                    $data['plan'] = session('plan');
+                }else{
+                    $data['plan']=Auth::user()->plan;
+                }
 
                 PaymentModel::create($data);
                 return back()
@@ -83,5 +106,36 @@ class PaymentController extends Controller
 
         return view('user.payments', $datas);
 
+    }
+
+
+    public function receipt(){
+        $datas['payment']=PaymentModel::where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+
+        if(!$datas['payment']){
+            $datas['payments']=PaymentModel::where('user_id', Auth::id())->get();
+            $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');
+            $datas['tp']=PaymentModel::where('user_id', Auth::id())->count();
+            return view('user.payments', $datas);
+        }
+
+        return view('user.receipt', $datas);
+
+    }
+
+
+    public function changeplan($plan){
+
+        if($plan==1){
+            User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1]);
+
+            return redirect('room')->with('success', 'Plan Changed Successfully!');
+        }
+
+        $datas['plan']=$plan;
+
+        session(['plan' => $plan, 'job' =>'change_plan']);
+
+        return view('payment', $datas);
     }
 }

@@ -19,7 +19,9 @@
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
                                             <th style="min-width: 250px"><span class="text-fade">Room Name</span></th>
+                                            <th style="min-width: 100px"><span class="text-fade">Preview</span></th>
                                             <th style="min-width: 100px"><span class="text-fade">Size</span></th>
+                                            <th style="min-width: 100px"><span class="text-fade">Duration</span></th>
                                             <th style="min-width: 130px"><span class="text-fade">Users</span></th>
                                             <th style="min-width: 120px"></th>
                                         </tr>
@@ -34,10 +36,20 @@
                                                     </div>
                                                 </div>
                                             </td>
+
+                                            <td class="pl-0 py-8">
+                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)
+                                                        <img src="{{$im}}" class="img img-thumbnail">
+                                                        @endforeach
+                                            </td>
+
                                             <td>
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
-													{{ number_format(($record['size']/1000000))}}
+													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['length']}} Minutes</span>
                                             </td>
                                             <td>
                                                 <span class="badge badge-success badge-lg">{{$record['participants']}}</span>

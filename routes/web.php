@@ -59,11 +59,9 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(funct
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
-    Route::get('/payments', [PaymentController::class, 'list'])->name('payments');
+    Route::get('/payment', [PaymentController::class, 'receipt'])->name('payments');
 
-    Route::get('/invoice', function () {
-        return view('user.invoice');
-    })->name('invoice');
+//    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('invoice');
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
@@ -80,6 +78,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 //    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+
+    Route::get('/changeplan/{plan}', [PaymentController::class, 'changeplan'])->name('changeplan');
 
     Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy']
     )->name('logouts');

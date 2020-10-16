@@ -201,14 +201,33 @@
                                                 </select>
                                             </div>
 
-{{--                                            <div class="c-inputs-stacked">--}}
-{{--                                                <input type="checkbox" id="checkbox_123">--}}
-{{--                                                <label for="checkbox_123" class="block">Allow any user to start meeting</label>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="c-inputs-stacked">--}}
-{{--                                                <input type="checkbox" id="checkbox_234">--}}
-{{--                                                <label for="checkbox_234" class="block">All user join as moderator</label>--}}
-{{--                                            </div>--}}
+                                            <div class="form-group">
+                                                <label>Access Code:</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="access_code" class="form-control" value="" placeholder="Currently Open (optional)">
+                                                </div>
+                                            </div>
+
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="muj" id="checkbox_123">
+                                                <label for="checkbox_123" class="block">Mute user on join</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="aujam" id="checkbox_234">
+                                                <label for="checkbox_234" class="block">All user join as moderator</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dpuc" id="checkbox_234">
+                                                <label for="checkbox_234" class="block">Disable public chat</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dprc" id="checkbox_234">
+                                                <label for="checkbox_234" class="block">Disable private chat</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="ewma" id="checkbox_234">
+                                                <label for="checkbox_234" class="block">Enable Webcam for Moderator alone</label>
+                                            </div>
 
                                         </div>
                                         <!-- /.box-body -->

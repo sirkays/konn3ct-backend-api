@@ -28,12 +28,15 @@ class RoomController extends Controller
         if(Auth::user()->plan==1){
             $r=1;
             $duration=60;
+            $max_user=100;
         }elseif(Auth::user()->plan==2){
             $r=5;
             $duration=600;
+            $max_user=100;
         }else{
             $r=10000;
             $duration=1440;
+            $max_user=250;
         }
 
         $rc=RoomModel::where("user_id",Auth::id())->count();
@@ -52,12 +55,28 @@ class RoomController extends Controller
             $input['url']=trim(substr(Auth::user()->name,0, 3).$sfinal);
         }
 
-        $input['password_attendee']="attendee";
-        $input['password_moderator']="moderator";
         $input['welcome_message']="";
-        $input['logout_url']="";
-        $input['max_participants']=0;
-        $input['duration']=0;
+        $input['logout_url']=url('/');
+        $input['max_participants']=$max_user;
+        $input['duration']=$duration;
+
+        if($input['access_code']=="") {
+            if (isset($input['aujam'])) {
+                $input['password_attendee'] = "moderator";
+                $input['password_moderator'] = "moderator";
+            } else {
+                $input['password_attendee'] = "attendee";
+                $input['password_moderator'] = "moderator";
+            }
+        }else{
+            if (isset($input['aujam'])) {
+                $input['password_attendee'] = $input['access_code'];
+                $input['password_moderator'] = $input['access_code'];
+            } else {
+                $input['password_attendee'] = $input['access_code'];
+                $input['password_moderator'] = "moderator";
+            }
+        }
 
         $r=RoomModel::create($input);
 
@@ -72,7 +91,29 @@ class RoomController extends Controller
         $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
         $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
         $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
+
+        if(isset($input['muj'])){
+            $createMeeting->setMuteOnStart(true); //overwrite default configuration
+        }
+
+        if(isset($input['dpuc'])){
+            $createMeeting->setLockSettingsDisablePublicChat(true); //overwrite default configuration
+        }
+
+        if(isset($input['dprc'])){
+            $createMeeting->setLockSettingsDisablePrivateChat(true); //overwrite default configuration
+        }
+
+        if(isset($input['ewma'])){
+            $createMeeting->setWebcamsOnlyForModerator(true); //overwrite default configuration
+        }
+
+
+
+
+
 
 //        $meeting->setWelcome('Welecome message for all')
 //            ->setModeratorOnlyMessage('Only teacher can see this messsage');
@@ -103,6 +144,7 @@ class RoomController extends Controller
 
         $bba=json_decode($bbb, true);
         $rm=RoomModel::find($r->id);
+
        if($bba["returncode"]=="SUCCESS"){
            $rm->user_id=Auth::id();
            $rm->bbb_returncode=$bba["returncode"];

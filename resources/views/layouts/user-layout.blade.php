@@ -66,15 +66,18 @@
                 <div class="navbar-custom-menu r-side">
                     <ul class="nav navbar-nav">
                         <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <Button  href="#" class="btn btn-dark" data-toggle="modal" data-target="#modal-fill">Change Plan -
-                                @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                            <a href="/" class="btn btn-outline-primary">Home</a>
+                            <Button class="btn btn-primary" data-toggle="modal" data-target="#modal-fill" style="margin-left: 20px">Change Plan</Button>
+
+                            <span style="color: white; margin-left: 20px"> Current Plan:
+                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                                 Basic
-                                @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                Lite
-                                @else
-                                Pro
-                                @endif
-                            </Button>
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                            @else
+                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                            @endif
+                                </span>
                         </li>
                         <li class="btn-group nav-item ">
                             <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link rounded full-screen" title="Full Screen">

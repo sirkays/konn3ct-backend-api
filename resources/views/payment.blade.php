@@ -298,7 +298,9 @@
                 },
                 onclose: function () {
                     // close modal
-                    // window.location.href = "/payment/1/transid/5585221";
+                    @if(env("APP_ENV")=="local")
+                        window.location.href = "/payment/1/transid/5585221";
+                    @endif
                 },
                 customizations: {
                     title: "Konn3ct Plan",
@@ -408,7 +410,9 @@
                 },
                 onclose: function () {
                     // close modal
-                    // window.location.href = "/payment/1/transid/5585221";
+                    @if(env("APP_ENV")=="local")
+                    window.location.href = "/payment/1/transid/5585221";
+                    @endif
                 },
                 customizations: {
                     title: "Konn3ct Plan",

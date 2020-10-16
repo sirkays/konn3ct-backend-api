@@ -22,6 +22,6 @@ class PaymentModel extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'plan', 'gateway', 'status', 'amount', 'date', 'reference', 'gateway_reference', 'gateway_response'
+        'user_id', 'plan', 'gateway', 'status', 'amount', 'date', 'reference', 'gateway_reference', 'gateway_response', 'duration', 'currency'
     ];
 }

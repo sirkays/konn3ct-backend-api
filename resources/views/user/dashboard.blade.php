@@ -213,7 +213,7 @@
                                                 <label for="checkbox_123" class="block">Mute user on join</label>
                                             </div>
                                             <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="aujam" id="checkbox_234">
+                                                <input type="checkbox" name="aujam" id="checkbox_1234">
                                                 <label for="checkbox_234" class="block">All user join as moderator</label>
                                             </div>
                                             <div class="c-inputs-stacked">
@@ -221,11 +221,11 @@
                                                 <label for="checkbox_234" class="block">Disable public chat</label>
                                             </div>
                                             <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="dprc" id="checkbox_234">
+                                                <input type="checkbox" name="dprc" id="checkbox_34">
                                                 <label for="checkbox_234" class="block">Disable private chat</label>
                                             </div>
                                             <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="ewma" id="checkbox_234">
+                                                <input type="checkbox" name="ewma" id="checkbox_4">
                                                 <label for="checkbox_234" class="block">Enable Webcam for Moderator alone</label>
                                             </div>
 

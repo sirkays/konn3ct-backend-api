@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/assets/images/konn3ct_logo.ico">
 
-    <title>Konn3ct - Home</title>
+    <title>Konn3ct - Admin</title>
 
     <!-- Vendors Style-->
     <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
@@ -27,7 +27,6 @@
             width: 50px;
             text-align: center;
             text-decoration: none;
-            margin-right: 10px;
         }
 
         /* Add a hover effect if you want */
@@ -46,21 +45,6 @@
         /* Twitter */
         .fa-twitter {
             background: #55ACEE;
-            color: white;
-        }
-
-        .fa-linkedin {
-            background: #007bb5;
-            color: white;
-        }
-
-        .fa-instagram {
-            background: #125688;
-            color: white;
-        }
-
-        .fa-envelope-square {
-            background: #dd4b39;
             color: white;
         }
     </style>
@@ -113,21 +97,19 @@
                     <ul class="nav navbar-nav">
                         <li class="btn-group nav-item d-none d-xl-inline-block">
                             <a href="/" class="btn btn-outline-primary">Home</a>
-                            @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
-                                <a href="/admin/rooms" class="btn btn-success" style="margin-left: 20px">Admin</a>
-                            @endif
+                            <a href="/room" class="btn btn-success" style="margin-left: 20px">Switch to Client</a>
 {{--                            <Button class="btn btn-primary" data-toggle="modal" data-target="#modal-fill" style="margin-left: 20px">Change Plan</Button>--}}
 {{--                            <Button class="btn btn-success" data-toggle="modal" data-target="#bs-example-modal-sm" style="margin-left: 20px">Invite friends</Button>--}}
 
-                            <span style="color: white; margin-left: 20px"> Current Plan:
-                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
-                                Basic
-                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
-                            @else
-                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
-                            @endif
-                                </span>
+{{--                            <span style="color: white; margin-left: 20px"> Current Plan:--}}
+{{--                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)--}}
+{{--                                Basic--}}
+{{--                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)--}}
+{{--                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
+{{--                            @else--}}
+{{--                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
+{{--                            @endif--}}
+{{--                                </span>--}}
                         </li>
                         <li class="btn-group nav-item ">
                             <a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link rounded full-screen" title="Full Screen">
@@ -151,13 +133,12 @@
 
         <!-- Sample menu definition -->
         <ul id="main-menu" class="sm sm-blue">
-            <li><a href="/room"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Room(s)</a></li>
+            <li><a href="{{route('admin.rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Rooms</a></li>
 {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
-            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
-            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>
-            <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a></li>
-            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-arrows-clockwise-dashed"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>
-            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>
+{{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
+{{--            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>--}}
+            <li><a href="{{route('admin.users')}}"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Users</a></li>
+            <li><a href="{{route('admin.recordings')}}"><i class="icon-arrows-clockwise"><span class="path1"></span><span class="path2"></span></i>Recordings</a></li>
         </ul>
     </nav>
 
@@ -317,8 +298,7 @@
             <div class="modal-body">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://konn3ct.com/register&title=Konn3ctisagoodandfreeconferencingplatform" target="_blank" class="fa fa-facebook myfa"></a>
                 <a href="https://twitter.com/share?url=https://konn3ct.com/register&text=Register now it's free. Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Multi-User Whiteboard.&hashtags=konn3ct" target="_blank" class="fa fa-twitter myfa"></a>
-                <a href="mailto:?Subject=Register with Konn3ct&amp;Body=Register now it's free. Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Multi-User Whiteboard. https://konn3ct.com/register" target="_blank" class="fa fa-envelope-square myfa"></a>
-                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://konn3ct.com/register" target="_blank" class="fa fa-linkedin myfa"></a>
+                <a href="https://twitter.com/share?url=https://konn3ct.com/register&text=Register now it's free. Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Multi-User Whiteboard.&hashtags=konn3ct" target="_blank" class="fa fa-twitter myfa"></a>
 {{--                https://twitter.com/intent/tweet?text=How%20to%20create%20social%20media%20sharing%20buttons%20on%20your%20website&url=https://blog.one.com/create-social-media-sharing-buttons-website/--}}
 {{--                https://www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.one.com%2Fcreate-social-media-sharing-buttons-website%2F--}}
             </div>

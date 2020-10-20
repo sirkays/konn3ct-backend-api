@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
-class RecordingController extends Controller
+class RecordingsController extends Controller
 {
     public function show(){
 
-        $rc=RoomModel::where('user_id', Auth::id())->count();
-        $r=RoomModel::where('user_id', Auth::id())->select('id')->first();
-        $r2=RoomModel::where('user_id', Auth::id())->select('id')->get();
+        $rc=RoomModel::count();
+        $r=RoomModel::first();
+        $r2=RoomModel::get();
         $datas['recordings']=[];
 
         if($rc==0){
-            return view('user.recording', $datas);
+            return view('admin.recording', $datas);
 
         }elseif ($rc==1){
             if (App::environment(['local', 'staging'])) {
@@ -34,7 +35,7 @@ class RecordingController extends Controller
 
             $datas['recordings']=json_decode($datas['record'], true);
 
-            return view('user.recording', $datas);
+            return view('admin.recording', $datas);
 
         }else{
             $er="";
@@ -59,8 +60,7 @@ class RecordingController extends Controller
             $datas['recordings']=json_decode($datas['record'], true);
 
 
-
-            return view('user.recording', $datas);
+            return view('admin.recording', $datas);
         }
 
 

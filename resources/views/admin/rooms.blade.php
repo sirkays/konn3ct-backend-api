@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 
@@ -28,25 +28,58 @@
                     @endif
 
                 <div class="row">
-
-                    <div class="col-xl-3 col-12">
-                        <div class="box box-body pull-up">
-{{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
-                            <Button class="waves-effect waves-light btn btn-app btn-info btn-" data-toggle="modal" data-target="#modal-left">
-                                <i class="fa fa-edit"></i> Create a Room
-                            </Button>
+                        <div class="col-4">
+                            <div class="box box-body pull-up">
+                                <div class="flexbox align-items-end pt-30">
+                                    <div>
+                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Total Rooms</h6>
+                                    </div>
+                                    <span class="icon-Angle-Grinder font-size-80 text-info"><span class="path1"></span><span class="path2"></span></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-4">
+                            <div class="box box-body pull-up">
+                                <div class="flexbox align-items-end pt-30">
+                                    <div>
+                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Active Rooms</h6>
+                                    </div>
+                                    <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="box box-body pull-up">
+                                <div class="flexbox align-items-end pt-30">
+                                    <div>
+                                        <span class="font-size-30 countnm">0</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>
+                                    </div>
+                                    <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+{{--                    <div class="col-xl-3 col-12">--}}
+{{--                        <div class="box box-body pull-up">--}}
+{{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
+{{--                            <Button class="waves-effect waves-light btn btn-app btn-info btn-" data-toggle="modal" data-target="#modal-left">--}}
+{{--                                <i class="fa fa-edit"></i> Create a Room--}}
+{{--                            </Button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
 
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
                                     Rooms
-{{--                                    <small class="subtitle">More than 400+ new members</small>--}}
+                                    <small class="subtitle">This table show the list of rooms created </small>
                                 </h4>
 
                             </div>
@@ -58,7 +91,9 @@
                                             <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Status</span></th>
-                                            <th></th>
+                                            <th style="min-width: 10px"><span class="text-fade">Owner</span></th>
+                                            <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
+{{--                                            <th></th>--}}
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -79,35 +114,41 @@
                                             <td>
                                                 <span class="badge badge-success badge-lg">Active</span>
                                             </td>
-                                            <td class="text-right">
-                                                <form action="/joinroom" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{$room->id}}" />
-                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-success">
-                                                    <i class="fa fa-arrow-right"></i> Konn3ct Now
-                                                </Button>
-                                                </form>
-
-                                                <Button class="waves-effect waves-light btn btn-app btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
-                                                    <i class="fa fa-copy"></i> Copy
-                                                </Button>
-
-                                                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">
-                                                    <i class="fa fa-calendar-check-o "></i> Add to Google Calender
-                                                </a>
-
-                                                <a href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">
-                                                    <i class="fa fa-calendar-check-o "></i> Add to Outlook Calender
-                                                </a>
-
-                                                <form action="/deleteroom" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{$room->id}}" />
-                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </Button>
-                                                </form>
+                                            <td>
+                                                <span>{{$room->user_name}}</span>
                                             </td>
+                                            <td>
+                                                <span>{{$room->created_at}}</span>
+                                            </td>
+{{--                                            <td class="text-right">--}}
+{{--                                                <form action="/joinroom" method="POST">--}}
+{{--                                                    @csrf--}}
+{{--                                                    <input type="hidden" name="id" value="{{$room->id}}" />--}}
+{{--                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-success">--}}
+{{--                                                    <i class="fa fa-arrow-right"></i> Konn3ct Now--}}
+{{--                                                </Button>--}}
+{{--                                                </form>--}}
+
+{{--                                                <Button class="waves-effect waves-light btn btn-app btn-info" onclick="copyToClipboard('#c{{$room->id}}')">--}}
+{{--                                                    <i class="fa fa-copy"></i> Copy--}}
+{{--                                                </Button>--}}
+
+{{--                                                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">--}}
+{{--                                                    <i class="fa fa-calendar-check-o "></i> Add to Google Calender--}}
+{{--                                                </a>--}}
+
+{{--                                                <a href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">--}}
+{{--                                                    <i class="fa fa-calendar-check-o "></i> Add to Outlook Calender--}}
+{{--                                                </a>--}}
+
+{{--                                                <form action="/deleteroom" method="POST">--}}
+{{--                                                    @csrf--}}
+{{--                                                    <input type="hidden" name="id" value="{{$room->id}}" />--}}
+{{--                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-danger">--}}
+{{--                                                    <i class="fa fa-trash"></i> Delete--}}
+{{--                                                </Button>--}}
+{{--                                                </form>--}}
+{{--                                            </td>--}}
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -117,41 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="col-2">
-                        <div class="col-12">
-                            <div class="box box-body pull-up">
-                                <div class="flexbox align-items-end pt-30">
-                                    <div>
-                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Total Rooms</h6>
-                                    </div>
-                                    <span class="icon-Angle-Grinder font-size-80 text-info"><span class="path1"></span><span class="path2"></span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="box box-body pull-up">
-                                <div class="flexbox align-items-end pt-30">
-                                    <div>
-                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Active Rooms</h6>
-                                    </div>
-                                    <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="box box-body pull-up">
-                                <div class="flexbox align-items-end pt-30">
-                                    <div>
-                                        <span class="font-size-30 countnm">0</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>
-                                    </div>
-                                    <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </section>
             <!-- /.content -->

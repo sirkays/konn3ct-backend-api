@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 
@@ -10,7 +10,7 @@
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
                                     Recording
-                                    <small class="subtitle">Below are your meeting recording(s)</small>
+                                    <small class="subtitle">This table show the list of all recording(s)</small>
                                 </h4>
                             </div>
                             <div class="box-body">

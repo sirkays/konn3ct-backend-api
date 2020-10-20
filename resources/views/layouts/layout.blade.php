@@ -5,10 +5,36 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Konn3ct</title>
-    <meta name="description" content="">
+    <meta name="description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
+    <meta name="og:url" content="http://konn3ct.com">
+    <meta name="og:description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
+    <meta name="og:type" content="website">
+    <meta name="og:title" content="konn3ct">
+    <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ct_logo.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct_logo.ico">
     <!-- Place favicon.ico in the root directory -->
+
+    <link rel='manifest' href='/assets/manifest.json'>
+
+    <script type="module">
+
+        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+    </script>
+
+    <script type="module" src="/assets/pwabuilder-sw.js"> </script>
+
+    <script type="module">
+
+        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+    </script>
 
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -100,6 +126,11 @@
     </style>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+    <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
+    ></script>
 
     <!-- Start of Async Drift Code -->
     <script>

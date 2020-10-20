@@ -131,9 +131,17 @@
                                                 @if($user->plan==1)
                                                     Forever
                                                 @elseif($user->plan==2)
-                                                    Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                    @if($user->subsciption=='new')
+                                                        Not yet Subscribed
+                                                    @else
+                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                    @endif
                                                 @else
-                                                    Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                    @if($user->subsciption=='new')
+                                                        Not yet Subscribed
+                                                    @else
+                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                    @endif
                                                 @endif
                                             </span>
                                         </td>

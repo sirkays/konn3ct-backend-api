@@ -184,8 +184,8 @@
                                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 
                                     <li><a href="/">
-                                            <img src="/assets/images/konn3ct_logo.png" height="50px" width="170px" alt="logo">
-                                            <br /> <span class="text-muted" style="font-size: 13px">Sign Up (It's free - No card is required)</span>
+                                            <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">
+                                            <br /> <a href="/register"><strong>Sign Up (It's free - No card is required)</strong></a>
                                         </a></li>
                                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 

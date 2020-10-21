@@ -119,7 +119,7 @@
                         </li>
 
                         <li style="margin-left: 5px">
-                            <a href="/home" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>

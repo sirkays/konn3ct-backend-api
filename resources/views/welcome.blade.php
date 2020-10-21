@@ -8,20 +8,20 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-10">
-                    <div class="section-title text-center pl-40 pr-40 mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="section-title text-center pl-40 pr-40 mb-20 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         {{--                        <span>our services</span>--}}
-                        <h2 data-animation="fadeInUp" data-delay=".4s">What you can do with <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
+                        <h3 data-animation="fadeInUp" data-delay=".4s">What you can do with<sup><img src="/assets/images/konn3ct_logo.png" height="50px" width="150px" alt="logo"></sup></h3>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-10">
                 <div class="col-lg-4 col-md-6">
                     <div class="s-single-services active wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                        <div class="services-icon">--}}
 {{--                            <i class="fal fa-dice-d10"></i>--}}
 {{--                        </div>--}}
                         <div class="second-services-content">
-                            <h5>Meetings & Chats​</h5>
+                            <h5>Meetings & Chats</h5>
                             <p>Hold your 1-on-1 (private) or group meetings</p>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
 {{--                            <i class="fal fa-dice-d10"></i>--}}
 {{--                        </div>--}}
                         <div class="second-services-content">
-                            <h5>Syndicate Session​</h5>
+                            <h5>Syndicate Session</h5>
                             <p>Allow Teams go into closed sessions while main session is on</p>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
 {{--                            <i class="fal fa-dice-d10"></i>--}}
 {{--                        </div>--}}
                         <div class="second-services-content">
-                            <h5>Join without Internet​</h5>
+                            <h5>Join without Internet</h5>
                             <p>No/Poor connection? Join the session with a call from your phone</p>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
 {{--                            <i class="fal fa-dice-d10"></i>--}}
 {{--                        </div>--}}
                         <div class="second-services-content">
-                            <h5>Host Webinars & Classes​​</h5>
+                            <h5>Host Webinars & Classes</h5>
                             <p>Build capacities using highly interactive tools & features</p>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                     <div class="choose-wrap">
                         <div class="section-title w-title left-align mb-20 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
-                            <h2>Why <a style="font-family: 'Century Gothic'">Konn3ct</a>?​</h2>
+                            <h3>Why<sup><img src="/assets/images/konn3ct_logo.png" height="50px" width="150px" alt="logo"></sup>?</h3>
                         </div>
                         <div class="choose-content wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <p>Pellentesque habitant morbi tristique senectus et netus et fames acturpis egestas. Vestibulum tortor quam, feugiat vitae, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. mivitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien.</p>--}}
@@ -244,79 +244,81 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8">
-                    <div class="section-title text-center mb-30 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="section-title text-center mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         {{--                        <span>Best Work</span>--}}
-                        <h2><a style="font-family: 'Century Gothic'">Konn<a style="font-family: Georgia">3</a>ct</a> Highlights​</h2>
+                        <h3><sup><img src="/assets/images/konn3ct_logo.png" height="50px" width="150px" alt="logo"></sup>Highlights</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>Personalized Rooms​​</p>
                     </div>
                 </div>
 {{--                <div class="col-lg-3 col-sm-6">--}}
-{{--                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">--}}
+{{--                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">--}}
 {{--                        <small>+</small>--}}
 {{--                        <p>Custom Design​</p>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>TLS, SSL & AES-256 Encryption​​</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>User Authentication​​</p>
                     </div>
                 </div>
 
 {{--                <div class="col-lg-3 col-sm-6">--}}
-{{--                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">--}}
+{{--                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">--}}
 {{--                        <small>+</small>--}}
 {{--                        <p>Analytics​​​</p>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>Dial In & Out​​​</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>GDPR​​​​ & NDPR</p>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>Pre-load Presentation​</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>Web App​​​​​</p>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <small>+</small>
-                        <p>Data Region for Business Continuity​</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-counter text-center mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
                         <p>Whiteboard & Annotation Tools​​</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <small>+</small>
+                        <p>Data Region for Business Continuity​</p>
                     </div>
                 </div>
 

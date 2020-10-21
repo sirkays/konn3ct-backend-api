@@ -101,21 +101,42 @@
             <nav class="navbar navbar-static-top pl-10">
                 <!-- Sidebar toggle button-->
                 <div class="app-menu">
-                    <ul class="header-megamenu nav">
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                                <a  href="/logouts" class="btn btn-danger waves-effect waves-light"><i class="fa fa-sign-out"> </i> Log Out</a>
-                        </li>
+{{--                    <ul class="header-megamenu nav">--}}
+{{--                        <li class="btn-group nav-item d-none d-xl-inline-block">--}}
+{{--                                <a  href="/logouts" class="btn btn-danger waves-effect waves-light"><i class="fa fa-sign-out"> </i> Log Out</a>--}}
+{{--                        </li>--}}
 
-                    </ul>
+{{--                    </ul>--}}
                 </div>
 
                 <div class="navbar-custom-menu r-side">
                     <ul class="nav navbar-nav">
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <a href="/" class="btn btn-outline-primary">Home</a>
-                            @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
-                                <a href="/admin/rooms" class="btn btn-success" style="margin-left: 20px">Admin</a>
-                            @endif
+                        <!-- Notifications -->
+                        <li style="margin-left: 5px">
+                            <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" title="Logout">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </li>
+
+                        <li style="margin-left: 5px">
+                            <a href="/home" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+
+                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
+                        <li style="margin-left: 5px">
+                            <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">
+                                <i class="fa fa-user-circle"></i>
+                            </a>
+                        </li>
+                        @endif
+
+                        <li class="btn-group nav-item d-none d-xl-inline-block" style="margin-right: 20px">
+{{--                            <a href="/" class="btn btn-outline-primary">Home</a>--}}
+{{--                            @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
+{{--                                <a href="/admin/rooms" class="btn btn-success" style="margin-left: 20px">Admin</a>--}}
+{{--                            @endif--}}
 {{--                            <Button class="btn btn-primary" data-toggle="modal" data-target="#modal-fill" style="margin-left: 20px">Change Plan</Button>--}}
 {{--                            <Button class="btn btn-success" data-toggle="modal" data-target="#bs-example-modal-sm" style="margin-left: 20px">Invite friends</Button>--}}
 
@@ -156,7 +177,7 @@
             <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
             <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>
             <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a></li>
-            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-arrows-clockwise-dashed"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>
+            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>
             <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>
         </ul>
     </nav>

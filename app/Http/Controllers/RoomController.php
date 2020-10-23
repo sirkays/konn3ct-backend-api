@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MeetingsModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -205,6 +206,7 @@ class RoomController extends Controller
     public function ajoin(Request $request){
         $url=$request->input('url');
         $name=$request->input('name');
+        $email=$request->input('email');
 
         $i=RoomModel::where('url',$url)->first();
 
@@ -222,15 +224,24 @@ class RoomController extends Controller
 
         if($name==""){
             $name="Konn3ct Guest";
+            $email="Kguest@konnect.com";
         }
 
-        return redirect()->to(
-            \Bigbluebutton::join([
-                'meetingID' => $i->id,
-                'userName' => $name,
-                'password' => $i->password_attendee //which user role want to join set password here
-            ])
-        );
+        $mdata['meeting_id']=$i->id;
+        $mdata['name']=$name;
+        $mdata['email']=$email;
+        $mdata['password_attendee']=$i->password_attendee;
+        $mdata['status']="joined";
+
+        return MeetingsModel::create($mdata);
+
+//        return redirect()->to(
+//            \Bigbluebutton::join([
+//                'meetingID' => $i->id,
+//                'userName' => $name,
+//                'password' => $i->password_attendee //which user role want to join set password here
+//            ])
+//        );
     }
 
     public function delete(Request $request){

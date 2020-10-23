@@ -35,6 +35,9 @@
                                         <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->name ?? ''}}" placeholder="Enter your name e.g Samji Diamond" required>
                                     </div>
                                     <div class="form-group">
+                                        <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
+                                    </div>
+                                    <div class="form-group">
                                         <button class="btn btn-primary">Konn3ct</button>
                                     </div>
                                 </div>

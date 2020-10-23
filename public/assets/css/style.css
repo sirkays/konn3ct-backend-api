@@ -2412,7 +2412,7 @@ div.single-cta:last-child {
 padding: 30px 0 0;
 float: left;
 width: 100%;
-margin-bottom: 30px;
+margin-bottom: 5px;
 }
 .pricing-head h4 {
 	font-size: 18px;
@@ -2453,7 +2453,7 @@ margin-bottom: 30px;
 .pricing-body p {
 	margin-bottom: 15px;
 	font-size: 14px;
-	font-family: 'Roboto', sans-serif;	
+	font-family: 'Roboto', sans-serif;
 }
 .pricing-btn .btn {
 	border:2px solid #f5f8fa;
@@ -2708,11 +2708,11 @@ margin-bottom: 30px;
 	font-weight: 500;
 }
 .gallery-image:hover figcaption {
-   opacity: 1;	
+   opacity: 1;
     bottom:0px;
 	-webkit-transition: all 0.3s ease 0s;
 	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;	
+	transition: all 0.3s ease 0s;
 
 }
 .button-group {
@@ -2827,7 +2827,7 @@ top: 121px;
 .has-mega-menu{
         position:static;
     }
-	 
+
     li.has-sub.has-mega-menu ul{
         position: absolute;
         top: NNpx; /*insert the needed value*/
@@ -2847,11 +2847,11 @@ top: 121px;
     /*flexbox fallback for browsers that do not support CSS GRID lyout*/
         display: flex;
         flex-wrap: wrap;
-    /*CSS GRID lyout*/ 
+    /*CSS GRID lyout*/
         display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(25%, 1fr));   
+        grid-template-columns: repeat(auto-fit,minmax(25%, 1fr));
 		margin-left: -820px;
-		
+
     }
 	li.has-sub.has-mega-menu:hover>ul>li>ul{
     /*flexbox fallback for browsers that do not support CSS GRID lyout*/
@@ -2859,8 +2859,8 @@ top: 121px;
         flex-wrap: wrap;
 width: auto;
 background:none;
-    /*CSS GRID lyout*/ 
-        display: grid;       
+    /*CSS GRID lyout*/
+        display: grid;
 		position: relative;
 border: none;
 margin-left:0;

@@ -67,6 +67,7 @@
 
 
 
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -225,11 +226,10 @@
             <div class="modal-body">
 
                 <div class="row">
-
-                    <div class="col-lg-4">
+                    <div class="col-4">
                         <div class="box box-inverse bg-gradient-primary">
                             <div class="box-body text-center">
-                                <h5 class="text-uppercase text-muted">Free Plan</h5>
+                                <h5 class="text-uppercase text-muted">Basic</h5>
                                 <br>
                                 <p>
                                     <strong>
@@ -243,12 +243,11 @@
 
                                 <p><strong>Participant - </strong> 100</p>
                                 <p><strong>Session Timeout - </strong> 1 hour</p>
-                                <p><strong>Cloud Storage </strong> 1GB</p>
-                                <p><strong>Number of Rooms</strong> 1</p>
+                                <p><strong>Number of Rooms - </strong> 1</p>
 
                                 <br><br>
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                    <a class="btn btn-outline btn-white" href="/changeplan/1">Select plan</a>
+                                    <a class="btn btn-outline btn-white" href="/changeplan/1">Select Plan</a>
                                 @else
                                     <a class="btn btn-white" href="#">Current Plan</a>
                                 @endif
@@ -256,10 +255,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-4">
                         <div class="box card-shadowed box-inverse bg-gradient-danger">
                             <div class="box-body text-center">
-                                <h5 class="text-uppercase text-muted">Lite Plan</h5>
+                                <h5 class="text-uppercase text-muted">Lite</h5>
                                 <br>
                                 <p>
                                     <strong>
@@ -273,8 +272,8 @@
                                 <hr>
                                 <p><strong>Participant - </strong> 100</p>
                                 <p><strong>Session Timeout - </strong> 10 hours</p>
-                                <p><strong>Cloud Storage </strong> 5 GB</p>
-                                <p><strong>Number of Rooms</strong> 5</p>
+                                <p><strong>Cloud Storage - </strong> 5 GB</p>
+                                <p><strong>Number of Rooms - </strong> 5</p>
 
 
                                 <br><br>
@@ -287,10 +286,102 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-4">
                         <div class="box box-inverse bg-gradient-success">
                             <div class="box-body text-center">
-                                <h5 class="text-uppercase text-muted">Pro Plan</h5>
+                                <h5 class="text-uppercase text-muted">Pro</h5>
+                                <br>
+                                <p>
+                                    <strong>
+                                        $15.99/&#x20A6;6000<sup>Monthly</sup> <br/>
+                                        $175/&#x20A6;67,000<sup>Yearly</sup>
+                                    </strong>
+                                </p>
+                                <p></p>
+                                <br/>
+
+                                <hr>
+                                <p><strong>Participant - </strong> 250</p>
+                                <p><strong>Session Timeout - </strong> 24 hours</p>
+                                <p><strong>Cloud Storage </strong> 15 GB</p>
+                                <p><strong>Number of Rooms</strong> Unlimited</p>
+
+                                <br><br>
+                                @if(\Illuminate\Support\Facades\Auth::user()->plan!=3)
+                                    <a class="btn btn-outline btn-white" href="/changeplan/3">Select plan</a>
+                                @else
+                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="box box-inverse bg-gradient-primary">
+                            <div class="box-body text-center">
+                                <h5 class="text-uppercase text-muted">Basic</h5>
+                                <br>
+                                <p>
+                                    <strong>
+                                        Free Forever
+                                    </strong>
+                                </p>
+                                <p></p>
+                                <br/>
+
+                                <hr>
+
+                                <p><strong>Participant - </strong> 100</p>
+                                <p><strong>Session Timeout - </strong> 1 hour</p>
+                                <p><strong>Number of Rooms - </strong> 1</p>
+
+                                <br><br>
+                                @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                    <a class="btn btn-outline btn-white" href="/changeplan/1">Select Plan</a>
+                                @else
+                                    <a class="btn btn-white" href="#">Current Plan</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="box card-shadowed box-inverse bg-gradient-danger">
+                            <div class="box-body text-center">
+                                <h5 class="text-uppercase text-muted">Lite</h5>
+                                <br>
+                                <p>
+                                    <strong>
+                                    $10.99/&#x20A6;4000<sup>Monthly</sup> <br/>
+                                    $120/&#x20A6;46,000<sup>Yearly</sup>
+                                    </strong>
+                                </p>
+                                <p></p>
+                                <br/>
+
+                                <hr>
+                                <p><strong>Participant - </strong> 100</p>
+                                <p><strong>Session Timeout - </strong> 10 hours</p>
+                                <p><strong>Cloud Storage - </strong> 5 GB</p>
+                                <p><strong>Number of Rooms - </strong> 5</p>
+
+
+                                <br><br>
+                                @if(\Illuminate\Support\Facades\Auth::user()->plan!=2)
+                                    <a class="btn btn-outline btn-white" href="/changeplan/2">Select Plan</a>
+                                @else
+                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="box box-inverse bg-gradient-success">
+                            <div class="box-body text-center">
+                                <h5 class="text-uppercase text-muted">Pro</h5>
                                 <br>
                                 <p>
                                     <strong>
@@ -319,9 +410,6 @@
 
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

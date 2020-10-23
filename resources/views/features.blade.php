@@ -3,9 +3,9 @@
 @section('content')
 <!-- main-area -->
 <main>
-    <a href="/register" id="freg">
-        <i id="t" class="fa my-float" style="margin-top:22px;">Register Now</i>
-    </a>
+{{--    <a href="/register" id="freg">--}}
+{{--        <a href="/" id="t freg" class="fa my-float btn btn-primary" style="margin-top:22px;">Register Now</a>--}}
+{{--    </a>--}}
 
     <!-- choose-area -->
 {{--    <section class="choose-area pt-120 pb-120 p-relative" style="background:#f5f8fa;">--}}
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>Meeting, Chat & Calling​</h5>
                         </div>
@@ -152,7 +152,7 @@
 
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>Webinar & Conferencing​</h5>
                         </div>
@@ -221,7 +221,7 @@
 
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>E-Learning​</h5>
                         </div>
@@ -334,7 +334,7 @@
 
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>Work Remotely</h5>
                         </div>
@@ -416,7 +416,7 @@
 
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>Security & Compliance</h5>
                         </div>
@@ -470,7 +470,7 @@
 
                 <div class="col-xl-6">
                     <div class="choose-wrap">
-                        <div class="section-title w-title left-align mb-35 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="section-title w-title left-align mb-10 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                            <span>Creative Landingpage</span>--}}
                             <h5>Others</h5>
                         </div>

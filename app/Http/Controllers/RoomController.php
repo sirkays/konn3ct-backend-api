@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MeetingsModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -205,6 +206,7 @@ class RoomController extends Controller
     public function ajoin(Request $request){
         $url=$request->input('url');
         $name=$request->input('name');
+        $email=$request->input('email');
 
         $i=RoomModel::where('url',$url)->first();
 
@@ -215,7 +217,16 @@ class RoomController extends Controller
 
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
+        $mdata['meeting_id']=$i->id;
+        $mdata['name']=$name;
+        $mdata['email']=$email;
+        $mdata['password_attendee']=$i->password_attendee;
+
         if($ms!=1){
+            $mdata['status']="meeting not started";
+
+            MeetingsModel::create($mdata);
+
             return redirect('joinsession')
                 ->with('error', 'Meeting has not started!');
         }
@@ -223,6 +234,9 @@ class RoomController extends Controller
         if($name==""){
             $name="Konn3ct Guest";
         }
+
+        $mdata['status']="joined";
+        MeetingsModel::create($mdata);
 
         return redirect()->to(
             \Bigbluebutton::join([

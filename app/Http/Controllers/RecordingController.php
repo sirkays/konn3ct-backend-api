@@ -15,6 +15,7 @@ class RecordingController extends Controller
         $r=RoomModel::where('user_id', Auth::id())->select('id')->first();
         $r2=RoomModel::where('user_id', Auth::id())->select('id')->get();
         $datas['recordings']=[];
+        $datas['i']=1;
 
         if($rc==0){
             return view('user.recording', $datas);

@@ -8,9 +8,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
-                    <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="section-title text-center wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                        <span>Pricing List</span>--}}
-                        <h2>Pricing & Plans​</h2>
+                        <h3>Pricing & Plans​</h3>
 {{--                        <br>--}}
 {{--                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>--}}
                     </div>
@@ -18,24 +18,24 @@
             </div>
             <div class="row" id="planssi">
                 <div class="col-lg-4 col-md-6">
-                    <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="pricing-head">
+                    <div class="pricing-box mb-60 text-center wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="pricing-head" style="margin-bottom: -10px">
                             <h4>Basic Plan</h4>
-                            <div class="price-count mb-30">
-                                <h2><span>Free forever</span></h2>
+                            <div class="price-count">
+                                <h2><span><strong>Free forever</strong></span></h2>
                             </div>
                         </div>
-                        <div class="pricing-body mb-40 text-left">
+                        <div class="pricing-body text-left">
 {{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
                             <ul>
                                 <li>Participant - 100</li>
                                 <li>Session Timeout - 1 hour</li>
-                                <li>Cloud Storage - 1GB</li>
                                 <li>Number of Rooms - 1</li>
                                 <li>Audio & Video Preview Window</li>
                                 <li>Screen Sharing</li>
                                 <li>Whiteboard & Annotation Tools</li>
                                 <li>User Status</li>
+                                <li>Breakout Rooms</li>
                                 <li>Full-Featured Admin Controls</li>
                                 <li>Share Webcam</li>
                                 <li>Shared Notes</li>
@@ -64,8 +64,8 @@
                             <h4>Lite Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly">
-                                    <h2><small>$</small>10.99<span style="font-size: 13px"> Monthly</span> /  <span>120<span style="font-size: 13px"> Yearly</span> </span></h2>
-                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x20A6;4,000<span style="font-size: 13px; color: black"> Monthly</span> / 46,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                    <h2><span><sup>$</sup>10.99<span style="font-size: 13px"> Monthly</span></span> /  <small>$</small>120<span style="font-size: 13px"> Yearly</span></h2>
+                                    <h5>&nbsp;&nbsp;&nbsp;&#x20A6;4,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;46,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
                                 <span class="more" id="yearly">
@@ -80,7 +80,7 @@
                                 <li>Participant - 100</li>
                                 <li>Session Timeout - 10 hour</li>
                                 <li>Cloud Storage - 5GB</li>
-                                <li>Number of Rooms - 5</li>
+                                <li>Number of Rooms - 3</li>
                                 <li>Audio & Video Preview Window</li>
                                 <li>Screen Sharing</li>
                                 <li>Whiteboard & Annotation Tools</li>
@@ -120,8 +120,8 @@
                             <h4>Pro Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly2">
-                                    <h2><small>$</small>15.99<span style="font-size: 13px"> Monthly</span> /  <span>175<span style="font-size: 13px"> Yearly</span> </span></h2>
-                                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x20A6;6,000<span style="font-size: 13px; color: black"> Monthly</span> / 67,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                                    <h2><span style="color: black"><sup>$</sup>15.99<span style="font-size: 13px"> Monthly</span></span> /  <small>$</small>175<span style="font-size: 13px"> Yearly</span></h2>
+                                    <h5>&nbsp;&nbsp;&nbsp;&#x20A6;6,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;67,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
                                 <span class="more" id="yearly2">
@@ -136,7 +136,7 @@
                                 <li>Participant - 250</li>
                                 <li>Session Timeout - 24 hours</li>
                                 <li>Cloud Storage - 15GB</li>
-                                <li>Number of Rooms - Unlimited</li>
+                                <li>Number of Rooms - 6</li>
                                 <li>Audio & Video Preview Window</li>
                                 <li>Screen Sharing</li>
                                 <li>Whiteboard & Annotation Tools</li>

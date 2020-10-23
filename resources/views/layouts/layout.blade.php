@@ -18,24 +18,6 @@
 
     <link rel='manifest' href='/assets/manifest.json'>
 
-    <script type="module">
-
-        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-        const el = document.createElement('pwa-update');
-        document.body.appendChild(el);
-    </script>
-
-    <script type="module" src="/assets/pwabuilder-sw.js"> </script>
-
-    <script type="module">
-
-        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-        const el = document.createElement('pwa-update');
-        document.body.appendChild(el);
-    </script>
-
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">
@@ -119,8 +101,15 @@
 
         #container-floating:hover {
             height: 400px;
-            width: 90px;
+            width: 180px;
             padding: 30px;
+        }
+
+        .su{
+            color: blue;
+        }
+        .su:hover{
+            color: green;
         }
 
     </style>
@@ -133,46 +122,50 @@
     ></script>
 
     <!-- Start of Async Drift Code -->
-    <script>
-        "use strict";
+{{--    <script>--}}
+{{--        "use strict";--}}
 
-        !function() {
-            var t = window.driftt = window.drift = window.driftt || [];
-            if (!t.init) {
-                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-                t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-                    t.factory = function(e) {
-                        return function() {
-                            var n = Array.prototype.slice.call(arguments);
-                            return n.unshift(e), t.push(n), t;
-                        };
-                    }, t.methods.forEach(function(e) {
-                    t[e] = t.factory(e);
-                }), t.load = function(t) {
-                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-                    var i = document.getElementsByTagName("script")[0];
-                    i.parentNode.insertBefore(o, i);
-                };
-            }
-        }();
-        drift.SNIPPET_VERSION = '0.3.1';
-        drift.load('9u4f4f3mumcc');
-    </script>
+{{--        !function() {--}}
+{{--            var t = window.driftt = window.drift = window.driftt || [];--}}
+{{--            if (!t.init) {--}}
+{{--                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));--}}
+{{--                t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],--}}
+{{--                    t.factory = function(e) {--}}
+{{--                        return function() {--}}
+{{--                            var n = Array.prototype.slice.call(arguments);--}}
+{{--                            return n.unshift(e), t.push(n), t;--}}
+{{--                        };--}}
+{{--                    }, t.methods.forEach(function(e) {--}}
+{{--                    t[e] = t.factory(e);--}}
+{{--                }), t.load = function(t) {--}}
+{{--                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");--}}
+{{--                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";--}}
+{{--                    var i = document.getElementsByTagName("script")[0];--}}
+{{--                    i.parentNode.insertBefore(o, i);--}}
+{{--                };--}}
+{{--            }--}}
+{{--        }();--}}
+{{--        drift.SNIPPET_VERSION = '0.3.1';--}}
+{{--        drift.load('9u4f4f3mumcc');--}}
+{{--    </script>--}}
     <!-- End of Async Drift Code -->
 </head>
 <body>
 <!-- header -->
 <header class="header-area">
-    <div id="header-sticky" class="menu-area">
-        <div class="container" style="margin-top: 15px">
+    <div id="header-sticky" class="menu-area" style="background-color: whitesmoke; margin-top: -5px">
+        <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
-                    {{--                    <div class="col-xl-2 col-lg-2">--}}
-                    {{--                        <div class="logo">--}}
-                    {{--                            <a href="index-2.html"><img src="/assets/img/logo/logo.png" alt="logo"></a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+                                        <div class="col-xl-12 col-lg-12 text-center">
+                                            <div class="logo">
+                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px" style="align-items: center"></a>
+{{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
+                                            </div>
+                                        </div>
+
+{{--                    <div class="col-12" id="google_translate_element"></div>--}}
+
                     <div class="col-xl-10 col-lg-11">
                         <div class="responsive"><i class="icon dripicons-align-right"></i></div>
                         <div class="main-menu text-right text-xl-center">
@@ -181,13 +174,10 @@
                                     <li><a href="/features">Features</a></li>
                                     <li><a href="/pricing">Plans & Pricing</a></li>
                                     <li><a href="/contact">Contact Us</a></li>
-                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                                    <li>&nbsp;&nbsp;</li>
 
-                                    <li><a href="/">
-                                            <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">
-                                            <br /> <a href="/register"><strong>Sign Up (It's free - No card is required)</strong></a>
-                                        </a></li>
-                                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                                    <li><a href="/register" class="su"><strong>Sign Up (It's free - No card is required)</strong></a></li>
+                                    <li>&nbsp;&nbsp;</li>
 
                                     <li><a href="/joinsession">Join Session</a></li>
 
@@ -246,6 +236,33 @@
     </div>
 </footer>
 <!-- footer-end -->
+
+<!-- Scripts -->
+<script type="module">
+
+    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+    const el = document.createElement('pwa-update');
+    document.body.appendChild(el);
+</script>
+
+<script type="module" src="/assets/pwabuilder-sw.js"> </script>
+
+<script type="module">
+
+    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+
+    const el = document.createElement('pwa-update');
+    document.body.appendChild(el);
+</script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script>

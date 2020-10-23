@@ -27,9 +27,9 @@
                     <div class="col-md-6 invoice-col">
                         <strong>From</strong>
                         <address>
-                            <strong class="text-blue font-size-24">Newwaves Ecosystem Limted</strong><br>
-                            <strong class="d-inline">220b, Eti-osa way, Ikoyi, Lagos, Nigeria</strong><br>
-                            <strong>Phone: (234) 803 304 6408 &nbsp;&nbsp;&nbsp;&nbsp; Email: info@newwavesecosystem.com</strong>
+                            <strong class="text-blue font-size-24">Newwaves Ecosystem Limited</strong><br>
+                            <strong class="d-inline">220B, Eti-Osa Way, Ikoyi, Lagos, Nigeria</strong><br>
+                            <strong>Phone: (234) 803 304 6408 <br />Email: info@newwavesecosystem.com</strong>
                         </address>
                     </div>
                     <!-- /.col -->
@@ -38,16 +38,16 @@
                         <address>
                             <strong class="text-blue font-size-24">{{\Illuminate\Support\Facades\Auth::user()->name}}</strong><br>
 {{--                            124 Lorem Ipsum, Suite 478, Dummuy, USA 123456<br>--}}
-                            <strong>Phone: {{\Illuminate\Support\Facades\Auth::user()->phone}} &nbsp;&nbsp;&nbsp;&nbsp; Email: {{\Illuminate\Support\Facades\Auth::user()->email}}</strong>
+                            <strong>Phone: {{\Illuminate\Support\Facades\Auth::user()->phone}} <br />Email: {{\Illuminate\Support\Facades\Auth::user()->email}}</strong>
                         </address>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-12 invoice-col mb-15">
                         <div class="invoice-details row no-margin">
-                            <div class="col-md-6 col-lg-3"><b>Invoice </b>#{{$payment->id}}</div>
-                            <div class="col-md-6 col-lg-3"><b>Order ID:</b> {{$payment->reference}}</div>
+                            <div class="col-md-6 col-lg-3"><b>Receipt </b>#{{$payment->id}}</div>
+                            <div class="col-md-6 col-lg-3"><b>Payment ID:</b> {{$payment->gateway_reference}}</div>
                             <div class="col-md-6 col-lg-3"><b>Payment Date:</b> {{\Carbon\Carbon::parse($payment->date)->toDateString()}}</div>
-                            <div class="col-md-6 col-lg-3"><b>Account:</b> {{$payment->gateway}}</div>
+                            <div class="col-md-6 col-lg-3"><b>Gateway:</b> {{$payment->gateway}}</div>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -57,15 +57,13 @@
                         <table class="table table-bordered">
                             <tbody>
                             <tr>
-                                <th>#</th>
-                                <th>Description</th>
+                                <th class="choose-wrap">Description</th>
                                 <th>Plan</th>
-                                <th class="text-right">Duration</th>
+                                <th class="text-right">Validity</th>
                                 <th class="text-right">Amount</th>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>Being payment for konn3ct Plan</td>
+                                <td>Being payment for <br/>konn3ct Plan</td>
                                 <td>
                                     @if(\Illuminate\Support\Facades\Auth::user()->plan==1) Basic
                                     @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) Pro @endif

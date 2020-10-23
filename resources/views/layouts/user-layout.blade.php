@@ -113,25 +113,37 @@
                 <div class="navbar-custom-menu r-side">
                     <ul class="nav navbar-nav">
                         <!-- Notifications -->
-                        <li style="margin-left: 5px">
+                        <li style="margin-left: 2px">
                             <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" title="Logout">
                                 <i class="fa fa-sign-out"></i>
                             </a>
                         </li>
 
-                        <li style="margin-left: 5px">
+                        <li style="margin-left: 2px">
                             <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
                                 <i class="fa fa-home"></i>
                             </a>
                         </li>
 
-                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
-                        <li style="margin-left: 5px">
-                            <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">
-                                <i class="fa fa-user-circle"></i>
+                        <li style="margin-left: 2px">
+                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                                <i class="fa fa-link"></i>
                             </a>
                         </li>
-                        @endif
+
+                        <li style="margin-left: 2px">
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                        </li>
+
+{{--                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
+{{--                        <li style="margin-left: 5px">--}}
+{{--                            <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">--}}
+{{--                                <i class="fa fa-user-circle"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        @endif--}}
 
                         <li class="btn-group nav-item d-none d-xl-inline-block" style="margin-right: 20px">
 {{--                            <a href="/" class="btn btn-outline-primary">Home</a>--}}
@@ -178,8 +190,17 @@
             <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
             <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>
             <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a></li>
-            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>
-            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>
+{{--            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>--}}
+{{--            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>--}}
+            @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
+                <li><a href="/admin/rooms"><i class="fa fa-user-circle"><span class="path1"></span><span class="path2"></span></i>Admin</a></li>
+
+{{--                <li style="margin-left: 5px">--}}
+{{--                    <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">--}}
+{{--                        <i class="fa fa-user-circle"></i> Admin--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+            @endif
         </ul>
     </nav>
 

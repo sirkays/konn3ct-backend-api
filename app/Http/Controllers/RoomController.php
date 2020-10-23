@@ -217,31 +217,34 @@ class RoomController extends Controller
 
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
+        $mdata['meeting_id']=$i->id;
+        $mdata['name']=$name;
+        $mdata['email']=$email;
+        $mdata['password_attendee']=$i->password_attendee;
+
         if($ms!=1){
+            $mdata['status']="meeting not started";
+
+            MeetingsModel::create($mdata);
+
             return redirect('joinsession')
                 ->with('error', 'Meeting has not started!');
         }
 
         if($name==""){
             $name="Konn3ct Guest";
-            $email="Kguest@konnect.com";
         }
 
-        $mdata['meeting_id']=$i->id;
-        $mdata['name']=$name;
-        $mdata['email']=$email;
-        $mdata['password_attendee']=$i->password_attendee;
         $mdata['status']="joined";
+        MeetingsModel::create($mdata);
 
-        return MeetingsModel::create($mdata);
-
-//        return redirect()->to(
-//            \Bigbluebutton::join([
-//                'meetingID' => $i->id,
-//                'userName' => $name,
-//                'password' => $i->password_attendee //which user role want to join set password here
-//            ])
-//        );
+        return redirect()->to(
+            \Bigbluebutton::join([
+                'meetingID' => $i->id,
+                'userName' => $name,
+                'password' => $i->password_attendee //which user role want to join set password here
+            ])
+        );
     }
 
     public function delete(Request $request){

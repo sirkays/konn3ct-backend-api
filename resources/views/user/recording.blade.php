@@ -73,11 +73,11 @@
                                                         Manage
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button class="dropdown-item" class="waves-effect waves-light btn" onclick="copyToClipboard('#c{{$i++}}')">
+                                                        <Button class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
                                                             Copy
                                                         </Button>
 
-                                                        <a class="dropdown-item" href="" class="waves-effect waves-light btn btn-primary">
+                                                        <a class="dropdown-item" href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn btn-primary">
                                                             Email Recording
                                                         </a>
                                                     </div>
@@ -157,13 +157,21 @@
                                             </td>
                                             <td>
                                                 <span class="badge badge-success badge-lg">{{$record['participants']}}</span>
+                                                <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
                                             </td>
                                             <td class="text-right">
-                                                <a class="waves-effect waves-light btn btn-app btn-success" href="{{$record['playback']['format']['url']}}">
-                                                    <i class="fa fa-eye"></i> View
+                                                <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}">
+                                                    View
                                                 </a>
-                                                <a class="waves-effect waves-light btn btn-app btn-danger" href="#">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                <Button class="waves-effect waves-light btn btn-primary" onclick="myFunction('c{{$i++}}')">
+                                                    Copy
+                                                </Button>
+
+                                                <a href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn btn-primary">
+                                                    Email Recording
+                                                </a>
+                                                <a class="waves-effect waves-light btn btn-danger" href="#">
+                                                   Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -177,4 +185,25 @@
                 </div>
             </section>
             <!-- /.content -->
+
+            <script>
+                function myFunction(id) {
+                    /* Get the text field */
+                    var copyText = document.getElementById(id);
+
+                    copyText.type='text';
+
+                    /* Select the text field */
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+                    /* Copy the text inside the text field */
+                    document.execCommand("copy");
+
+                    copyText.type='hidden';
+
+                    /* Alert the copied text */
+                    alert("Copied the text: " + copyText.value);
+                }
+            </script>
 @endsection

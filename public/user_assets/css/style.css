@@ -1,5 +1,5 @@
 /*
-Template Name: Adminto - Responsive Admin Template 
+Template Name: Adminto - Responsive Admin Template
 Author: Multipurpose Themes
 File: scss
 */
@@ -186,6 +186,9 @@ img {
 
 .font-size-0 {
   font-size: 0rem!important; }
+
+.font-size-8 {
+  font-size: 0.5142857143rem!important; }
 
 .font-size-10 {
   font-size: 0.7142857143rem!important; }
@@ -1042,7 +1045,7 @@ hr {
   left: 0; }
 
 /*******************
-Padding property 
+Padding property
 *******************/
 .p-0 {
   padding: 0px !important; }
@@ -3943,7 +3946,7 @@ Padding property
     padding-top: 100px !important;
     padding-bottom: 100px !important; } }
 /*******************
-Margin property 
+Margin property
 *******************/
 .m-0 {
   margin: 0px !important; }
@@ -6844,7 +6847,7 @@ Margin property
     margin-top: 100px !important;
     margin-bottom: 100px !important; } }
 /*******************
-Width property 
+Width property
 *******************/
 .w-0 {
   width: 0px !important; }
@@ -9223,7 +9226,7 @@ Width property
   .max-w-lg-auto {
     max-width: auto; } }
 /*******************
-Height property 
+Height property
 *******************/
 .h-0 {
   height: 0px !important; }

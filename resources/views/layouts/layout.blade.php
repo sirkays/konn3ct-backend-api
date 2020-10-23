@@ -153,13 +153,13 @@
 <body>
 <!-- header -->
 <header class="header-area">
-    <div id="header-sticky" class="menu-area">
+    <div id="header-sticky" class="menu-area" style="background-color: whitesmoke; margin-top: -5px">
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
                                         <div class="col-xl-12 col-lg-12 text-center">
                                             <div class="logo">
-                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" style="align-items: center"></a>
+                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px" style="align-items: center"></a>
 {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
                                             </div>
                                         </div>

@@ -31,7 +31,7 @@
                     <div class="col-3">
                         <div class="box box-body pull-up">
 {{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
-                            <Button class="waves-effect waves-light btn btn-app btn-info btn-" data-toggle="modal" data-target="#modal-left">
+                            <Button class="waves-effect waves-light btn btn-app btn-info" data-toggle="modal" data-target="#modal-left">
                                 <i class="fa fa-edit"></i> Create a Room
                             </Button>
                         </div>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
 
-                        <div class="container">
+                        <div class="container font-size-8">
                             <div class="row">
                                 <div class="col">
                                     <div class="box box-body pull-up">
@@ -124,23 +124,16 @@
                                     <table class="table no-border font-size-12">
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
-                                            <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
-                                            <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
+                                            <th style="min-width: 50px"><span class="text-fade">Room</span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($rooms as $room)
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div>
-                                                        <a href="#" class="text-dark hover-primary mb-1">{{$room->name}}</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span id="c{{$room->id}}" class="text-dark d-block">
-                                                    {{url('/join/')}}/{{$room->url}}
+                                                <a href="#" class="text-dark hover-primary mb-1"><strong>Name:</strong> {{$room->name}}</a>
+                                                <span class="text-dark d-block">
+                                                  <strong>Link:</strong> <span id="c{{$room->id}}">{{url('/join/')}}/{{$room->url}}</span>
                                                 </span>
 
                                                 <br/>
@@ -158,7 +151,7 @@
                                                             Manage
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <Button class="dropdown-item" class="waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')">
+                                                            <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')">
                                                                 Copy
                                                             </Button>
 

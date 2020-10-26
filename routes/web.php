@@ -98,6 +98,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/rooms', [RoomsController::class, 'show'])->name('admin.rooms');
 
+        Route::get('/meetings', [RoomsController::class, 'meetings'])->name('admin.meetings');
+
         Route::get('/users', [UsersController::class, 'show'])->name('admin.users');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');

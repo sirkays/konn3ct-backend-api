@@ -164,7 +164,7 @@
                                             </div>
                                         </div>
 
-{{--                    <div class="col-12" id="google_translate_element"></div>--}}
+                    <div class="col-12" id="google_translate_element"></div>
 
                     <div class="col-xl-10 col-lg-11">
                         <div class="responsive"><i class="icon dripicons-align-right"></i></div>

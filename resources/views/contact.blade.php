@@ -15,6 +15,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
@@ -25,20 +26,14 @@
                         <p>220B, Eti-Osa Way, Ikoyi <br>
                             Lagos State, Nigeria</p>
                     </div>
-                </div>
-                <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
-                            <i class="far fa-anchor"></i>
+                            <i class="far fa-mobile"></i>
                         </div>
-                        <h5>Support</h5>
-                        <p>Let's Serve You Better
-                            <br />
-                            Hi,<br/>
-                            Drop your questions <a href="https://newwaves.drift.me/">here</a></p>
+                        <h5>Support Phone number</h5>
+                        <p>+234 803 304 6408 <br>
+                            +234 807 335 1737</p>
                     </div>
-                </div>
-                <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
                             <i class="far fa-envelope-open"></i>
@@ -49,7 +44,34 @@
                     </div>
 
                 </div>
+                <div class="col-lg-8">
+                    <form action="#" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="contact-field p-relative c-name mb-40">
+                                    <input type="text" placeholder="Write your name here">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="contact-field p-relative c-email mb-40">
+                                    <input type="text" placeholder="Write your email here">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="contact-field p-relative c-subject mb-40">
+                                    <input type="text" placeholder="I would like to discuss on ...">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="contact-field p-relative c-message mb-45">
+                                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Type here"></textarea>
+                                </div>
+                                <button class="btn">Send Message</button>
+                            </div>
+                        </div>
 
+                    </form>
+                </div>
             </div>
 
         </div>

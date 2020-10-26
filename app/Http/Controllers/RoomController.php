@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MeetingsModel;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,22 +27,12 @@ class RoomController extends Controller
                 ->withInput();
         }
 
-        if(Auth::user()->plan==1){
-            $r=1;
-            $duration=60;
-            $max_user=100;
-        }elseif(Auth::user()->plan==2){
-            $r=5;
-            $duration=600;
-            $max_user=100;
-        }else{
-            $r=10000;
-            $duration=1440;
-            $max_user=250;
-        }
+        $plan=PlanModel::where("id", Auth::user()->plan)->first();
+        $r=$plan->rooms;
+        $duration=$plan->duration;
+        $max_user=$plan->participant;
 
         $rc=RoomModel::where("user_id",Auth::id())->count();
-
 
         if($rc >= $r){
             return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
@@ -90,8 +81,12 @@ class RoomController extends Controller
 
         $createMeeting->setDuration($duration); //overwrite default configuration
         $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
-        $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
-        $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        if($plan->dialin){
+            $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
+        }
+        if($plan->recording){
+            $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
         $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
@@ -110,10 +105,6 @@ class RoomController extends Controller
         if(isset($input['ewma'])){
             $createMeeting->setWebcamsOnlyForModerator(true); //overwrite default configuration
         }
-
-
-
-
 
 
 //        $meeting->setWelcome('Welecome message for all')
@@ -164,9 +155,9 @@ class RoomController extends Controller
     }
 
     public function show(){
-
         $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
+        $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
         return view('user.dashboard', $datas);
     }
 

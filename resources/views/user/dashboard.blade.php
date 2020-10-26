@@ -299,7 +299,7 @@
                                                 <input type="text" name="name" class="form-control" placeholder="e.g My Room" required>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group @if(!$plan->customize_link) hidden @endif">
                                                 <label>Room URL:</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
@@ -310,7 +310,7 @@
                                             </div>
 
                                             <!-- select -->
-                                            <div class="form-group">
+                                            <div class="form-group @if(!$plan->dialin) hidden @endif">
                                                 <label>Dial Number:</label>
                                                 <select class="form-control" name="dial_number">
                                                     <option>+1 970-519-2253</option>
@@ -318,7 +318,8 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-group">
+
+                                            <div class="form-group @if(!$plan->access_code) hidden @endif">
                                                 <label>Access Code:</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="access_code" class="form-control" value="" placeholder="Currently Open (optional)">

@@ -28,6 +28,17 @@
     <link rel="stylesheet" href="/assets/css/default.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+
+
+    <!-- Fonts -->
+{{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">--}}
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+
     <style>
         .more {display: none;}
         /* COMPACT CAPTCHA */
@@ -176,13 +187,13 @@
                                     <li><a href="/contact">Contact Us</a></li>
                                     <li>&nbsp;&nbsp;</li>
 
-                                    <li><a href="/register" class="su"><strong>Sign Up (It's free - No card is required)</strong></a></li>
+                                    <li><a href="/register" class="su"><strong>Register (It's free - No card is required)</strong></a></li>
                                     <li>&nbsp;&nbsp;</li>
 
-                                    <li><a href="/joinsession">Join Session</a></li>
+                                    <li><a href="/joinsession">Join a Meeting Room</a></li>
 
                                     @auth
-                                        <li><a href="/room">Host a Session</a></li>
+{{--                                        <li><a href="/room">Host a Meeting Room</a></li>--}}
                                     @else
                                         <li><a href="{{ route('login') }}">Sign In</a></li>
                                     @endif
@@ -194,7 +205,7 @@
                         <div class="header-btn second-header-btn">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn">Rooms</a>
+                                    <a href="{{ url('/dashboard') }}" class="btn">Meeting Room</a>
                                 @else
 {{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
                                     @if (Route::has('register'))

@@ -2,12 +2,11 @@
 
 @section('content')
 
-    <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="mb-1" />
 
         <form method="POST" action="{{ route('register') }}" onsubmit="return checkform(this);">
             @csrf
@@ -69,7 +68,6 @@
 
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
 
     <script type="text/javascript">
 

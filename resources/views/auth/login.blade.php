@@ -2,15 +2,14 @@
 
 @section('content')
 
-<x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="mb-1" />
 
         @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
+            <div class="mb-1 font-medium text-sm text-green-600">
                 {{ session('status') }}
             </div>
         @endif
@@ -23,19 +22,19 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="mt-4">
+            <div class="mt-2">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block mt-2">
                 <label for="remember_me" class="flex items-center">
                     <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
-            <div class="block mt-4 text-center">
+            <div class="block mt-1 text-center">
                 <!-- START CAPTCHA -->
                 <div class="capbox">
                     <div id="CaptchaDiv"></div>
@@ -69,7 +68,6 @@
 
         </form>
     </x-jet-authentication-card>
-</x-guest-layout>
 
 <script type="text/javascript">
 

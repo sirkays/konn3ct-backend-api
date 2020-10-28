@@ -80,7 +80,7 @@ class RoomController extends Controller
         ]);
 
         $createMeeting->setDuration($duration); //overwrite default configuration
-        $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
+        $createMeeting->setLogoutUrl(url('/leftsession')); //overwrite default configuration
         if($plan->dialin){
             $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         }

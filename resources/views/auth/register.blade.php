@@ -11,29 +11,40 @@
         <form method="POST" action="{{ route('register') }}" onsubmit="return checkform(this);">
             @csrf
 
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <div class="row mb-2">
+                <div class="col-lg-6">
+                    <x-jet-label for="firstname" value="{{ __('First Name') }}" />
+                    <x-jet-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('name')" required autofocus autocomplete="name" />
+                </div>
+
+                <div class="col-lg-6">
+                    <x-jet-label for="lastname" value="{{ __('Last Name') }}" />
+                    <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('name')" required autofocus autocomplete="name" />
+                </div>
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email Address') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <div class="row mb-2">
+                <div class="col-lg-6">
+                    <x-jet-label for="email" value="{{ __('Email Address') }}" />
+                    <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                </div>
+
+                <div class="col-lg-6">
+                    <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
+                    <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
+                </div>
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
-                <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
-            </div>
+            <div class="row mb-2">
+                <div class="col-lg-6">
+                    <x-jet-label for="password" value="{{ __('Password') }}" />
+                    <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                </div>
 
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <div class="col-lg-6">
+                    <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                    <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                </div>
             </div>
 
             <div class="block mt-4 text-center">

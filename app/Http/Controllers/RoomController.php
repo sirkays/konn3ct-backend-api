@@ -177,7 +177,7 @@ class RoomController extends Controller
             return redirect()->to(
                 \Bigbluebutton::join([
                     'meetingID' => $i->id,
-                    'userName' => Auth::user()->name,
+                    'userName' => Auth::user()->lastname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
@@ -186,7 +186,7 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $i->password_attendee, //attendee password here
-                'userName' => Auth::user()->name,//for join meeting
+                'userName' => Auth::user()->lastname,//for join meeting
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

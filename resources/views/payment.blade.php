@@ -247,7 +247,7 @@
                     // window.location.href = "/payment/1/transid/876212";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -274,7 +274,7 @@
                     // window.location.href = "/payment/2/transid/4447895";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan" ,
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -303,7 +303,7 @@
                     @endif
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -330,7 +330,7 @@
                     // window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -359,7 +359,7 @@
                     // window.location.href = "/payment/1/transid/876212";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -386,7 +386,7 @@
                     // window.location.href = "/payment/2/transid/4447895";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -415,7 +415,7 @@
                     @endif
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -442,7 +442,7 @@
                     // window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },

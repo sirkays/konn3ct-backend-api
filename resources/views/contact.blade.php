@@ -59,7 +59,7 @@
                                     <input type="file" name="attachment" placeholder="Attach file">
                                 </div>
                             </div>
-                            <div class="col-lg-12" style="margin-bottom: 30px">
+                            <div class="col-lg-12" style="margin-bottom: 50px">
                                 <div class="contact-field p-relative c-message mb-45">
                                     <textarea name="message" id="message" cols="30" rows="10" placeholder="I would like to discuss on"></textarea>
                                 </div>

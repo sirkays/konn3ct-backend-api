@@ -87,8 +87,10 @@ class RoomController extends Controller
             $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         }
         if($plan->recording){
+            $createMeeting->setRecord(true); //overwrite default configuration
             $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
         }else{
+            $createMeeting->setRecord(false); //overwrite default configuration
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
@@ -202,6 +204,7 @@ class RoomController extends Controller
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
+                'record'=>$record
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

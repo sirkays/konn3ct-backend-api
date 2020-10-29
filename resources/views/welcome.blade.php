@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider3.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider4.jpg)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">

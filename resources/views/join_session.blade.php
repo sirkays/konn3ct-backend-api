@@ -4,7 +4,7 @@
     <!-- main-area -->
     <main>
         <!-- pricing-area -->
-        <section id="pricing" class="pricing-area pt-113 pb-90">
+        <section id="pricing" class="pricing-area pt-20 pb-20">
             <div class="container">
 
                 @if (session('success'))

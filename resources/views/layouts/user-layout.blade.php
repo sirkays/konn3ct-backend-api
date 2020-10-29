@@ -125,11 +125,11 @@
                             </a>
                         </li>
 
-                        <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-link"></i>
-                            </a>
-                        </li>
+{{--                        <li style="margin-left: 2px">--}}
+{{--                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">--}}
+{{--                                <i class="fa fa-link"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
                         <li style="margin-left: 2px">
                             <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">

@@ -14,12 +14,12 @@
             <div class="row mb-2">
                 <div class="col-lg-6">
                     <x-jet-label for="firstname" value="{{ __('First Name') }}" />
-                    <x-jet-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('name')" required autofocus autocomplete="name" />
+                    <x-jet-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
                 </div>
 
                 <div class="col-lg-6">
                     <x-jet-label for="lastname" value="{{ __('Last Name') }}" />
-                    <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('name')" required autofocus autocomplete="name" />
+                    <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus autocomplete="lastname" />
                 </div>
             </div>
 

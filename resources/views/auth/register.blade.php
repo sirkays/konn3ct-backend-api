@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-
+    <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
         </x-slot>
@@ -60,7 +60,7 @@
                 </div>
                 <!-- END CAPTCHA -->
                 <br/>
-                <span class="ml-2 text-sm">Konn3ct is protected by reCAPTCHA​</span>
+                <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> is protected by reCAPTCHA​</span>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -69,16 +69,17 @@
 {{--                </a>--}}
 
                 <x-jet-button class="ml-4">
-                    {{ __('Sign Up') }}
+                    {{ __('Register') }}
                 </x-jet-button>
             </div>
 
             <div class="block mt-4 text-center">
-                <span class="ml-2 text-sm">Already have a Konn3ct account? <a href="{{ route('login') }}">Sign In</a>​</span>
+                <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>
             </div>
 
         </form>
     </x-jet-authentication-card>
+    </x-guest-layout>
 
     <script type="text/javascript">
 

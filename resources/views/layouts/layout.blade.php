@@ -31,13 +31,13 @@
 
 
     <!-- Fonts -->
-{{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">--}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{{--    <!-- Styles -->--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/app.css') }}">--}}
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+{{--    <!-- Scripts -->--}}
+{{--    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>--}}
 
     <style>
         .more {display: none;}
@@ -123,6 +123,17 @@
             color: green;
         }
 
+        /*body > .skiptranslate {*/
+        /*    display: none;*/
+        /*}*/
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+
     </style>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
@@ -170,12 +181,10 @@
                 <div class="row align-items-center">
                                         <div class="col-xl-12 col-lg-12 text-center">
                                             <div class="logo">
-                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px" style="align-items: center"></a>
+                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
 {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
                                             </div>
                                         </div>
-
-                    <div class="col-12" id="google_translate_element"></div>
 
                     <div class="col-xl-10 col-lg-11">
                         <div class="responsive"><i class="icon dripicons-align-right"></i></div>
@@ -215,6 +224,7 @@
                             @endif
 
                             {{--                            <a href="#" class="btn">Get a Quote</a>--}}
+                                <div class="col-12 text-right" id="google_translate_element"></div>
                         </div>
                     </div>
                 </div>
@@ -269,7 +279,7 @@
 
 <script type="text/javascript">
     function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
     }
 </script>
 
@@ -290,7 +300,8 @@
         "theme": "edgeless",
         "content": {
             "message": "Cookies help us deliver our services. By using our services, you agree to our use of cookies.",
-            "dismiss": "I Agree!"
+            "dismiss": "I Agree!",
+            "href": "{{url('/docs/COOKIESPOLICY.pdf')}}"
         }
     });
 </script>

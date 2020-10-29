@@ -124,7 +124,7 @@
     <section id="home" class="slider-area fix p-relative">
 
         <div class="slider-active">
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider_img01.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider1.jpg)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -143,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider2.jpg)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/header-img02.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider3.jpg)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -285,7 +285,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
-                        <p>Dial In & Out​​​</p>
+                        <p>Dial In</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
@@ -318,7 +318,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
-                        <p>Data Region for Business Continuity​</p>
+                        <p>Data Region for <br/> Business Continuity​</p>
                     </div>
                 </div>
 

@@ -2,6 +2,7 @@
 
 @section('content')
 
+<x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
         </x-slot>
@@ -47,7 +48,7 @@
                 </div>
                 <!-- END CAPTCHA -->
                 <br/>
-                    <span class="ml-2 text-sm">Konn3ct is protected by reCAPTCHA​</span>
+                    <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> is protected by reCAPTCHA​</span>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -63,11 +64,12 @@
             </div>
 
             <div class="block mt-4 text-center">
-                <span>New to Konn3ct? <a href="{{ route('register') }}">Sign Up for Free</a></span>
+                <span>New to <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup>? <a href="{{ route('register') }}"  style="font-weight: bolder">Sign Up for Free</a></span>
             </div>
 
         </form>
     </x-jet-authentication-card>
+</x-guest-layout>
 
 <script type="text/javascript">
 

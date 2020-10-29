@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
-                    <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <div class="section-title text-center mb-30 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <span>Contact</span>
                         <h2>Get In Touch</h2>
                     </div>
@@ -18,14 +18,6 @@
 
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="f-cta-icon">
-                            <i class="far fa-map"></i>
-                        </div>
-                        <h5>Office Address</h5>
-                        <p>220B, Eti-Osa Way, Ikoyi <br>
-                            Lagos State, Nigeria</p>
-                    </div>
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
                             <i class="far fa-mobile"></i>
@@ -40,7 +32,7 @@
                         </div>
                         <h5>Message Us</h5>
                         <p>We are always with you to solve your problem
-                            mail us : <a href="mailto:info@newwavesecosystem.com">info@newwavesecosystem.com</a></p>
+                            mail us : <a href="mailto:support@konn3ct.com">support@konn3ct.com</a></p>
                     </div>
 
                 </div>
@@ -59,12 +51,17 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="contact-field p-relative c-subject mb-40">
-                                    <input type="text" placeholder="I would like to discuss on ...">
+                                    <input type="text" placeholder="">
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="contact-field p-relative c-subject mb-40">
+                                    <input type="file" name="attachment" placeholder="Attach file">
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin-bottom: 30px">
                                 <div class="contact-field p-relative c-message mb-45">
-                                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Type here"></textarea>
+                                    <textarea name="message" id="message" cols="30" rows="10" placeholder="I would like to discuss on"></textarea>
                                 </div>
                                 <button class="btn">Send Message</button>
                             </div>

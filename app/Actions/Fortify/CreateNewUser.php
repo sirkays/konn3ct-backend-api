@@ -50,7 +50,14 @@ class CreateNewUser implements CreatesNewUsers
             $num = trim(date('siyh'));
             $shuffled = str_shuffle($num);
             $sfinal = substr($shuffled, 0, 4);
+            $input['name'] = $input['firstname'] ." Room";
+            $input['password_attendee'] = "attendee";
+            $input['password_moderator'] = "moderator";
             $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            $input['welcome_message']="";
+            $input['logout_url']=url('/leftsession');
+            $input['max_participants']=$max_user;
+            $input['duration']=$duration;
 
             $r = RoomModel::create($input);
 

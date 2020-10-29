@@ -125,17 +125,17 @@
                             </a>
                         </li>
 
-{{--                        <li style="margin-left: 2px">--}}
-{{--                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">--}}
-{{--                                <i class="fa fa-link"></i>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-plus-circle"></i>
+                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                                <i class="fa fa-link"></i>
                             </a>
                         </li>
+
+{{--                        <li style="margin-left: 2px">--}}
+{{--                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">--}}
+{{--                                <i class="fa fa-plus-circle"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
 {{--                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
 {{--                        <li style="margin-left: 5px">--}}

@@ -102,7 +102,7 @@
                                             <td class="pl-0 py-8">
                                                 <div class="d-flex align-items-center">
                                                     <div>
-                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$room->name}}</a>
+                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$room->firstname}} {{$room->lastname}}</a>
                                                     </div>
                                                 </div>
                                             </td>

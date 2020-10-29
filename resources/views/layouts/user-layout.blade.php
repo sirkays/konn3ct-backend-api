@@ -92,7 +92,7 @@
                 <a href="#" class="logo">
                     <!-- logo-->
                     <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}}</span>
+                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
 {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
 {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                     </div>

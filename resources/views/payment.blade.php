@@ -46,7 +46,7 @@
                 <a href="index.html" class="logo">
                     <!-- logo-->
                     <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
                         {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                         {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                     </div>
@@ -136,8 +136,8 @@
                                                 <h3>Pay Now Monthly</h3>
                                                 @if($plan ?? false)
 
-                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 11
-                                                @elseif($plan==3) 16 @endif</button>
+                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 10.99
+                                                @elseif($plan==3) 15.99 @endif</button>
                                             <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
                                                 @elseif($plan==3)6000 @endif</button>
 
@@ -229,7 +229,7 @@
             FlutterwaveCheckout({
                 public_key: "{{env('RAVE_PUB_KEY')}}",
                 tx_ref: "konn3ct_{{rand().time()}}",
-                amount: @if($plan==2) 11 @elseif($plan==3) 16 @endif,
+                amount: @if($plan==2) 10.99 @elseif($plan==3) 15.99 @endif,
                 currency: "USD",
                 country: "NG",
                 payment_options: "card, mobilemoneyghana, ussd",

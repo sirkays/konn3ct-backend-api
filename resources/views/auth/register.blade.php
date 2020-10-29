@@ -68,14 +68,18 @@
 {{--                    {{ __('Already registered?') }}--}}
 {{--                </a>--}}
 
+                <div class="text-left">
+                    <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>
+                </div>
+
                 <x-jet-button class="ml-4">
                     {{ __('Register') }}
                 </x-jet-button>
             </div>
 
-            <div class="block mt-4 text-center">
-                <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>
-            </div>
+{{--            <div class="block mt-4 text-center">--}}
+{{--                <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>--}}
+{{--            </div>--}}
 
         </form>
     </x-jet-authentication-card>

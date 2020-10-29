@@ -44,11 +44,11 @@ class RoomController extends Controller
             $shuffled = str_shuffle($num);
             $sfinal=substr($shuffled, 0, 4);
 
-            $input['url']=trim(substr(Auth::user()->name,0, 3).$sfinal);
+            $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
         }
 
         $input['welcome_message']="";
-        $input['logout_url']=url('/');
+        $input['logout_url']=url('/leftsession');
         $input['max_participants']=$max_user;
         $input['duration']=$duration;
 

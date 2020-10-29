@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="contact-field p-relative c-subject mb-40">
-                                    <input type="text" placeholder="">
+                                    <input type="text" placeholder="Subject">
                                 </div>
                             </div>
                             <div class="col-lg-6">

@@ -77,15 +77,19 @@ class RoomController extends Controller
             'meetingName' => $input['name'],
             'attendeePW' => 'attendee',
             'moderatorPW' => 'moderator',
+            'endCallbackUrl'  => url('/leftsession'),
+            'logoutUrl' => url('/leftsession'),
         ]);
 
         $createMeeting->setDuration($duration); //overwrite default configuration
-        $createMeeting->setLogoutUrl(url('/leftsession')); //overwrite default configuration
+//        $createMeeting->setLogoutUrl(url('/leftsession')); //overwrite default configuration
         if($plan->dialin){
             $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
         }
         if($plan->recording){
             $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        }else{
+            $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
         $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
@@ -177,7 +181,7 @@ class RoomController extends Controller
             return redirect()->to(
                 \Bigbluebutton::join([
                     'meetingID' => $i->id,
-                    'userName' => Auth::user()->lastname,
+                    'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
@@ -186,7 +190,10 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $i->password_attendee, //attendee password here
-                'userName' => Auth::user()->lastname,//for join meeting
+                'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
+                'endCallbackUrl'  => url('/leftsession'),
+                'logoutUrl' => url('/leftsession'),
+                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>"
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

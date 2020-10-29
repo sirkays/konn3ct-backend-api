@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MeetingsModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,5 +18,15 @@ class RoomsController extends Controller
             ->get();
         $datas['roomstc']=RoomModel::count();
         return view('admin.rooms', $datas);
+    }
+
+    public function meetings(){
+        $datas['meetings']=MeetingsModel::orderBy('id', 'desc')
+            ->join('room','room.id','=','meetings.id')
+            ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
+            ->get();
+        $datas['meetingstc']=MeetingsModel::count();
+        $datas['meetingsdc']=MeetingsModel::distinct('email')->count();
+        return view('admin.meetings', $datas);
     }
 }

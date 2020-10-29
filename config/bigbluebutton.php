@@ -71,7 +71,7 @@ return [
          * See also the autoStartRecording and allowStartStopRecording parameters
          * var @bool
          */
-        'record'                             => true,
+        'record'                             => false,
 
         /**
          * The maximum length (in minutes) for the meeting.
@@ -118,7 +118,7 @@ return [
          *
          * var @bool
          */
-        'allowStartStopRecording'            => true,
+        'allowStartStopRecording'            => false,
 
         /**
          * Setting webcamsOnlyForModerator=true will cause all webcams

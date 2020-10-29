@@ -37,6 +37,10 @@ Route::get('/joinsession', function () {
     return view('join_session');
 });
 
+Route::get('/leftsession', function () {
+    return view('left_session');
+});
+
 Route::get('/join/{url}', function ($url) {
     return view('join_session', ['url'=>$url]);
 });
@@ -97,6 +101,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
         Route::get('/rooms', [RoomsController::class, 'show'])->name('admin.rooms');
+
+        Route::get('/meetings', [RoomsController::class, 'meetings'])->name('admin.meetings');
 
         Route::get('/users', [UsersController::class, 'show'])->name('admin.users');
 

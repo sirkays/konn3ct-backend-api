@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MeetingsModel;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,22 +27,12 @@ class RoomController extends Controller
                 ->withInput();
         }
 
-        if(Auth::user()->plan==1){
-            $r=1;
-            $duration=60;
-            $max_user=100;
-        }elseif(Auth::user()->plan==2){
-            $r=5;
-            $duration=600;
-            $max_user=100;
-        }else{
-            $r=10000;
-            $duration=1440;
-            $max_user=250;
-        }
+        $plan=PlanModel::where("id", Auth::user()->plan)->first();
+        $r=$plan->rooms;
+        $duration=$plan->duration;
+        $max_user=$plan->participant;
 
         $rc=RoomModel::where("user_id",Auth::id())->count();
-
 
         if($rc >= $r){
             return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
@@ -53,11 +44,11 @@ class RoomController extends Controller
             $shuffled = str_shuffle($num);
             $sfinal=substr($shuffled, 0, 4);
 
-            $input['url']=trim(substr(Auth::user()->name,0, 3).$sfinal);
+            $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
         }
 
         $input['welcome_message']="";
-        $input['logout_url']=url('/');
+        $input['logout_url']=url('/leftsession');
         $input['max_participants']=$max_user;
         $input['duration']=$duration;
 
@@ -86,12 +77,22 @@ class RoomController extends Controller
             'meetingName' => $input['name'],
             'attendeePW' => 'attendee',
             'moderatorPW' => 'moderator',
+            'endCallbackUrl'  => url('/leftsession'),
+            'logoutUrl' => url('/leftsession'),
         ]);
 
         $createMeeting->setDuration($duration); //overwrite default configuration
-        $createMeeting->setLogoutUrl(url('/')); //overwrite default configuration
-        $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
-        $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+//        $createMeeting->setLogoutUrl(url('/leftsession')); //overwrite default configuration
+        if($plan->dialin){
+            $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
+        }
+        if($plan->recording){
+            $createMeeting->setRecord(true); //overwrite default configuration
+            $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
+        }else{
+            $createMeeting->setRecord(false); //overwrite default configuration
+            $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
+        }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
         $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
@@ -110,10 +111,6 @@ class RoomController extends Controller
         if(isset($input['ewma'])){
             $createMeeting->setWebcamsOnlyForModerator(true); //overwrite default configuration
         }
-
-
-
-
 
 
 //        $meeting->setWelcome('Welecome message for all')
@@ -164,9 +161,9 @@ class RoomController extends Controller
     }
 
     public function show(){
-
         $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
+        $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
         return view('user.dashboard', $datas);
     }
 
@@ -186,16 +183,28 @@ class RoomController extends Controller
             return redirect()->to(
                 \Bigbluebutton::join([
                     'meetingID' => $i->id,
-                    'userName' => Auth::user()->name,
+                    'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
         }else{
+            $plan=PlanModel::where("id", Auth::user()->plan)->first();
+            if($plan->recording){
+                $record=true; //overwrite default configuration
+            }else{
+                $record=false; //overwrite default configuration
+            }
+
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $i->password_attendee, //attendee password here
-                'userName' => Auth::user()->name,//for join meeting
+                'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
+                'endCallbackUrl'  => url('/leftsession'),
+                'logoutUrl' => url('/leftsession'),
+                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
+                'allowStartStopRecording'=> $record,
+                'record'=>$record
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

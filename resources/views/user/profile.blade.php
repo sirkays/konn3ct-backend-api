@@ -28,17 +28,17 @@
 
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
-                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>
-                                <li><a href="#up" data-toggle="tab">Update Password</a></li>
+{{--                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>--}}
+                                <li><a class="active" href="#up" data-toggle="tab">Update Password</a></li>
                                 <li><a href="#fa2" data-toggle="tab">Two Factor Authentication</a></li>
                                 <li><a href="#bs" data-toggle="tab">Browser Sessions</a></li>
                             </ul>
 
                             <div class="tab-content">
 
-                                <div class="active tab-pane" id="usertimeline">
-                                    @livewire('profile.update-profile-information-form')
-                                </div>
+{{--                                <div class="active tab-pane" id="usertimeline">--}}
+{{--                                    @livewire('profile.update-profile-information-form')--}}
+{{--                                </div>--}}
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="fa2">
@@ -61,7 +61,7 @@
                                 </div>
                                 <!-- /.tab-pane -->
 
-                                <div class="tab-pane" id="up">
+                                <div class="tab-pane active" id="up">
 
                                     @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                                         <div class="mt-10 sm:mt-0">
@@ -136,7 +136,7 @@
                                         <div>
                                             <p>Email :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->email}}</span> </p>
                                             <p>Phone :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->phone}}</span></p>
-                                            <p>Name :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->name}}</span></p>
+                                            <p>Name :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span></p>
                                         </div>
                                     </div>
                                 </div>

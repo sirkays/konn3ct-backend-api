@@ -51,8 +51,8 @@
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
-                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Active Rooms</h6>
+                                        <span class="font-size-30 countnm">0</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Room in Session</h6>
                                     </div>
                                     <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
                                         <span class="font-size-30 countnm">0</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Room not in Session</h6>
                                     </div>
                                     <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>
                                 </div>
@@ -93,13 +93,13 @@
                                 <div class="col">
                                     <div class="box box-body pull-up">
                                     <span class="font-size-30 countnm">{{$roomstc}}</span>
-                                    <h6 class="text-uppercase text-dark-50 mb-0">Active Rooms</h6>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Room in Session</h6>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="box box-body pull-up">
                                     <span class="font-size-30 countnm">0</span>
-                                    <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Room not in Session</h6>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
-                                    Rooms
+                                    Meeting Room Manager
 {{--                                    <small class="subtitle">More than 400+ new members</small>--}}
                                 </h4>
 
@@ -196,7 +196,7 @@
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
-                                    Rooms
+                                    Meeting Room Manager
 {{--                                    <small class="subtitle">More than 400+ new members</small>--}}
                                 </h4>
 
@@ -299,7 +299,7 @@
                                                 <input type="text" name="name" class="form-control" placeholder="e.g My Room" required>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group @if(!$plan->customize_link) hidden @endif">
                                                 <label>Room URL:</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
@@ -310,7 +310,7 @@
                                             </div>
 
                                             <!-- select -->
-                                            <div class="form-group">
+                                            <div class="form-group @if(!$plan->dialin) hidden @endif">
                                                 <label>Dial Number:</label>
                                                 <select class="form-control" name="dial_number">
                                                     <option>+1 970-519-2253</option>
@@ -318,7 +318,8 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-group">
+
+                                            <div class="form-group @if(!$plan->access_code) hidden @endif">
                                                 <label>Access Code:</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="access_code" class="form-control" value="" placeholder="Currently Open (optional)">

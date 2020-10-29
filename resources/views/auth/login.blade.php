@@ -7,10 +7,10 @@
         <x-slot name="logo">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="mb-1" />
 
         @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
+            <div class="mb-1 font-medium text-sm text-green-600">
                 {{ session('status') }}
             </div>
         @endif
@@ -23,19 +23,19 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="mt-4">
+            <div class="mt-2">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block mt-2">
                 <label for="remember_me" class="flex items-center">
                     <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
-            <div class="block mt-4 text-center">
+            <div class="block mt-1 text-center">
                 <!-- START CAPTCHA -->
                 <div class="capbox">
                     <div id="CaptchaDiv"></div>
@@ -48,14 +48,14 @@
                 </div>
                 <!-- END CAPTCHA -->
                 <br/>
-                    <span class="ml-2 text-sm">Konn3ct is protected by reCAPTCHA​</span>
+                    <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> is protected by reCAPTCHA​</span>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+{{--                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">--}}
+{{--                        {{ __('Forgot your password?') }}--}}
+{{--                    </a>--}}
                 @endif
 
                 <x-jet-button class="ml-4">
@@ -64,7 +64,7 @@
             </div>
 
             <div class="block mt-4 text-center">
-                <span>New to Konn3ct? <a href="{{ route('register') }}">Sign Up for Free</a></span>
+                <span>New to <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup>? <a href="{{ route('register') }}"  style="font-weight: bolder">Sign Up for Free</a></span>
             </div>
 
         </form>

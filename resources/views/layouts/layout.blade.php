@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/assets/css/default.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+
     <style>
         .more {display: none;}
         /* COMPACT CAPTCHA */
@@ -112,6 +113,22 @@
             color: green;
         }
 
+        /*body > .skiptranslate {*/
+        /*    display: none;*/
+        /*}*/
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+
+        .lih{
+            font-weight: bolder;
+            font-size: 14px
+        }
+
     </style>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
@@ -157,34 +174,32 @@
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
-                                        <div class="col-xl-12 col-lg-12 text-center">
+                                        <div class="col-lg-11 text-center">
                                             <div class="logo">
-                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px" style="align-items: center"></a>
+                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
 {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
                                             </div>
                                         </div>
-
-{{--                    <div class="col-12" id="google_translate_element"></div>--}}
 
                     <div class="col-xl-10 col-lg-11">
                         <div class="responsive"><i class="icon dripicons-align-right"></i></div>
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li><a href="/features">Features</a></li>
-                                    <li><a href="/pricing">Plans & Pricing</a></li>
-                                    <li><a href="/contact">Contact Us</a></li>
-                                    <li>&nbsp;&nbsp;</li>
+                                    <li><a href="/features"><span class="lih">Features</span></a></li>
+                                    <li><a href="/pricing"><span class="lih">Plans & Pricing</span></a></li>
+                                    <li><a href="/contact"><span class="lih">Contact Us</span></a></li>
+                                    <li>&nbsp;</li>
 
-                                    <li><a href="/register" class="su"><strong>Sign Up (It's free - No card is required)</strong></a></li>
-                                    <li>&nbsp;&nbsp;</li>
+                                    <li><a href="/register" class="su"><strong>Register (It's free - No card is required)</strong></a></li>
+                                    <li>&nbsp;</li>
 
-                                    <li><a href="/joinsession">Join Session</a></li>
+                                    <li><a href="/joinsession"><span class="lih">Join a Meeting Room</span></a></li>
 
                                     @auth
-                                        <li><a href="/room">Host a Session</a></li>
+{{--                                        <li><a href="/room">Host a Meeting Room</a></li>--}}
                                     @else
-                                        <li><a href="{{ route('login') }}">Sign In</a></li>
+                                        <li><a href="{{ route('login') }}"><span class="lih">Sign In</span></a></li>
                                     @endif
                                 </ul>
                             </nav>
@@ -194,7 +209,7 @@
                         <div class="header-btn second-header-btn">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn">Rooms</a>
+                                    <a href="{{ url('/dashboard') }}" class="btn">Meeting Room</a>
                                 @else
 {{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
                                     @if (Route::has('register'))
@@ -204,6 +219,7 @@
                             @endif
 
                             {{--                            <a href="#" class="btn">Get a Quote</a>--}}
+                                <div class="col-12 text-right" id="google_translate_element"></div>
                         </div>
                     </div>
                 </div>
@@ -258,7 +274,7 @@
 
 <script type="text/javascript">
     function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
     }
 </script>
 
@@ -279,7 +295,8 @@
         "theme": "edgeless",
         "content": {
             "message": "Cookies help us deliver our services. By using our services, you agree to our use of cookies.",
-            "dismiss": "I Agree!"
+            "dismiss": "I Agree!",
+            "href": "{{url('/docs/COOKIESPOLICY.pdf')}}"
         }
     });
 </script>

@@ -138,7 +138,8 @@
 {{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
 {{--            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>--}}
             <li><a href="{{route('admin.users')}}"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Users</a></li>
-            <li><a href="{{route('admin.recordings')}}"><i class="icon-arrows-clockwise"><span class="path1"></span><span class="path2"></span></i>Recordings</a></li>
+            <li><a href="{{route('admin.recordings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recordings</a></li>
+            <li><a href="{{route('admin.meetings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Meetings</a></li>
         </ul>
     </nav>
 
@@ -322,6 +323,9 @@
 <script src="/user_assets/js/menus.min.js"></script>
 <script src="/user_assets/js/template.min.js"></script>
 <script src="/user_assets/js/pages/dashboard4.js"></script>
+
+<script src="/user_assets/js/pages/data-table.js"></script>
+<script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 
 
 @stack('modals')

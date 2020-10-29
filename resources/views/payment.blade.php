@@ -46,7 +46,7 @@
                 <a href="index.html" class="logo">
                     <!-- logo-->
                     <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
                         {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                         {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                     </div>
@@ -136,8 +136,8 @@
                                                 <h3>Pay Now Monthly</h3>
                                                 @if($plan ?? false)
 
-                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 11
-                                                @elseif($plan==3) 16 @endif</button>
+                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 10.99
+                                                @elseif($plan==3) 15.99 @endif</button>
                                             <button type="button" onClick='makePayment("NGN")' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
                                                 @elseif($plan==3)6000 @endif</button>
 
@@ -229,7 +229,7 @@
             FlutterwaveCheckout({
                 public_key: "{{env('RAVE_PUB_KEY')}}",
                 tx_ref: "konn3ct_{{rand().time()}}",
-                amount: @if($plan==2) 11 @elseif($plan==3) 16 @endif,
+                amount: @if($plan==2) 10.99 @elseif($plan==3) 15.99 @endif,
                 currency: "USD",
                 country: "NG",
                 payment_options: "card, mobilemoneyghana, ussd",
@@ -247,7 +247,7 @@
                     // window.location.href = "/payment/1/transid/876212";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -274,7 +274,7 @@
                     // window.location.href = "/payment/2/transid/4447895";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan" ,
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -303,7 +303,7 @@
                     @endif
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -330,7 +330,7 @@
                     // window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -359,7 +359,7 @@
                     // window.location.href = "/payment/1/transid/876212";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -386,7 +386,7 @@
                     // window.location.href = "/payment/2/transid/4447895";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -415,7 +415,7 @@
                     @endif
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },
@@ -442,7 +442,7 @@
                     // window.location.href = "/payment/2/transid/3456789";
                 },
                 customizations: {
-                    title: "Konn3ct Plan",
+                    title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
                     logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
                 },

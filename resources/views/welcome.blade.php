@@ -315,10 +315,10 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-12 col-sm-12">
                     <div class="single-counter text-center mb-10 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <small>+</small>
-                        <p>Data Region for <br/> Business Continuity​</p>
+                        <p>Data Region for Business Continuity​</p>
                     </div>
                 </div>
 

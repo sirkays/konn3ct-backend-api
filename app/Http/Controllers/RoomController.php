@@ -186,6 +186,13 @@ class RoomController extends Controller
                 ])
             );
         }else{
+            $plan=PlanModel::where("id", Auth::user()->plan)->first();
+            if($plan->recording){
+                $record=true; //overwrite default configuration
+            }else{
+                $record=false; //overwrite default configuration
+            }
+
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
@@ -193,7 +200,8 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>"
+                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
+                'allowStartStopRecording'=> $record,
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

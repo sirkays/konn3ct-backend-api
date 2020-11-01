@@ -228,7 +228,7 @@ return [
          *
          * var @bool
          */
-        'lockSettingsLockOnJoin'             => false,
+        'lockSettingsLockOnJoin'             => true,
 
         /**
          * Default lockSettingsLockOnJoinConfigurable=false.
@@ -236,7 +236,7 @@ return [
          *
          * var @bool
          */
-        'lockSettingsLockOnJoinConfigurable' => false,
+        'lockSettingsLockOnJoinConfigurable' => true,
 
         /**
          * Default guestPolicy=ALWAYS_ACCEPT.

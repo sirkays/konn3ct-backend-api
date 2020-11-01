@@ -346,6 +346,14 @@
                                                 <input type="checkbox" name="ewma" id="checkbox_5">
                                                 <label for="checkbox_5" class="block">Enable Webcam for Moderator alone</label>
                                             </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dum" id="checkbox_31">
+                                                <label for="checkbox_3" class="block">Disable User Microphone</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dsn" id="checkbox_41">
+                                                <label for="checkbox_41" class="block">Disable Shared Note</label>
+                                            </div>
 
                                         </div>
                                         <!-- /.box-body -->

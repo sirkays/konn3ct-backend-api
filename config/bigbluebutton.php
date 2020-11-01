@@ -134,7 +134,7 @@ return [
          *
          * var @string
          */
-        'logo'                               => null,
+        'logo'                               => "https://konn3ct.com/assets/images/konn3ct_logo.png",
 
         /**
          * Will set the banner text in the client. (added 2.0).

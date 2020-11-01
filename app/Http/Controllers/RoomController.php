@@ -252,7 +252,6 @@ class RoomController extends Controller
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
-                'autoStartRecording'=> $record,
                 'record'=>$record,
                 'duration' =>$duration,
                 'maxParticipants' =>$max_user,
@@ -262,7 +261,6 @@ class RoomController extends Controller
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote'=> $dsn
-
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

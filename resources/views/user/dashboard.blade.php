@@ -348,7 +348,7 @@
                                             </div>
                                             <div class="c-inputs-stacked">
                                                 <input type="checkbox" name="dum" id="checkbox_31">
-                                                <label for="checkbox_3" class="block">Disable User Microphone</label>
+                                                <label for="checkbox_31" class="block">Disable User Microphone</label>
                                             </div>
                                             <div class="c-inputs-stacked">
                                                 <input type="checkbox" name="dsn" id="checkbox_41">

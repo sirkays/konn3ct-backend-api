@@ -109,7 +109,7 @@ class RoomController extends Controller
         }
 
         if(isset($input['ewma'])){
-            $createMeeting->setWebcamsOnlyForModerator(true); //overwrite default configuration
+            $createMeeting->setLockSettingsDisableCam(true); //overwrite default configuration
         }
 
         if(isset($input['dum'])){
@@ -252,13 +252,14 @@ class RoomController extends Controller
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
+                'autoStartRecording'=> $record,
                 'record'=>$record,
                 'duration' =>$duration,
                 'maxParticipants' =>$max_user,
                 'muteOnStart' => $muj,
                 'lockSettingsDisablePublicChat' => $dpuc,
                 'lockSettingsDisablePrivateChat' => $dprc,
-                'webcamsOnlyForModerator' => $ewma,
+                'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote'=> $dsn
 

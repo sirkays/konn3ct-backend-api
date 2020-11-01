@@ -141,7 +141,7 @@ return [
          *
          * var @string
          */
-        // 'bannerText'                         => null,
+         'bannerText'                         => "Contact us at support@konn3ct.com for help, in case you experience any issue.",
 
         /**
          * Will set the banner background color in the client.
@@ -149,7 +149,7 @@ return [
          *
          * var @string
          */
-        //'bannerColor'                        => null,
+        'bannerColor'                        => "#28a745",
 
         /**
          * Setting copyright=My custom copyright will replace

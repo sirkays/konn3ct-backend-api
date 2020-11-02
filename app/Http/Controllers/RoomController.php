@@ -109,7 +109,15 @@ class RoomController extends Controller
         }
 
         if(isset($input['ewma'])){
-            $createMeeting->setWebcamsOnlyForModerator(true); //overwrite default configuration
+            $createMeeting->setLockSettingsDisableCam(true); //overwrite default configuration
+        }
+
+        if(isset($input['dum'])){
+            $createMeeting->setLockSettingsDisableMic(true); //overwrite default configuration
+        }
+
+        if(isset($input['dsn'])){
+            $createMeeting->setLockSettingsDisableNote(true); //overwrite default configuration
         }
 
 
@@ -195,16 +203,64 @@ class RoomController extends Controller
                 $record=false; //overwrite default configuration
             }
 
+            $duration=$plan->duration;
+            $max_user=$plan->participant;
+
+            if($i->muj){
+                $muj=true;
+            }else{
+                $muj=false;
+            }
+
+            if($i->dpuc){
+                $dpuc=true;
+            }else{
+                $dpuc=false;
+            }
+
+            if($i->dprc){
+                $dprc=true;
+            }else{
+                $dprc=false;
+            }
+
+            if($i->ewma){
+                $ewma=true;
+            }else{
+                $ewma=false;
+            }
+
+            if($i->dum){
+                $dum=true;
+            }else{
+                $dum=false;
+            }
+
+            if($i->dsn){
+                $dsn=true;
+            }else{
+                $dsn=false;
+            }
+
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $i->password_attendee, //attendee password here
+                'meetingName' => $i->name,
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
-                'record'=>$record
+                'record'=>$record,
+                'duration' =>$duration,
+                'maxParticipants' =>$max_user,
+                'muteOnStart' => $muj,
+                'lockSettingsDisablePublicChat' => $dpuc,
+                'lockSettingsDisablePrivateChat' => $dprc,
+                'lockSettingsDisableCam' => $ewma,
+                'lockSettingsDisableMic' => $dum,
+                'lockSettingsDisableNote'=> $dsn
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);

@@ -338,13 +338,21 @@
                                                 <input type="checkbox" name="dpuc" id="checkbox_34">
                                                 <label for="checkbox_34" class="block">Disable public chat</label>
                                             </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="dprc" id="checkbox_4">
-                                                <label for="checkbox_4" class="block">Disable private chat</label>
-                                            </div>
+{{--                                            <div class="c-inputs-stacked">--}}
+{{--                                                <input type="checkbox" name="dprc" id="checkbox_4">--}}
+{{--                                                <label for="checkbox_4" class="block">Disable private chat</label>--}}
+{{--                                            </div>--}}
                                             <div class="c-inputs-stacked">
                                                 <input type="checkbox" name="ewma" id="checkbox_5">
                                                 <label for="checkbox_5" class="block">Enable Webcam for Moderator alone</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dum" id="checkbox_31">
+                                                <label for="checkbox_31" class="block">Disable User Microphone</label>
+                                            </div>
+                                            <div class="c-inputs-stacked">
+                                                <input type="checkbox" name="dsn" id="checkbox_41">
+                                                <label for="checkbox_41" class="block">Disable Shared Note</label>
                                             </div>
 
                                         </div>

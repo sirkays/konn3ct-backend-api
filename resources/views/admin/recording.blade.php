@@ -18,7 +18,7 @@
                                     <table class="table no-border">
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
-{{--                                            <th style="min-width: 250px"><span class="text-fade">Room Name</span></th>--}}
+                                            <th style="min-width: 250px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 100px"><span class="text-fade">Preview</span></th>
                                             <th style="min-width: 100px"><span class="text-fade">Size</span></th>
                                             <th style="min-width: 100px"><span class="text-fade">Duration</span></th>
@@ -29,19 +29,19 @@
                                         <tbody>
                                         @foreach($recordings as $record)
                                         <tr>
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                <div class="d-flex align-items-center">--}}
-{{--                                                    <div>--}}
-{{--                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </td>--}}
+                                            <td class="pl-0 py-8">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
+                                                    </div>
+                                                </div>
+                                            </td>
 
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
-{{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
-{{--                                                        @endforeach--}}
-{{--                                            </td>--}}
+                                            <td class="pl-0 py-8">
+                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)
+                                                        <img src="{{$im}}" class="img img-thumbnail">
+                                                        @endforeach
+                                            </td>
 
 
                                             <td class="pl-0 py-8">

@@ -32,7 +32,7 @@
                                         <input type="text" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->name ?? ''}}" placeholder="Enter your name e.g Samji Diamond" required>
+                                        <input type="text" name="name" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->firstname ." ". \Illuminate\Support\Facades\Auth::user()->lastname ?? ''}}" placeholder="Enter your name e.g Samji Diamond" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>

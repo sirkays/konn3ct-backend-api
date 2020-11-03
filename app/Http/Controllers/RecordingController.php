@@ -41,7 +41,7 @@ class RecordingController extends Controller
         }else{
             $er="";
             foreach ($r2 as $r){
-                $er=$er."'".$r->id."',";
+                $er=$er.$r->id.",";
             }
             $fer="[".$er."]";
 

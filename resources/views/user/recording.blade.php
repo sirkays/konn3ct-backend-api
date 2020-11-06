@@ -128,7 +128,7 @@
                                             <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
                                             <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
                                             <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
-                                            <th style="min-width: 100px">fff</th>
+                                            <th style="min-width: 100px">Options</th>
                                         </tr>
                                         </thead>
                                         <tbody>

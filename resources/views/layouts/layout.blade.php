@@ -197,7 +197,8 @@
                                     <li><a href="/joinsession"><span class="lih">Join a Meeting Room</span></a></li>
 
                                     @auth
-{{--                                        <li><a href="/room">Host a Meeting Room</a></li>--}}
+                                        <li><a href="/room"><span class="lih">Dashboard</span></a></li>
+                                        <li><a href="/logouts"><span class="lih">Signout</span></a></li>
                                     @else
                                         <li><a href="{{ route('login') }}"><span class="lih">Sign In</span></a></li>
                                     @endif

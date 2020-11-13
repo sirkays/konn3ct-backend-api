@@ -165,7 +165,7 @@
 {{--        drift.SNIPPET_VERSION = '0.3.1';--}}
 {{--        drift.load('9u4f4f3mumcc');--}}
 {{--    </script>--}}
-    <!-- End of Async Drift Code -->
+<!-- End of Async Drift Code -->
 </head>
 <body>
 <!-- header -->
@@ -174,12 +174,12 @@
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
-                                        <div class="col-lg-11 text-center">
-                                            <div class="logo">
-                                                <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
-{{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
-                                            </div>
-                                        </div>
+                    <div class="col-lg-11 text-center">
+                        <div class="logo">
+                            <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+                            {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
+                        </div>
+                    </div>
 
                     <div class="col-xl-10 col-lg-11">
                         <div class="responsive"><i class="icon dripicons-align-right"></i></div>
@@ -191,13 +191,17 @@
                                     <li><a href="/contact"><span class="lih">Contact Us</span></a></li>
                                     <li>&nbsp;</li>
 
-                                    <li><a href="/register" class="su"><strong>Register (It's free - No card is required)</strong></a></li>
+                                    @auth
+                                        <li><a href="/room"><span class="lih">Dashboard</span></a></li>
+                                    @else
+                                        <li><a href="/register" class="su"><strong>Register (It's free - No card is required)</strong></a></li>
+                                    @endif
+
                                     <li>&nbsp;</li>
 
                                     <li><a href="/joinsession"><span class="lih">Join a Meeting Room</span></a></li>
 
                                     @auth
-                                        <li><a href="/room"><span class="lih">Dashboard</span></a></li>
                                         <li><a href="/logouts"><span class="lih">Signout</span></a></li>
                                     @else
                                         <li><a href="{{ route('login') }}"><span class="lih">Sign In</span></a></li>
@@ -212,7 +216,7 @@
                                 @auth
                                     <a href="{{ url('/dashboard') }}" class="btn">Meeting Room</a>
                                 @else
-{{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
+                                    {{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
                                     @if (Route::has('register'))
                                         <a href="{{ route('register') }}" class="btn">Register</a>
                                     @endif
@@ -220,7 +224,7 @@
                             @endif
 
                             {{--                            <a href="#" class="btn">Get a Quote</a>--}}
-                                <div class="col-12 text-right" id="google_translate_element"></div>
+                            <div class="col-12 text-right" id="google_translate_element"></div>
                         </div>
                     </div>
                 </div>

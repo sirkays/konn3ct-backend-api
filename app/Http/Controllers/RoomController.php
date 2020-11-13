@@ -6,6 +6,7 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use JoisarJignesh\Bigbluebutton\Bigbluebutton;
@@ -172,6 +173,17 @@ class RoomController extends Controller
         $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
         $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
+        $datas['active']=0;
+
+        if (!App::environment(['local', 'staging'])) {
+            foreach ($datas['rooms'] as $i) {
+                $ms = \Bigbluebutton::isMeetingRunning($i->id);
+                if ($ms) {
+                    $datas['active']++;
+                }
+            }
+        }
+
         return view('user.dashboard', $datas);
     }
 
@@ -181,7 +193,7 @@ class RoomController extends Controller
         $i=RoomModel::find($id);
 
         if(!$i){
-            return redirect('room')
+            return back()
                 ->with('error', 'Invalid Room!');
         }
 
@@ -276,7 +288,7 @@ class RoomController extends Controller
         $i=RoomModel::where('url',$url)->first();
 
         if(!$i){
-            return redirect('joinsession')
+            return back()
                 ->with('error', 'Invalid Room!');
         }
 
@@ -292,7 +304,7 @@ class RoomController extends Controller
 
             MeetingsModel::create($mdata);
 
-            return redirect('joinsession')
+            return back()
                 ->with('error', 'Meeting has not started!');
         }
 

@@ -106,11 +106,18 @@
             padding: 30px;
         }
 
-        .su{
+        a.su{
             color: blue;
         }
-        .su:hover{
+        a.su:hover{
             color: green;
+        }
+
+        button.su{
+            background-color: blue;
+        }
+        button.su:hover{
+            background-color: green;
         }
 
         /*body > .skiptranslate {*/

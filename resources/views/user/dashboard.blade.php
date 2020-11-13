@@ -51,8 +51,8 @@
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
-                                        <span class="font-size-30 countnm">0</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Room in Session</h6>
+                                        <span class="font-size-30 countnm">{{$active}}</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Active Room</h6>
                                     </div>
                                     <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>
                                 </div>
@@ -62,8 +62,8 @@
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
-                                        <span class="font-size-30 countnm">0</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Room not in Session</h6>
+                                        <span class="font-size-30 countnm">{{$roomstc - $active }}</span>
+                                        <h6 class="text-uppercase text-dark-50 mb-0">Inactive Room</h6>
                                     </div>
                                     <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>
                                 </div>
@@ -92,14 +92,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="box box-body pull-up">
-                                    <span class="font-size-30 countnm">{{$roomstc}}</span>
-                                    <h6 class="text-uppercase text-dark-50 mb-0">Room in Session</h6>
+                                    <span class="font-size-30 countnm">{{$active}}</span>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Active Room</h6>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="box box-body pull-up">
-                                    <span class="font-size-30 countnm">0</span>
-                                    <h6 class="text-uppercase text-dark-50 mb-0">Room not in Session</h6>
+                                    <span class="font-size-30 countnm">{{$roomstc - $active }}</span>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Inactive Room</h6>
                                     </div>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@
     <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ct_logo.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct_logo.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
     <link rel='manifest' href='/assets/manifest.json'>

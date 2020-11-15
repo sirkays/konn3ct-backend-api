@@ -69,7 +69,7 @@
 {{--                </a>--}}
 
                 <div class="text-left">
-                    <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>
+                    <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a class="su" href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>
                 </div>
 
                 <x-jet-button class="ml-4">

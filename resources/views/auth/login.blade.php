@@ -64,7 +64,7 @@
             </div>
 
             <div class="block mt-4 text-center">
-                <span>New to <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup>? <a href="{{ route('register') }}"  style="font-weight: bolder">Sign Up for Free</a></span>
+                <span>New to <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup>? <a class="su" href="{{ route('register') }}"  style="font-weight: bolder">Sign Up for Free</a></span>
             </div>
 
         </form>

@@ -95,7 +95,7 @@ class RoomController extends Controller
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage('Welcome to <b>konn3ct<b>!\r\n\r\nFor more help on using konn3ct, contact us via support@konn3ct.com.\r\n\r\nNo internet? Ask participants to join this meeting by phone & dial:\r\n%%DIALNUM%%\r\nThen enter %%CONFNUM%% as the Room PIN number.'); //overwrite default configuration
+        $createMeeting->setWelcomeMessage('Welcome to <b>konn3ct</b>!<br>For more help on using konn3ct, contact us via support@konn3ct.com.<br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number.'); //overwrite default configuration
 //        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
         if(isset($input['muj'])){
@@ -263,7 +263,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <b>konn3ct<b>!\r\n\r\nFor more help on using konn3ct, contact us via support@konn3ct.com.\r\n\r\nNo internet? Ask participants to join this meeting by phone & dial:\r\n%%DIALNUM%%\r\nThen enter %%CONFNUM%% as the Room PIN number.',
+                'welcomeMessage'=> 'Welcome to <b>konn3ct</b>!<br>For more help on using konn3ct, contact us via support@konn3ct.com.<br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number.',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,

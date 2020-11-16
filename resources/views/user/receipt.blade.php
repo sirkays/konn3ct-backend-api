@@ -27,7 +27,7 @@
                     <div class="col-md-6 invoice-col">
                         <strong>From</strong>
                         <address>
-                            <strong class="text-blue font-size-24">Newwaves Ecosystem Limited</strong><br>
+                            <strong class="text-blue font-size-24">Newwaves Ecosystem Limited - konn3ct</strong><br>
                             <strong class="d-inline">220B, Eti-Osa Way, Ikoyi, Lagos, Nigeria</strong><br>
                             <strong>Phone: (234) 803 304 6408 <br />Email: info@newwavesecosystem.com</strong>
                         </address>

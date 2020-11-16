@@ -125,16 +125,16 @@
                             <table class="table no-border">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest">
-                                    <th style="min-width: 150px"><span class="text-fade">Meeting Name</span></th>
-                                    <th style="min-width: 150px"><span class="text-fade">Parameters</span></th>
-                                    <th style="min-width: 100px"><span class="text-fade">Link</span></th>
-                                    <th style="min-width: 200px"></th>
+                                    <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
+                                    <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
+                                    <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
+                                    <th style="min-width: 100px"><span class="text-fade">Options</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($recordings as $record)
                                     <tr>
-                                        <td class="pl-0 py-8">
+                                        <td style="min-width: 20px; max-width: 50px">
                                             <div class="d-flex align-items-center">
                                                 <div>
                                                     <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
@@ -157,7 +157,7 @@
                                         {{--                                                @endif--}}
                                         {{--                                            </td>--}}
 
-                                        <td>
+                                        <td style="min-width: 20px; max-width: 50px">
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['participants']}} Participants
 												</span>
@@ -168,19 +168,22 @@
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
                                         </td>
-                                        <td>
+                                        <td style="min-width: 50px; max-width: 150px">
                                             <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
                                             <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
                                         </td>
-                                        <td class="text-right">
-                                            <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}">
-                                                Play Video
-                                            </a>
+                                        <td style="min-width: 50px; max-width: 100px">
 
                                             <div class="dropdown">
+                                                <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}">
+                                                    Play Video
+                                                </a>
                                                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Manage
                                                 </button>
+                                                <a class="waves-effect waves-light btn btn-danger" href="#">
+                                                    Delete
+                                                </a>
 
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
@@ -202,9 +205,9 @@
                                                 </div>
                                             </div>
 
-                                            <a class="waves-effect waves-light btn btn-danger" href="#">
-                                                Delete
-                                            </a>
+                                            {{--                                                <a class="waves-effect waves-light btn btn-danger" href="#">--}}
+                                            {{--                                                   Delete--}}
+                                            {{--                                                </a>--}}
                                         </td>
                                     </tr>
                                 @endforeach

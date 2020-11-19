@@ -158,9 +158,9 @@
                             @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                                 Basic
                             @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                Lite - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @else
-                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                Pro - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @endif
                                 </span>
                         </li>

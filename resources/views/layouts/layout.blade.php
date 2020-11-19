@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">
+    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>
+
     <style>
         .more {display: none;}
         /* COMPACT CAPTCHA */

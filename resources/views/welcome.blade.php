@@ -3,6 +3,25 @@
 @section('content')
 <!-- main-area -->
 <main>
+    <ons-speed-dial direction="right">
+        <ons-icon icon="fa-bookmark"></ons-icon>
+        <ons-speed-dial-item>
+            <a href="/joinsession">
+                <ons-icon icon="fa-link" style="color: white"></ons-icon>
+            </a>
+        </ons-speed-dial-item>
+        <ons-speed-dial-item>
+            <a href="/login" style="color: white">
+                <ons-icon icon="fa-user-secret"></ons-icon>
+            </a>
+        </ons-speed-dial-item>
+        <ons-speed-dial-item>
+            <a href="/register" style="color: white">
+            <ons-icon icon="fa-user-plus"></ons-icon>
+            </a>
+        </ons-speed-dial-item>
+    </ons-speed-dial>
+
     <!-- services-area -->
 {{--    <section id="services" class="services-area services-bg services-two pt-120 pb-90">--}}
         <div class="container">
@@ -331,6 +350,13 @@
         </div>
     </div>
     <!-- counter-area-end -->
+    <ons-speed-dial position="bottom right" direction="up">
+        <ons-icon icon="fa-home" size="26px" fixed-width="false" style="vertical-align:middle;">
+        </ons-icon>
+        <ons-speed-dial-item><a href="/joinsession"> <i class="fa fa-link" style="color: white"></i></a></ons-speed-dial-item>
+        <ons-speed-dial-item><a href="/login"><i class="fa fa-user-secret" style="color: white"></i></a></ons-speed-dial-item>
+        <ons-speed-dial-item><a href="/register"><i class="fa fa-user-plus" style="color: white"></i></a> </ons-speed-dial-item>
+    </ons-speed-dial>
 </main>
 
 @endsection

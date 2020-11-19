@@ -134,13 +134,13 @@
                                                     @if($user->subsciption=='new')
                                                         Not yet Subscribed
                                                     @else
-                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days
                                                     @endif
                                                 @else
                                                     @if($user->subsciption=='new')
                                                         Not yet Subscribed
                                                     @else
-                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days
                                                     @endif
                                                 @endif
                                             </span>

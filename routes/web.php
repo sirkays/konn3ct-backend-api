@@ -56,7 +56,7 @@ Route::get('/contact', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
     Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');

@@ -18,7 +18,7 @@ class CheckSubscriptionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->subsciption!='new') {
+        if(Auth::user()->plan!=1 && Auth::user()->subsciption!='new') {
             if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
                 return redirect('/pay');
             }

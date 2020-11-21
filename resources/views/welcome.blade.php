@@ -350,7 +350,7 @@
         </div>
     </div>
     <!-- counter-area-end -->
-    <ons-speed-dial position="bottom right" direction="up">
+    <ons-speed-dial position="bottom left" direction="up">
         <ons-icon icon="fa-home" size="26px" fixed-width="false" style="vertical-align:middle;">
         </ons-icon>
         <ons-speed-dial-item><a href="/joinsession"> <i class="fa fa-link" style="color: white"></i></a></ons-speed-dial-item>

@@ -160,7 +160,7 @@
                             @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
                                 Lite - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @else
-                                Pro - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
+                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @endif
                                 </span>
                         </li>

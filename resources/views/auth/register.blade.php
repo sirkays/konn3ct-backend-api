@@ -47,6 +47,15 @@
                 </div>
             </div>
 
+            @if($freetrial==1)
+            <div class="row mx-4">
+                <div class="form-group">
+                <input type="checkbox" id="freetrial" name="freetrial" value="true">
+                <label for="freetrial"> Start Free Trial ({{$freetrial_days}} days)</label><br>
+                </div>
+            </div>
+            @endif
+
             <div class="block mt-4 text-center">
                 <!-- START CAPTCHA -->
                 <div class="capbox">

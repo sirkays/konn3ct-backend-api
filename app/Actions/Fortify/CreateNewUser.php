@@ -4,7 +4,9 @@ namespace App\Actions\Fortify;
 
 use App\Models\PlanModel;
 use App\Models\RoomModel;
+use App\Models\SettingsModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +42,15 @@ class CreateNewUser implements CreatesNewUsers
             'plan' => session('plan'),
             'password' => Hash::make($input['password']),
         ]);
+
+        if(isset($input['freetrial'])){
+            $set=SettingsModel::first();
+            $exp=Carbon::now()->addDays($set->freetrial_days);
+            $u->subscription=$exp;
+            $u->plan=3;
+            $u->status="free_trial";
+            $u->save();
+        }
 //
             $plan = PlanModel::where("id", $u->plan)->first();
             $duration = $plan->duration;

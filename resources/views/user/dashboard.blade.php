@@ -147,6 +147,8 @@
                                                             Konn3ct Now
                                                         </Button>
 
+                                                </form>
+
                                                         <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Manage
                                                         </button>
@@ -171,7 +173,6 @@
                                                         </div>
                                                     </div>
 
-                                                </form>
 
 
                                             </td>

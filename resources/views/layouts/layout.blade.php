@@ -18,6 +18,14 @@
 
     <link rel='manifest' href='/assets/manifest.json'>
 
+{{--    <link rel="manifest" href="/js/manifest.json"></link>--}}
+    <script src="/js/pwabuilder-sw.js"></script>
+
+    <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
+    ></script>
+
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">

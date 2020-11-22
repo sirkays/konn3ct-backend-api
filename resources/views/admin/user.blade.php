@@ -8,13 +8,13 @@
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="w-p100 d-md-flex align-items-center justify-content-between">
-                            <h3 class="page-title">Profile</h3>
+                            <h3 class="page-title">User</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                        <li class="breadcrumb-item" aria-current="page">User</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                                        <li class="breadcrumb-item" aria-current="page">Users</li>
+                                        <li class="breadcrumb-item active" aria-current="page">User</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -29,9 +29,9 @@
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
 {{--                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>--}}
-                                <li><a class="active" href="#up" data-toggle="tab">Update Password</a></li>
-                                <li><a href="#fa2" data-toggle="tab">Two Factor Authentication</a></li>
-                                <li><a href="#bs" data-toggle="tab">Browser Sessions</a></li>
+                                <li><a class="active" href="#up" data-toggle="tab">Meeting Room(s)</a></li>
+                                <li><a href="#fa2" data-toggle="tab">Payment(s)</a></li>
+                                <li><a href="#bs" data-toggle="tab">Recording(s)</a></li>
                             </ul>
 
                             <div class="tab-content">

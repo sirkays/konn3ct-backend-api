@@ -256,6 +256,11 @@
 
 
 @yield("content")
+<a href="/register">
+    <ons-speed-dial position="bottom left" direction="up">
+        <img src="assets/img/register5.png" width="60px" height="60px" />
+    </ons-speed-dial>
+</a>
 
 <!-- footer -->
 <footer class="footer-bg footer-p">
@@ -269,7 +274,7 @@
                 </div>
                 <div class="col-6">
                     <div class="copyright-text">
-                        <p>Terms of Service | GDPR | NDPR | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                        <p>Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>

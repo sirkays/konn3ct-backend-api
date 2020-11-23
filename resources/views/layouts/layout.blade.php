@@ -214,7 +214,7 @@
                                     @auth
                                         <li><a href="/room"><span class="lih">Dashboard</span></a></li>
                                     @else
-                                        <li><a href="/register" class="su"><strong>Register (It's free - No card is required)</strong></a></li>
+                                        <li><a href="/register" class="su"><strong>Register (It's free - Start Free Trial)</strong></a></li>
                                     @endif
 
                                     <li>&nbsp;</li>

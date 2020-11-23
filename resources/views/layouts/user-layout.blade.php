@@ -116,25 +116,29 @@
                         <!-- Notifications -->
                         <li style="margin-left: 2px">
                             <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" title="Logout">
-                                <i class="fa fa-sign-out"></i>
+{{--                                <i class="fa fa-sign-out"></i>--}}
+                                <img src="/user_assets/images/logout.png" height="25" width="50"/>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
                             <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
                                 <i class="fa fa-home"></i>
+{{--                                <img src="/user_assets/img/cplan.png" height="35" width="50"/>--}}
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-link"></i>
+                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Change Plan">
+{{--                                <i class="fa fa-link"></i>--}}
+                                <img src="/user_assets/images/cplan.png" height="35" width="50"/>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-plus-circle"></i>
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Invite">
+{{--                                <i class="fa fa-plus-circle"></i>--}}
+                                <img src="/user_assets/images/invite.jpg" height="25" width="50"/>
                             </a>
                         </li>
 

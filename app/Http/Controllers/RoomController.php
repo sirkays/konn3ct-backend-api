@@ -263,7 +263,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <b>konn3ct</b>!<br><br>For more help on using konn3ct, contact us via support@konn3ct.com.<br><br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number. <br>Share this link with people you want in this meeting. <a href="{{url(\'/join/\').'/'.$i->url}}"> <strong>'. url('\/join/').'/'.$i->url.'</strong></a>',
+                'welcomeMessage'=> 'Welcome to <b>konn3ct</b>!<br><br>For more help on using konn3ct, contact us via support@konn3ct.com.<br><br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number.',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,

@@ -106,6 +106,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/users', [UsersController::class, 'show'])->name('admin.users');
 
+        Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
+
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 
         Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');

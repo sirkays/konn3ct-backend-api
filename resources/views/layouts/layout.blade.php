@@ -90,6 +90,26 @@
             width: 105px;
         }
 
+        #CaptchaDiv2 {
+            color: #000000;
+            font: normal 25px Impact, Charcoal, arial, sans-serif;
+            font-style: italic;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            user-select: none;
+            display: inline-block;
+            padding: 3px 14px 3px 8px;
+            margin-right: 4px;
+            border-radius: 4px;
+        }
+
+        #CaptchaInput2 {
+            border: #38B000 2px solid;
+            margin: 3px 0px 1px 0px;
+            width: 105px;
+        }
+
         #freg {
             position:fixed;
             width:120px;
@@ -258,7 +278,7 @@
 @yield("content")
 <a href="/register">
     <ons-speed-dial position="bottom left" direction="up">
-        <img src="assets/img/register5.png" width="60px" height="60px" />
+        <img src="/assets/img/register5.png" width="60px" height="60px" />
     </ons-speed-dial>
 </a>
 

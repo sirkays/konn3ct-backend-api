@@ -106,7 +106,7 @@
                                         <td class="pl-0 py-8">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$user->firstname}} {{$user->lastname}}</a>
+                                                    <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$user->lastname}} {{$user->firstname}}</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -163,7 +163,7 @@
                                             <span>{{$user->created_at}}</span>
                                         </td>
                                                                                     <td class="text-right">
-                                                                                        <a class="btn btn-outline-primary dropdown-toggle">
+                                                                                        <a href="user/{{$user->id}}" class="btn btn-outline-primary dropdown-toggle">
                                                                                             Manage
                                                                                         </a>
                                                                                     </td>

@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 
@@ -8,7 +8,7 @@
         <div class="content-header">
             <div class="d-flex align-items-center">
                 <div class="w-p100 d-md-flex align-items-center justify-content-between">
-                    <h3 class="page-title">User</h3>
+                    <h3 class="page-title">User Details</h3>
                     <div class="d-inline-block align-items-center">
                         <nav>
                             <ol class="breadcrumb">
@@ -32,6 +32,7 @@
                         <li><a class="active" href="#up" data-toggle="tab">Meeting Room(s)</a></li>
                         <li><a href="#fa2" data-toggle="tab">Payment(s)</a></li>
                         <li><a href="#bs" data-toggle="tab">Recording(s)</a></li>
+                        <li><a href="#ms" data-toggle="tab">Meeting(s) Joined</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -134,12 +135,226 @@
                         <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="fa2">
+                            <div class="box-body">
+                                <div class="table-responsive">
+
+                                    <table id="example" class="table table-lg invoice-archive">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Period</th>
+                                            <th>Issued to</th>
+                                            <th>Status</th>
+                                            <th>Payment date</th>
+                                            <th>Plan</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($payments as $data)
+                                            <tr>
+                                                <td>#{{$data->id}}</td>
+                                                <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>
+                                                <td>
+                                                    <h6 class="mb-0">
+                                                        <a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                                                        <span class="d-block text-muted">Payment method: {{$data->gateway}}</span>
+                                                    </h6>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-pill badge-success">Success</span>
+                                                </td>
+                                                <td>
+                                                    {{$data->date}}
+                                                </td>
+                                                <td>
+                                                    {{$data->plan}}
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
 
 
                         </div>
                         <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="bs">
+
+                            {{--                Mobile View--}}
+                            <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
+                                <div class="col-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+                                                <table class="table no-border">
+                                                    <thead>
+                                                    <tr class="text-uppercase bg-lightest font-size-10">
+                                                        <th><span class="text-fade">Name</span></th>
+                                                        <th><span class="text-fade">Parameters</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($recordings as $record)
+                                                        <tr>
+                                                            <td class="pl-0 py-8">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div>
+                                                                        @if(isset($record['playback']['format']['preview']['images']['image'][0]))
+                                                                            <img src="{{$record['playback']['format']['preview']['images']['image'][0]}}" class="img img-thumbnail">
+                                                                        @else
+                                                                            No Image Preview
+                                                                        @endif
+                                                                        <br/>
+                                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            {{--                                            <td class="pl-0 py-8">--}}
+                                                            {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
+                                                            {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
+                                                            {{--                                                        @endforeach--}}
+                                                            {{--                                            </td>--}}
+
+
+                                                            {{--                                            <td class="pl-0 py-8">--}}
+                                                            {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
+                                                            {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
+                                                            {{--                                                @else--}}
+                                                            {{--                                                    No Image Preview--}}
+                                                            {{--                                                @endif--}}
+                                                            {{--                                            </td>--}}
+
+                                                            <td>
+                                                <span class="text-dark font-weight-600 d-block font-size-10">
+													{{$record['participants']}} Participants
+												</span>
+                                                                <span class="text-dark font-weight-600 d-block font-size-10">
+													{{$record['playback']['format']['length']}} Minutes
+												</span>
+                                                                <span class="text-dark font-weight-600 d-block font-size-10">
+													{{ number_format(($record['size']/1000000))."MB"}}
+												</span>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{--                Desktop view--}}
+                            <div class="row hidden-xs-down">
+                                <div class="col-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+                                                <table class="table no-border">
+                                                    <thead>
+                                                    <tr class="text-uppercase bg-lightest">
+                                                        <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
+                                                        <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
+                                                        <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($recordings as $record)
+                                                        <tr>
+                                                            <td style="min-width: 20px; max-width: 50px">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div>
+                                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            {{--                                            <td class="pl-0 py-8">--}}
+                                                            {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
+                                                            {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
+                                                            {{--                                                        @endforeach--}}
+                                                            {{--                                            </td>--}}
+
+
+                                                            {{--                                            <td class="pl-0 py-8">--}}
+                                                            {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
+                                                            {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
+                                                            {{--                                                @else--}}
+                                                            {{--                                                    No Image Preview--}}
+                                                            {{--                                                @endif--}}
+                                                            {{--                                            </td>--}}
+
+                                                            <td style="min-width: 20px; max-width: 50px">
+                                                <span class="text-dark font-weight-600 d-block font-size-16">
+													{{$record['participants']}} Participants
+												</span>
+                                                                <span class="text-dark font-weight-600 d-block font-size-16">
+													{{$record['playback']['format']['length']}} Minutes
+												</span>
+                                                                <span class="text-dark font-weight-600 d-block font-size-16">
+													{{ number_format(($record['size']/1000000))."MB"}}
+												</span>
+                                                            </td>
+                                                            <td style="min-width: 50px; max-width: 150px">
+                                                                <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
+                                                                <input type="hidden" value="{{$record['playback']['format']['url']}}"/>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="ms">
+                            <div class="box-body">
+                                <div class="table-responsive">
+
+                                    <table id="example" class="table table-lg invoice-archive">
+                                        <thead>
+                                        <tr>
+{{--                                            <th>#</th>--}}
+                                            <th>Meeting Name</th>
+                                            <th>User Name</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($meetings as $meeting)
+                                            <tr>
+{{--                                                <td>#{{$i=0; $i++;}}</td>--}}
+                                                <td>{{$meeting->roomname}}</td>
+                                                <td>
+                                                    {{$meeting->name}}
+                                                </td>
+                                                <td>
+                                                    {{$meeting->status}}
+                                                </td>
+                                                <td>
+                                                    {{$meeting->created_at}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
 
 
                         </div>

@@ -29,7 +29,7 @@ class UsersController extends Controller
 
         $datas['rooms']=RoomModel::where('user_id',$id)->get();
         $datas['payments']=PaymentModel::where('user_id',$id)->get();
-        $datas['meetings']=MeetingsModel::where('email',$datas['user']->email)->get();
+        $datas['meetings']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')->where('meetings.email',$datas['user']->email)->select('room.name as roomname', 'meetings.*')->get();
 
         $datas['rm']=RoomModel::where('user_id',$id)->count();
         $datas['p']=PaymentModel::where('user_id',$id)->count();

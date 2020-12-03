@@ -66,9 +66,9 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
-    Route::get('/payment', [PaymentController::class, 'receipt'])->name('payments');
+    Route::get('/payment', [PaymentController::class, 'list'])->name('payments');
 
-//    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('invoice');
+    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('receipt');
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 

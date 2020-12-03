@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-10 col-lg-9 col-12">
+                    <div class="col-12">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h4 class="box-title">Payment List</h4>
@@ -43,6 +43,7 @@
                                             <th>Payment date</th>
                                             <th>Plan</th>
                                             <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -68,6 +69,9 @@
                                             <td>
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
                                             </td>
+                                            <td>
+                                                <a class="btn" href="/receipt"> <i class="fa fa-file-invoice"></i></a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -77,34 +81,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-12">
-                        <div class="box box-inverse box-success">
-                            <div class="box-body">
-                                <div class="flexbox">
-                                    <h5>Payments</h5>
-                                </div>
+{{--                    <div class="col-xl-2 col-lg-3 col-12">--}}
+{{--                        <div class="box box-inverse box-success">--}}
+{{--                            <div class="box-body">--}}
+{{--                                <div class="flexbox">--}}
+{{--                                    <h5>Payments</h5>--}}
+{{--                                </div>--}}
 
-                                <div class="text-center my-2">
-                                    <div class="font-size-60">{{$tp}}</div>
-                                    <span>Total Payments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-inverse box-primary">
-                            <div class="box-body">
-                                <div class="flexbox">
-                                    <h5>Payments</h5>
-                                </div>
+{{--                                <div class="text-center my-2">--}}
+{{--                                    <div class="font-size-60">{{$tp}}</div>--}}
+{{--                                    <span>Total Payments</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="box box-inverse box-primary">--}}
+{{--                            <div class="box-body">--}}
+{{--                                <div class="flexbox">--}}
+{{--                                    <h5>Payments</h5>--}}
+{{--                                </div>--}}
 
-                                <div class="text-center my-2">
-                                    <div class="font-size-60">{{$sp}}</div>
-                                    <span>Sum Payment</span>
-                                </div>
-                            </div>
-                        </div>
+{{--                                <div class="text-center my-2">--}}
+{{--                                    <div class="font-size-60">{{$sp}}</div>--}}
+{{--                                    <span>Sum Payment</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                    </div>
+{{--                    </div>--}}
                 </div>
             </section>
             <!-- /.content -->
 @endsection
+<script>
+    import Button from "../../js/Jetstream/Button";
+    export default {
+        components: {Button}
+    }
+</script>

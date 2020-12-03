@@ -50,6 +50,18 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
+        if(!isset($input['type'])){
+            if($input['lastname']!=""){
+                $u->lastname=$input['lastname'];
+                $u->save();
+            }
+        }
+
+        if(isset($input['referral'])){
+            $u->referral=$input['referral'];
+            $u->save();
+        }
+
         if(isset($input['freetrial'])){
             $set=SettingsModel::first();
             $exp=Carbon::now()->addDays($set->freetrial_days);

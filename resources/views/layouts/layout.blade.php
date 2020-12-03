@@ -276,11 +276,6 @@
 
 
 @yield("content")
-<a href="/register">
-    <ons-speed-dial position="bottom left" direction="up">
-        <img src="/assets/img/register5.png" width="60px" height="60px" />
-    </ons-speed-dial>
-</a>
 
 <!-- footer -->
 <footer class="footer-bg footer-p">
@@ -302,6 +297,14 @@
     </div>
 </footer>
 <!-- footer-end -->
+
+<a href="/register">
+    <img src="/assets/img/register.png" width="60px" height="60px" style="position:fixed;
+	width:60px;
+	height:60px;
+	bottom:140px;
+	left:20px;" />
+</a>
 
 <!-- Scripts -->
 <script type="module">

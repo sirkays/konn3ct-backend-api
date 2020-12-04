@@ -32,6 +32,8 @@ class UsersController extends Controller
             if ($datas['referred']) {
                 $datas['referredby'] = $datas['referred']->firstname . " " . $datas['referred']->lastname;
             }
+        }else{
+            $datas['referredby']="";
         }
 
         $datas['rooms']=RoomModel::where('user_id',$id)->get();

@@ -61,6 +61,10 @@
                             <a  href="/logouts" class="btn btn-danger waves-effect waves-light"><i class="fa fa-sign-out"> </i> Log Out</a>
                         </li>
 
+                        <li class="btn-group nav-item d-none d-xl-inline-block ml-5">
+                            <a  href="/room" class="btn btn-dark waves-effect waves-light"><i class="fa fa-home-lg"> </i> Goto Dashboard</a>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
@@ -169,6 +173,13 @@
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
                                                 @endif
 
+                                                @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                                    <div class="col-12 mt-25">
+                                                        <a href="/changeplan/1" class="btn btn-danger btn-block">Can't Pay Now? Migrate to Basic Plan</a>
+                                                    </div>
+                                                @endif
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -223,6 +234,7 @@
 
 
 <script>
+    import Button from "../js/Jetstream/Button";
     function makePayment(cur) {
         @if($plan ?? false)
         if(cur=="USD") {
@@ -236,7 +248,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -249,7 +261,7 @@
                 customizations: {
                     title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else if(cur=="USD2") {
@@ -263,7 +275,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -276,7 +288,7 @@
                 customizations: {
                     title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan" ,
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else if(cur=="NGN"){
@@ -290,7 +302,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -305,7 +317,7 @@
                 customizations: {
                     title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else{
@@ -319,7 +331,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -332,7 +344,7 @@
                 customizations: {
                     title: "Konn3ct @if($plan==2) Lite @elseif($plan==3) Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }
@@ -348,7 +360,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -361,7 +373,7 @@
                 customizations: {
                     title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else if(cur=="USD2") {
@@ -375,7 +387,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -388,7 +400,7 @@
                 customizations: {
                     title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else if(cur=="NGN"){
@@ -402,7 +414,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -417,7 +429,7 @@
                 customizations: {
                     title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }else{
@@ -431,7 +443,7 @@
                 customer: {
                     email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
                     phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
-                    name: "{{\Illuminate\Support\Facades\Auth::user()->name}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
                 },
                 callback: function (data) {
                     console.log(data);
@@ -444,10 +456,13 @@
                 customizations: {
                     title: "Konn3ct @if(\Illuminate\Support\Facades\Auth::user()->plan==2) Lite @else Pro @endif Plan",
                     description: "Payment for Konn3ct plan",
-                    logo: "https://konn3ct.com/assets/images/konn3ct_logo.png",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
                 },
             });
         }
         @endif
+    }
+    export default {
+        components: {Button}
     }
 </script>

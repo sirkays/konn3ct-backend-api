@@ -137,7 +137,7 @@
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Invite">
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Share">
 {{--                                <i class="fa fa-plus-circle"></i>--}}
                                 <span style="font-size: 11px">Share</span>
                             </a>
@@ -474,7 +474,9 @@
 
 <script src="/user_assets/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
+@if(Request::segment(1) === 'payment')
 <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
+@endif
 
 <!-- Adminto App -->
 <script src="/user_assets/js/jquery.smartmenus.min.js"></script>

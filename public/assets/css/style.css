@@ -684,7 +684,7 @@ label {
 	cursor: pointer;
 	padding: 0;
 	box-shadow: 4px 2px 0 0 transparent;
-	transition: .5s;
+	transition: .1s;
 }
 .slider-active .slick-next {
 	right: 70px;

@@ -171,8 +171,14 @@ class RoomController extends Controller
     }
 
     public function show(){
-        $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
+        $plan=PlanModel::where("id", Auth::user()->plan)->first();
+        $r=$plan->rooms;
+
+        $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->limit($r)->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
+        if($datas['roomstc']>$r){
+            $datas['roomstc']=$r;
+        }
         $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
         $datas['active']=0;
 
@@ -183,6 +189,10 @@ class RoomController extends Controller
                     $datas['active']++;
                 }
             }
+        }
+
+        if($datas['active']>$r){
+            $datas['active']=$r;
         }
 
         return view('user.dashboard', $datas);

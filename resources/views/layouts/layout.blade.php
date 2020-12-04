@@ -171,6 +171,32 @@
 
     </style>
 
+    <style>
+        #container {
+            position:fixed;
+            width:60px;
+            height:60px;
+            bottom:140px;
+            left:20px;
+        }
+        #item {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            border: 10px solid rgba(136, 136, 136, .5);
+            border-radius: 50%;
+            touch-action: none;
+            user-select: none;
+        }
+        #item:active {
+            background-color: rgba(168, 218, 220, 1.00);
+        }
+        #item:hover {
+            cursor: move;
+            border-width: 20px;
+        }
+    </style>
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 
     <script
@@ -277,6 +303,15 @@
 
 @yield("content")
 
+<div id="outerContainer">
+    <div id="container">
+        <div id="item">
+            <a href="/register">
+            <img src="/assets/img/register.png" width="60px" height="60px"/>
+            </a>
+        </div>
+    </div>
+</div>
 <!-- footer -->
 <footer class="footer-bg footer-p">
     <div class="copyright-wrap">
@@ -297,14 +332,6 @@
     </div>
 </footer>
 <!-- footer-end -->
-
-<a href="/register">
-    <img src="/assets/img/register.png" width="60px" height="60px" style="position:fixed;
-	width:60px;
-	height:60px;
-	bottom:140px;
-	left:20px;" />
-</a>
 
 <!-- Scripts -->
 <script type="module">
@@ -374,6 +401,72 @@
 <script src="/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="/assets/js/element-in-view.js"></script>
 <script src="/assets/js/main.js"></script>
+
+<script>
+    var dragItem = document.querySelector("#item");
+    var container = document.querySelector("#container");
+
+    var active = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+
+    container.addEventListener("touchstart", dragStart, false);
+    container.addEventListener("touchend", dragEnd, false);
+    container.addEventListener("touchmove", drag, false);
+
+    container.addEventListener("mousedown", dragStart, false);
+    container.addEventListener("mouseup", dragEnd, false);
+    container.addEventListener("mousemove", drag, false);
+
+    function dragStart(e) {
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === dragItem) {
+            active = true;
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+
+        active = false;
+    }
+
+    function drag(e) {
+        if (active) {
+
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, dragItem);
+        }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+</script>
 </body>
 
 </html>

@@ -241,6 +241,10 @@
                                                    Add to Outlook Calender
                                                 </a>
 
+                                                <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
+                                                   Invite
+                                                </button>
+
                                             </td>
                                             <td>
                                                 <form action="/joinroom" method="POST">
@@ -261,6 +265,56 @@
                                                 </form>
                                             </td>
                                         </tr>
+
+                                        <div class="modal fade invite-lg-{{$room->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Invite</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label>Room Name:</label>
+                                                            <input type="text" name="name" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Room Link:</label>
+                                                            <input type="text" name="name" class="form-control" placeholder="e.g Newwaves" value="{{url('/join/')}}/{{$room->url}}" disabled required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Host Name:</label>
+                                                            <input type="text" name="name" class="form-control" placeholder="e.g Newwaves" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Date:</label>
+                                                            <input type="date" name="name" class="form-control" placeholder="e.g Newwaves" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Time:</label>
+                                                            <input type="time" name="time" class="form-control" placeholder="e.g Newwaves" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Guest:</label>
+                                                            <textarea name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required>
+                                </textarea>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-success text-left" data-dismiss="modal">Send Invite</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -389,10 +443,3 @@
     </script>
 
 @endsection
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-
-</script>

@@ -3,7 +3,7 @@
 @section('content')
     <x-guest-layout>
 
-        <div class="row bg-gray-100">
+        <div class="row bg-gray-100 mb-20">
 
             <div class="col-12">
                 <div class="box-body">
@@ -81,9 +81,9 @@
 
                                     <div class="row mb-2">
                                         <div class="col-lg-12">
-                                            <x-jet-label for="referral" value="{{ __('Referral (Optional)') }}"/>
+                                            <x-jet-label for="referral" value="{{ __('Referral Code (Optional)') }}"/>
                                             <x-jet-input id="referral" class="block mt-1 w-full" type="text"
-                                                         name="referral" :value="old('referral')"/>
+                                                         name="referral" :value="old('referral')" maxlength="6"/>
                                         </div>
                                     </div>
 
@@ -205,9 +205,9 @@
 
                                     <div class="row mb-2">
                                         <div class="col-lg-12">
-                                            <x-jet-label for="referral" value="{{ __('Referral (Optional)') }}"/>
+                                            <x-jet-label for="referral" value="{{ __('Referral Code (Optional)') }}"/>
                                             <x-jet-input id="referral" class="block mt-1 w-full" type="text"
-                                                         name="referral" :value="old('referral')" />
+                                                         name="referral" :value="old('referral')" maxlength="6" />
                                         </div>
                                     </div>
 

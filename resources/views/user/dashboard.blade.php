@@ -27,6 +27,8 @@
                         </div>
                     @endif
 
+                    <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+
                 <div class="row hidden-xs-down">
                     <div class="col-3">
                         <div class="box box-body pull-up">

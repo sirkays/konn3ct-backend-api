@@ -42,11 +42,19 @@ class CreateNewUser implements CreatesNewUsers
             }
         }
 
+        if(isset($input['referral'])){
+                Validator::make($input, [
+                    'referral' => ['required', 'string', 'max:6', 'exists:users,referral_code'],
+                ])->validate();
+//            }
+        }
+
         $u=User::create([
             'firstname' => $input['firstname'],
             'email' => $input['email'],
             'phone' => $input['phone'],
             'plan' => session('plan'),
+            'referral_code' => trim(substr(date('iym').rand(), 0, 6)),
             'password' => Hash::make($input['password']),
         ]);
 

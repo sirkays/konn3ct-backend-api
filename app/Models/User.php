@@ -30,7 +30,9 @@ class User extends Authenticatable
         'password',
         'plan',
         'phone',
-        'type'
+        'type',
+        'referral',
+        'referral_code'
     ];
 
     /**

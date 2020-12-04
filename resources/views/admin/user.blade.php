@@ -414,6 +414,11 @@
                             </div>
                             <!-- /.col -->
                         </div>
+                        <div class="col-12" style="background-color: black">
+                        @if($referredby!="")
+                                <span style="color: white">Referred by {{$referredby}}</span>
+                        @endif
+                        </div>
                         <!-- /.row -->
                     </div>
                 </div>
@@ -423,13 +428,16 @@
                             <div class="col-12">
                                 <div>
                                     <p>Email :<span
-                                            class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->email}}</span>
+                                            class="text-gray pl-10">{{$user->email}}</span>
                                     </p>
                                     <p>Phone :<span
-                                            class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->phone}}</span>
+                                            class="text-gray pl-10">{{$user->phone}}</span>
                                     </p>
                                     <p>Name :<span
-                                            class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+                                            class="text-gray pl-10">{{$user->lastname}} {{$user->firstname}}</span>
+                                    </p>
+                                    <p>Referral Code :<span
+                                            class="text-gray pl-10">{{$user->referral_code}}</span>
                                     </p>
                                 </div>
                             </div>

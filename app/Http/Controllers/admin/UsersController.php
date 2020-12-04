@@ -15,7 +15,7 @@ class UsersController extends Controller
 {
     public function show(){
 
-        $datas['users']=User::orderBy('id', 'desc')->get();
+        $datas['users']=User::orderBy('id', 'desc')->paginate(10);
         $datas['userstc']=User::count();
         return view('admin.users', $datas);
     }
@@ -25,6 +25,10 @@ class UsersController extends Controller
         $datas['user']=User::find($id);
         if(!$datas['user']){
             return back()->with("error", "User does not exist");
+        }
+        $datas['referred']=User::where('referral_code','=',$datas['user']->referral)->first();
+        if($datas['referred']) {
+            $datas['referredby'] = $datas['referred']->firstname ." ". $datas['referred']->lastname;
         }
 
         $datas['rooms']=RoomModel::where('user_id',$id)->get();

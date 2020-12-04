@@ -90,15 +90,16 @@
     <header class="main-header">
         <div class="inside-header">
             <div class="d-flex align-items-center logo-box justify-content-between">
+                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
                 <!-- Logo -->
-                <a href="#" class="logo">
-                    <!-- logo-->
-                    <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+{{--                <a href="#" class="logo">--}}
+{{--                    <!-- logo-->--}}
+{{--                    <div class="logo-lg">--}}
+{{--                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>--}}
 {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
 {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
-                    </div>
-                </a>
+{{--                    </div>--}}
+{{--                </a>--}}
             </div>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top pl-10">

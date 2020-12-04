@@ -116,27 +116,27 @@
                     <ul class="nav navbar-nav">
                         <!-- Notifications -->
                         <li style="margin-left: 2px">
-                            <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" title="Logout">
+                            <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" style="min-width: 45px" title="Logout">
 {{--                                <i class="fa fa-sign-out"></i>--}}
                                 <span style="font-size: 9px;">Signout</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
+                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Home">
                                 <span style="font-size: 11px">Home</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Change Plan">
+                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Change Plan">
 {{--                                <i class="fa fa-link"></i>--}}
                                 <span style="font-size: 11px">Plan</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Invite">
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Invite">
 {{--                                <i class="fa fa-plus-circle"></i>--}}
                                 <span style="font-size: 11px">Share</span>
                             </a>

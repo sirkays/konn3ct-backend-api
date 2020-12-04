@@ -17,6 +17,7 @@ class RoomsController extends Controller
             ->join('users', 'users.id','room.user_id')
             ->select('room.*', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();
+        $datas['roomstc']=RoomModel::count();
 
         $datas['active']=0;
 

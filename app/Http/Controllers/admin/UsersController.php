@@ -26,9 +26,12 @@ class UsersController extends Controller
         if(!$datas['user']){
             return back()->with("error", "User does not exist");
         }
-        $datas['referred']=User::where('referral_code','=',$datas['user']->referral)->first();
-        if($datas['referred']) {
-            $datas['referredby'] = $datas['referred']->firstname ." ". $datas['referred']->lastname;
+
+        if($datas['user']->referral != "") {
+            $datas['referred'] = User::where('referral_code', '=', $datas['user']->referral)->first();
+            if ($datas['referred']) {
+                $datas['referredby'] = $datas['referred']->firstname . " " . $datas['referred']->lastname;
+            }
         }
 
         $datas['rooms']=RoomModel::where('user_id',$id)->get();

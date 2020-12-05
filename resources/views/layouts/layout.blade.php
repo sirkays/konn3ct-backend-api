@@ -182,8 +182,7 @@
         #item {
             width: 100px;
             height: 100px;
-            background-color: green;
-            border: 10px solid rgba(136, 136, 136, .5);
+            background-color: transparent;
             border-radius: 50%;
             touch-action: none;
             user-select: none;
@@ -305,11 +304,9 @@
 
 <div id="outerContainer">
     <div id="container">
-        <div id="item">
             <a href="/register">
-            <img src="/assets/img/register.png" width="60px" height="60px"/>
+            <img id="item" src="/assets/img/register.png" width="60px" height="60px"/>
             </a>
-        </div>
     </div>
 </div>
 <!-- footer -->

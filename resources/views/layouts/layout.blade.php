@@ -180,8 +180,6 @@
             left:20px;
         }
         #item {
-            width: 100px;
-            height: 100px;
             background-color: transparent;
             border-radius: 50%;
             touch-action: none;

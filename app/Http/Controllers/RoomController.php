@@ -371,7 +371,7 @@ class RoomController extends Controller
 
         foreach ($str_arr as $arr) {
 
-            $GLOBALS['recipient'] = $arr;
+            $GLOBALS['recipient'] = trim($arr);
 
             $data = array('ihost' => $input['hostname'], 'ilink' => $input['roomlink'], 'idate' => $input['date'], 'itime' => $input['time'], 'iroom' => $input['roomname']);
             Mail::send('mail.invite', $data, function ($message) {

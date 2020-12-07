@@ -39,7 +39,7 @@
                             </p>
                             <p class="mb-5 mt-lg-10">Copy this link <span class="text-bold text-dark"> {{$ilink??'sammy'}}</span> and paste in your browser to join or click on the button below</p>
                                 <div class="text-center">
-                                <a class="btn btn-primary btn-sm" href="{{$ilink??'sammy'}}">{{$ilink??'sammy'}}</a>
+                                <a class="btn btn-primary" href="{{$ilink??'sammy'}}">{{$ilink??'sammy'}}</a>
                             </div>
 
                             <p class="mb-15 mt-10">Thank you.</p>

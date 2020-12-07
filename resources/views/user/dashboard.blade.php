@@ -305,7 +305,7 @@
 
                                                         <div class="form-group">
                                                             <label>Guest Email(s)<i>Separated by commas</i>:</label>
-                                                            <textarea name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
+                                                            <textarea maxlength="500" name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
                                                         </div>
 
                                                     </div>

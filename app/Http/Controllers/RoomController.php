@@ -8,6 +8,7 @@ use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use JoisarJignesh\Bigbluebutton\Bigbluebutton;
 
@@ -95,7 +96,8 @@ class RoomController extends Controller
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
+        $createMeeting->setWelcomeMessage('Welcome to <b>konn3ct</b>!<br><br>For more help on using konn3ct, contact us via support@konn3ct.com.<br><br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number.'); //overwrite default configuration
+//        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
         if(isset($input['muj'])){
             $createMeeting->setMuteOnStart(true); //overwrite default configuration
@@ -170,8 +172,14 @@ class RoomController extends Controller
     }
 
     public function show(){
-        $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'desc')->get();
+        $plan=PlanModel::where("id", Auth::user()->plan)->first();
+        $r=$plan->rooms;
+
+        $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->limit($r)->get();
         $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
+        if($datas['roomstc']>$r){
+            $datas['roomstc']=$r;
+        }
         $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
         $datas['active']=0;
 
@@ -182,6 +190,10 @@ class RoomController extends Controller
                     $datas['active']++;
                 }
             }
+        }
+
+        if($datas['active']>$r){
+            $datas['active']=$r;
         }
 
         return view('user.dashboard', $datas);
@@ -254,6 +266,13 @@ class RoomController extends Controller
                 $dsn=false;
             }
 
+            $mdata['meeting_id']=$i->id;
+            $mdata['name']=Auth::user()->lastname ." " .Auth::user()->firstname;
+            $mdata['email']=Auth::user()->email;
+            $mdata['password_attendee']=$i->password_attendee;
+            $mdata['status']="start meeting";
+            MeetingsModel::create($mdata);
+
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
@@ -262,7 +281,8 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
+                'welcomeMessage'=> 'Welcome to <b>konn3ct</b>!<br><br>For more help on using konn3ct, contact us via support@konn3ct.com.<br><br>No internet? Ask participants to join this meeting by phone & dial:%%DIALNUM%%<br>Then enter %%CONFNUM%% as the Room PIN number.',
+//                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,
                 'duration' =>$duration,
@@ -337,5 +357,34 @@ class RoomController extends Controller
         $i->delete();
 
         return redirect('room')->with('success', 'Room Deleted Successfully!');
+    }
+
+    public function invite(Request $request){
+        $input=$request->all();
+
+        if ($input['guest']==""){
+            return back()->with('error', 'Guest emails can not be empty');
+        }
+
+        // use of explode
+        $str_arr = explode (",", $input['guest']);
+
+        foreach ($str_arr as $arr) {
+
+            $GLOBALS['recipient'] = trim($arr);
+
+            try {
+                if ($GLOBALS['recipient'] != "") {
+                    $data = array('ihost' => $input['hostname'], 'ilink' => $input['roomlink'], 'idate' => $input['date'], 'itime' => $input['time'], 'iroom' => $input['roomname']);
+                    Mail::send('mail.invite', $data, function ($message) {
+                        $message->to($GLOBALS['recipient'])->subject('Konn3ct Invite');
+                    });
+                }
+            }catch (\Exception $e){
+                echo "error when sending email";
+            }
+        }
+
+        return redirect('room')->with('success', 'Invite Sent Successfully!');
     }
 }

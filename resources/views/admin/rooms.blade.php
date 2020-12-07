@@ -43,7 +43,7 @@
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
-                                        <span class="font-size-30 countnm">{{$roomstc}}</span>
+                                        <span class="font-size-30 countnm">{{$active}}</span>
                                         <h6 class="text-uppercase text-dark-50 mb-0">Active Rooms</h6>
                                     </div>
                                     <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>
@@ -54,7 +54,7 @@
                             <div class="box box-body pull-up">
                                 <div class="flexbox align-items-end pt-30">
                                     <div>
-                                        <span class="font-size-30 countnm">0</span>
+                                        <span class="font-size-30 countnm">{{$roomstc - $active }}</span>
                                         <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>
                                     </div>
                                     <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>
@@ -115,7 +115,7 @@
                                                 <span class="badge badge-success badge-lg">Active</span>
                                             </td>
                                             <td>
-                                                <span>{{$room->user_name}}</span>
+                                                <span>{{$room->firstname}} {{$room->lastname}}</span>
                                             </td>
                                             <td>
                                                 <span>{{$room->created_at}}</span>
@@ -153,6 +153,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    {{$rooms->links()}}
                                 </div>
                             </div>
                         </div>

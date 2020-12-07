@@ -4,7 +4,9 @@ namespace App\Actions\Fortify;
 
 use App\Models\PlanModel;
 use App\Models\RoomModel;
+use App\Models\SettingsModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,21 +27,57 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 //            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
             'phone' => 'required',
             'password' => $this->passwordRules(),
         ])->validate();
 
+
+        if(!isset($input['type'])){
+            if($input['lastname']==""){
+                Validator::make($input, [
+                    'lastname' => ['required', 'string', 'max:255'],
+                ])->validate();
+            }
+        }
+
+        if(isset($input['referral'])){
+                Validator::make($input, [
+                    'referral' => ['required', 'string', 'max:6', 'exists:users,referral_code'],
+                ])->validate();
+//            }
+        }
+
         $u=User::create([
             'firstname' => $input['firstname'],
-            'lastname' => $input['lastname'],
             'email' => $input['email'],
             'phone' => $input['phone'],
             'plan' => session('plan'),
+            'referral_code' => trim(substr(date('iym').rand(), 0, 6)),
             'password' => Hash::make($input['password']),
         ]);
+
+        if(!isset($input['type'])){
+            if($input['lastname']!=""){
+                $u->lastname=$input['lastname'];
+                $u->save();
+            }
+        }
+
+        if(isset($input['referral'])){
+            $u->referral=$input['referral'];
+            $u->save();
+        }
+
+        if(isset($input['freetrial'])){
+            $set=SettingsModel::first();
+            $exp=Carbon::now()->addDays($set->freetrial_days);
+            $u->subscription=$exp;
+            $u->plan=3;
+            $u->status="free_trial";
+            $u->save();
+        }
 //
             $plan = PlanModel::where("id", $u->plan)->first();
             $duration = $plan->duration;

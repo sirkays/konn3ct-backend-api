@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Jetstream\DeleteUser;
+use App\Models\SettingsModel;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
@@ -28,7 +29,10 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         Fortify::registerView(function () {
             session(['plan' => '1']);
-            return view('auth.register');
+            $set=SettingsModel::first();
+            $freetrial=$set->freetrial_status;
+            $freetrial_days=$set->freetrial_days;
+            return view('auth.register', ['freetrial'=>$freetrial, 'freetrial_days'=>$freetrial_days]);
         });
 
         $this->configurePermissions();

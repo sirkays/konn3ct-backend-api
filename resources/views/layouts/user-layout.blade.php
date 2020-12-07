@@ -18,16 +18,18 @@
     <link rel="stylesheet" href="/user_assets/css/horizontal-menu.css">
     <link rel="stylesheet" href="/user_assets/css/style.css">
     <link rel="stylesheet" href="/user_assets/css/skin_color.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
 
     <style>
         /* Style all font awesome icons */
         .myfa {
             padding: 20px;
-            font-size: 30px;
+            font-size: 20px;
             width: 50px;
             text-align: center;
             text-decoration: none;
             margin-right: 10px;
+            align-content: center;
         }
 
         /* Add a hover effect if you want */
@@ -88,15 +90,16 @@
     <header class="main-header">
         <div class="inside-header">
             <div class="d-flex align-items-center logo-box justify-content-between">
+                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
                 <!-- Logo -->
-                <a href="#" class="logo">
-                    <!-- logo-->
-                    <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+{{--                <a href="#" class="logo">--}}
+{{--                    <!-- logo-->--}}
+{{--                    <div class="logo-lg">--}}
+{{--                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>--}}
 {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
 {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
-                    </div>
-                </a>
+{{--                    </div>--}}
+{{--                </a>--}}
             </div>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top pl-10">
@@ -114,28 +117,31 @@
                     <ul class="nav navbar-nav">
                         <!-- Notifications -->
                         <li style="margin-left: 2px">
-                            <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" title="Logout">
-                                <i class="fa fa-sign-out"></i>
+                            <a href="/logouts" class="waves-effect waves-light dropdown-toggle btn-danger" style="min-width: 45px" title="Logout">
+{{--                                <i class="fa fa-sign-out"></i>--}}
+                                <span style="font-size: 9px;">Signout</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-home"></i>
+                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Home">
+                                <span style="font-size: 11px">Home</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">
-                                <i class="fa fa-link"></i>
+                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Change Plan">
+{{--                                <i class="fa fa-link"></i>--}}
+                                <span style="font-size: 11px">Plan</span>
                             </a>
                         </li>
 
-{{--                        <li style="margin-left: 2px">--}}
-{{--                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" title="Home">--}}
+                        <li style="margin-left: 2px">
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Share">
 {{--                                <i class="fa fa-plus-circle"></i>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                                <span style="font-size: 11px">Share</span>
+                            </a>
+                        </li>
 
 {{--                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
 {{--                        <li style="margin-left: 5px">--}}
@@ -157,9 +163,9 @@
                             @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                                 Basic
                             @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                Lite - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @else
-                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @endif
                                 </span>
                         </li>
@@ -361,7 +367,7 @@
 
                                 <br><br>
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                    <a class="btn btn-outline btn-white" href="/changeplan/1">Select Plan</a>
+                                    <a data-toggle="modal" data-target="#basicplan-modal" class="btn btn-outline btn-white">Select Plan</a>
                                 @else
                                     <a class="btn btn-white" href="#">Current Plan</a>
                                 @endif
@@ -387,7 +393,9 @@
                                 <p><strong>Participant - </strong> 100</p>
                                 <p><strong>Session Timeout - </strong> 10 hours</p>
                                 <p><strong>Cloud Storage - </strong> 5 GB</p>
-                                <p><strong>Number of Rooms - </strong> 5</p>
+                                <p><strong>Number of Rooms - </strong> 3</p>
+                                <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
+                                <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 
 
                                 <br><br>
@@ -418,7 +426,9 @@
                                 <p><strong>Participant - </strong> 250</p>
                                 <p><strong>Session Timeout - </strong> 24 hours</p>
                                 <p><strong>Cloud Storage </strong> 15 GB</p>
-                                <p><strong>Number of Rooms</strong> Unlimited</p>
+                                <p><strong>Number of Rooms</strong> 6</p>
+                                <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
+                                <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 
                                 <br><br>
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=3)
@@ -458,6 +468,26 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade basicplan-modal" id="basicplan-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mySmallModalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                Changing plan to basic will restrict you to a room, you will also loose your recordings
+            </div>
+            <div class="modal-footer modal-footer-uniform">
+                <button type="button" class="btn bg-success" data-dismiss="modal">Cancel</button>
+                <a href="/changeplan/1" class="btn bg-danger float-right">Continue</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <!-- /.modal -->
 
 
@@ -468,11 +498,17 @@
 
 <script src="/user_assets/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
+@if(Request::segment(1) === 'payment')
+<script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
+@endif
+
 <!-- Adminto App -->
 <script src="/user_assets/js/jquery.smartmenus.min.js"></script>
 <script src="/user_assets/js/menus.min.js"></script>
 <script src="/user_assets/js/template.min.js"></script>
 <script src="/user_assets/js/pages/dashboard4.js"></script>
+
+<script src="/user_assets/js/pages/data-table.js"></script>
 
 
 @stack('modals')

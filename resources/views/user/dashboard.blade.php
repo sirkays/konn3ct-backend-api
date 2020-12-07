@@ -27,6 +27,8 @@
                         </div>
                     @endif
 
+                    <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+
                 <div class="row hidden-xs-down">
                     <div class="col-3">
                         <div class="box box-body pull-up">
@@ -147,6 +149,8 @@
                                                             Konn3ct Now
                                                         </Button>
 
+                                                </form>
+
                                                         <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Manage
                                                         </button>
@@ -171,7 +175,6 @@
                                                         </div>
                                                     </div>
 
-                                                </form>
 
 
                                             </td>
@@ -238,6 +241,10 @@
                                                    Add to Outlook Calender
                                                 </a>
 
+                                                <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
+                                                   Invite Participant
+                                                </button>
+
                                             </td>
                                             <td>
                                                 <form action="/joinroom" method="POST">
@@ -258,6 +265,60 @@
                                                 </form>
                                             </td>
                                         </tr>
+
+                                        <div class="modal fade invite-lg-{{$room->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Invite Participant</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    </div>
+
+                                                    <form method="post" action="{{route('invite')}}">
+                                                    <div class="modal-body">
+                                                            @csrf
+                                                        <div class="form-group">
+                                                            <label>Room Name:</label>
+                                                            <input type="text" name="roomname" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Room Link:</label>
+                                                            <input type="text"class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}" disabled required>
+                                                            <input type="hidden" name="roomlink" class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}"required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Host Name:</label>
+                                                            <input type="text" name="hostname" class="form-control" placeholder="e.g Newwaves" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Date:</label>
+                                                            <input type="date" name="date" class="form-control" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Time:</label>
+                                                            <input type="time" name="time" class="form-control" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Guest Email(s)<i>Separated by commas</i>:</label>
+                                                            <textarea maxlength="500" name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success text-left">Send Invite</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -386,10 +447,3 @@
     </script>
 
 @endsection
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-
-</script>

@@ -104,7 +104,7 @@ class PaymentController extends Controller
     }
 
     public function list(){
-        $datas['payments']=PaymentModel::where('user_id', Auth::id())->get();
+        $datas['payments']=PaymentModel::join('plans','plans.id','=','payment.plan')->where('payment.user_id', Auth::id())->select('payment.*', 'plans.name as plan')->OrderBy('id', 'desc')->limit(1)->get();
         $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');
         $datas['tp']=PaymentModel::where('user_id', Auth::id())->count();
         $datas['pp']=PaymentModel::distinct('plan')->count();

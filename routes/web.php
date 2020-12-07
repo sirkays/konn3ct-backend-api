@@ -56,7 +56,7 @@ Route::get('/contact', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
     Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
@@ -66,13 +66,18 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck'])->group(funct
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
-    Route::get('/payment', [PaymentController::class, 'receipt'])->name('payments');
+    Route::get('/payment', [PaymentController::class, 'list'])->name('payments');
 
-//    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('invoice');
+    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('receipt');
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
+
+    Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+//    Route::get('/invites', function (){
+//        return view('mail.invite');
+//    })->name('invite');
 
 });
 
@@ -105,6 +110,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/meetings', [RoomsController::class, 'meetings'])->name('admin.meetings');
 
         Route::get('/users', [UsersController::class, 'show'])->name('admin.users');
+
+        Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 

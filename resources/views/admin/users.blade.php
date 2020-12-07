@@ -96,6 +96,7 @@
                                     <th style="min-width: 10px"><span class="text-fade">Status</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">2FA</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
+                                    <th style="min-width: 10px"><span class="text-fade">Actions</span></th>
                                     {{--                                            <th></th>--}}
                                 </tr>
                                 </thead>
@@ -105,7 +106,7 @@
                                         <td class="pl-0 py-8">
                                             <div class="d-flex align-items-center">
                                                 <div>
-                                                    <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$user->firstname}} {{$user->lastname}}</a>
+                                                    <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$user->lastname}} {{$user->firstname}}</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -134,13 +135,13 @@
                                                     @if($user->subsciption=='new')
                                                         Not yet Subscribed
                                                     @else
-                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days
                                                     @endif
                                                 @else
                                                     @if($user->subsciption=='new')
                                                         Not yet Subscribed
                                                     @else
-                                                        Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days
+                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days
                                                     @endif
                                                 @endif
                                             </span>
@@ -161,39 +162,16 @@
                                         <td>
                                             <span>{{$user->created_at}}</span>
                                         </td>
-                                        {{--                                            <td class="text-right">--}}
-                                        {{--                                                <form action="/joinroom" method="POST">--}}
-                                        {{--                                                    @csrf--}}
-                                        {{--                                                    <input type="hidden" name="id" value="{{$room->id}}" />--}}
-                                        {{--                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-success">--}}
-                                        {{--                                                    <i class="fa fa-arrow-right"></i> Konn3ct Now--}}
-                                        {{--                                                </Button>--}}
-                                        {{--                                                </form>--}}
-
-                                        {{--                                                <Button class="waves-effect waves-light btn btn-app btn-info" onclick="copyToClipboard('#c{{$room->id}}')">--}}
-                                        {{--                                                    <i class="fa fa-copy"></i> Copy--}}
-                                        {{--                                                </Button>--}}
-
-                                        {{--                                                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">--}}
-                                        {{--                                                    <i class="fa fa-calendar-check-o "></i> Add to Google Calender--}}
-                                        {{--                                                </a>--}}
-
-                                        {{--                                                <a href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-app btn-primary">--}}
-                                        {{--                                                    <i class="fa fa-calendar-check-o "></i> Add to Outlook Calender--}}
-                                        {{--                                                </a>--}}
-
-                                        {{--                                                <form action="/deleteroom" method="POST">--}}
-                                        {{--                                                    @csrf--}}
-                                        {{--                                                    <input type="hidden" name="id" value="{{$room->id}}" />--}}
-                                        {{--                                                <Button type="submit" class="waves-effect waves-light btn btn-app btn-danger">--}}
-                                        {{--                                                    <i class="fa fa-trash"></i> Delete--}}
-                                        {{--                                                </Button>--}}
-                                        {{--                                                </form>--}}
-                                        {{--                                            </td>--}}
+                                                                                    <td class="text-right">
+                                                                                        <a href="user/{{$user->id}}" class="btn btn-outline-primary dropdown-toggle">
+                                                                                            Manage
+                                                                                        </a>
+                                                                                    </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{$users->links()}}
                         </div>
                     </div>
                 </div>

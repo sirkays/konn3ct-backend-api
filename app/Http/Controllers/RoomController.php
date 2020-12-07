@@ -304,8 +304,7 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-//        $ms=\Bigbluebutton::isMeetingRunning($i->id);
-        $ms=1;
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -328,13 +327,13 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-//        return redirect()->to(
-//            \Bigbluebutton::join([
-//                'meetingID' => $i->id,
-//                'userName' => $name,
-//                'password' => $i->password_attendee //which user role want to join set password here
-//            ])
-//        );
+        return redirect()->to(
+            \Bigbluebutton::join([
+                'meetingID' => $i->id,
+                'userName' => $name,
+                'password' => $i->password_attendee //which user role want to join set password here
+            ])
+        );
     }
 
     public function delete(Request $request){

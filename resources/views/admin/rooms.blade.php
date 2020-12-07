@@ -115,7 +115,7 @@
                                                 <span class="badge badge-success badge-lg">Active</span>
                                             </td>
                                             <td>
-                                                <span>{{$room->user_name}}</span>
+                                                <span>{{$room->firstname}} {{$room->lastname}}</span>
                                             </td>
                                             <td>
                                                 <span>{{$room->created_at}}</span>

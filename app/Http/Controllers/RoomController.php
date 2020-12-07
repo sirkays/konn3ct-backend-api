@@ -265,6 +265,13 @@ class RoomController extends Controller
                 $dsn=false;
             }
 
+            $mdata['meeting_id']=$i->id;
+            $mdata['name']=Auth::user()->lastname ." " .Auth::user()->firstname;
+            $mdata['email']=Auth::user()->email;
+            $mdata['password_attendee']=$i->password_attendee;
+            $mdata['status']="start meeting";
+            MeetingsModel::create($mdata);
+
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here

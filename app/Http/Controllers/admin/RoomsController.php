@@ -41,11 +41,10 @@ class RoomsController extends Controller
 
     public function meetings(){
         $datas['meetings']=MeetingsModel::orderBy('id', 'desc')
-            ->join('room','room.id','=','meetings.id')
+            ->join('room','room.id','=','meetings.meeting_id')
             ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
             ->paginate(10);
-        $datas['meetingstc']=MeetingsModel::orderBy('id', 'desc')
-            ->join('room','room.id','=','meetings.id')
+        $datas['meetingstc']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')
             ->count();
         $datas['meetingsdc']=MeetingsModel::distinct('email')->count();
         return view('admin.meetings', $datas);

@@ -175,7 +175,7 @@
 
                                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
                                                     <div class="col-12 mt-25">
-                                                        <a href="/changeplan/1" class="btn btn-danger btn-block">Can't Pay Now? Migrate to Basic Plan</a>
+                                                        <button data-toggle="modal" data-target="#basicplan-modal" class="btn btn-danger btn-block">Can't Pay Now? Migrate to Basic Plan</button>
                                                     </div>
                                                 @endif
 
@@ -213,6 +213,27 @@
 
 </div>
 <!-- ./wrapper -->
+
+<div class="modal fade basicplan-modal" id="basicplan-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mySmallModalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                Changing plan to basic will restrict you to a room, you will also loose your recordings
+            </div>
+            <div class="modal-footer modal-footer-uniform">
+                <button type="button" class="btn bg-success" data-dismiss="modal">Cancel</button>
+                <a href="/changeplan/1" class="btn bg-danger float-right">Continue</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 

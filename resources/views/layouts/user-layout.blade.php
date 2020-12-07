@@ -367,7 +367,7 @@
 
                                 <br><br>
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                    <a class="btn btn-outline btn-white" href="/changeplan/1">Select Plan</a>
+                                    <a data-toggle="modal" data-target="#basicplan-modal" class="btn btn-outline btn-white">Select Plan</a>
                                 @else
                                     <a class="btn btn-white" href="#">Current Plan</a>
                                 @endif
@@ -393,7 +393,9 @@
                                 <p><strong>Participant - </strong> 100</p>
                                 <p><strong>Session Timeout - </strong> 10 hours</p>
                                 <p><strong>Cloud Storage - </strong> 5 GB</p>
-                                <p><strong>Number of Rooms - </strong> 5</p>
+                                <p><strong>Number of Rooms - </strong> 3</p>
+                                <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
+                                <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 
 
                                 <br><br>
@@ -424,7 +426,9 @@
                                 <p><strong>Participant - </strong> 250</p>
                                 <p><strong>Session Timeout - </strong> 24 hours</p>
                                 <p><strong>Cloud Storage </strong> 15 GB</p>
-                                <p><strong>Number of Rooms</strong> Unlimited</p>
+                                <p><strong>Number of Rooms</strong> 6</p>
+                                <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
+                                <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 
                                 <br><br>
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=3)
@@ -458,6 +462,26 @@
                 <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://konn3ct.com/register" target="_blank" class="fa fa-linkedin myfa"></a>
 {{--                https://twitter.com/intent/tweet?text=How%20to%20create%20social%20media%20sharing%20buttons%20on%20your%20website&url=https://blog.one.com/create-social-media-sharing-buttons-website/--}}
 {{--                https://www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.one.com%2Fcreate-social-media-sharing-buttons-website%2F--}}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade basicplan-modal" id="basicplan-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mySmallModalLabel">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                Changing plan to basic will restrict you to a room, you will also loose your recordings
+            </div>
+            <div class="modal-footer modal-footer-uniform">
+                <button type="button" class="btn bg-success" data-dismiss="modal">Cancel</button>
+                <a href="/changeplan/1" class="btn bg-danger float-right">Continue</a>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -74,6 +74,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
+    Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

@@ -242,7 +242,7 @@
                                                 </a>
 
                                                 <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
-                                                   Invite
+                                                   Invite Participant
                                                 </button>
 
                                             </td>
@@ -270,45 +270,50 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Invite</h4>
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Invite Participant</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                     </div>
+
+                                                    <form method="post" action="{{route('invite')}}">
                                                     <div class="modal-body">
+                                                            @csrf
                                                         <div class="form-group">
                                                             <label>Room Name:</label>
-                                                            <input type="text" name="name" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
+                                                            <input type="text" name="roomname" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Room Link:</label>
-                                                            <input type="text" name="name" class="form-control" placeholder="e.g Newwaves" value="{{url('/join/')}}/{{$room->url}}" disabled required>
+                                                            <input type="text"class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}" disabled required>
+                                                            <input type="hidden" name="roomlink" class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}"required>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Host Name:</label>
-                                                            <input type="text" name="name" class="form-control" placeholder="e.g Newwaves" required>
+                                                            <input type="text" name="hostname" class="form-control" placeholder="e.g Newwaves" required>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Date:</label>
-                                                            <input type="date" name="name" class="form-control" placeholder="e.g Newwaves" required>
+                                                            <input type="date" name="date" class="form-control" required>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Time:</label>
-                                                            <input type="time" name="time" class="form-control" placeholder="e.g Newwaves" required>
+                                                            <input type="time" name="time" class="form-control" required>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Guest <i>Separated by commas</i>:</label>
+                                                            <label>Guest Email(s)<i>Separated by commas</i>:</label>
                                                             <textarea name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
                                                         </div>
 
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-success text-left" data-dismiss="modal">Send Invite</button>
+                                                        <button type="submit" class="btn btn-success text-left">Send Invite</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                                 <!-- /.modal-content -->
                                             </div>

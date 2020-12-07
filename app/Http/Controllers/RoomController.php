@@ -8,6 +8,7 @@ use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use JoisarJignesh\Bigbluebutton\Bigbluebutton;
 
@@ -356,5 +357,28 @@ class RoomController extends Controller
         $i->delete();
 
         return redirect('room')->with('success', 'Room Deleted Successfully!');
+    }
+
+    public function invite(Request $request){
+        $input=$request->all();
+
+        if ($input['guest']==""){
+            return back()->with('error', 'Guest emails can not be empty');
+        }
+
+        // use of explode
+        $str_arr = explode (",", $input['guest']);
+
+        foreach ($str_arr as $arr) {
+
+            $GLOBALS['recipient'] = $arr;
+
+            $data = array('ihost' => $input['hostname'], 'ilink' => $input['roomlink'], 'idate' => $input['date'], 'itime' => $input['time'], 'iroom' => $input['roomname']);
+            Mail::send('mail.invite', $data, function ($message) {
+                $message->to($GLOBALS['recipient'])->subject('Konn3ct Invite');
+            });
+        }
+
+        return redirect('room')->with('success', 'Invite Sent Successfully!');
     }
 }

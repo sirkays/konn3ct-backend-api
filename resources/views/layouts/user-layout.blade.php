@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="/user_assets/css/horizontal-menu.css">
     <link rel="stylesheet" href="/user_assets/css/style.css">
     <link rel="stylesheet" href="/user_assets/css/skin_color.css">
-    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/user_assets/assets/icons/font-awesome/css/font-awesome.css">
+{{--    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">--}}
 
     <style>
         /* Style all font awesome icons */

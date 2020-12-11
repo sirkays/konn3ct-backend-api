@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
@@ -98,6 +99,12 @@ class CreateNewUser implements CreatesNewUsers
             $input['default_room']="yes";
 
             RoomModel::create($input);
+
+        $GLOBALS['recipient']=$u->email;
+        Mail::send('mail.invite', null, function ($message) {
+            $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
+        });
+
             return $u;
     }
 }

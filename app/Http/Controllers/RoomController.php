@@ -96,7 +96,7 @@ class RoomController extends Controller
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage('Welcome to <b>konn3ct</b>!<br><br>For help, contact us via <a href="mailto:support@konn3ct.com"> support@konn3ct.com</a><br><br>No internet? Ask participants to dial:%%DIALNUM%% and enter %%CONFNUM%% as Room PIN to join meeting via phone.'); //overwrite default configuration
+        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host:'.Auth::user()->firstname.'<br>No internet? Ask participants to dial:<span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone. Share this link with people you want in this meeting. <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span>'); //overwrite default configuration
 //        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
         if(isset($input['muj'])){
@@ -281,7 +281,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <b>konn3ct</b>!<br><br>For help, contact us via <a href="mailto:support@konn3ct.com"> support@konn3ct.com</a><br><br>No internet? Ask participants to dial:%%DIALNUM%% and enter %%CONFNUM%% as Room PIN to join meeting via phone.',
+                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host:'.Auth::user()->firstname.'<br>No internet? Ask participants to dial:<span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone. Share this link with people you want in this meeting. <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span>',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,

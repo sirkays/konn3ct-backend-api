@@ -94,7 +94,7 @@
                                             <th style="min-width: 10px"><span class="text-fade">Participant Email</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Status</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
-                                            <th></th>
+{{--                                            <th></th>--}}
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -123,9 +123,6 @@
                                             </td>
                                             <td>
                                                 <span>{{$meeting->created_at}}</span>
-                                            </td>
-                                            <td>
-                                                <a href="meetings/{{$meeting->meeting_id}}" class="btn btn-primary btn-sm">View Details</a>
                                             </td>
                                         </tr>
                                         @endforeach

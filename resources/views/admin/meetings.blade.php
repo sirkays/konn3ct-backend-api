@@ -78,8 +78,8 @@
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
-                                    Meetings Participant
-                                    <small class="subtitle">This table show the list of meetings joined </small>
+                                    Meetings Manager
+{{--                                    <small class="subtitle">This table show the list of meetings joined </small>--}}
                                 </h4>
 
                             </div>
@@ -90,8 +90,8 @@
                                         <tr class="text-uppercase bg-lightest">
                                             <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
-                                            <th style="min-width: 10px"><span class="text-fade">Participant Name</span></th>
-                                            <th style="min-width: 10px"><span class="text-fade">Participant Email</span></th>
+                                            <th style="min-width: 10px"><span class="text-fade">Host Name</span></th>
+                                            <th style="min-width: 10px"><span class="text-fade">Host Email</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Status</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
                                             <th></th>

@@ -78,8 +78,8 @@
                         <div class="box">
                             <div class="box-header">
                                 <h4 class="box-title align-items-start flex-column">
-                                    Meetings Participant
-                                    <small class="subtitle">This table show the list of meetings joined </small>
+                                    Meeting Participant(s)
+{{--                                    <small class="subtitle">This table show the list of meetings joined </small>--}}
                                 </h4>
 
                             </div>

@@ -165,6 +165,10 @@
                                                             <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
                                                                 Add to Outlook Calender
                                                             </a>
+                                                            <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
+                                                                Invite Participant
+                                                            </button>
+                                                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
                                                             <form action="/deleteroom" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" name="id" value="{{$room->id}}" />
@@ -172,10 +176,9 @@
                                                                     Delete
                                                                 </Button>
                                                             </form>
+                                                            @endif
                                                         </div>
                                                     </div>
-
-
 
                                             </td>
                                         </tr>
@@ -212,7 +215,9 @@
                                             <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
                                             <th style="min-width: 10px"><span class="text-fade"></span></th>
-                                            <th style="min-width: 10px"><span class="text-fade"></span></th>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                                <th style="min-width: 10px"><span class="text-fade"></span></th>
+                                            @endif
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -255,15 +260,19 @@
                                                     </Button>
                                                 </form>
                                             </td>
-                                            <td>
-                                                <form action="/deleteroom" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{$room->id}}" />
-                                                    <Button type="submit" class="waves-effect waves-light btn btn-danger">
-                                                        <i class="fa fa-trash"></i> Delete
-                                                    </Button>
-                                                </form>
-                                            </td>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                                @if($room->default_room!="yes")
+                                                    <td>
+                                                        <form action="/deleteroom" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$room->id}}" />
+                                                            <Button type="submit" class="waves-effect waves-light btn btn-danger">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </Button>
+                                                        </form>
+                                                    </td>
+                                                @endif
+                                            @endif
                                         </tr>
 
                                         <div class="modal fade invite-lg-{{$room->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
@@ -284,7 +293,7 @@
 
                                                         <div class="form-group">
                                                             <label>Room Link:</label>
-                                                            <input type="text"class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}" disabled required>
+                                                            <input type="text" class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}" disabled required>
                                                             <input type="hidden" name="roomlink" class="form-control" placeholder="e.g https://konn3ct..." value="{{url('/join/')}}/{{$room->url}}"required>
                                                         </div>
 

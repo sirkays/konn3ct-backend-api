@@ -255,7 +255,6 @@
 
 
 <script>
-    import Button from "../js/Jetstream/Button";
     function makePayment(cur) {
         @if($plan ?? false)
         if(cur=="USD") {

@@ -100,8 +100,10 @@ class CreateNewUser implements CreatesNewUsers
 
             RoomModel::create($input);
 
+            $data['messag']="";
+
         $GLOBALS['recipient']=$u->email;
-        Mail::send('mail.invite', null, function ($message) {
+        Mail::send('mail.invite', $data, function ($message) {
             $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
         });
 

@@ -394,7 +394,7 @@
                                 <p><strong>Participant - </strong> 100</p>
                                 <p><strong>Session Timeout - </strong> 10 hours</p>
                                 <p><strong>Cloud Storage - </strong> 5 GB</p>
-                                <p><strong>Number of Rooms - </strong> 3</p>
+                                <p><strong>Number of Rooms - </strong> 2</p>
                                 <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
                                 <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 
@@ -427,7 +427,7 @@
                                 <p><strong>Participant - </strong> 250</p>
                                 <p><strong>Session Timeout - </strong> 24 hours</p>
                                 <p><strong>Cloud Storage </strong> 15 GB</p>
-                                <p><strong>Number of Rooms</strong> 6</p>
+                                <p><strong>Number of Rooms</strong> 3</p>
                                 <p><strong>Breakout Rooms</strong> <i class="fa fa-check-circle"></i> </p>
                                 <p><strong>Recording</strong> <i class="fa fa-check-circle"></i> </p>
 

@@ -80,7 +80,7 @@
                                 <li>Participant - 100</li>
                                 <li>Session Timeout - 10 hour</li>
                                 <li>Cloud Storage - 5GB</li>
-                                <li>Number of Rooms - 3</li>
+                                <li>Number of Rooms - 2</li>
                                 <li>Audio & Video Preview Window</li>
                                 <li>Screen Sharing</li>
                                 <li>Whiteboard & Annotation Tools</li>
@@ -136,7 +136,7 @@
                                 <li>Participant - 250</li>
                                 <li>Session Timeout - 24 hours</li>
                                 <li>Cloud Storage - 15GB</li>
-                                <li>Number of Rooms - 6</li>
+                                <li>Number of Rooms - 3</li>
                                 <li>Audio & Video Preview Window</li>
                                 <li>Screen Sharing</li>
                                 <li>Whiteboard & Annotation Tools</li>

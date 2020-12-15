@@ -37,6 +37,10 @@ Route::get('/joinsession', function () {
     return view('join_session');
 });
 
+Route::get('/konn3ct', function () {
+    return view('konn3ct_session');
+});
+
 Route::get('/leftsession', function () {
     return view('left_session');
 });

@@ -106,7 +106,6 @@ class CreateNewUser implements CreatesNewUsers
         Mail::send('mail.welcome', $data, function ($message) {
             $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
         });
-
             return $u;
     }
 }

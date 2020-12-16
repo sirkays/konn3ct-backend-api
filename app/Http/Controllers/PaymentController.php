@@ -53,7 +53,12 @@ class PaymentController extends Controller
             $data['gateway_reference']=$resp['data']['flw_ref'];
             $data['gateway_response']=$response;
 
-            $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
+            if (App::environment(['local', 'staging'])) {
+                // The environment is either local OR staging...
+                $p =false;
+            }else{
+                $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
+            }
 
             if(!$p) {
                 $data['status'] = $resp['status'];

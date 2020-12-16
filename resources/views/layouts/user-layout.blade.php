@@ -403,7 +403,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=2)
                                     <a class="btn btn-outline btn-white" href="/changeplan/2">Select Plan</a>
                                 @else
-                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                    <a class="btn btn-primary btn-white" href="/changeplan/2">Current Plan</a>
                                 @endif
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=3)
                                     <a class="btn btn-outline btn-white" href="/changeplan/3">Select plan</a>
                                 @else
-                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                    <a class="btn btn-primary btn-white" href="/changeplan/3">Current Plan</a>
                                 @endif
                             </div>
                         </div>

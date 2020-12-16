@@ -281,7 +281,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br><br>No internet? Ask participants to dial: <span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone.',
+                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br><br>No internet? Ask participants to dial: <span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone.',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,

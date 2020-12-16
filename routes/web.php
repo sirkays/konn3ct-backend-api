@@ -74,6 +74,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/receipt', [PaymentController::class, 'receipt'])->name('receipt');
 
+    Route::get('/exportreceipt', [PaymentController::class, 'exportreceipt'])->name('exportreceipt');
+
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');

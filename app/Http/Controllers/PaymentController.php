@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentModel;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -68,7 +69,7 @@ class PaymentController extends Controller
 
                     if($plan==1){
                         $data['duration'] = "a month";
-                        if($plan+1==Auth::user()->plan){
+                        if($data['plan']==Auth::user()->plan){
                             if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
                                 $subd=Carbon::now()->addMonth();
                             }else{
@@ -81,7 +82,7 @@ class PaymentController extends Controller
                     }else{
                         $data['duration'] = "a year";
 
-                        if($plan+1==Auth::user()->plan){
+                        if($data['plan']==Auth::user()->plan){
                             if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
                                 $subd=Carbon::now()->addYear();
                             }else{
@@ -168,4 +169,25 @@ class PaymentController extends Controller
 
         return view('payment', $datas);
     }
+
+    // Export to PDF
+    public function exportreceipt() {
+
+        $datas['payment']=PaymentModel::where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+
+        if($datas['payment']){
+            $datas['payments']=PaymentModel::where('user_id', Auth::id())->get();
+            $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');
+            $datas['tp']=PaymentModel::where('user_id', Auth::id())->count();
+
+            view()->share('p', $datas);
+            $pdf_doc = PDF::loadView('user.receiptpdf', $datas);
+
+            return $pdf_doc->download('receipt.pdf');
+        }else{
+            return redirect('room')->with('error', 'Error in exporting pdf!');
+        }
+
+    }
+
 }

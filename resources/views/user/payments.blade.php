@@ -37,7 +37,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Expiry Date</th>
+{{--                                            <th>Expiry Date</th>--}}
                                             <th>Issued to</th>
                                             <th>Status</th>
                                             <th>Payment date</th>
@@ -50,7 +50,7 @@
                                         @foreach($payments as $data)
                                         <tr>
                                             <td>#1</td>
-                                            <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>
+{{--                                            <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>--}}
                                             <td>
                                                 <h6 class="mb-0">
                                                     <a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>

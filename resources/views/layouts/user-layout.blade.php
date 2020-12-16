@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/user_assets/css/style.css">
     <link rel="stylesheet" href="/user_assets/css/skin_color.css">
     <link rel="stylesheet" href="/user_assets/assets/icons/font-awesome/css/font-awesome.css">
-{{--    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">--}}
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
 
     <style>
         /* Style all font awesome icons */
@@ -166,7 +166,7 @@
                             @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
                                 Lite - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @else
-                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
+                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status=="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @endif
                                 </span>
                         </li>

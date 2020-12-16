@@ -123,6 +123,7 @@
 {{--                </div>--}}
             </section>
             <!-- /.content -->
+</div>
 </body>
 
 </html>

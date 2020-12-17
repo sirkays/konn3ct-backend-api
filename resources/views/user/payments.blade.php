@@ -37,8 +37,9 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Period</th>
+{{--                                            <th>Expiry Date</th>--}}
                                             <th>Issued to</th>
+<th>Payment Method</th>
                                             <th>Status</th>
                                             <th>Payment date</th>
                                             <th>Plan</th>
@@ -49,14 +50,15 @@
                                         <tbody>
                                         @foreach($payments as $data)
                                         <tr>
-                                            <td>#{{$data->id}}</td>
-                                            <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>
+                                            <td>#1</td>
+{{--                                            <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>--}}
                                             <td>
                                                 <h6 class="mb-0">
-                                                    <a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
-                                                    <span class="d-block text-muted">Payment method: {{$data->gateway}}</span>
-                                                </h6>
+                                                    <a href="#">{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}</a>
+                                                     </h6>
                                             </td>
+<td><span class="d-block text-muted"> {{$data->gateway}}</span>
+                                          </td>
                                             <td>
                                                 <span class="badge badge-pill badge-success">Success</span>
                                             </td>
@@ -70,7 +72,7 @@
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
                                             </td>
                                             <td>
-                                                <a class="btn" href="/receipt"> <i class="fa fa-file-invoice"></i></a>
+                                                <a class="btn" href="/receipt"> View Receipt</a>
                                             </td>
                                         </tr>
                                         @endforeach

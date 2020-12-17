@@ -28,7 +28,7 @@
                 <div class="col-lg-5 col-md-5 col-12">
                     <div class="bg-white rounded30 shadow-lg">
                         <div class="content-top-agile p-20 pb-0 text-left">
-                            <img src="/assets/images/konn3ct_logo.png" alt="konn3ct logo" />
+                            <img src="https://konn3ct.com/assets/images/konn3ct_logo.png" alt="konn3ct logo" />
                             <h2 class="mb-25"><strong>Hello,</strong></h2>
                             <p class="mb-10 mt-15">We are excited to have you join the growing number of professionals and desision influencers konn3ct-ing with the rest of the world without missing a thing. <br /><br />
                                 To get you started on the journey to an improved virtual live, take the next 3 minutes to do the following

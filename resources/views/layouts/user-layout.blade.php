@@ -91,7 +91,7 @@
     <header class="main-header">
         <div class="inside-header">
             <div class="d-flex align-items-center logo-box justify-content-between">
-                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}} </span>
                 <!-- Logo -->
 {{--                <a href="#" class="logo">--}}
 {{--                    <!-- logo-->--}}
@@ -166,7 +166,7 @@
                             @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
                                 Lite - Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @else
-                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
+                                Pro - @if(\Illuminate\Support\Facades\Auth::user()->status=="free_trial")Free Trial @endif Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription), false)}} days
                             @endif
                                 </span>
                         </li>
@@ -403,7 +403,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=2)
                                     <a class="btn btn-outline btn-white" href="/changeplan/2">Select Plan</a>
                                 @else
-                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                    <a class="btn btn-primary btn-white" href="/changeplan/2">Current Plan</a>
                                 @endif
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=3)
                                     <a class="btn btn-outline btn-white" href="/changeplan/3">Select plan</a>
                                 @else
-                                    <a class="btn btn-dark btn-white" href="#">Current Plan</a>
+                                    <a class="btn btn-primary btn-white" href="/changeplan/3">Current Plan</a>
                                 @endif
                             </div>
                         </div>

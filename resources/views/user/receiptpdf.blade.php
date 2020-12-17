@@ -1,8 +1,32 @@
-@extends('layouts.user-layout')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/assets/images/konn3cticon.ico">
 
-            <!-- Main content -->
+    <title>Konn3ct - Home</title>
+
+    <!-- Vendors Style-->
+    <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
+
+    <!-- Style-->
+    <link rel="stylesheet" href="/user_assets/css/horizontal-menu.css">
+    <link rel="stylesheet" href="/user_assets/css/style.css">
+    <link rel="stylesheet" href="/user_assets/css/skin_color.css">
+    <link rel="stylesheet" href="/user_assets/assets/icons/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+</head>
+
+<body class="layout-top-nav light-skin theme-primary">
+
+<div class="wrapper">
+
+    <!-- Main content -->
             <section class="invoice printableArea">
                 <div class="row">
                     <div class="col-12">
@@ -99,4 +123,7 @@
 {{--                </div>--}}
             </section>
             <!-- /.content -->
-@endsection
+</div>
+</body>
+
+</html>

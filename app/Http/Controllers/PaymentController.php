@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentModel;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PaymentController extends Controller
 
         if (App::environment(['local', 'staging'])) {
             // The environment is either local OR staging...
-            $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6", "flw_ref": "FLW-M03ul55rK-052c5621a8095c7e064b8b9714db834080b", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
+            $response = '{ "status": "success", "message": "Transaction fetched successfully", "data": { "id": 1163068, "tx_ref": "akhlm-pstmn-blkchrge-xx6526", "flw_ref": "FLW-M03ul55rK-052c5621a8095c7e064b8b9714db834080bb21", "device_fingerprint": "N/A", "amount": 3000, "currency": "NGN", "charged_amount": 3000, "app_fee": 1000, "merchant_fee": 0, "processor_response": "Approved", "auth_model": "noauth", "ip": "pstmn", "narration": "Kendrick Graham", "status": "successful", "payment_type": "card", "created_at": "2020-03-11T19:22:07.000Z", "account_id": 73362, "amount_settled": 2000, "card": { "first_6digits": "553188", "last_4digits": "2950", "issuer": " CREDIT", "country": "NIGERIA NG", "type": "MASTERCARD", "token": "flw-t1nf-f9b3bf384cd30d6fca42b6df9d27bd2f-m03k", "expiry": "09/22" }, "customer": { "id": 252759, "name": "Kendrick Graham", "phone_number": "0813XXXXXXX", "email": "user@example.com", "created_at": "2020-01-15T13:26:24.000Z" } } }';
         }else{
             $response = curl_exec($curl);
             curl_close($curl);
@@ -53,7 +54,12 @@ class PaymentController extends Controller
             $data['gateway_reference']=$resp['data']['flw_ref'];
             $data['gateway_response']=$response;
 
-            $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
+            if (App::environment(['local', 'staging'])) {
+                // The environment is either local OR staging...
+                $p =false;
+            }else{
+                $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
+            }
 
             if(!$p) {
                 $data['status'] = $resp['status'];
@@ -63,20 +69,40 @@ class PaymentController extends Controller
 
                     if($plan==1){
                         $data['duration'] = "a month";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'plan'=>session('plan')]);
+                        if($data['plan']==Auth::user()->plan){
+                            if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                                $subd=Carbon::now()->addMonth();
+                            }else{
+                                $subd = Carbon::parse(Auth::user()->subscription)->addMonth();
+                            }
+                        }else{
+                            $subd=Carbon::now()->addMonth();
+                        }
+                        User::where('id',Auth::id())->update(['subscription'=>$subd, 'plan'=>session('plan'), 'status'=>'active']);
                     }else{
                         $data['duration'] = "a year";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'plan'=>session('plan')]);
+
+                        if($data['plan']==Auth::user()->plan){
+                            if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                                $subd=Carbon::now()->addYear();
+                            }else{
+                                $subd = Carbon::parse(Auth::user()->subscription)->addYear();
+                            }
+                        }else{
+                            $subd=Carbon::now()->addYear();
+                        }
+
+                        User::where('id',Auth::id())->update(['subscription'=>$subd, 'plan'=>session('plan'), 'status'=>'active']);
                     }
                 }else{
                     $data['plan']=Auth::user()->plan;
 
                     if($plan==1){
                         $data['duration'] = "a month";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth()]);
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'status'=>'active']);
                     }else{
                         $data['duration'] = "a year";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear()]);
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'status'=>'active']);
                     }
                 }
 
@@ -132,7 +158,7 @@ class PaymentController extends Controller
     public function changeplan($plan){
 
         if($plan==1){
-            User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1]);
+            User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1, 'status'=>'active']);
 
             return redirect('room')->with('success', 'Plan Changed Successfully!');
         }
@@ -143,4 +169,25 @@ class PaymentController extends Controller
 
         return view('payment', $datas);
     }
+
+    // Export to PDF
+    public function exportreceipt() {
+
+        $datas['payment']=PaymentModel::where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+
+        if($datas['payment']){
+            $datas['payments']=PaymentModel::where('user_id', Auth::id())->get();
+            $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');
+            $datas['tp']=PaymentModel::where('user_id', Auth::id())->count();
+
+            view()->share('p', $datas);
+            $pdf_doc = PDF::loadView('user.receiptpdf', $datas);
+
+            return $pdf_doc->download('receipt.pdf');
+        }else{
+            return redirect('room')->with('error', 'Error in exporting pdf!');
+        }
+
+    }
+
 }

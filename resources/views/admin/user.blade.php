@@ -372,7 +372,7 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-black"
                          style="background: url('/user_assets/images/gallery/full/10.jpg') center center;">
-                        <h3 class="widget-user-username">{{\Illuminate\Support\Facades\Auth::user()->name}}</h3>
+                        <h3 class="widget-user-username">{{\Illuminate\Support\Facades\Auth::user()->firstname}}</h3>
                         <h6 class="widget-user-desc">
                             @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                                 Basic
@@ -434,7 +434,7 @@
                                             class="text-gray pl-10">{{$user->phone}}</span>
                                     </p>
                                     <p>Name :<span
-                                            class="text-gray pl-10">{{$user->lastname}} {{$user->firstname}}</span>
+                                            class="text-gray pl-10">{{$user->firstname}} {{$user->lastname}}</span>
                                     </p>
                                     <p>Referral Code :<span
                                             class="text-gray pl-10">{{$user->referral_code}}</span>

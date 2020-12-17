@@ -136,7 +136,7 @@
                                         <div>
                                             <p>Email :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->email}}</span> </p>
                                             <p>Phone :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->phone}}</span></p>
-                                            <p>Name :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span></p>
+                                            <p>Name :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}} </span></p>
                                             <p>Refferal Code :<span class="text-gray pl-10">{{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span></p>
                                         </div>
                                     </div>

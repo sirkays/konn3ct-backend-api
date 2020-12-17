@@ -72,7 +72,7 @@
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
                                             </td>
                                             <td>
-                                                <a class="btn" href="/receipt"> <i class="fa fa-file-invoice"></i></a>
+                                                <a class="btn" href="/receipt"> View Receipt</a>
                                             </td>
                                         </tr>
                                         @endforeach

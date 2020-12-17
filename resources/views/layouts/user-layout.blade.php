@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/user_assets/css/style.css">
     <link rel="stylesheet" href="/user_assets/css/skin_color.css">
     <link rel="stylesheet" href="/user_assets/assets/icons/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+{{--    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">--}}
 
     <style>
         /* Style all font awesome icons */
@@ -91,7 +91,7 @@
     <header class="main-header">
         <div class="inside-header">
             <div class="d-flex align-items-center logo-box justify-content-between">
-                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+                <span class="mx-10 mt-10" style="color: white;">Welcome, {{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}} </span>
                 <!-- Logo -->
 {{--                <a href="#" class="logo">--}}
 {{--                    <!-- logo-->--}}

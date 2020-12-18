@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
 use App\Http\Controllers\admin\UsersController;
@@ -125,9 +126,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', [RoomController::class, 'show'])->name('admin.dashboard');
 
-        Route::get('/payment', [PaymentController::class, 'receipt'])->name('payments');
+        Route::get('/payment', [PaymentsController::class, 'list'])->name('admin.payments');
 
-//    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('invoice');
+        Route::get('/receipt/{id}', [PaymentsController::class, 'receipt'])->name('admin.receipt');
 
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 

@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 
@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-10 col-lg-9 col-12">
+                    <div class="col-12">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h4 class="box-title">Payment List</h4>
@@ -37,25 +37,28 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Period</th>
+                                            <th>Expiry Date</th>
                                             <th>Issued to</th>
+                                            <th>Payment Method</th>
                                             <th>Status</th>
                                             <th>Payment date</th>
                                             <th>Plan</th>
                                             <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($payments as $data)
                                         <tr>
                                             <td>#{{$data->id}}</td>
-                                            <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>
+                                            <td>{{\Carbon\Carbon::parse($data->subscription)->toFormattedDateString()}}</td>
                                             <td>
                                                 <h6 class="mb-0">
-                                                    <a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
-                                                    <span class="d-block text-muted">Payment method: {{$data->gateway}}</span>
-                                                </h6>
+                                                    <a href="#">{{$data->firstname}} {{$data->lastname}}</a>
+                                                     </h6>
                                             </td>
+<td><span class="d-block text-muted"> {{$data->gateway}}</span>
+                                          </td>
                                             <td>
                                                 <span class="badge badge-pill badge-success">Success</span>
                                             </td>
@@ -68,6 +71,9 @@
                                             <td>
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
                                             </td>
+                                            <td>
+                                                <a class="btn" href="{{route('admin.receipt',$data->id)}}"> View Receipt</a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -77,34 +83,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-12">
-                        <div class="box box-inverse box-success">
-                            <div class="box-body">
-                                <div class="flexbox">
-                                    <h5>Payments</h5>
-                                </div>
+{{--                    <div class="col-xl-2 col-lg-3 col-12">--}}
+{{--                        <div class="box box-inverse box-success">--}}
+{{--                            <div class="box-body">--}}
+{{--                                <div class="flexbox">--}}
+{{--                                    <h5>Payments</h5>--}}
+{{--                                </div>--}}
 
-                                <div class="text-center my-2">
-                                    <div class="font-size-60">{{$tp}}</div>
-                                    <span>Total Payments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-inverse box-primary">
-                            <div class="box-body">
-                                <div class="flexbox">
-                                    <h5>Payments</h5>
-                                </div>
+{{--                                <div class="text-center my-2">--}}
+{{--                                    <div class="font-size-60">{{$tp}}</div>--}}
+{{--                                    <span>Total Payments</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="box box-inverse box-primary">--}}
+{{--                            <div class="box-body">--}}
+{{--                                <div class="flexbox">--}}
+{{--                                    <h5>Payments</h5>--}}
+{{--                                </div>--}}
 
-                                <div class="text-center my-2">
-                                    <div class="font-size-60">{{$sp}}</div>
-                                    <span>Sum Payment</span>
-                                </div>
-                            </div>
-                        </div>
+{{--                                <div class="text-center my-2">--}}
+{{--                                    <div class="font-size-60">{{$sp}}</div>--}}
+{{--                                    <span>Sum Payment</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                    </div>
+{{--                    </div>--}}
                 </div>
             </section>
             <!-- /.content -->
 @endsection
+<script>
+    import Button from "../../js/Jetstream/Button";
+    export default {
+        components: {Button}
+    }
+</script>

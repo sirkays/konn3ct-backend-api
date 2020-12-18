@@ -36,7 +36,7 @@
                     <div class="col-md-6 invoice-col text-right">
                         <strong>To</strong>
                         <address>
-                            <strong class="text-blue font-size-24">{{\Illuminate\Support\Facades\Auth::user()->name}}</strong><br>
+                            <strong class="text-blue font-size-24">{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}</strong><br>
 {{--                            124 Lorem Ipsum, Suite 478, Dummuy, USA 123456<br>--}}
                             <strong>Phone: {{\Illuminate\Support\Facades\Auth::user()->phone}} <br />Email: {{\Illuminate\Support\Facades\Auth::user()->email}}</strong>
                         </address>

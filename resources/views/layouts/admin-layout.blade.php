@@ -140,6 +140,7 @@
             <li><a href="{{route('admin.users')}}"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Users</a></li>
             <li><a href="{{route('admin.recordings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recordings</a></li>
             <li><a href="{{route('admin.meetings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Meetings</a></li>
+            <li><a href="{{route('admin.payments')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Payments</a></li>
         </ul>
     </nav>
 

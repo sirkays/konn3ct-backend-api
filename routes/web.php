@@ -79,6 +79,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
+    Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
+
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');

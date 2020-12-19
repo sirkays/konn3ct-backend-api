@@ -247,7 +247,7 @@ return [
          *
          * var @string
          */
-        'guestPolicy'                        => 'ALWAYS_ACCEPT',
+        'guestPolicy'                        => 'ASK_MODERATOR',
     ],
     'join'                => [
         /**

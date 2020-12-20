@@ -86,7 +86,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
     Route::get('/invites', function (){
         return view('mail.welcome');
-    })->name('invite');
+    })->name('mailtest');
 
 });
 

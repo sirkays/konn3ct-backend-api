@@ -10,15 +10,15 @@
     <title>Welcome to Konn3ct </title>
 
     <!-- Vendors Style-->
-    <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
+    <link rel="stylesheet" href="https://konn3ct.com/user_assets/css/vendors_css.css">
 
     <!-- Style-->
-    <link rel="stylesheet" href="/user_assets/css/style.css">
-    <link rel="stylesheet" href="/user_assets/css/skin_color.css">
+    <link rel="stylesheet" href="https://konn3ct.com/user_assets/css/style.css">
+    <link rel="stylesheet" href="https://konn3ct.com/user_assets/css/skin_color.css">
 
 </head>
 
-<body class="hold-transition theme-primary bg-img" style="background-image: url(/user_assets/images/gallery/bg-1.jpg)">
+<body class="hold-transition theme-primary bg-img" style="background-image: url(https://konn3ct.com/user_assets/images/gallery/bg-1.jpg)">
 
 <div class="container h-p100">
     <div class="row align-items-center justify-content-md-center h-p100">
@@ -61,8 +61,8 @@
 
 
 <!-- Vendor JS -->
-<script src="js/vendors.min.js"></script>
-<script src="../assets/icons/feather-icons/feather.min.js"></script>
+<script src="https://konn3ct.com/js/vendors.min.js"></script>
+<script src="https://konn3ct.com/assets/icons/feather-icons/feather.min.js"></script>
 
 </body>
 

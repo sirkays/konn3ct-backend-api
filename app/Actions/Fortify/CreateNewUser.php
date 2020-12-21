@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Mail\UserWelcomeMail;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\SettingsModel;
@@ -84,7 +85,7 @@ class CreateNewUser implements CreatesNewUsers
             $duration = $plan->duration;
             $max_user = $plan->participant;
 
-            $num = trim(date('siyh'));
+            $num = trim(substr($input['firstname'] ,0, 2).date('siyh'));
             $shuffled = str_shuffle($num);
             $sfinal = substr($shuffled, 0, 4);
             $input['name'] = $input['firstname'] ." Room";
@@ -102,10 +103,7 @@ class CreateNewUser implements CreatesNewUsers
 
             $data['messag']="";
 
-        $GLOBALS['recipient']=$u->email;
-        Mail::send('mail.welcome', $data, function ($message) {
-            $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
-        });
+        Mail::to($u->email)->send(UserWelcomeMail());
 
             return $u;
     }

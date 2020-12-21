@@ -43,7 +43,7 @@ class RoomController extends Controller
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
-            $shuffled = str_shuffle($num);
+            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).$num);
             $sfinal=substr($shuffled, 0, 4);
 
             $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);

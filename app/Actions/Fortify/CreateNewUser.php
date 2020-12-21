@@ -103,7 +103,7 @@ class CreateNewUser implements CreatesNewUsers
 
             $data['messag']="";
 
-        Mail::to($u->email)->send(UserWelcomeMail());
+        Mail::to($u->email)->send(new UserWelcomeMail());
 
             return $u;
     }

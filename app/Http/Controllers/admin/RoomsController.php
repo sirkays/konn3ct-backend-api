@@ -20,7 +20,7 @@ class RoomsController extends Controller
         $datas['rooms']=RoomModel::orderBy('id', 'desc')
             ->join('users', 'users.id','room.user_id')
             ->select('room.*', 'users.firstname as firstname', 'users.lastname as lastname')
-            ->paginate(10);
+            ->get();
         $datas['roomstc']=RoomModel::orderBy('id', 'desc')
             ->join('users', 'users.id','room.user_id')
             ->count();

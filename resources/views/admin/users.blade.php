@@ -85,7 +85,7 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border">
+                            <table class="table no-border" id="complex_header" style="width:100%">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest">
                                     <th style="min-width: 50px"><span class="text-fade">Name</span></th>
@@ -171,7 +171,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{$users->links()}}
+{{--                            {{$users->links()}}--}}
                         </div>
                     </div>
                 </div>

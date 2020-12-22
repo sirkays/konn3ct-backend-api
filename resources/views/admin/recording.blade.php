@@ -17,7 +17,7 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border">
+                            <table class="table no-border" id="complex_header" style="width:100%">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest font-size-10">
                                     <th><span class="text-fade">Name</span></th>

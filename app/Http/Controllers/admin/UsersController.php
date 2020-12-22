@@ -15,7 +15,7 @@ class UsersController extends Controller
 {
     public function show(){
 
-        $datas['users']=User::orderBy('id', 'desc')->paginate(10);
+        $datas['users']=User::orderBy('id', 'desc')->get();
         $datas['userstc']=User::count();
         return view('admin.users', $datas);
     }

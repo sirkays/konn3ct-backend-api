@@ -10,14 +10,14 @@
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-title text-center wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 {{--                        <span>Pricing List</span>--}}
-                        <h3>Pricing & Plans​</h3>
+                        <h3>Pricing & Plans</h3>
 {{--                        <br>--}}
 {{--                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>--}}
                     </div>
                 </div>
             </div>
             <div class="row" id="planssi">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="pricing-box mb-60 text-center wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="pricing-head" style="margin-bottom: -10px">
                             <h4>Basic Plan</h4>
@@ -58,13 +58,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="pricing-box active text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="pricing-head">
                             <h4>Lite Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly">
-                                    <h2><span><sup>$</sup>10.99<span style="font-size: 13px"> Monthly</span></span> /  <small>$</small>120<span style="font-size: 13px"> Yearly</span></h2>
+                                    <h2><span><sup>$</sup>10.99<span style="font-size: 10px"> Monthly</span></span> /  <small>$</small>120<span style="font-size: 10px"> Yearly</span></h2>
                                     <h5>&nbsp;&nbsp;&nbsp;&#x20A6;4,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;46,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
@@ -114,13 +114,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="pricing-head">
                             <h4>Pro Plan</h4>
                             <div class="price-count mb-30">
                                 <span id="monthly2">
-                                    <h2><span style="color: black"><sup>$</sup>15.99<span style="font-size: 13px"> Monthly</span></span> /  <small>$</small>175<span style="font-size: 13px"> Yearly</span></h2>
+                                    <h2><span style="color: black"><sup>$</sup>15.99<span style="font-size: 10px"> Monthly</span></span> /  <small>$</small>175<span style="font-size: 10px"> Yearly</span></h2>
                                     <h5>&nbsp;&nbsp;&nbsp;&#x20A6;6,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;67,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
                                 </span>
 
@@ -169,6 +169,25 @@
                         </div>
                         <div class="pricing-btn">
                             <a id="r2" href="/register/3" class="btn">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="pricing-head">
+                            <h4>Enterprise Plan</h4>
+                            <div class="price-count mb-30">
+                                <span id="monthly2">
+                                    <h2><span style="color: black">Contact us</span></h2>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="pricing-body mb-40 text-left">
+{{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
+                        </div>
+                        <div class="pricing-btn">
+                            <a id="r2" href="tel:+2348033046408" class="btn" style="font-size: 14px">Call +2348033046408  </a>
                         </div>
                     </div>
                 </div>

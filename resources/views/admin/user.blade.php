@@ -58,7 +58,7 @@
                                         <div class="box-body">
                                             <div class="table-responsive">
 
-                                                <table class="table no-border font-size-12">
+                                                <table class="table no-border font-size-12" id="complex_header" >
                                                     <tbody>
                                                     @foreach($rooms as $room)
                                                         <tr>
@@ -92,7 +92,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr>
                                                         <th>Room Name</th>
@@ -196,7 +196,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest font-size-10">
                                                         <th><span class="text-fade">Name</span></th>
@@ -262,7 +262,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest">
                                                         <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>

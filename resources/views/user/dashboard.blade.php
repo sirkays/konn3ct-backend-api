@@ -424,6 +424,10 @@
                                                 <input type="checkbox" name="dsn" id="checkbox_41">
                                                 <label for="checkbox_41" class="block">Disable Shared Note</label>
                                             </div>
+{{--                                            <div class="c-inputs-stacked">--}}
+{{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}
+{{--                                                <label for="checkbox_42" class="block">Disable Waiting Room</label>--}}
+{{--                                            </div>--}}
 
                                         </div>
                                         <!-- /.box-body -->

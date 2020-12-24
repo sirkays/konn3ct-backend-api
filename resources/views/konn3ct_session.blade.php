@@ -20,47 +20,64 @@
                 @endif
 
                 <div class="row justify-content-center">
-                    <div class="col-4">
-                        <h2>Demo Meeting</h2>
-                        <p>Dial Number: 613-555-1234</p>
-                        <p>Pin: 70066</p>
-                        <p>Participant: 4</p>
 
+                    <div class="col-12 text-center">
+                        <h2 class="text-success">Meeting Room Preview</h2>
+                        <span>Welcome to {{$meetingname}} hosted {{$meetinghost}}</span>
+                        <p></p>
                     </div>
-                    <div class="col-8">
-                        <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
 
+                    <div class="col-6">
+                        <h4>Join via Phone? Dial</h4>
+                        <p><i class="fa fa-phone"></i> Phone No: {{$dialNumber}}</p>
+                        <p><i class="fa fa-user-secret"></i> Pin: {{$pin}}</p>
+                    </div>
 
+                    <div class="col-6 wow fadeInDown animated text-center" data-animation="fadeInDown animated" data-delay=".2s">
+                            <h4>Meeting Status: {{$status}}</h4>
 
-                            <h3>Meeting is currently on</h3>
+                            <p><i class="fa fa-users"></i> Participants: {{$pcount}}</p>
+                            <p><i class="fa fa-user-plus"></i> Roll-call: {{$participants??''}}</p>
+                    </div>
 
-                            <p>Samji, olawole, bidemi</p>
+                    <div class="col-12 text-center">
+                        <p></p>
+                        <p></p>
+                        This meeting room is restricted. <br/>
+                        To join, kindly input the Room Access Code
+                        <br/>
 
-                            <br/>
+                        @if($acode)
                             <form action="/ajoinroom" method="POST">
-                                @csrf
-                                <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                    <div class="form-group">
-                                        <input type="hidden" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="name" class="form-control" value="" placeholder="Enter your name e.g Samji Diamond" required autofocus autocomplete="name" >
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="code" class="" value="" placeholder="For Example: 37323" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn su">Konn3ct</button>
-                                        <button class="btn btn-outline-danger">Close</button>
-                                    </div>
+                            @csrf
+                            <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                                <div class="form-group">
+                                    <input type="hidden" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
                                 </div>
-                            </form>
-
-                        </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="name" class="form-control" value="" placeholder="Enter your name e.g Samji Diamond" required autofocus autocomplete="name" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="code" class="" value="" placeholder="For Example: 37323" required>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn su">Join</button>
+                                    <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                                </div>
+                            </div>
+                        </form>
+                        @else
+                            <span>This meeting room is unrestricted.</span>
+                            <div class="form-group">
+                                <button class="btn su">Join</button>
+                                <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                            </div>
+                        @endif
                     </div>
+
                 </div>
             </div>
         </section>

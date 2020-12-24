@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserWelcomeMail extends Mailable
+class InviteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class UserWelcomeMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $data;
+    public function __construct($data)
     {
-        //
+        $this->data=$data;
     }
 
     /**
@@ -28,7 +29,8 @@ class UserWelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('vendor.notifications.welcome')
-            ->subject('Welcome to konn3ct!');
+        return $this->markdown('vendor.notifications.invite')
+            ->with(['ihost'=>$this->data['ihost'], 'ilink'=>$this->data['ilink'], 'idate'=>$this->data['idate'], 'itime'=>$this->data['itime'], 'iroom'=>$this->data['iroom'], ])
+            ->subject('Konn3ct Invite');
     }
 }

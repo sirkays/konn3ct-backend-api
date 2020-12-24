@@ -88,6 +88,20 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
         return (new \App\Mail\UserWelcomeMail())->render();
     })->name('mailtest');
 
+Route::get('/invitemail', function (){
+        $data['ihost']="Samji";
+
+        $data['ilink']=url('/join/')."login";
+
+        $data['idate']="2020-12";
+
+        $data['itime']="12:40";
+
+        $data['iroom']="Sammy Room";
+
+        return (new \App\Mail\InviteMail($data))->render();
+    })->name('mailtest');
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

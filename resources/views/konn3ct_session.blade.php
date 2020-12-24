@@ -43,11 +43,11 @@
                     <div class="col-12 text-center">
                         <p></p>
                         <p></p>
+                        @if($acode)
                         This meeting room is restricted. <br/>
                         To join, kindly input the Room Access Code
                         <br/>
 
-                        @if($acode)
                             <form action="/ajoinroom" method="POST">
                             @csrf
                             <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">

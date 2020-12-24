@@ -343,9 +343,13 @@ class RoomController extends Controller
             $data['pin']=$mds['voiceBridge'];
             $data['pcount']=$mds['participantCount'];
             $data['participants']="";
-            foreach ($mds['attendees'][0]['attendee'] as $attend){
-                $att=$attend['fullName'].", ";
-                $data['participants']+=$att;
+            if($data['pcount']==1){
+                $data['participants']=$mds['attendees']['attendee']['fullName'];
+            }else {
+                foreach ($mds['attendees']['attendee'] as $attend) {
+                    $att = $attend['fullName'] . ", ";
+                    $data['participants'] += $att;
+                }
             }
             if($i->password_attendee=="attendee"){
                 $data['acode']=false;

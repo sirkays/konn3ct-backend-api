@@ -325,8 +325,11 @@ class RoomController extends Controller
             $mdata['status']="meeting not started";
 
             MeetingsModel::create($mdata);
+
+            return back()
+                ->with('error', 'Meeting has not started!');
         }else{
-            $mds=Bigbluebutton::getMeetingInfo([
+            $mds=\Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
@@ -336,13 +339,12 @@ class RoomController extends Controller
             $data['status']="Currently on";
             $data['meetingname']=$i->name;
             $data['meetinghost']=$u->firstname . " " .$u->lastname;
-            $data['dialNumber']=$mds->dialNumber;
-            $data['pin']=$mds->voiceBridge;
-            $data['pin']=$mds->voiceBridge;
-            $data['pcount']=$mds->participantCount;
+            $data['dialNumber']=$mds['dialNumber'];
+            $data['pin']=$mds['voiceBridge'];
+            $data['pcount']=$mds['participantCount'];
             $data['participants']="";
-            foreach ($mds->attendees[0]['attendee'] as $attend){
-                $att=$attend->fullName.", ";
+            foreach ($mds['attendees'][0]['attendee'] as $attend){
+                $att=$attend['fullName'].", ";
                 $data['participants']+=$att;
             }
             if($i->password_attendee=="attendee"){

@@ -273,6 +273,7 @@ class RoomController extends Controller
             $mdata['email']=Auth::user()->email;
             $mdata['password_attendee']=$i->password_attendee;
             $mdata['status']="start meeting";
+            $mdata['identifier']=rand();
             MeetingsModel::create($mdata);
 
             $url = \Bigbluebutton::start([
@@ -306,6 +307,9 @@ class RoomController extends Controller
         $url=$request->input('url');
         $name=$request->input('name');
         $email=$request->input('email');
+        session(['url' => $url]);
+        session(['name' => $name]);
+        session(['email' => $email]);
 
         $i=RoomModel::where('url',$url)->first();
 
@@ -362,9 +366,9 @@ class RoomController extends Controller
     }
 
     public function fjoin(Request $request){
-        $url=$request->input('url');
-        $name=$request->input('name');
-        $email=$request->input('email');
+        $url=session('url');
+        $name=session('name');
+        $email=session('email');
 
         $i=RoomModel::where('url',$url)->first();
 
@@ -373,12 +377,22 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
+        if($i->password_attendee != 'attendee'){
+            if($i->password_attendee != $request->get('accesscode')) {
+                return back()
+                    ->with('error', 'Wrong access code!');
+            }
+            $password_attendee = $request->get('accesscode');
+        }else{
+            $password_attendee = 'attendee';
+        }
+
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
         $mdata['email']=$email;
-        $mdata['password_attendee']=$i->password_attendee;
+        $mdata['password_attendee']=$password_attendee;
 
         if($ms!=1){
             $mdata['status']="meeting not started";
@@ -386,18 +400,16 @@ class RoomController extends Controller
             MeetingsModel::create($mdata);
 
             return back()
-                ->with('error', 'Meeting has not started!');
-        }
-
-        if($i->password_attendee != $request->get('accesscode')){
-            return back()
-                ->with('error', 'Wrong access code!');
+                ->with('error', 'Not yet started!');
         }
 
         if($name==""){
             $name="Konn3ct Guest";
         }
 
+        $fm=MeetingsModel::where('meeting_id','=',$i->id)->orderBy('id', 'desc')->first();
+
+        $mdata['identifier']=$fm->identifier;
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
@@ -405,7 +417,7 @@ class RoomController extends Controller
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
-                'password' => $i->password_attendee //which user role want to join set password here
+                'password' => $password_attendee //which user role want to join set password here
             ])
         );
     }

@@ -28,6 +28,7 @@
                     @endif
 
                     <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+                    <div><button class="btn btn-primary btn-sm">Activate Pro (Free Trial)</button> </div>
 
                 <div class="row hidden-xs-down">
                     <div class="col-3">
@@ -450,12 +451,16 @@
             <!-- /.modal -->
 
     <script>
+        import Button from "../../js/Jetstream/Button";
         function copyToClipboard(element) {
             var $temp = $("<input>");
             $("body").append($temp);
             $temp.val($(element).text()).select();
             document.execCommand("copy");
             $temp.remove();
+        }
+        export default {
+            components: {Button}
         }
     </script>
 

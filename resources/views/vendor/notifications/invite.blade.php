@@ -1,7 +1,7 @@
 @component('mail::message')
 {{-- Greeting --}}
 
-# @lang('Hello!')
+# @lang('Hello,')
 
 
 {{-- Intro Lines --}}
@@ -11,13 +11,14 @@
 <br />
 {{ "Time: $itime" }}
 
-{{ "Copy this link ''$ilink'' and paste in your browser to join or click on the button below" }}
+{{ "" }}
+Copy this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in your preferred browser.
 
 
 {{-- Action Button --}}
-@component('mail::button', ['url' => $ilink, 'color' => "green"])
-{{ "Konn3ct Now" }}
-@endcomponent
+{{--@component('mail::button', ['url' => $ilink, 'color' => "green"])--}}
+{{--{{ "Konn3ct Now" }}--}}
+{{--@endcomponent--}}
 
 {{-- Outro Lines --}}
 {{--{{ '' }}--}}
@@ -25,6 +26,7 @@
 {{-- Salutation --}}
 
 @lang('Thank you'),<br />
+{{ "..............." }}<br />
 {{ "Visit https://konn3ct.com" }}<br />
 {{ "...Amazing Virtual Experience" }}
 
@@ -33,7 +35,9 @@
 {{--@isset($actionText)--}}
 @slot('subcopy')
 @lang(
-    "You received this mail because you were invited by a user on konn3ct"
+    "You received this mail because you were invited by a user on konn3ct<br />"
+)@lang(
+    "$iroom field needs to be added in the form."
 )
 @endslot
 @endcomponent

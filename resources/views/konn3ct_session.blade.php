@@ -23,7 +23,7 @@
 
                     <div class="col-12 text-center">
                         <h2 class="text-success">Meeting Room Preview</h2>
-                        <span>Welcome to {{$meetingname}} hosted {{$meetinghost}}</span>
+                        <span>Welcome to {{$meetingname}} hosted by {{$meetinghost}}</span>
                         <p></p>
                     </div>
 
@@ -48,18 +48,9 @@
                         To join, kindly input the Room Access Code
                         <br/>
 
-                            <form action="/ajoinroom" method="POST">
+                            <form action="{{route('konn3ct')}}" method="POST">
                             @csrf
                             <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                <div class="form-group">
-                                    <input type="hidden" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="name" class="form-control" value="" placeholder="Enter your name e.g Samji Diamond" required autofocus autocomplete="name" >
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
-                                </div>
                                 <div class="form-group">
                                     <input type="text" name="code" class="" value="" placeholder="For Example: 37323" required>
                                 </div>
@@ -71,10 +62,12 @@
                         </form>
                         @else
                             <span>This meeting room is unrestricted.</span>
+                        <form action="{{route('konn3ct')}}" method="post">
                             <div class="form-group">
                                 <button class="btn su">Join</button>
                                 <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
                             </div>
+                        </form>
                         @endif
                     </div>
 

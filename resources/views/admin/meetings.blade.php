@@ -125,7 +125,7 @@
                                                 <span>{{$meeting->created_at}}</span>
                                             </td>
                                             <td>
-                                                <a href="meetings/{{$meeting->meeting_id}}" class="btn btn-primary btn-sm">View Details</a>
+                                                <a href="meetings/{{$meeting->identifier}}" class="btn btn-primary btn-sm">View Details</a>
                                             </td>
                                         </tr>
                                         @endforeach

@@ -63,6 +63,7 @@
                         @else
                             <span>This meeting room is unrestricted.</span>
                         <form action="{{route('konn3ct')}}" method="post">
+                            @csrf
                             <div class="form-group">
                                 <button class="btn su">Join</button>
                                 <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>

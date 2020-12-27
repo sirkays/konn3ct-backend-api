@@ -51,7 +51,6 @@ Route::get('/join/{url}', function ($url) {
 });
 
 Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
-Route::get('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
 Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 
 Route::get('/features', function () {

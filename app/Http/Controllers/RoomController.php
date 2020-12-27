@@ -373,13 +373,13 @@ class RoomController extends Controller
         $i=RoomModel::where('url',$url)->first();
 
         if(!$i){
-            return back()
+            return redirect('joinsession')
                 ->with('error', 'Invalid Room!');
         }
 
         if($i->password_attendee != 'attendee'){
             if($i->password_attendee != $request->get('accesscode')) {
-                return back()
+                return redirect('joinsession')
                     ->with('error', 'Wrong access code!');
             }
             $password_attendee = $request->get('accesscode');
@@ -399,7 +399,7 @@ class RoomController extends Controller
 
             MeetingsModel::create($mdata);
 
-            return back()
+            return redirect('joinsession')
                 ->with('error', 'Not yet started!');
         }
 

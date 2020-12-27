@@ -52,7 +52,7 @@
                             @csrf
                             <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                                 <div class="form-group">
-                                    <input type="text" name="code" class="" value="" placeholder="For Example: 37323" required>
+                                    <input type="text" name="accesscode" class="" value="" placeholder="For Example: 37323" required>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn su">Join</button>

@@ -470,8 +470,8 @@
                             You are about to upgrade your plan from Basic to Pro for a period of seven (7) days only. At the expiration of the trial period, you have the choice of upgrading your Pro Plan or maintaining Basic Plan.
                         </div>
                         <div class="modal-footer modal-footer-uniform">
-                            <a href="/activateft" class="btn bg-success float-right">Activate</a>
-                            <button type="button" class="btn bg-dark" data-dismiss="modal">Later</button>
+                            <a href="/activateft" class="btn bg-success float-left">Activate</a>
+                            <button type="button" class="btn bg-dark float-right" data-dismiss="modal">Later</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->

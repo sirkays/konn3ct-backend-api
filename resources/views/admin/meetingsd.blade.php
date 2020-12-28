@@ -128,7 +128,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{$meetings->links()}}
+{{--                                    {{$meetings->links()}}--}}
                                 </div>
                             </div>
                         </div>

@@ -72,6 +72,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
+    Route::get('/activateft', [PaymentController::class, 'activatefree'])->name('activatefree');
+
     Route::get('/payment', [PaymentController::class, 'list'])->name('payments');
 
     Route::get('/receipt', [PaymentController::class, 'receipt'])->name('receipt');

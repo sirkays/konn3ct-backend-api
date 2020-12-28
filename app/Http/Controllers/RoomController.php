@@ -273,7 +273,7 @@ class RoomController extends Controller
             $mdata['email']=Auth::user()->email;
             $mdata['password_attendee']=$i->password_attendee;
             $mdata['status']="start meeting";
-            $mdata['identifier']=rand();
+            $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
 
             $url = \Bigbluebutton::start([

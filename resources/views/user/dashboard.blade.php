@@ -28,7 +28,14 @@
                     @endif
 
                     <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
-                    <div><button class="btn btn-primary btn-sm">Activate Pro (Free Trial)</button> </div>
+                    @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                        @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
+                            <div>
+                                <Button class="waves-effect waves-light btn btn-primary btn-sm" data-toggle="modal" data-target="#activatepro-modal">
+                                    Activate Pro (Free Trial)
+                                </Button>
+                        @endif
+                    @endif
 
                 <div class="row hidden-xs-down">
                     <div class="col-3">
@@ -450,17 +457,37 @@
             </div>
             <!-- /.modal -->
 
+
+
+            <div class="modal activatepro-modal fade" id="activatepro-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="mySmallModalLabel">FREE TRIAL ACTIVATION</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            You are about to upgrade your plan from Basic to Pro for a period of seven (7) days only. At the expiration of the trial period, you have the choice of upgrading your Pro Plan or maintaining Basic Plan.
+                        </div>
+                        <div class="modal-footer modal-footer-uniform">
+                            <a href="/activateft" class="btn bg-success float-right">Activate</a>
+                            <button type="button" class="btn bg-dark" data-dismiss="modal">Later</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+
     <script>
-        import Button from "../../js/Jetstream/Button";
         function copyToClipboard(element) {
             var $temp = $("<input>");
             $("body").append($temp);
             $temp.val($(element).text()).select();
             document.execCommand("copy");
             $temp.remove();
-        }
-        export default {
-            components: {Button}
         }
     </script>
 

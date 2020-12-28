@@ -74,10 +74,11 @@ class CreateNewUser implements CreatesNewUsers
 
         if(isset($input['freetrial'])){
             $set=SettingsModel::first();
-            $exp=Carbon::now()->addDays($set->freetrial_days);
+            $exp=Carbon::now()->addDays($set->freetrial_days+1);
             $u->subscription=$exp;
             $u->plan=3;
             $u->status="free_trial";
+            $u->freetrial=true;
             $u->save();
         }
 //

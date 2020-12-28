@@ -44,7 +44,7 @@ class RoomsController extends Controller
             ->join('room','room.id','=','meetings.meeting_id')
             ->where('meetings.status','=','start meeting')
             ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
-            ->paginate(10);
+            ->get();
         $datas['meetingstc']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')
             ->where('meetings.status','=','start meeting')
             ->count();
@@ -53,13 +53,12 @@ class RoomsController extends Controller
     }
 
     public function meetingsd($id){
-//        $fm=MeetingsModel::where('id','=',$id)->orderBy('id','desc')->first();
 
         $datas['meetings']=MeetingsModel::orderBy('id', 'asc')
             ->join('room','room.id','=','meetings.meeting_id')
             ->where('meetings.identifier','=',$id)
             ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
-            ->paginate(10);
+            ->get();
         $datas['meetingstc']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')
             ->where('meetings.identifier','=',$id)
             ->count();

@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
 use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -60,6 +61,8 @@ Route::get('/features', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {

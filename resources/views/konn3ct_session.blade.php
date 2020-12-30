@@ -30,7 +30,7 @@
                     <div class="col-6">
                         <h4>Join via Phone? Dial</h4>
                         <p><i class="fa fa-phone"></i> Phone No: {{$dialNumber}}</p>
-                        <p><i class="fa fa-user-secret"></i> Pin: {{$pin}}</p>
+                        <p><i class="fa fa-user-secret"></i> Pin: @if($acode)xxx@else{{$pin}}@endif</p>
                     </div>
 
                     <div class="col-6 wow fadeInDown animated text-center" data-animation="fadeInDown animated" data-delay=".2s">

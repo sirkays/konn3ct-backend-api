@@ -27,15 +27,22 @@
                         </div>
                     @endif
 
+                    <div class="row mb-6">
+                        <div class="col-6">
                     <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+                        </div>
+                        <div class="col-6 text-right">
                     @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                         @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
                             <div>
-                                <Button class="waves-effect waves-light btn btn-primary btn-sm" data-toggle="modal" data-target="#activatepro-modal">
+                                <Button class="waves-effect waves-light btn btn-danger btn-sm" data-toggle="modal" data-target="#activatepro-modal">
                                     Activate Pro (Free Trial)
                                 </Button>
                         @endif
                     @endif
+                            </div>
+                            </div>
+                    </div>
 
                 <div class="row hidden-xs-down">
                     <div class="col-3">

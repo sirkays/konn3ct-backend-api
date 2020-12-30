@@ -352,7 +352,7 @@ class RoomController extends Controller
             }else {
                 foreach ($mds['attendees']['attendee'] as $attend) {
                     $att = $attend['fullName'] . ", ";
-                    $data['participants'] += $att;
+                    $data['participants'] .= $att;
                 }
             }
             if($i->password_attendee=="attendee"){

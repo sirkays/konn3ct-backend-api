@@ -34,13 +34,11 @@
                         <div class="col-6 text-right">
                     @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
                         @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
-                            <div>
                                 <Button class="waves-effect waves-light btn btn-danger btn-sm" data-toggle="modal" data-target="#activatepro-modal">
                                     Activate Pro (Free Trial)
                                 </Button>
                         @endif
                     @endif
-                            </div>
                             </div>
                     </div>
 

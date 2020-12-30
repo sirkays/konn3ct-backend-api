@@ -30,7 +30,7 @@ class InviteMail extends Mailable
     public function build()
     {
         return $this->markdown('vendor.notifications.invite')
-            ->with(['ihost'=>$this->data['ihost'], 'ilink'=>$this->data['ilink'], 'idate'=>$this->data['idate'], 'itime'=>$this->data['itime'], 'iroom'=>$this->data['iroom'], ])
+            ->with(['ihost'=>$this->data['ihost'], 'ilink'=>$this->data['ilink'], 'idate'=>$this->data['idate'], 'itime'=>$this->data['itime'], 'iroom'=>$this->data['iroom'], 'imtitle'=>$this->data['imtitle'] ])
             ->subject('Konn3ct Invite');
     }
 }

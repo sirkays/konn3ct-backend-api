@@ -5,14 +5,16 @@
 
 
 {{-- Intro Lines --}}
-{{ "You have been invited by $ihost to attend $iroom scheduled as follows:" }}
+{{ "You have been invited by $ihost to attend $imtitle scheduled as follows:" }}
 
+{{ "Meeting Room Name: $iroom" }}
+<br />
 {{ "Date: $idate" }}
 <br />
 {{ "Time: $itime" }}
 
 {{ "" }}
-Copy this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in your preferred browser.
+Click this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in your preferred browser.
 
 
 {{-- Action Button --}}
@@ -25,19 +27,18 @@ Copy this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in 
 
 {{-- Salutation --}}
 
-@lang('Thank you'),<br />
+@lang('Thank you').<br />
 {{ "..............." }}<br />
-{{ "Visit https://konn3ct.com" }}<br />
-{{ "...Amazing Virtual Experience" }}
+<span class="text-center">Visit https://konn3ct.com</span><br />
+<span class="text-center">...Amazing Virtual Experience</span><br />
+
 
 
 {{-- Subcopy --}}
 {{--@isset($actionText)--}}
 @slot('subcopy')
 @lang(
-    "You received this mail because you were invited by a user on konn3ct<br />"
-)@lang(
-    "$iroom field needs to be added in the form."
+    "You received this mail because you were invited by a user on konn3ct."
 )
 @endslot
 @endcomponent

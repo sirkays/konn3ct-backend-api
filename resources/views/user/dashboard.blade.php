@@ -300,6 +300,11 @@
                                                     <div class="modal-body">
                                                             @csrf
                                                         <div class="form-group">
+                                                            <label>Meeting Title:</label>
+                                                            <input type="text" name="title" class="form-control" placeholder="Enter Title" value="" required>
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label>Room Name:</label>
                                                             <input type="text" name="roomname" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
                                                         </div>

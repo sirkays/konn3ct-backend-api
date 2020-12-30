@@ -86,13 +86,13 @@ class CreateNewUser implements CreatesNewUsers
             $duration = $plan->duration;
             $max_user = $plan->participant;
 
-            $num = trim(substr($input['firstname'] ,0, 2).date('siyh'));
-            $shuffled = str_shuffle($num);
-            $sfinal = substr($shuffled, 0, 4);
+            $shuffled = str_shuffle(substr($input['firstname'],0, 2).substr(str_shuffle(date('siyh')),0, 5));
+            $sfinal=substr($shuffled, 0, 7);
+
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-            $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
             $input['welcome_message']="";
             $input['logout_url']=url('/leftsession');
             $input['max_participants']=$max_user;

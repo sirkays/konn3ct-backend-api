@@ -45,8 +45,8 @@ class RoomController extends Controller
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
-            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).$num);
-            $sfinal=substr($shuffled, 0, 4);
+            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).substr(str_shuffle($num),0, 5));
+            $sfinal=substr($shuffled, 0, 7);
 
             $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
         }
@@ -457,6 +457,8 @@ class RoomController extends Controller
                     $data['ihost']=$input['hostname'];
 
                     $data['ilink']=$input['roomlink'];
+
+                    $data['imtitle']=$input['title'];
 
                     $data['idate']=$input['date'];
 

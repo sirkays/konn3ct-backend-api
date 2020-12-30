@@ -36,6 +36,8 @@ class RoomsController extends Controller
             }
         }
 
+        $datas['i']=1;
+
         return view('admin.rooms', $datas);
     }
 
@@ -49,12 +51,13 @@ class RoomsController extends Controller
             ->where('meetings.status','=','start meeting')
             ->count();
         $datas['meetingsdc']=MeetingsModel::distinct('email')->count();
+        $datas['i']=1;
         return view('admin.meetings', $datas);
     }
 
     public function meetingsd($id){
 
-        $datas['meetings']=MeetingsModel::orderBy('id', 'asc')
+        $datas['meetings']=MeetingsModel::orderBy('id', 'desc')
             ->join('room','room.id','=','meetings.meeting_id')
             ->where('meetings.identifier','=',$id)
             ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
@@ -63,6 +66,7 @@ class RoomsController extends Controller
             ->where('meetings.identifier','=',$id)
             ->count();
         $datas['meetingsdc']=MeetingsModel::distinct('email')->count();
+        $datas['i']=1;
         return view('admin.meetingsd', $datas);
     }
 }

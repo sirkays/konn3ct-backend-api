@@ -17,6 +17,8 @@ class UsersController extends Controller
 
         $datas['users']=User::orderBy('id', 'desc')->get();
         $datas['userstc']=User::count();
+        $datas['i']=1;
+
         return view('admin.users', $datas);
     }
 

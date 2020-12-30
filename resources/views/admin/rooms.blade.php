@@ -88,6 +88,7 @@
                                     <table class="table no-border table-striped" id="complex_header" style="width:100%">
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
+                                            <th><span class="text-fade">S/N</span></th>
                                             <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Status</span></th>
@@ -99,6 +100,7 @@
                                         <tbody>
                                         @foreach($rooms as $room)
                                         <tr>
+                                            <td>{{$i++}}</td>
                                             <td class="pl-0 py-8">
                                                 <div class="d-flex align-items-center">
                                                     <div>

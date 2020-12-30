@@ -89,6 +89,7 @@
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
                                             <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
+                                            <th style="min-width: 50px"><span class="text-fade">Room Name</span></th>
                                             <th style="min-width: 70px"><span class="text-fade">Room URL</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Participant Name</span></th>
                                             <th style="min-width: 10px"><span class="text-fade">Participant Email</span></th>

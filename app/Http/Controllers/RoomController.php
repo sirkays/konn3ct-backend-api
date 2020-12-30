@@ -48,7 +48,12 @@ class RoomController extends Controller
             $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).substr(str_shuffle($num),0, 4));
             $sfinal=substr($shuffled, 0, 6);
 
-            $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            if (Auth::user()->lastname==""){
+                $input['url']=trim(substr(Auth::user()->firstname,0, 3).$sfinal);
+            }else{
+                $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            }
+
         }
 
         $input['welcome_message']="";

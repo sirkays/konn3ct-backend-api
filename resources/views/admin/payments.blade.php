@@ -50,7 +50,7 @@
                                         <tbody>
                                         @foreach($payments as $data)
                                         <tr>
-                                            <td>#{{$data->id}}</td>
+                                            <td>{{$i}}</td>
                                             <td>{{\Carbon\Carbon::parse($data->subscription)->toFormattedDateString()}}</td>
                                             <td>
                                                 <h6 class="mb-0">

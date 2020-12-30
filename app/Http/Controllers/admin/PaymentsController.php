@@ -15,6 +15,7 @@ class PaymentsController extends Controller
         $datas['sp']=PaymentModel::sum('amount');
         $datas['tp']=PaymentModel::count();
         $datas['pp']=PaymentModel::distinct('plan')->count();
+        $datas['i']=1;
 
         return view('admin.payments', $datas);
     }

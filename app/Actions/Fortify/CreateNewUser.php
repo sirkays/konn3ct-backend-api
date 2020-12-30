@@ -86,8 +86,8 @@ class CreateNewUser implements CreatesNewUsers
             $duration = $plan->duration;
             $max_user = $plan->participant;
 
-            $shuffled = str_shuffle(substr($input['firstname'],0, 2).substr(str_shuffle(date('siyh')),0, 5));
-            $sfinal=substr($shuffled, 0, 7);
+            $shuffled = str_shuffle(substr($input['firstname'],0, 2).substr(str_shuffle(date('siyh')),0, 4));
+            $sfinal=substr($shuffled, 0, 6);
 
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";

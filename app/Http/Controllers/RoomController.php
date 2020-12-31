@@ -84,8 +84,8 @@ class RoomController extends Controller
         $createMeeting = \Bigbluebutton::initCreateMeeting([
             'meetingID' => $r->id,
             'meetingName' => $input['name'],
-            'attendeePW' => 'attendee',
-            'moderatorPW' => 'moderator',
+            'attendeePW' => $input['password_attendee'],
+            'moderatorPW' => $input['password_moderator'],
             'endCallbackUrl'  => url('/leftsession'),
             'logoutUrl' => url('/leftsession'),
         ]);
@@ -422,7 +422,7 @@ class RoomController extends Controller
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
-                'password' => 'attendee', //which user role want to join set password here
+                'password' => $password_attendee, //which user role want to join set password here
             ])
         );
     }

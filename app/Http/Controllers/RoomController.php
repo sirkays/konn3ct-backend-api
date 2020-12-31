@@ -75,7 +75,7 @@ class RoomController extends Controller
                 $input['password_moderator'] = $input['access_code'];
             } else {
                 $input['password_attendee'] = $input['access_code'];
-                $input['password_moderator'] = "maccess";
+                $input['password_moderator'] = "moderatorcoded";
             }
         }
 
@@ -418,7 +418,7 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-        if($i->password_moderator=="maccess"){
+        if($i->password_moderator=="moderatorcoded"){
             $password_attendee=$i->password_moderator;
         }
 

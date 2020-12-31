@@ -75,7 +75,7 @@ class RoomController extends Controller
                 $input['password_moderator'] = $input['access_code'];
             } else {
                 $input['password_attendee'] = $input['access_code'];
-                $input['password_moderator'] = "moderatorcoded";
+                $input['password_moderator'] = "moderator";
             }
         }
 
@@ -84,8 +84,8 @@ class RoomController extends Controller
         $createMeeting = \Bigbluebutton::initCreateMeeting([
             'meetingID' => $r->id,
             'meetingName' => $input['name'],
-            'attendeePW' => 'attendee',
-            'moderatorPW' => 'moderator',
+            'attendeePW' => $input['password_attendee'],
+            'moderatorPW' => $input['password_moderator'],
             'endCallbackUrl'  => url('/leftsession'),
             'logoutUrl' => url('/leftsession'),
         ]);
@@ -418,9 +418,9 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-        if($i->password_moderator=="moderatorcoded"){
-            $password_attendee=$i->password_moderator;
-        }
+//        if($i->password_moderator=="maccess"){
+//            $password_attendee=$i->password_moderator;
+//        }
 
         return redirect()->to(
             \Bigbluebutton::join([

@@ -75,7 +75,7 @@ class RoomController extends Controller
                 $input['password_moderator'] = $input['access_code'];
             } else {
                 $input['password_attendee'] = $input['access_code'];
-                $input['password_moderator'] = "moderator";
+                $input['password_moderator'] = "maccess";
             }
         }
 
@@ -418,11 +418,15 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
+        if($i->password_moderator=="maccess"){
+            $password_attendee=$i->password_moderator;
+        }
+
         return redirect()->to(
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
-                'password' => $i->password_attendee, //which user role want to join set password here
+                'password' => $password_attendee, //which user role want to join set password here
             ])
         );
     }

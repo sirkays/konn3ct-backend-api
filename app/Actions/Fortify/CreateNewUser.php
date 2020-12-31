@@ -74,11 +74,10 @@ class CreateNewUser implements CreatesNewUsers
 
         if(isset($input['freetrial'])){
             $set=SettingsModel::first();
-            $exp=Carbon::now()->addDays($set->freetrial_days+1);
+            $exp=Carbon::now()->addDays($set->freetrial_days);
             $u->subscription=$exp;
             $u->plan=3;
             $u->status="free_trial";
-            $u->freetrial=true;
             $u->save();
         }
 //
@@ -86,17 +85,13 @@ class CreateNewUser implements CreatesNewUsers
             $duration = $plan->duration;
             $max_user = $plan->participant;
 
-            $shuffled = str_shuffle(substr($input['firstname'],0, 2).substr(str_shuffle(date('siyh')),0, 4));
-            $sfinal=substr($shuffled, 0, 6);
-
+            $num = trim(date('siyh'));
+            $shuffled = str_shuffle($num);
+            $sfinal = substr($shuffled, 0, 4);
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-            if(!isset($input['type'])) {
-                $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
-            }else{
-                $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
-            }
+            $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
             $input['welcome_message']="";
             $input['logout_url']=url('/leftsession');
             $input['max_participants']=$max_user;
@@ -107,11 +102,6 @@ class CreateNewUser implements CreatesNewUsers
             RoomModel::create($input);
 
             $data['messag']="";
-
-        $GLOBALS['recipient']=$u->email;
-        Mail::send(['html'=>'mail.welcome'], $data, function ($message) {
-            $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
-        });
 
         Mail::to($u->email)->send(new UserWelcomeMail());
 

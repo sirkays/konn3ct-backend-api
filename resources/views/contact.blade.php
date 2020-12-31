@@ -16,6 +16,28 @@
                 </div>
             </div>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
@@ -36,34 +58,42 @@
                     </div>
 
                 </div>
+
                 <div class="col-lg-8">
-                    <form action="#" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                    <form action="contact" method="post" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="contact-field p-relative c-name mb-40">
-                                    <input type="text" placeholder="Write your name here">
+                                    <label>
+                                        <input type="text" placeholder="Write your name here" name="name" required />
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="contact-field p-relative c-email mb-40">
-                                    <input type="text" placeholder="Write your email here">
+                                    <label>
+                                        <input type="text" placeholder="Write your email here" name="email" required />
+                                    </label>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="contact-field p-relative c-subject mb-40">
-                                    <input type="text" placeholder="Subject">
+                                    <label>
+                                        <input type="text" placeholder="Subject" name="subject" required />
+                                    </label>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="contact-field p-relative c-subject mb-40">
-                                    <input type="file" name="attachment" placeholder="Attach file">
-                                </div>
-                            </div>
+{{--                            <div class="col-lg-6">--}}
+{{--                                <div class="contact-field p-relative c-subject mb-40">--}}
+{{--                                    <input type="file" name="attachment" placeholder="Attach file">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="col-lg-12" style="margin-bottom: 50px">
                                 <div class="contact-field p-relative c-message mb-45">
-                                    <textarea name="message" id="message" cols="30" rows="10" placeholder="I would like to discuss on"></textarea>
+                                    <textarea name="content" id="message" cols="30" rows="10" placeholder="I would like to discuss on"></textarea>
                                 </div>
-                                <button class="btn">Send Message</button>
+                                <button type="submit" class="btn">Send Message</button>
                             </div>
                         </div>
 

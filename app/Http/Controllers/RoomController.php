@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InviteMail;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -43,10 +45,15 @@ class RoomController extends Controller
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
-            $shuffled = str_shuffle($num);
-            $sfinal=substr($shuffled, 0, 4);
+            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).substr(str_shuffle($num),0, 4));
+            $sfinal=substr($shuffled, 0, 6);
 
-            $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            if (Auth::user()->lastname==""){
+                $input['url']=trim(substr(Auth::user()->firstname,0, 3).$sfinal);
+            }else{
+                $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            }
+
         }
 
         $input['welcome_message']="";
@@ -271,6 +278,7 @@ class RoomController extends Controller
             $mdata['email']=Auth::user()->email;
             $mdata['password_attendee']=$i->password_attendee;
             $mdata['status']="start meeting";
+            $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
 
             $url = \Bigbluebutton::start([
@@ -304,6 +312,9 @@ class RoomController extends Controller
         $url=$request->input('url');
         $name=$request->input('name');
         $email=$request->input('email');
+        session(['url' => $url]);
+        session(['name' => $name]);
+        session(['email' => $email]);
 
         $i=RoomModel::where('url',$url)->first();
 
@@ -326,12 +337,84 @@ class RoomController extends Controller
 
             return back()
                 ->with('error', 'Meeting has not started!');
+        }else{
+            $mds=\Bigbluebutton::getMeetingInfo([
+                'meetingID' => $i->id,
+                'moderatorPW' => $i->password_moderator //moderator password set here
+            ]);
+
+            $u=User::find($i->user_id);
+
+            $data['status']="Currently on";
+            $data['meetingname']=$i->name;
+            $data['meetinghost']=$u->firstname . " " .$u->lastname;
+            $data['dialNumber']=$mds['dialNumber'];
+            $data['pin']=$mds['voiceBridge'];
+            $data['pcount']=$mds['participantCount'];
+            $data['participants']="";
+            if($data['pcount']==1){
+                $data['participants']=$mds['attendees']['attendee']['fullName'];
+            }else {
+                foreach ($mds['attendees']['attendee'] as $attend) {
+                    $att = $attend['fullName'] . ", ";
+                    $data['participants'] .= $att;
+                }
+            }
+            if($i->password_attendee=="attendee"){
+                $data['acode']=false;
+            }else{
+                $data['acode']=true;
+            }
+
+            return view('konn3ct_session', $data);
+        }
+    }
+
+    public function fjoin(Request $request){
+        $url=session('url');
+        $name=session('name');
+        $email=session('email');
+
+        $i=RoomModel::where('url',$url)->first();
+
+        if(!$i){
+            return redirect('joinsession')
+                ->with('error', 'Invalid Room!');
+        }
+
+        if($i->password_attendee != 'attendee'){
+            if($i->password_attendee != $request->get('accesscode')) {
+                return redirect('joinsession')
+                    ->with('error', 'Wrong access code!');
+            }
+            $password_attendee = $request->get('accesscode');
+        }else{
+            $password_attendee = 'attendee';
+        }
+
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+
+        $mdata['meeting_id']=$i->id;
+        $mdata['name']=$name;
+        $mdata['email']=$email;
+        $mdata['password_attendee']=$password_attendee;
+
+        if($ms!=1){
+            $mdata['status']="meeting not started";
+
+            MeetingsModel::create($mdata);
+
+            return redirect('joinsession')
+                ->with('error', 'Not yet started!');
         }
 
         if($name==""){
             $name="Konn3ct Guest";
         }
 
+        $fm=MeetingsModel::where('meeting_id','=',$i->id)->orderBy('id', 'desc')->first();
+
+        $mdata['identifier']=$fm->identifier;
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
@@ -339,7 +422,7 @@ class RoomController extends Controller
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
-                'password' => $i->password_attendee //which user role want to join set password here
+                'password' => $i->password_attendee, //which user role want to join set password here
             ])
         );
     }
@@ -375,10 +458,20 @@ class RoomController extends Controller
 
             try {
                 if ($GLOBALS['recipient'] != "") {
-                    $data = array('ihost' => $input['hostname'], 'ilink' => $input['roomlink'], 'idate' => $input['date'], 'itime' => $input['time'], 'iroom' => $input['roomname']);
-                    Mail::send('mail.invite', $data, function ($message) {
-                        $message->to($GLOBALS['recipient'])->subject('Konn3ct Invite');
-                    });
+
+                    $data['ihost']=$input['hostname'];
+
+                    $data['ilink']=$input['roomlink'];
+
+                    $data['imtitle']=$input['title'];
+
+                    $data['idate']=$input['date'];
+
+                    $data['itime']=$input['time'];
+
+                    $data['iroom']=$input['roomname'];
+
+                    Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }
             }catch (\Exception $e){
                 echo "error when sending email";

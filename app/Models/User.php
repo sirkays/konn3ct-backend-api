@@ -32,7 +32,8 @@ class User extends Authenticatable
         'phone',
         'type',
         'referral',
-        'referral_code'
+        'referral_code',
+        'freetrial'
     ];
 
     /**

@@ -58,7 +58,7 @@
                                         <div class="box-body">
                                             <div class="table-responsive">
 
-                                                <table class="table no-border font-size-12">
+                                                <table class="table no-border font-size-12" id="complex_header" >
                                                     <tbody>
                                                     @foreach($rooms as $room)
                                                         <tr>
@@ -92,7 +92,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr>
                                                         <th>Room Name</th>
@@ -142,8 +142,9 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Period</th>
+                                            <th>Expiry Date</th>
                                             <th>Issued to</th>
+                                            <th>Payment Method</th>
                                             <th>Status</th>
                                             <th>Payment date</th>
                                             <th>Plan</th>
@@ -154,12 +155,14 @@
                                         @foreach($payments as $data)
                                             <tr>
                                                 <td>#{{$data->id}}</td>
-                                                <td>{{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}</td>
+                                                <td>{{\Carbon\Carbon::parse($user->subscription)->toFormattedDateString()}}</td>
                                                 <td>
                                                     <h6 class="mb-0">
-                                                        <a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
-                                                        <span class="d-block text-muted">Payment method: {{$data->gateway}}</span>
+                                                        <a href="#">{{$user->firstname}} {{$user->lastname}}</a>
                                                     </h6>
+                                                </td>
+                                                <td>
+                                                    <span class="d-block text-muted">{{$data->gateway}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="badge badge-pill badge-success">Success</span>
@@ -193,7 +196,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest font-size-10">
                                                         <th><span class="text-fade">Name</span></th>
@@ -259,7 +262,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border">
+                                                <table class="table no-border" id="complex_header" >
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest">
                                                         <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>

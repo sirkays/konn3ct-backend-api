@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends('layouts.admin-layout')
 
 @section('content')
 
@@ -36,9 +36,9 @@
                     <div class="col-md-6 invoice-col text-right">
                         <strong>To</strong>
                         <address>
-                            <strong class="text-blue font-size-24">{{\Illuminate\Support\Facades\Auth::user()->name}}</strong><br>
+                            <strong class="text-blue font-size-24">{{$payment->firstname}}</strong><br>
 {{--                            124 Lorem Ipsum, Suite 478, Dummuy, USA 123456<br>--}}
-                            <strong>Phone: {{\Illuminate\Support\Facades\Auth::user()->phone}} &nbsp;&nbsp;&nbsp;&nbsp; Email: {{\Illuminate\Support\Facades\Auth::user()->email}}</strong>
+                            <strong>Phone: {{$payment->phone}} &nbsp;&nbsp;&nbsp;&nbsp; Email: {{$payment->email}}</strong>
                         </address>
                     </div>
                     <!-- /.col -->

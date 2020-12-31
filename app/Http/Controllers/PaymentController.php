@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentModel;
+use App\Models\SettingsModel;
 use PDF;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
@@ -188,6 +189,22 @@ class PaymentController extends Controller
             return redirect('room')->with('error', 'Error in exporting pdf!');
         }
 
+    }
+
+    public function activatefree(){
+        $u=User::find(Auth::id());
+        if($u->freetrial){
+            return redirect('/room')->with('error', 'Free trial has been activated already');
+        }else{
+            $set=SettingsModel::first();
+            $exp=Carbon::now()->addDays($set->freetrial_days+1);
+            $u->subscription=$exp;
+            $u->plan=3;
+            $u->status="free_trial";
+            $u->freetrial=true;
+            $u->save();
+            return redirect('/room')->with('success', 'Free trial has been activated successfully');
+        }
     }
 
 }

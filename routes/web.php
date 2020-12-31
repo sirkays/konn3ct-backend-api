@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
 use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -50,6 +52,7 @@ Route::get('/join/{url}', function ($url) {
 });
 
 Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
+Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 
 Route::get('/features', function () {
     return view('features');
@@ -58,6 +61,8 @@ Route::get('/features', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
@@ -70,6 +75,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
+    Route::get('/activateft', [PaymentController::class, 'activatefree'])->name('activatefree');
+
     Route::get('/payment', [PaymentController::class, 'list'])->name('payments');
 
     Route::get('/receipt', [PaymentController::class, 'receipt'])->name('receipt');
@@ -78,12 +85,28 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
+    Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
+
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
-    Route::get('/invites', function (){
-        return view('mail.welcome');
-    })->name('invite');
+    Route::get('/welcomemail', function (){
+        return (new \App\Mail\UserWelcomeMail())->render();
+    })->name('mailtest');
+
+Route::get('/invitemail', function (){
+        $data['ihost']="Samji";
+
+        $data['ilink']=url('/join/')."login";
+
+        $data['idate']="2020-12";
+
+        $data['itime']="12:40";
+
+        $data['iroom']="Sammy Room";
+
+        return (new \App\Mail\InviteMail($data))->render();
+    })->name('mailtest');
 
 });
 
@@ -125,9 +148,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', [RoomController::class, 'show'])->name('admin.dashboard');
 
-        Route::get('/payment', [PaymentController::class, 'receipt'])->name('payments');
+        Route::get('/payment', [PaymentsController::class, 'list'])->name('admin.payments');
 
-//    Route::get('/receipt', [PaymentController::class, 'receipt'])->name('invoice');
+        Route::get('/receipt/{id}', [PaymentsController::class, 'receipt'])->name('admin.receipt');
 
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 

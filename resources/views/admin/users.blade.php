@@ -85,9 +85,10 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border">
+                            <table class="table no-border" id="complex_header" style="width:100%">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest">
+                                    <th><span class="text-fade">S/N</span></th>
                                     <th style="min-width: 50px"><span class="text-fade">Name</span></th>
                                     <th style="min-width: 70px"><span class="text-fade">Email</span></th>
                                     <th style="min-width: 70px"><span class="text-fade">Phone Number</span></th>
@@ -103,6 +104,7 @@
                                 <tbody>
                                 @foreach($users as $user)
                                     <tr>
+                                        <td>{{$i++}}</td>
                                         <td class="pl-0 py-8">
                                             <div class="d-flex align-items-center">
                                                 <div>
@@ -171,7 +173,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{$users->links()}}
+{{--                            {{$users->links()}}--}}
                         </div>
                     </div>
                 </div>

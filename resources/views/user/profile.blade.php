@@ -28,17 +28,17 @@
 
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
-{{--                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>--}}
-                                <li><a class="active" href="#up" data-toggle="tab">Update Password</a></li>
+                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>
+                                <li><a href="#up" data-toggle="tab">Update Password</a></li>
                                 <li><a href="#fa2" data-toggle="tab">Two Factor Authentication</a></li>
                                 <li><a href="#bs" data-toggle="tab">Browser Sessions</a></li>
                             </ul>
 
                             <div class="tab-content">
 
-{{--                                <div class="active tab-pane" id="usertimeline">--}}
-{{--                                    @livewire('profile.update-profile-information-form')--}}
-{{--                                </div>--}}
+                                <div class="active tab-pane" id="usertimeline">
+                                    @livewire('profile.update-profile-information-form')
+                                </div>
                                 <!-- /.tab-pane -->
 
                                 <div class="tab-pane" id="fa2">
@@ -61,7 +61,7 @@
                                 </div>
                                 <!-- /.tab-pane -->
 
-                                <div class="tab-pane active" id="up">
+                                <div class="tab-pane" id="up">
 
                                     @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                                         <div class="mt-10 sm:mt-0">
@@ -97,7 +97,11 @@
                                 </h6>
                             </div>
                             <div class="widget-user-image">
-                                <img class="rounded-circle" src="/user_assets/images/user3-128x128.jpg" alt="User Avatar">
+                                @if (\Illuminate\Support\Facades\Auth::user()->profile_photo_path)
+                                    <img class="rounded-circle" src="{{\Illuminate\Support\Facades\Auth::user()->profile_photo_url }}" alt="{{\Illuminate\Support\Facades\Auth::user()->firstname }}">
+                                @else
+                                    <img class="rounded-circle" src="https://ui-avatars.com/api/?name={{substr(\Illuminate\Support\Facades\Auth::user()->firstname, 0, 2)}}&color=FFFFFF&background=000080" alt="{{\Illuminate\Support\Facades\Auth::user()->firstname }}">
+                                @endif
                             </div>
                             <div class="box-footer">
                                 <div class="row">

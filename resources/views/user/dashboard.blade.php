@@ -27,7 +27,20 @@
                         </div>
                     @endif
 
+                    <div class="row mb-6">
+                        <div class="col-6">
                     <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+                        </div>
+                        <div class="col-6 text-right">
+                    @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                        @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
+                                <Button class="waves-effect waves-light btn btn-danger btn-sm" data-toggle="modal" data-target="#activatepro-modal">
+                                    Activate Pro (Free Trial)
+                                </Button>
+                        @endif
+                    @endif
+                            </div>
+                    </div>
 
                 <div class="row hidden-xs-down">
                     <div class="col-3">
@@ -287,6 +300,11 @@
                                                     <div class="modal-body">
                                                             @csrf
                                                         <div class="form-group">
+                                                            <label>Meeting Title:</label>
+                                                            <input type="text" name="title" class="form-control" placeholder="Enter Title" value="" required>
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label>Room Name:</label>
                                                             <input type="text" name="roomname" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
                                                         </div>
@@ -424,6 +442,10 @@
                                                 <input type="checkbox" name="dsn" id="checkbox_41">
                                                 <label for="checkbox_41" class="block">Disable Shared Note</label>
                                             </div>
+{{--                                            <div class="c-inputs-stacked">--}}
+{{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}
+{{--                                                <label for="checkbox_42" class="block">Disable Waiting Room</label>--}}
+{{--                                            </div>--}}
 
                                         </div>
                                         <!-- /.box-body -->
@@ -444,6 +466,30 @@
                 </form>
             </div>
             <!-- /.modal -->
+
+
+
+            <div class="modal activatepro-modal fade" id="activatepro-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="mySmallModalLabel">FREE TRIAL ACTIVATION</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            You are about to upgrade your plan from Basic to Pro for a period of seven (7) days only. At the expiration of the trial period, you have the choice of upgrading your Pro Plan or maintaining Basic Plan.
+                        </div>
+                        <div class="modal-footer modal-footer-uniform">
+                            <a href="/activateft" class="btn bg-success float-left">Activate</a>
+                            <button type="button" class="btn bg-dark float-right" data-dismiss="modal">Later</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
 
     <script>
         function copyToClipboard(element) {

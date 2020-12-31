@@ -15,8 +15,10 @@ class UsersController extends Controller
 {
     public function show(){
 
-        $datas['users']=User::orderBy('id', 'desc')->paginate(10);
+        $datas['users']=User::orderBy('id', 'desc')->get();
         $datas['userstc']=User::count();
+        $datas['i']=1;
+
         return view('admin.users', $datas);
     }
 
@@ -37,7 +39,7 @@ class UsersController extends Controller
         }
 
         $datas['rooms']=RoomModel::where('user_id',$id)->get();
-        $datas['payments']=PaymentModel::where('user_id',$id)->get();
+        $datas['payments']=PaymentModel::join('plans','plans.id','=','payment.plan')->where('payment.user_id', $id)->select('payment.*', 'plans.name as plan')->OrderBy('id', 'desc')->limit(1)->get();
         $datas['meetings']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')->where('meetings.email',$datas['user']->email)->select('room.name as roomname', 'meetings.*')->get();
 
         $datas['rm']=RoomModel::where('user_id',$id)->count();

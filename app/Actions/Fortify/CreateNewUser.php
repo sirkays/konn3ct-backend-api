@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Mail\UserWelcomeMail;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\SettingsModel;
@@ -102,10 +103,8 @@ class CreateNewUser implements CreatesNewUsers
 
             $data['messag']="";
 
-        $GLOBALS['recipient']=$u->email;
-        Mail::send('mail.welcome', $data, function ($message) {
-            $message->to($GLOBALS['recipient'])->subject('Welcome to konn3ct!');
-        });
+        Mail::to($u->email)->send(new UserWelcomeMail());
+
             return $u;
     }
 }

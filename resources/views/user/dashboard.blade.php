@@ -162,7 +162,7 @@
                                                             Konn3ct Now
                                                         </Button>
 
-                                                </form>
+                                                        </form>
 
                                                         <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Manage
@@ -178,7 +178,7 @@
                                                             <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
                                                                 Add to Outlook Calender
                                                             </a>
-                                                            <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
+                                                            <button type="button" style="font-size: 12px"  class="dropdown-item" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
                                                                 Invite Participant
                                                             </button>
                                                             @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)

@@ -471,6 +471,8 @@ class RoomController extends Controller
 
                     $data['iroom']=$input['roomname'];
 
+                    $data['itimezone']=$input['timezone'];
+
                     Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }
             }catch (\Exception $e){

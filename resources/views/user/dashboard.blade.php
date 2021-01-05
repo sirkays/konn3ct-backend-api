@@ -331,6 +331,156 @@
                                                         </div>
 
                                                         <div class="form-group">
+                                                            <label>Timezone:</label>
+                                                            <select class="form-control" id="timezone" name="timezone">
+                                                                <option>Pacific/Midway (UTC-11:00)</option>
+                                                                <option>Pacific/Samoa (UTC-11:00)</option>
+                                                                <option>Pacific/Honolulu (UTC-10:00) Hawaii</option>
+                                                                <option>US/Alaska (UTC-09:00)</option>
+                                                                <option>America/Los_Angeles (UTC-08:00)</option>
+                                                                <option>America/Tijuana (UTC-08:00)</option>
+                                                                <option>US/Arizona (UTC-07:00)</option>
+                                                                <option>America/Chihuahua (UTC-07:00)</option>
+                                                                <option>America/Chihuahua (UTC-07:00)</option>
+                                                                <option>America/Mazatlan (UTC-07:00)</option>
+                                                                <option>US/Mountain (UTC-07:00)</option>
+                                                                <option>America/Managua (UTC-06:00)</option>
+                                                                <option>US/Central (UTC-06:00)</option>
+                                                                <option>America/Mexico_City (UTC-06:00)</option>
+                                                                <option>America/Mexico_City (UTC-06:00)</option>
+                                                                <option>America/Monterrey (UTC-06:00)</option>
+                                                                <option>Canada/Saskatchewan (UTC-06:00)</option>
+                                                                <option>America/Bogota (UTC-05:00)</option>
+                                                                <option>US/Eastern (UTC-05:00)</option>
+                                                                <option>US/East-Indiana (UTC-05:00)</option>
+                                                                <option>America/Lima (UTC-05:00)</option>
+                                                                <option>America/Bogota (UTC-05:00)</option>
+                                                                <option>Canada/Atlantic (UTC-04:00)</option>
+                                                                <option>America/Caracas (UTC-04:30)</option>
+                                                                <option>America/La_Paz (UTC-04:00)</option>
+                                                                <option>America/Santiago (UTC-04:00)</option>
+                                                                <option>Canada/Newfoundland (UTC-03:30)</option>
+                                                                <option>America/Sao_Paulo (UTC-03:00)</option>
+                                                                <option>America/Argentina/Buenos_Aires (UTC-03:00)</option>
+                                                                <option>America/Argentina/Buenos_Aires (UTC-03:00)</option>
+                                                                <option>America/Godthab (UTC-03:00)</option>
+                                                                <option>America/Noronha (UTC-02:00)</option>
+                                                                <option>Atlantic/Azores (UTC-01:00)</option>
+                                                                <option>Atlantic/Cape_Verde (UTC-01:00)</option>
+                                                                <option>Africa/Casablanca (UTC+00:00)</option>
+                                                                <option>Europe/London (UTC+00:00)</option>
+                                                                <option>Etc/Greenwich (UTC+00:00)</option>
+                                                                <option>Europe/Lisbon (UTC+00:00)</option>
+                                                                <option>Europe/London (UTC+00:00)</option>
+                                                                <option>Africa/Monrovia (UTC+00:00)</option>
+                                                                <option>UTC (UTC+00:00)</option>
+                                                                <option>Europe/Amsterdam (UTC+01:00)</option>
+                                                                <option>Europe/Belgrade (UTC+01:00)</option>
+                                                                <option>Europe/Berlin (UTC+01:00)</option>
+                                                                <option>Europe/Bern (UTC+01:00)</option>
+                                                                <option>Europe/Bratislava (UTC+01:00)</option>
+                                                                <option>Europe/Brussels (UTC+01:00)</option>
+                                                                <option>Europe/Budapest (UTC+01:00)</option>
+                                                                <option>Europe/Copenhagen (UTC+01:00)</option>
+                                                                <option>Europe/Ljubljana (UTC+01:00)</option>
+                                                                <option>Europe/Madrid (UTC+01:00)</option>
+                                                                <option>Europe/Paris (UTC+01:00)</option>
+                                                                <option>Europe/Prague (UTC+01:00)</option>
+                                                                <option>Europe/Rome (UTC+01:00)</option>
+                                                                <option>Europe/Sarajevo (UTC+01:00)</option>
+                                                                <option>Europe/Skopje (UTC+01:00)</option>
+                                                                <option>Europe/Stockholm (UTC+01:00)</option>
+                                                                <option>Europe/Vienna (UTC+01:00)</option>
+                                                                <option>Europe/Warsaw (UTC+01:00)</option>
+                                                                <option selected="selected">Africa/Lagos (UTC+01:00)</option>
+                                                                <option>Europe/Zagreb (UTC+01:00)</option>
+                                                                <option>Europe/Athens (UTC+02:00)</option>
+                                                                <option>Europe/Bucharest (UTC+02:00)</option>
+                                                                <option>Africa/Cairo (UTC+02:00)</option>
+                                                                <option>Africa/Harare (UTC+02:00)</option>
+                                                                <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                <option>Europe/Istanbul (UTC+02:00)</option>
+                                                                <option>Asia/Jerusalem (UTC+02:00)</option>
+                                                                <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                <option>Africa/Johannesburg (UTC+02:00)</option>
+                                                                <option>Europe/Riga (UTC+02:00)</option>
+                                                                <option>Europe/Sofia (UTC+02:00)</option>
+                                                                <option>Europe/Tallinn (UTC+02:00)</option>
+                                                                <option>Europe/Vilnius (UTC+02:00)</option>
+                                                                <option>Asia/Baghdad (UTC+03:00)</option>
+                                                                <option>Asia/Kuwait (UTC+03:00)</option>
+                                                                <option>Europe/Minsk (UTC+03:00)</option>
+                                                                <option>Africa/Nairobi (UTC+03:00)</option>
+                                                                <option>Asia/Riyadh (UTC+03:00)</option>
+                                                                <option>Europe/Volgograd (UTC+03:00)</option>
+                                                                <option>Asia/Tehran (UTC+03:30)</option>
+                                                                <option>Asia/Muscat (UTC+04:00)</option>
+                                                                <option>Asia/Baku (UTC+04:00)</option>
+                                                                <option>Europe/Moscow (UTC+04:00)</option>
+                                                                <option>Asia/Muscat (UTC+04:00)</option>
+                                                                <option>Europe/Moscow (UTC+04:00)</option>
+                                                                <option>Asia/Tbilisi (UTC+04:00)</option>
+                                                                <option>Asia/Yerevan (UTC+04:00)</option>
+                                                                <option>Asia/Kabul (UTC+04:30)</option>
+                                                                <option>Asia/Islamabad (UTC+05:00)</option>
+                                                                <option>Asia/Karachi (UTC+05:00)</option>
+                                                                <option>Asia/Tashkent (UTC+05:00)</option>
+                                                                <option>Asia/Calcutta/Chennai (UTC+05:30)</option>
+                                                                <option>Asia/Kolkata (UTC+05:30)</option>
+                                                                <option>Asia/Mumbai (UTC+05:30)</option>
+                                                                <option>Asia/New Delhi (UTC+05:30)</option>
+                                                                <option>Asia/Sri Jayawardenepura (UTC+05:30)</option>
+                                                                <option>Asia/Katmandu (UTC+05:45)</option>
+                                                                <option>Asia/Almaty (UTC+06:00)</option>
+                                                                <option>Asia/Astana (UTC+06:00)</option>
+                                                                <option>Asia/Dhaka (UTC+06:00)</option>
+                                                                <option>Asia/Yekaterinburg (UTC+06:00)</option>
+                                                                <option>Asia/Rangoon (UTC+06:30)</option>
+                                                                <option>Asia/Bangkok (UTC+07:00)</option>
+                                                                <option>Asia/Hanoi (UTC+07:00)</option>
+                                                                <option>Asia/Jakarta (UTC+07:00) Jakarta</option>
+                                                                <option>Asia/Novosibirsk (UTC+07:00)</option>
+                                                                <option>Asia/Beijing (UTC+08:00) </option>
+                                                                <option>Asia/Chongqing (UTC+08:00)</option>
+                                                                <option>Asia/Hong_Kong (UTC+08:00)</option>
+                                                                <option>Asia/Krasnoyarsk (UTC+08:00)</option>
+                                                                <option>Asia/Kuala_Lumpur (UTC+08:00)</option>
+                                                                <option>Australia/Perth (UTC+08:00)</option>
+                                                                <option>Asia/Singapore (UTC+08:00)</option>
+                                                                <option>Asia/Taipei (UTC+08:00)</option>
+                                                                <option>Asia/Ulan_Bator (UTC+08:00)</option>
+                                                                <option>Asia/Urumqi (UTC+08:00)</option>
+                                                                <option>Asia/Irkutsk (UTC+09:00)</option>
+                                                                <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                <option>Asia/Sapporo (UTC+09:00)</option>
+                                                                <option>Asia/Seoul (UTC+09:00)</option>
+                                                                <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                <option>Australia/Adelaide (UTC+09:30)</option>
+                                                                <option>Australia/Darwin (UTC+09:30)</option>
+                                                                <option>Australia/Brisbane (UTC+10:00)</option>
+                                                                <option>Australia/Canberra (UTC+10:00)</option>
+                                                                <option>Pacific/Guam (UTC+10:00)</option>
+                                                                <option>Australia/Hobart (UTC+10:00)</option>
+                                                                <option>Australia/Melbourne (UTC+10:00)</option>
+                                                                <option>Pacific/Port_Moresby (UTC+10:00)</option>
+                                                                <option>Australia/Sydney (UTC+10:00)</option>
+                                                                <option>Asia/Yakutsk (UTC+10:00)</option>
+                                                                <option>Asia/Vladivostok (UTC+11:00)</option>
+                                                                <option>Pacific/Auckland (UTC+12:00)</option>
+                                                                <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                <option>Pacific/Kwajalein (UTC+12:00)</option>
+                                                                <option>Asia/Kamchatka (UTC+12:00)</option>
+                                                                <option>Asia/Magadan (UTC+12:00)</option>
+                                                                <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                <option>Asia/Magadan (UTC+12:00)</option>
+                                                                <option>Asia/Solomon Is. (UTC+12:00) </option>
+                                                                <option>Pacific/Auckland (UTC+12:00)</option>
+                                                                <option>Pacific/Tongatapu (UTC+13:00)</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="form-group">
                                                             <label>Guest Email(s)<i>Separated by commas</i>:</label>
                                                             <textarea maxlength="500" name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
                                                         </div>

@@ -552,7 +552,6 @@
                                                 <label>Dial Number:</label>
                                                 <select class="form-control" name="dial_number">
                                                     <option>+1 970-519-2253</option>
-                                                    <option>+1 970-245-1026</option>
                                                 </select>
                                             </div>
 

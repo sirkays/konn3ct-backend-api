@@ -14,6 +14,8 @@
     <!-- Vendors Style-->
     <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
 
+    @laravelPWA
+
     <!-- Style-->
     <link rel="stylesheet" href="/user_assets/css/horizontal-menu.css">
     <link rel="stylesheet" href="/user_assets/css/style.css">

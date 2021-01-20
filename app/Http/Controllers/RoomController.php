@@ -463,6 +463,8 @@ class RoomController extends Controller
 
                     $data['ilink']=$input['roomlink'];
 
+                    $data['iaccesscode']=$input['accesscode'];
+
                     $data['imtitle']=$input['title'];
 
                     $data['idate']=$input['date'];

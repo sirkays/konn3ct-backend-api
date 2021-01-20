@@ -7,7 +7,7 @@
 {{-- Intro Lines --}}
 {{ 'We are excited to have you join the growing number of professionals and desision influencers konn3ct-ing with the rest of the world without missing a thing.' }}
 
-{{ 'To get you started on the journey to an improved virtual live, take the next 3 minutes to do the following' }}
+{{ 'To get you started on the journey to an improved virtual life, take the next 3 minutes to do the following' }}
 
 {{-- Action Button --}}
 @component('mail::button', ['url' => url('/login'), 'color' => "green"])
@@ -33,6 +33,8 @@
 {{-- Outro Lines --}}
 {{--{{ '' }}--}}
 
+{{"Own a personalized room link | Own multiple rooms with a single account | Schedule meetings & events directly from your room | Host up to 250 participants for up to 24 hours straight"}}
+
 {{"Visit https://konn3ct.com"}}
 {{-- Salutation --}}
 
@@ -43,8 +45,11 @@
 {{-- Subcopy --}}
 {{--@isset($actionText)--}}
 @slot('subcopy')
-@lang(
-    "Own a personalized room link | Own multiple rooms with a single account | Schedule meetings & events directly from your room | Host up to 250 participants for up to 24 hours straight"
-)
+
+    <a href="https://www.facebook.com/konn3ctapp"> <img src="https://konn3ct.com/assets/images/fb.png" alt="fb Logo"></a>
+    <a href="https://www.instagram.com/konnectapp"> <img src="https://konn3ct.com/assets/images/in.png" alt="Instagram Logo"></a>
+    <a href="https://twitter.com/konn3ctapp"> <img src="https://konn3ct.com/assets/images/tw.png" alt="Twitter Logo"></a>
+    <a href="https://konn3ct.com"> <img src="https://konn3ct.com/assets/images/lk.png" alt="Link Logo"></a>
+    <a href="mailto:support@konn3ct.com"> <img src="https://konn3ct.com/assets/images/em.png" alt="Email Logo"></a>
 @endslot
 @endcomponent

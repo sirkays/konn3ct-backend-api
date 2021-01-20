@@ -16,15 +16,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel='manifest' href='/assets/manifest.json'>
+    @laravelPWA
 
-{{--    <link rel="manifest" href="/js/manifest.json"></link>--}}
-    <script src="/js/pwabuilder-sw.js"></script>
-
-    <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
-    ></script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W9BR65W');</script>
+    <!-- End Google Tag Manager -->
 
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -194,12 +194,6 @@
         }
     </style>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-
-    <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
-    ></script>
 
     <!-- Start of Async Drift Code -->
 {{--    <script>--}}
@@ -328,24 +322,11 @@
 </footer>
 <!-- footer-end -->
 
-<!-- Scripts -->
-<script type="module">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9BR65W"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-    const el = document.createElement('pwa-update');
-    document.body.appendChild(el);
-</script>
-
-<script type="module" src="/assets/pwabuilder-sw.js"> </script>
-
-<script type="module">
-
-    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-    const el = document.createElement('pwa-update');
-    document.body.appendChild(el);
-</script>
 
 <script type="text/javascript">
     function googleTranslateElementInit() {

@@ -25,6 +25,10 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
+Route::get('/offline', function () {
+    return view('modules/laravelpwa/offline');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

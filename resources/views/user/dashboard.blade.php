@@ -147,8 +147,16 @@
                                         <tr>
                                             <td>
                                                 <a href="#" class="text-dark hover-primary mb-1"><strong>Name:</strong> {{$room->name}}</a>
+                                                <span class="badge badge-info">Access Code:
+                                                    @if($room->password_attendee=="attendee")
+                                                        Free
+                                                    @else
+                                                        {{$room->password_attendee}}
+                                                        @endif
+
+                                                </span>
                                                 <span class="text-dark d-block">
-                                                  <strong>Link:</strong> <span id="c{{$room->id}}">{{url('/join/')}}/{{$room->url}}</span>
+                                                  <strong>Link:</strong> <span id="c{{$room->id}}">{{url('/join/')}}/{{$room->url}} </span>
                                                 </span>
 
                                                 <br/>
@@ -240,12 +248,21 @@
                                                 <div class="d-flex align-items-center">
                                                     <div>
                                                         <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$room->name}}</a>
+
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <span id="c{{$room->id}}" class="text-dark font-weight-600 d-block font-size-16">
                                                     {{url('/join/')}}/{{$room->url}}
+
+                                                    <span class="badge badge-info">Access Code:
+                                                        @if($room->password_attendee=="attendee")
+                                                                Free
+                                                            @else
+                                                                {{$room->password_attendee}}
+                                                            @endif
+                                                    </span>
                                                 </span>
                                                 <br/>
                                                 <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
@@ -305,8 +322,15 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Room Name:</label>
-                                                            <input type="text" name="roomname" class="form-control" placeholder="e.g My Room" value="{{$room->name}}" required>
+                                                            <label>Access Code:</label>
+
+                                                        @if($room->password_attendee!="attendee")
+                                                                <input type="text" name="accesscode" class="form-control" placeholder="" value="{{$room->password_attendee}}" readonly required>
+                                                            @else
+                                                                <input type="hidden" name="accesscode" class="form-control" placeholder="" value="No Access Code">
+                                                                Room is open
+                                                            @endif
+
                                                         </div>
 
                                                         <div class="form-group">

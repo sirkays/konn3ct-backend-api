@@ -91,7 +91,11 @@ class CreateNewUser implements CreatesNewUsers
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-            $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            if(!isset($input['type'])) {
+                $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
+            }else{
+                $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            }
             $input['welcome_message']="";
             $input['logout_url']=url('/leftsession');
             $input['max_participants']=$max_user;

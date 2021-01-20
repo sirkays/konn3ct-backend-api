@@ -9,6 +9,8 @@
 
 {{ "Meeting Room Name: $iroom" }}
 <br />
+{{ "Access Code: $iaccesscode" }}
+<br />
 {{ "Date: $idate" }}
 <br />
 {{ "Time: $itime" }} {{$itimezone}}

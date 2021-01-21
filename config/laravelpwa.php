@@ -4,7 +4,7 @@ return [
     'name' => 'konn3ct',
     'manifest' => [
         'name' => env('APP_NAME', 'My PWA App'),
-        'short_name' => 'PWA',
+        'short_name' => 'Konn3ct',
         'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#35ac39',

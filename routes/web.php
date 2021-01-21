@@ -105,6 +105,8 @@ Route::get('/invitemail', function (){
 
         $data['idate']="2020-12";
 
+        $data['iaccesscode']="hello";
+
         $data['itime']="12:40";
 
         $data['iroom']="Sammy Room";

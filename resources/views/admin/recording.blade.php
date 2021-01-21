@@ -58,19 +58,24 @@
                                         {{--                                            </td>--}}
 
                                         <td>
+                                         @if(isset($record['participants']))
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
 												</span>
+                                                @endif
                                                 @if(isset($record['playback']['format']['length']))
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
                                                 @endif
+                                                @if(isset($record['size']))
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
+                                                @endif
                                         </td>
 
+                                        @if(isset($record['playback']['format']['url']))
                                         <td>
                                             <a class="waves-effect waves-light btn btn-success font-size-10" href="{{$record['playback']['format']['url']}}">
                                                 Play
@@ -102,6 +107,7 @@
                                                 Delete
                                             </a>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -160,22 +166,28 @@
                                         {{--                                            </td>--}}
 
                                         <td style="min-width: 20px; max-width: 50px">
+                                        @if(isset($record['participants']))
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['participants']}} Participants
 												</span>
+                                                @endif
                                                 @if(isset($record['playback']['format']['length']))
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
                                                 @endif
+                                                @if(isset($record['size']))
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
+                                                @endif
                                         </td>
+                                         @if(isset($record['playback']['format']['url']))
                                         <td style="min-width: 50px; max-width: 150px">
                                             <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
                                             <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
                                         </td>
+                                        
                                         <td style="min-width: 50px; max-width: 100px">
 
                                             <div class="dropdown">
@@ -213,6 +225,7 @@
                                             {{--                                                   Delete--}}
                                             {{--                                                </a>--}}
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

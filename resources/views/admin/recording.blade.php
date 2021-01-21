@@ -61,9 +61,11 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
 												</span>
+                                                @if(isset($record['playback']['format']['length']))
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
+                                                @endif
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
@@ -161,9 +163,11 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['participants']}} Participants
 												</span>
+                                                @if(isset($record['playback']['format']['length']))
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
+                                                @endif
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>

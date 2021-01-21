@@ -1,7 +1,7 @@
-@extends('layouts.layout')
+{{--@extends('layouts.layout')--}}
 
-@section('content')
+{{--@section('content')--}}
 
     <h1>You are currently not connected to any networks.</h1>
 
-@endsection
+{{--@endsection--}}

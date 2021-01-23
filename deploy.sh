@@ -1,5 +1,6 @@
 #!/bin/sh
 # activate maintenance mode
+cd /var/www/laravel
 php artisan down
 # update source code
 git pull origin dev

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class DeployController extends Controller
@@ -13,14 +14,18 @@ class DeployController extends Controller
         $githubHash = $request->header('X-Hub-Signature');
         $localToken = config('app.deploy_secret');
         $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
-        $root_path = base_path();
-        shell_exec('cd ' . $root_path . '; ./deploy.sh');
         if (hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
-            $process = new Process('cd ' . $root_path . '; ./deploy.sh');
-            $process->run(function ($type, $buffer) {
-                echo $buffer;
-            });
+
+            $process = new Process(['ls', 'cd ' . $root_path . '; ./deploy.sh']);
+            $process->run();
+
+// executes after the command finishes
+            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+
+            echo $process->getOutput();
         }
     }
 }

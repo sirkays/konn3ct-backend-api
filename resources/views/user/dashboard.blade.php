@@ -650,7 +650,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
-                            You are about to upgrade your plan from Basic to Pro for a period of seven (7) days only. At the expiration of the trial period, you have the choice of upgrading your Pro Plan or maintaining Basic Plan.
+                            You are about to upgrade your plan from Basic to Pro for a period of seven (7) days only. At the expiration of the trial period, you have the choice of upgrading to Lite/Pro Plan or maintaining Basic Plan.
                         </div>
                         <div class="modal-footer modal-footer-uniform">
                             <a href="/activateft" class="btn bg-success float-left">Activate</a>

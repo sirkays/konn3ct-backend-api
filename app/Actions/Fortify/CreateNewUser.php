@@ -80,7 +80,7 @@ class CreateNewUser implements CreatesNewUsers
             $u->status="free_trial";
             $u->save();
         }
-//
+
             $plan = PlanModel::where("id", $u->plan)->first();
             $duration = $plan->duration;
             $max_user = $plan->participant;
@@ -105,9 +105,7 @@ class CreateNewUser implements CreatesNewUsers
 
             RoomModel::create($input);
 
-            $data['messag']="";
-
-        Mail::to($u->email)->send(new UserWelcomeMail());
+            Mail::to($u->email)->send(new UserWelcomeMail());
 
             return $u;
     }

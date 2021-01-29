@@ -149,7 +149,7 @@
                                                 <a href="#" class="text-dark hover-primary mb-1"><strong>Name:</strong> {{$room->name}}</a>
                                                 <span class="badge badge-info">Access Code:
                                                     @if($room->password_attendee=="attendee")
-                                                        Free
+                                                        Unrestricted
                                                     @else
                                                         {{$room->password_attendee}}
                                                         @endif
@@ -258,7 +258,7 @@
 
                                                     <span class="badge badge-info">Access Code:
                                                         @if($room->password_attendee=="attendee")
-                                                                Free
+                                                                Unrestricted
                                                             @else
                                                                 {{$room->password_attendee}}
                                                             @endif

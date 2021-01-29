@@ -30,13 +30,15 @@
 {{ "Go to settings to end meeting" }}
 @endcomponent
 
+{{ "Own a personalized room link | Own multiple rooms with a single account | Schedule meetings & events directly from your room | Host up to 250 participants for up to 24 hours straight" }}
+
+{{ "Visit https://konn3ct.com" }}
+
 {{-- Outro Lines --}}
 {{--{{ '' }}--}}
 
-<div class="text-center">Own a personalized room link | Own multiple rooms with a single account | Schedule meetings & events directly from your room | Host up to 250 participants for up to 24 hours straight</div>
-<div class="text-center"> Visit https://konn3ct.com</div>
 {{-- Salutation --}}
-
+<br><br>
 @lang('Thank you'),<br>
 {{ "The konn3ct Team" }}
 

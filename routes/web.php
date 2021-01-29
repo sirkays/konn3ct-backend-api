@@ -112,7 +112,7 @@ Route::get('/invitemail', function (){
 
         $data['iroom']="Sammy Room";
 
-        return (new \App\Mail\InviteMail($data))->render();
+        return (new \App\Mail\UserWelcomeMail($data))->render();
     })->name('mailtest');
 
 });

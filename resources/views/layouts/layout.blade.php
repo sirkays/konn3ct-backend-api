@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Konn3ct</title>
-    <meta name="description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
-    <meta name="og:url" content="http://konn3ct.com">
-    <meta name="og:description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
+    <meta name="description" content="Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.">
+    <meta name="author" content="Newwaves Ecosystem Limited">
+    <meta name="og:url" content="https://konn3ct.com">
+    <meta name="og:description" content="Register now it's free. Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.">
     <meta name="og:type" content="website">
     <meta name="og:title" content="konn3ct">
-    <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ct_logo.png">
+    <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ctIcon.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">

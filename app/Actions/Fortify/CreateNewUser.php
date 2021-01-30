@@ -88,7 +88,7 @@ class CreateNewUser implements CreatesNewUsers
             $num = trim(date('siyh'));
             $shuffled = str_shuffle($num);
             $sfin = substr($shuffled, 0, 4);
-            $sfina = substr($input['firstname'], 0, 2);
+            $sfina = substr(strtolower($input['firstname']), 0, 2);
             $sfinal = str_shuffle($sfin.$sfina);
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";

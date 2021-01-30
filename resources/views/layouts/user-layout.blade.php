@@ -4,10 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.">
+    <meta name="author" content="Newwaves Ecosystem Limited">
+    <meta name="og:url" content="https://konn3ct.com">
+    <meta name="og:description" content="Register now it's free. Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.">
+    <meta name="og:type" content="website">
+    <meta name="og:title" content="konn3ct">
+    <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ctIcon.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/assets/images/konn3cticon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
 
     <title>Konn3ct - Home</title>
 
@@ -235,7 +241,7 @@
                 </li>
             </ul>
         </div>
-        &copy; 2020 <a href="https://newwavesecosystem.com">Newwaves Ecosystem</a>. All Rights Reserved.
+        &copy; {{date('Y')}} <a href="https://newwavesecosystem.com">Newwaves Ecosystem</a>. All Rights Reserved.
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
@@ -460,8 +466,8 @@
             </div>
             <div class="modal-body">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://konn3ct.com/register&title=Konn3ctisagoodandfreeconferencingplatform" target="_blank" class="fa fa-facebook myfa"></a>
-                <a href="https://twitter.com/share?url=https://konn3ct.com/register&text=Register now it's free. Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Multi-User Whiteboard.&hashtags=konn3ct" target="_blank" class="fa fa-twitter myfa"></a>
-                <a href="mailto:?Subject=Register with Konn3ct&amp;Body=Register now it's free. Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Multi-User Whiteboard. https://konn3ct.com/register" target="_blank" class="fa fa-envelope-square myfa"></a>
+                <a href="https://twitter.com/share?url=https://konn3ct.com/register&text=Register now it's free.Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.https://konn3ct.com/register.&hashtags=konn3ct" target="_blank" class="fa fa-twitter myfa"></a>
+                <a href="mailto:?Subject=Register with Konn3ct&amp;Body=Register now it's free.Start a meeting in 5 secs, Get personalized link, Enjoy HD Audio & Video and Own your meeting rooms.https://konn3ct.com/register" target="_blank" class="fa fa-envelope-square myfa"></a>
                 <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://konn3ct.com/register" target="_blank" class="fa fa-linkedin myfa"></a>
 {{--                https://twitter.com/intent/tweet?text=How%20to%20create%20social%20media%20sharing%20buttons%20on%20your%20website&url=https://blog.one.com/create-social-media-sharing-buttons-website/--}}
 {{--                https://www.facebook.com/sharer.php?u=https%3A%2F%2Fblog.one.com%2Fcreate-social-media-sharing-buttons-website%2F--}}
@@ -521,9 +527,4 @@
 </body>
 
 </html>
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-</script>
+

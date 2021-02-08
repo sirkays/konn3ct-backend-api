@@ -28,13 +28,16 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'firstname' => ['required', 'string', 'min:3', 'max:20'],
+            'email' => ['required', 'string', 'email', 'min:5', 'max:50', 'unique:users'],
 //            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
-            'phone' => 'required',
+            'phone' => ['required', 'string', 'max:15'],
             'password' => $this->passwordRules(),
         ])->validate();
 
+        $input['firstname']=htmlspecialchars($input['firstname']);
+        $input['email']=htmlspecialchars($input['email']);
+        $input['phone']=htmlspecialchars($input['phone']);
 
         if(!isset($input['type'])){
             if($input['lastname']==""){

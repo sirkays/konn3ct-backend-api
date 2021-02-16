@@ -195,6 +195,39 @@
         }
     </style>
 
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #1696e7;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #35ac39;
+        }
+        .previous {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        .next {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
 
     <!-- Start of Async Drift Code -->
 {{--    <script>--}}
@@ -232,10 +265,12 @@
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
-                    <div class="col-lg-11 text-center">
+                    <div class="col-lg-11 text-center mt-3">
                         <div class="logo">
+                            <button class="previous btn pull-left" onclick="history.back()"><i class="fa fa-arrow-left"></i> Go back!</button>
                             <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
+                            <button class="previous btn pull-right mr-20" onclick="history.go(1)">Go Forward! <i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
 
@@ -444,6 +479,58 @@
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
 </script>
+
+<script>
+    var backPresses = 0;
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
+    var maxBackPresses = 2;
+    function handleBackButton(init) {
+        if (init !== true)
+            backPresses++;
+        if ((!isAndroid && backPresses >= maxBackPresses) ||
+            (isAndroid && backPresses >= maxBackPresses - 1)) {
+            window.history.back();
+        else
+            window.history.pushState({}, '');
+        }
+        function setupWindowHistoryTricks() {
+            handleBackButton(true);
+            window.addEventListener('popstate', handleBackButton);
+        }
+
+        function isStandalone () {
+            return !!navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+        }
+
+// Depends on bowser but wouldn't be hard to use a
+// different approach to identifying that we're running on Android
+        function exitsOnBack () {
+            return isStandalone() && browserInfo.os.name === 'Android';
+        }
+
+
+// Everything below has to run at page start, probably onLoad
+
+        if (exitsOnBack()) handleBackEvents();
+
+        function handleBackEvents() {
+            window.history.pushState({}, '');
+
+            window.addEventListener('popstate', () => {
+                //TODO: Optionally show a "Press back again to exit" tooltip
+                setTimeout(() => {
+                    window.history.pushState({}, '');
+                    //TODO: Optionally hide tooltip
+                }, 2000);
+            });
+        }
+</script>
 </body>
 
 </html>
+<script>
+    import Button from "../../js/Jetstream/Button";
+    export default {
+        components: {Button}
+    }
+</script>

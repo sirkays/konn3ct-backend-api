@@ -82,6 +82,8 @@ sed -i 's/helpLink:.*/helpLink: https:\/\/newwavesecosystem.com\/meetteam.html/g
 echo "Set Copyright in Playback"
 sed -i "s/defaultCopyright = .*/defaultCopyright = \'<p>Newwaves Ecosystem Limited<\/p>\';/g" /var/bigbluebutton/playback/presentation/2.0/playback.js
 
+setNumberOfHTML5Processes 2
+
 #echo "Fix for 1007 and 1020 - https://github.com/manishkatyan/bbb-optimize#fix-1007-and-1020-errors"
 #xmlstarlet edit --inplace --update '//profile/settings/param[@name="ext-rtp-ip"]/@value' --value "\$\${external_rtp_ip}" /opt/freeswitch/conf/sip_profiles/external.xml
 #xmlstarlet edit --inplace --update '//profile/settings/param[@name="ext-sip-ip"]/@value' --value "\$\${external_sip_ip}" /opt/freeswitch/conf/sip_profiles/external.xml

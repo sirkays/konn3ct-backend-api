@@ -267,10 +267,10 @@
                 <div class="row align-items-center">
                     <div class="col-lg-11 text-center mt-3">
                         <div class="logo">
-                            <button class="previous btn pull-left" onclick="history.back()"><i class="fa fa-arrow-left"></i> Go back!</button>
+                            <button class="previous pull-left" style="" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
                             <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
-                            <button class="previous btn pull-right mr-20" onclick="history.go(1)">Go Forward! <i class="fa fa-arrow-right"></i></button>
+                            <button class="previous pull-right" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
 

@@ -10,6 +10,28 @@ echo "Warning: change external_rtp_ip and external_sip_ip to the public IP of yo
 echo "Running three parallel Kurento media server"
 enableMultipleKurentos
 
+HTML5_CONFIG=/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+yq w -i $HTML5_CONFIG public.app.clientTitle konn3ct
+yq w -i $HTML5_CONFIG public.app.appName konn3ct
+yq w -i $HTML5_CONFIG public.app.copyright "©2021 konn3ct"
+yq w -i $HTML5_CONFIG public.app.helpLink https://konn3ct.com/contact
+yq w -i $HTML5_CONFIG public.app.audioChatNotification true
+yq w -i $HTML5_CONFIG public.app.enableNetworkInformation true
+yq w -i $HTML5_CONFIG public.app.mirrorOwnWebcam true
+yq w -i $HTML5_CONFIG public.networkMonitoring.enableNetworkMonitoring true
+
+echo "  Reduce bandwidth for webcams- Setting camera defaults"
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==low).bitrate' 50
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==medium).bitrate' 100
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==high).bitrate' 200
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==hd).bitrate' 300
+
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==low).default' true
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==medium).default' false
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==high).default' false
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==hd).default' false
+chown meteor:meteor $HTML5_CONFIG
+
 echo "Make the HTML5 client default"
 sed -i 's/attendeesJoinViaHTML5Client=.*/attendeesJoinViaHTML5Client=true/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 sed -i 's/moderatorsJoinViaHTML5Client=.*/moderatorsJoinViaHTML5Client=true/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
@@ -17,7 +39,6 @@ sed -i 's/moderatorsJoinViaHTML5Client=.*/moderatorsJoinViaHTML5Client=true/g' /
 echo "Set Welcome message"
 sed -i 's/defaultWelcomeMessage=.*/defaultWelcomeMessage=Welcome to <b>\%\%CONFNAME\%\%<\/b>\!/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=Use a headset to avoid causing background noise.<br>Refresh the browser in case of any network issue./g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-#sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=To join this meeting by phone, dial:<br>  %%DIALNUM%%<br>Then enter %%CONFNUM%% as the conference PIN number./g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 
 #echo "Set dial in number"
 #sed -i 's/defaultDialAccessNumber=.*/defaultDialAccessNumber=+12564725575/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
@@ -67,20 +88,20 @@ sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=Use a heads
 #echo "No audio check"
 #sed -i 's/skipCheck:.*/skipCheck: true/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-echo "Set Client Title"
-sed -i 's/clientTitle:.*/clientTitle: konn3ct/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+#echo "Set Client Title"
+#sed -i 's/clientTitle:.*/clientTitle: konn3ct/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-echo "Set App Title"
-sed -i 's/appName:.*/appName: konn3ct/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+#echo "Set App Title"
+#sed -i 's/appName:.*/appName: konn3ct/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-echo "Set Copyright"
-sed -i 's/copyright:.*/copyright: "©2020 Newwaves Ecosystem Limited"/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+#echo "Set Copyright"
+#sed -i 's/copyright:.*/copyright: "©2020 Newwaves Ecosystem Limited"/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-echo "Set Helplink"
-sed -i 's/helpLink:.*/helpLink: https:\/\/newwavesecosystem.com\/meetteam.html/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
+#echo "Set Helplink"
+#sed -i 's/helpLink:.*/helpLink: https:\/\/newwavesecosystem.com\/meetteam.html/g' /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml
 
-echo "Set Copyright in Playback"
-sed -i "s/defaultCopyright = .*/defaultCopyright = \'<p>Newwaves Ecosystem Limited<\/p>\';/g" /var/bigbluebutton/playback/presentation/2.0/playback.js
+#echo "Set Copyright in Playback"
+#sed -i "s/defaultCopyright = .*/defaultCopyright = \'<p>Newwaves Ecosystem Limited<\/p>\';/g" /var/bigbluebutton/playback/presentation/2.0/playback.js
 
 setNumberOfHTML5Processes 2
 

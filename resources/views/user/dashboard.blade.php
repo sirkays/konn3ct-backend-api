@@ -187,7 +187,7 @@
                                                                 Add to Outlook Calender
                                                             </a>
                                                             <button type="button" style="font-size: 12px"  class="dropdown-item" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
-                                                                Invite Participant
+                                                                Konn3ct Invite
                                                             </button>
                                                             @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
                                                             <form action="/deleteroom" method="POST">
@@ -277,10 +277,89 @@
                                                 </a>
 
                                                 <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
-                                                   Invite Participant
+                                                   Konn3ct Invite
                                                 </button>
 
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Manage Room
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" data-toggle="modal" data-target="#accesscode-modal">
+                                                            Access Code
+                                                        </Button>
+
+                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" data-toggle="modal" data-target="#limituser-modal">
+                                                            Users Limit
+                                                        </Button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal accesscode-modal fade" id="accesscode-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <form method="post" action="{{route('accesscode')}}">
+                                                            @csrf
+                                                         <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="mySmallModalLabel">Manage Access Code</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                You are about to change your current access code to new. <br/>
+                                                                Enter your new access code below or click on "Auto Generate"<br/><br/>
+
+                                                                <div class="form-group">
+                                                                    <label>New Access Code:</label>
+                                                                    <input type="text" id="accesscode" name="accesscode" class="form-control" placeholder="Enter new access code" required />
+                                                                    <input type="hidden" id="type" name="type" class="form-control" value="manual"/>
+                                                                    <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button type="submit" class="btn bg-success float-left">Save</button>
+                                                                <button type="submit" class="btn bg-dark float-right" onclick="document.getElementById('type').value='auto';document.getElementById('accesscode').value='.......';">Auto Generate</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
+                                                <div class="modal limituser-modal fade" id="limituser-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <form method="post" action="{{route('limituser')}}">
+                                                            @csrf
+                                                         <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="mySmallModalLabel">Manage User Limit</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                You are about to change your current user limit. <br/>
+                                                                Choose your need carefully<br/><br/>
+
+                                                                <div class="form-group">
+                                                                    <label>User Limit:</label>
+                                                                    <input type="number" id="users" name="users" aria-valuemin="2" min="2" max="{{$plan->participant}}" aria-valuemax="{{$plan->participant}}" max="{{$plan->participant}}" value="{{$room->max_participants}}" class="form-control" placeholder="Enter new access code" required />
+                                                                    <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button type="submit" class="btn bg-success float-left">Save</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
+
                                             </td>
+
                                             <td>
                                                 <form action="/joinroom" method="POST">
                                                     @csrf
@@ -309,7 +388,7 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Invite Participant</h4>
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Konn3ct  Invite</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                     </div>
 
@@ -324,7 +403,7 @@
                                                         <div class="form-group">
                                                             <label>Access Code:</label>
 
-                                                        @if($room->password_attendee!="attendee")
+                                                            @if($room->password_attendee!="attendee")
                                                                 <input type="text" name="accesscode" class="form-control" placeholder="" value="{{$room->password_attendee}}" readonly required>
                                                             @else
                                                                 <input type="hidden" name="accesscode" class="form-control" placeholder="" value="No Access Code">
@@ -341,7 +420,7 @@
 
                                                         <div class="form-group">
                                                             <label>Host Name:</label>
-                                                            <input type="text" name="hostname" class="form-control" placeholder="e.g Newwaves" required>
+                                                            <input type="text" name="hostname" class="form-control" placeholder="e.g Newwaves" required />
                                                         </div>
 
                                                         <div class="form-group">
@@ -665,12 +744,16 @@
 
 
     <script>
+        import Button from "../../js/Jetstream/Button";
         function copyToClipboard(element) {
             var $temp = $("<input>");
             $("body").append($temp);
             $temp.val($(element).text()).select();
             document.execCommand("copy");
             $temp.remove();
+        }
+        export default {
+            components: {Button}
         }
     </script>
 

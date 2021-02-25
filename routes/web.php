@@ -95,6 +95,11 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+
+    Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
+
+    Route::post('/limituser', [RoomController::class, 'limituser'])->name('limituser');
+
     Route::get('/welcomemail', function (){
         return (new \App\Mail\UserWelcomeMail())->render();
     })->name('mailtest');

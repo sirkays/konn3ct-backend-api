@@ -324,7 +324,10 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $u=User::find($i->user_id);
+
+//        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $ms=0;
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -336,15 +339,21 @@ class RoomController extends Controller
 
             MeetingsModel::create($mdata);
 
-            return back()
-                ->with('error', 'Meeting has not started!');
+            $mns['name']=$name;
+            $mns['email']=$email;
+            $mns['url']=$url;
+            $mns['room']=$i;
+            $mns['owner']=$u;
+
+            return view('meeting_notstarted', $mns);
+//
+//            return back()
+//                ->with('error', 'Meeting has not started!');
         }else{
             $mds=\Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
-
-            $u=User::find($i->user_id);
 
             $data['status']="Currently on";
             $data['meetingname']=$i->name;
@@ -450,6 +459,9 @@ class RoomController extends Controller
             return back()->with('error', 'Guest emails can not be empty');
         }
 
+        #TODO: save all emails sent to one table for campaigns later
+        $input['guest'].=",".Auth::user()->email;
+
         // use of explode
         $str_arr = explode (",", $input['guest']);
 
@@ -484,5 +496,37 @@ class RoomController extends Controller
         }
 
         return redirect('room')->with('success', 'Invite Sent Successfully!');
+    }
+
+    public function accesscode(Request $request){
+        $input=$request->all();
+
+        $r=RoomModel::find($input['id']);
+
+        if ($input['type']=="manual" && $input['accesscode']==""){
+            return back()->with('error', 'Access code can not be empty');
+        }else{
+            $r->password_attendee=$input['accesscode'];
+            $r->save();
+        }
+
+        if($input['type']!="manual"){
+            $code=rand(11111,9999999999);
+            $r->password_attendee=$code;
+            $r->save();
+        }
+
+        return redirect('room')->with('success', 'Access code changed Successfully!');
+    }
+
+    public function limituser(Request $request){
+        $input=$request->all();
+
+        $r=RoomModel::find($input['id']);
+
+        $r->max_participants=$input['users'];
+        $r->save();
+
+        return redirect('room')->with('success', 'User Limit changed Successfully!');
     }
 }

@@ -326,8 +326,8 @@ class RoomController extends Controller
 
         $u=User::find($i->user_id);
 
-//        $ms=\Bigbluebutton::isMeetingRunning($i->id);
-        $ms=0;
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+//        $ms=0;
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;

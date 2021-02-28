@@ -277,7 +277,7 @@ class RoomController extends Controller
             if($i->banner!=""){
                 $banner= url('/') . "/roombanner/".$i->banner;
             }else{
-                $banner="";
+                $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
             }
 
             $mdata['meeting_id']=$i->id;

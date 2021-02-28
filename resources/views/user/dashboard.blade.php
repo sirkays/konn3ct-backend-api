@@ -284,20 +284,20 @@
                                                         Manage Room
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#accesscode-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#accesscode{{$room->id}}-modal">
                                                             Access Code
                                                         </Button>
 
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#limituser-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#limituser{{$room->id}}-modal">
                                                             Users Limit
                                                         </Button>
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#roombanner-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#roombanner{{$room->id}}-modal">
                                                             Meeting Room Banner Upload
                                                         </Button>
                                                     </div>
                                                 </div>
 
-                                                <div class="modal accesscode-modal fade" id="accesscode-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal accesscode-modal fade" id="accesscode{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('accesscode')}}">
                                                             @csrf
@@ -329,7 +329,7 @@
                                                 </div>
                                                 <!-- /.modal -->
 
-                                                <div class="modal limituser-modal fade" id="limituser-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal limituser-modal fade" id="limituser{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('limituser')}}">
                                                             @csrf
@@ -360,7 +360,7 @@
                                                 <!-- /.modal -->
 
 
-                                                <div class="modal roombanner-modal fade" id="roombanner-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal roombanner-modal fade" id="roombanner{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('bannerupload')}}" enctype="multipart/form-data">
                                                             @csrf
@@ -371,7 +371,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 Upload a customized banner for your meeting room. <br/>
-                                                                Recommended: 485px by 153px <br/>
+                                                                Recommended: 485px by 153px <br/><br/>
 
                                                                 <div class="form-group row">
                                                                     <div class="col-lg-10">
@@ -758,9 +758,9 @@
                             <div class="modal-body">
                                 <div class="col-12">
                                     <!-- Basic Forms -->
-                                    <div class="box">
+                                    <div class="box text-center">
                                         <!-- /.box-header -->
-                                        Only available for Lite & Pro Plans. <a href="{{route('changeplan',3)}}">Upgrade Now</a>.
+                                        Only available for Lite & Pro Plans. <br> <button class="btn btn-success" href="{{route('changeplan',3)}}">Upgrade Now</button>.
                                     </div>
                                     <!-- /.box -->
                                 </div>

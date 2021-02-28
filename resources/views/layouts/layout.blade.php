@@ -31,9 +31,9 @@
     <link rel="stylesheet" href="/assets/css/responsive.css">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">
-    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>
+{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">--}}
+{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">--}}
+{{--    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>--}}
 
     <style>
         .more {display: none;}
@@ -133,14 +133,14 @@
         }
 
         a.su{
-            color: blue;
+            color: #042c69;
         }
         a.su:hover{
             color: green;
         }
 
         button.su{
-            background-color: blue;
+            background-color: #042c69;
         }
         button.su:hover{
             background-color: green;
@@ -350,20 +350,6 @@
 </footer>
 <!-- footer-end -->
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9BR65W"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
-    }
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script>
     window.cookieconsent.initialise({
@@ -384,6 +370,14 @@
         }
     });
 </script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>

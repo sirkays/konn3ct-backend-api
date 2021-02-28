@@ -42,7 +42,9 @@
                         <h3>Waiting for Room to Start</h3>
                         <br/>
 
-                            <form action="/ajoinroom" method="POST" style="display: none">
+                        <button class="btn su" onclick="checkmeeting()">re-Konn3ct</button>
+
+                            <form name="myForm" action="/ajoinroom" method="POST" style="display: none">
                                 @csrf
                                 <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                                     <div class="form-group">
@@ -71,17 +73,20 @@
     <!-- main-area-end -->
 
     <script>
+        setInterval(checkmeeting(), 10);
+
         function checkmeeting() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML = this.responseText;
+                    document.myForm.submit();
+                }else{
+                    console.log(this.responseText);
                 }
             };
-            xhttp.open("GET", "demo_get2.asp?fname=Henry&lname=Ford", true);
+            xhttp.open("GET", "/roomstatus/{{$url}}", true);
             xhttp.send();
         }
-        setTimeout(checkmeeting(), 2000);
     </script>
 
 

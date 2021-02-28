@@ -59,6 +59,8 @@ Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join
 
 Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 
+Route::get('/roomstatus/{url}', [RoomController::class, 'roomstatus'])->name('roomstatus');
+
 Route::get('/features', function () {
     return view('features');
 });
@@ -68,6 +70,22 @@ Route::get('/contact', function () {
 });
 
 Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
+
+Route::get('/roombanner/{filename}', function ($filename)
+{
+    $path = storage_path('roombanner/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('show.roombanner');
+
 
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
@@ -99,6 +117,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 
     Route::post('/limituser', [RoomController::class, 'limituser'])->name('limituser');
+
+    Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');
 
     Route::get('/welcomemail', function (){
         return (new \App\Mail\UserWelcomeMail())->render();
@@ -134,8 +154,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/changeplan/{plan}', [PaymentController::class, 'changeplan'])->name('changeplan');
 
-    Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy']
-    )->name('logouts');
+    Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy'])->name('logouts');
 
 });
 

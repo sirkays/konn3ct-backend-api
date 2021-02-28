@@ -19,14 +19,6 @@
 
     @laravelPWA
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-W9BR65W');</script>
-    <!-- End Google Tag Manager -->
-
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">
@@ -480,57 +472,6 @@
     }
 </script>
 
-<script>
-    var backPresses = 0;
-    var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
-    var maxBackPresses = 2;
-    function handleBackButton(init) {
-        if (init !== true)
-            backPresses++;
-        if ((!isAndroid && backPresses >= maxBackPresses) ||
-            (isAndroid && backPresses >= maxBackPresses - 1)) {
-            window.history.back();
-        else
-            window.history.pushState({}, '');
-        }
-        function setupWindowHistoryTricks() {
-            handleBackButton(true);
-            window.addEventListener('popstate', handleBackButton);
-        }
-
-        function isStandalone () {
-            return !!navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
-        }
-
-// Depends on bowser but wouldn't be hard to use a
-// different approach to identifying that we're running on Android
-        function exitsOnBack () {
-            return isStandalone() && browserInfo.os.name === 'Android';
-        }
-
-
-// Everything below has to run at page start, probably onLoad
-
-        if (exitsOnBack()) handleBackEvents();
-
-        function handleBackEvents() {
-            window.history.pushState({}, '');
-
-            window.addEventListener('popstate', () => {
-                //TODO: Optionally show a "Press back again to exit" tooltip
-                setTimeout(() => {
-                    window.history.pushState({}, '');
-                    //TODO: Optionally hide tooltip
-                }, 2000);
-            });
-        }
-</script>
 </body>
 
 </html>
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-</script>

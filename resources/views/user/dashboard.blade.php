@@ -265,32 +265,34 @@
                                                     </span>
                                                 </span>
                                                 <br/>
-                                                <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
-                                                    <i class="fa fa-copy"></i> Copy
-                                                </Button>
-                                                <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                    Add to Google Calender
-                                                </a>
-
-                                                <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                   Add to Outlook Calender
-                                                </a>
-
-                                                <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
-                                                   Konn3ct Invite
-                                                </button>
-
                                                 <div class="dropdown">
+                                                    <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
+                                                        <i class="fa fa-copy"></i> Copy
+                                                    </Button>
+                                                    <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                        Add to Google Calender
+                                                    </a>
+
+                                                    <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                        Add to Outlook Calender
+                                                    </a>
+
+                                                    <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
+                                                        Konn3ct Invite
+                                                    </button>
                                                     <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         Manage Room
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" data-toggle="modal" data-target="#accesscode-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#accesscode-modal">
                                                             Access Code
                                                         </Button>
 
-                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" data-toggle="modal" data-target="#limituser-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#limituser-modal">
                                                             Users Limit
+                                                        </Button>
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#roombanner-modal">
+                                                            Meeting Room Banner Upload
                                                         </Button>
                                                     </div>
                                                 </div>
@@ -358,6 +360,39 @@
                                                 <!-- /.modal -->
 
 
+                                                <div class="modal roombanner-modal fade" id="roombanner-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <form method="post" action="{{route('bannerupload')}}" enctype="multipart/form-data">
+                                                            @csrf
+                                                         <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="mySmallModalLabel">Meeting Room Banner</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Upload a customized banner for your meeting room. <br/>
+                                                                Recommended: 485px by 153px <br/>
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-lg-10">
+                                                                        <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
+                                                                        <input type="file" class="form-control" name="banner" required>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button type="submit" class="btn bg-success float-left">Upload</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
+
                                             </td>
 
                                             <td>
@@ -388,7 +423,7 @@
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myLargeModalLabel">Konn3ct  Invite</h4>
+                                                        <h4 class="modal-title" id="myLargeModalLabel">Konn3ct Invite</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                     </div>
 
@@ -584,6 +619,11 @@
 
 
                                                         <div class="form-group">
+                                                            <label>Additional Information</i>:</label>
+                                                            <textarea name="additional" rows="4" class="form-control" placeholder="e.g Meeting Agenda"></textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label>Guest Email(s)<i>Separated by commas</i>:</label>
                                                             <textarea maxlength="500" name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
                                                         </div>
@@ -628,91 +668,104 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">
-                            <div class="col-12">
-                                <!-- Basic Forms -->
-                                <div class="box">
-                                    <!-- /.box-header -->
-                                        <div class="box-body">
-{{--                                            <h4 class="mt-0 mb-20">1. Customer Info:</h4>--}}
-                                            <div class="form-group">
-                                                <label>Room Name:</label>
-                                                <input type="text" name="name" class="form-control" placeholder="e.g My Room" required>
-                                            </div>
+                        @if($plan->id!=1)
+                            <div class="modal-body">
+                                <div class="col-12">
+                                    <!-- Basic Forms -->
+                                    <div class="box">
+                                        <!-- /.box-header -->
+                                            <div class="box-body">
+    {{--                                            <h4 class="mt-0 mb-20">1. Customer Info:</h4>--}}
+                                                <div class="form-group">
+                                                    <label>Room Name:</label>
+                                                    <input type="text" name="name" class="form-control" placeholder="e.g My Room" required>
+                                                </div>
 
-                                            <div class="form-group @if(!$plan->customize_link) hidden @endif">
-                                                <label>Room URL:</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="background-color: #7193AA">konn3ct.com/</span>
+                                                <div class="form-group @if(!$plan->customize_link) hidden @endif">
+                                                    <label>Room URL:</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="background-color: #7193AA">konn3ct.com/</span>
+                                                        </div>
+                                                        <input type="text" name="url" class="form-control" placeholder="myroom (optional)">
                                                     </div>
-                                                    <input type="text" name="url" class="form-control" placeholder="myroom (optional)">
                                                 </div>
-                                            </div>
 
-                                            <!-- select -->
-                                            <div class="form-group @if(!$plan->dialin) hidden @endif">
-                                                <label>Dial Number:</label>
-                                                <select class="form-control" name="dial_number">
-                                                    <option>+1 970-519-2253</option>
-                                                </select>
-                                            </div>
-
-
-                                            <div class="form-group @if(!$plan->access_code) hidden @endif">
-                                                <label>Access Code:</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="access_code" class="form-control" value="" placeholder="Currently Open (optional)">
+                                                <!-- select -->
+                                                <div class="form-group @if(!$plan->dialin) hidden @endif">
+                                                    <label>Dial Number:</label>
+                                                    <select class="form-control" name="dial_number">
+                                                        <option>+1 970-519-2253</option>
+                                                    </select>
                                                 </div>
-                                            </div>
 
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="muj" id="checkbox_123">
-                                                <label for="checkbox_123" class="block">Mute user on join</label>
-                                            </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="aujam" id="checkbox_234">
-                                                <label for="checkbox_234" class="block">All user join as moderator</label>
-                                            </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="dpuc" id="checkbox_34">
-                                                <label for="checkbox_34" class="block">Disable public chat</label>
-                                            </div>
-{{--                                            <div class="c-inputs-stacked">--}}
-{{--                                                <input type="checkbox" name="dprc" id="checkbox_4">--}}
-{{--                                                <label for="checkbox_4" class="block">Disable private chat</label>--}}
-{{--                                            </div>--}}
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="ewma" id="checkbox_5">
-                                                <label for="checkbox_5" class="block">Enable Webcam for Moderator alone</label>
-                                            </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="dum" id="checkbox_31">
-                                                <label for="checkbox_31" class="block">Disable User Microphone</label>
-                                            </div>
-                                            <div class="c-inputs-stacked">
-                                                <input type="checkbox" name="dsn" id="checkbox_41">
-                                                <label for="checkbox_41" class="block">Disable Shared Note</label>
-                                            </div>
-{{--                                            <div class="c-inputs-stacked">--}}
-{{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}
-{{--                                                <label for="checkbox_42" class="block">Disable Waiting Room</label>--}}
-{{--                                            </div>--}}
 
-                                        </div>
-                                        <!-- /.box-body -->
-                                        {{--<div class="box-footer">
-                                            <button type="submit" class="btn btn-rounded btn-danger">Cancel</button>
-                                            <button type="submit" class="btn btn-rounded btn-success pull-right">Submit</button>
-                                        </div>--}}
+                                                <div class="form-group @if(!$plan->access_code) hidden @endif">
+                                                    <label>Access Code:</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="access_code" class="form-control" value="" placeholder="Currently Open (optional)">
+                                                    </div>
+                                                </div>
+
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="muj" id="checkbox_123">
+                                                    <label for="checkbox_123" class="block">Mute user on join</label>
+                                                </div>
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="aujam" id="checkbox_234">
+                                                    <label for="checkbox_234" class="block">All user join as moderator</label>
+                                                </div>
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="dpuc" id="checkbox_34">
+                                                    <label for="checkbox_34" class="block">Disable public chat</label>
+                                                </div>
+    {{--                                            <div class="c-inputs-stacked">--}}
+    {{--                                                <input type="checkbox" name="dprc" id="checkbox_4">--}}
+    {{--                                                <label for="checkbox_4" class="block">Disable private chat</label>--}}
+    {{--                                            </div>--}}
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="ewma" id="checkbox_5">
+                                                    <label for="checkbox_5" class="block">Enable Webcam for Moderator alone</label>
+                                                </div>
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="dum" id="checkbox_31">
+                                                    <label for="checkbox_31" class="block">Disable User Microphone</label>
+                                                </div>
+                                                <div class="c-inputs-stacked">
+                                                    <input type="checkbox" name="dsn" id="checkbox_41">
+                                                    <label for="checkbox_41" class="block">Disable Shared Note</label>
+                                                </div>
+    {{--                                            <div class="c-inputs-stacked">--}}
+    {{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}
+    {{--                                                <label for="checkbox_42" class="block">Disable Waiting Room</label>--}}
+    {{--                                            </div>--}}
+
+                                            </div>
+                                            <!-- /.box-body -->
+                                            {{--<div class="box-footer">
+                                                <button type="submit" class="btn btn-rounded btn-danger">Cancel</button>
+                                                <button type="submit" class="btn btn-rounded btn-success pull-right">Submit</button>
+                                            </div>--}}
+                                    </div>
+                                    <!-- /.box -->
                                 </div>
-                                <!-- /.box -->
                             </div>
-                        </div>
-                        <div class="modal-footer modal-footer-uniform">
-                            <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn bg-gradient-success float-right">Create Room</button>
-                        </div>
+                            <div class="modal-footer modal-footer-uniform">
+                                <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-success float-right">Create Room</button>
+                            </div>
+                        @else
+                            <div class="modal-body">
+                                <div class="col-12">
+                                    <!-- Basic Forms -->
+                                    <div class="box">
+                                        <!-- /.box-header -->
+                                        Only available for Lite & Pro Plans. <a href="{{route('changeplan',3)}}">Upgrade Now</a>.
+                                    </div>
+                                    <!-- /.box -->
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 </form>

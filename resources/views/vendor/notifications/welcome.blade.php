@@ -47,10 +47,10 @@
 {{--@isset($actionText)--}}
 @slot('subcopy')
 
-    <a href="https://www.facebook.com/konn3ctapp"> <img src="https://konn3ct.com/assets/images/fb.png" alt="fb Logo"></a>
-    <a href="https://www.instagram.com/konnectapp"> <img src="https://konn3ct.com/assets/images/in.png" alt="Instagram Logo"></a>
-    <a href="https://twitter.com/konn3ctapp"> <img src="https://konn3ct.com/assets/images/tw.png" alt="Twitter Logo"></a>
-    <a href="https://konn3ct.com"> <img src="https://konn3ct.com/assets/images/lk.png" alt="Link Logo"></a>
-    <a href="mailto:support@konn3ct.com"> <img src="https://konn3ct.com/assets/images/em.png" alt="Email Logo"></a>
+    <a href="https://www.facebook.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/fb.png" alt="fb Logo"></a>
+    <a href="https://www.instagram.com/konnectapp"> <img src="{{url('/')}}/assets/images/in.png" alt="Instagram Logo"></a>
+    <a href="https://twitter.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/tw.png" alt="Twitter Logo"></a>
+    <a href="{{url('/')}}"> <img src="{{url('/')}}/assets/images/lk.png" alt="Link Logo"></a>
+    <a href="mailto:support@konn3ct.com"> <img src="{{url('/')}}/assets/images/em.png" alt="Email Logo"></a>
 @endslot
 @endcomponent

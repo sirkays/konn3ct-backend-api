@@ -274,6 +274,12 @@ class RoomController extends Controller
                 $dsn=false;
             }
 
+            if($i->banner!=""){
+                $banner= url('/') . "/roombanner/".$i->banner;
+            }else{
+                $banner="";
+            }
+
             $mdata['meeting_id']=$i->id;
             $mdata['name']=Auth::user()->lastname ." " .Auth::user()->firstname;
             $mdata['email']=Auth::user()->email;
@@ -301,7 +307,8 @@ class RoomController extends Controller
                 'lockSettingsDisablePrivateChat' => $dprc,
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote'=> $dsn
+                'lockSettingsDisableNote'=> $dsn,
+                'logo'=>$banner
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);
@@ -488,6 +495,8 @@ class RoomController extends Controller
 
                     $data['itimezone']=$input['timezone'];
 
+                    $data['iadditional']=$input['additional'];
+
                     Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }
             }catch (\Exception $e){
@@ -528,5 +537,45 @@ class RoomController extends Controller
         $r->save();
 
         return redirect('room')->with('success', 'User Limit changed Successfully!');
+    }
+
+    public function roomstatus($url){
+        $i=RoomModel::where('url',$url)->first();
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+//        $ms=0;
+        if($ms!=1){
+            return response()->json(['status'=>0, 'message'=>'Meeting not started']);
+        }
+
+        return response()->json(['status'=>1, 'message'=>'Meeting not started']);
+    }
+
+    public function bannerupload(Request $request){
+
+        if (!$request->hasFile('banner')) {
+            return back()->with('error', 'Upload file not found');
+        }
+
+        $file = $request->file('banner');
+        if (!$file->isValid()) {
+            return back()->with('error', 'Invalid file upload');
+        }
+
+        if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
+            return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+        }
+
+        $fName = rand().".jpg";
+
+        $path = storage_path('roombanner/');
+        $file->move($path, $fName);
+
+        echo "Uploaded successfully";
+
+        $i=RoomModel::find($request->id);
+        $i->banner=$fName;
+        $i->save();
+
+        return back()->with('success', 'Banner has been uploaded successfully');
     }
 }

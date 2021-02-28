@@ -197,7 +197,7 @@ class PaymentController extends Controller
             return redirect('/room')->with('error', 'Free trial has been activated already');
         }else{
             $set=SettingsModel::first();
-            $exp=Carbon::now()->addDays($set->freetrial_days+1);
+            $exp=Carbon::now()->addDays($set->freetrial_days);
             $u->subscription=$exp;
             $u->plan=3;
             $u->status="free_trial";

@@ -7,7 +7,7 @@ return [
         'short_name' => 'Konn3ct',
         'start_url' => '/',
         'background_color' => '#ffffff',
-        'theme_color' => '#35ac39',
+        'theme_color' => '#042c69',
         'display' => 'standalone',
         'orientation'=> 'any',
         'status_bar'=> 'black',
@@ -63,8 +63,8 @@ return [
                 'description' => 'Manage your rooms',
                 'url' => '/room',
                 'icons' => [
-                    "src" => "/assets/manifest/k96.png",
-                    "purpose" => "any"
+                    'src' => '/assets/manifest/k96.png',
+                    'purpose' => 'any'
                 ]
             ],
             [
@@ -72,11 +72,206 @@ return [
                 'description' => 'Join a room',
                 'url' => '/joinsession',
                 'icons' => [
-                    "src" => "/assets/manifest/k96.png",
-                    "purpose" => "any"
+                    'src' => '/assets/manifest/k96.png',
+                    'purpose' => 'any'
                 ]
             ]
         ],
-        'custom' => []
+        'url'=> 'https://dev.konn3ct.net',
+        'lang'=> '',
+        'screenshots'=> [
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '1280x800',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=> '[Embedded]',
+                'sizes'=> '750x1334',
+                'type'=> 'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'1280x800',
+                'type'=>'image/png'
+            ],
+            [
+                'src'=>'[Embedded]',
+                'sizes'=>'750x1334',
+                'type'=>'image/png'
+            ]
+    ],
+        'description'=>'Host your virtual events on konn3ct! Its Free!! Register Now!!!',
+        'custom' => [],
     ]
 ];

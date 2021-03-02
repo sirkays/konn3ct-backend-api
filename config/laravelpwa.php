@@ -13,35 +13,35 @@ return [
         'status_bar'=> 'black',
         'icons' => [
             '72x72' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k72.png',
                 'purpose' => 'any'
             ],
             '96x96' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k96.png',
                 'purpose' => 'any'
             ],
             '128x128' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k128.png',
                 'purpose' => 'any'
             ],
             '144x144' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k144.png',
                 'purpose' => 'any'
             ],
             '152x152' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k152.png',
                 'purpose' => 'any'
             ],
             '192x192' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k192.png',
                 'purpose' => 'any'
             ],
             '384x384' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k384.png',
                 'purpose' => 'any'
             ],
             '512x512' => [
-                'path' => '/assets/images/konn3ctIcon.png',
+                'path' => '/assets/manifest/k512.png',
                 'purpose' => 'any'
             ],
         ],
@@ -63,14 +63,18 @@ return [
                 'description' => 'Manage your rooms',
                 'url' => '/room',
                 'icons' => [
-                    "src" => "/assets/images/konn3ctIcon.png",
+                    "src" => "/assets/manifest/k96.png",
                     "purpose" => "any"
                 ]
             ],
             [
                 'name' => 'Join Room',
                 'description' => 'Join a room',
-                'url' => '/joinsession'
+                'url' => '/joinsession',
+                'icons' => [
+                    "src" => "/assets/manifest/k96.png",
+                    "purpose" => "any"
+                ]
             ]
         ],
         'custom' => []

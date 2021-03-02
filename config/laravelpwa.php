@@ -78,15 +78,15 @@ return [
             ]
         ],
         'url'=> 'https://dev.konn3ct.net',
-        'lang'=> '',
+        'lang'=> 'English',
         'screenshots'=> [
             [
-                'src'=> '[Embedded]',
+                'src'=> '/assets/manifest/s_h_1280x800.png',
                 'sizes'=> '1280x800',
                 'type'=> 'image/png'
             ],
             [
-                'src'=> '[Embedded]',
+                'src'=> '/assets/manifest/s_h_750x1334.png',
                 'sizes'=> '750x1334',
                 'type'=> 'image/png'
             ],

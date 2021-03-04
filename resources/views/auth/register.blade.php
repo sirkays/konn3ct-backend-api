@@ -215,8 +215,7 @@
                                         <div class="row mx-4">
                                             <div class="form-group">
                                                 <input type="checkbox" id="freetrial" name="freetrial" value="true">
-                                                <label for="freetrial"> <Strong>Activate 8-Days Pro Plan Free Trial ({{$freetrial_days}}
-                                                        days)</Strong></label><br>
+                                                <label for="freetrial"> <Strong>Activate Pro Plan Free Trial ({{$freetrial_days}} days)</Strong></label><br>
                                             </div>
                                         </div>
                                     @endif

@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Update your account\'s profile information.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -52,6 +52,7 @@
             </div>
         @endif
 
+    @if ($this->user->lastname)
         <!-- First Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="firstname" value="{{ __('First Name') }}" />
@@ -65,6 +66,14 @@
             <x-jet-input id="lastname" type="text" class="mt-1 block w-full" wire:model.defer="state.lastname" autocomplete="name" />
             <x-jet-input-error for="lastname" class="mt-2" />
         </div>
+    @else
+        <!-- Business Name -->
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="firstname" value="{{ __('Business Name') }}" />
+                <x-jet-input id="firstname" type="text" class="mt-1 block w-full" wire:model.defer="state.firstname" autocomplete="name" />
+                <x-jet-input-error for="firstname" class="mt-2" />
+            </div>
+    @endif
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">

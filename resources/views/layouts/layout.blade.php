@@ -326,6 +326,7 @@
 
 @yield("content")
 
+@if(!\Illuminate\Support\Facades\Auth::user())
 <div id="outerContainer">
     <div id="container">
             <a href="/register">
@@ -333,6 +334,7 @@
             </a>
     </div>
 </div>
+@endif
 <!-- footer -->
 <footer class="footer-bg footer-p">
     <div class="copyright-wrap">

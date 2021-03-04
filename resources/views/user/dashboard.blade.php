@@ -181,10 +181,10 @@
                                                             </Button>
 
                                                             <a class="dropdown-item" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                                Add to Google Calender
+                                                                Google Calender Invite
                                                             </a>
                                                             <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                                Add to Outlook Calender
+                                                                Outlook Calendar Invite
                                                             </a>
                                                             <button type="button" style="font-size: 12px"  class="dropdown-item" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
                                                                 Konn3ct Invite
@@ -270,11 +270,11 @@
                                                         <i class="fa fa-copy"></i> Copy
                                                     </Button>
                                                     <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                        Add to Google Calender
+                                                        Google Calender Invite
                                                     </a>
 
                                                     <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
-                                                        Add to Outlook Calender
+                                                        Outlook Calendar Invite
                                                     </a>
 
                                                     <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
@@ -760,7 +760,7 @@
                                     <!-- Basic Forms -->
                                     <div class="box text-center">
                                         <!-- /.box-header -->
-                                        Only available for Lite & Pro Plans. <br> <button class="btn btn-success" href="{{route('changeplan',3)}}">Upgrade Now</button>.
+                                        Only available to Lite, Pro & Enterprise Plans. <br> <a class="btn btn-success" href="{{route('changeplan',3)}}">Upgrade Now</a>.
                                     </div>
                                     <!-- /.box -->
                                 </div>

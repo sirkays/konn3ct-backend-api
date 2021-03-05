@@ -79,7 +79,10 @@
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.myForm.submit();
+                    var sta=JSON.parse(this.responseText);
+                    if(sta.status===1) {
+                        document.myForm.submit();
+                    }
                 }else{
                     console.log(this.responseText);
                 }

@@ -102,15 +102,15 @@
                 </div>
                 <div class="card-body px-sm-4 mb-3">
                     <ul class="list-unstyled text-muted">
-                        <li>Please re-connect to the internet to continue use Footsteps.</li>
+                        <li>Please re-connect to the internet to continue.</li>
                         <li>If you encounter problems:</li>
                         <ul class="mt-2 inner">
                             <li>Try restarting wireless connection on this device.</li>
-                            <li>Move clouse to your wireless access point.</li>
+                            <li>Move close to your wireless access point.</li>
                         </ul>
                     </ul>
                     <div class="row justify-content-end mt-4 ">
-                        <div class="col-auto"><button type="button" class="btn btn-success"><span>Try Again</span></button></div>
+                        <div class="col-auto"><a href="/" class="btn btn-success"><span>Try Again</span></a></div>
                     </div>
                 </div>
             </div>

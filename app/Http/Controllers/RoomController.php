@@ -60,7 +60,7 @@ class RoomController extends Controller
         $input['logout_url']=url('/leftsession');
         $input['max_participants']=$max_user;
         $input['duration']=$duration;
-        $input['url']=trim($input['url']);
+        $input['url']=preg_replace('/\s+/', '', $input['url']);
 
         if($input['access_code']=="") {
             if (isset($input['aujam'])) {

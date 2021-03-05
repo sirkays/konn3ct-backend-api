@@ -73,7 +73,7 @@
     <!-- main-area-end -->
 
     <script>
-        setInterval(checkmeeting(), 520000);
+        setInterval(checkmeeting(), 1200000);
 
         function checkmeeting() {
             var xhttp = new XMLHttpRequest();

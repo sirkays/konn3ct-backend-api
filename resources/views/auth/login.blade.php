@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}" onsubmit="return checkform(this);">
+        <form class="mb-90" method="POST" action="{{ route('login') }}" onsubmit="return checkform(this);">
             @csrf
 
             <div>

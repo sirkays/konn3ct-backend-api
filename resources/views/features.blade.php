@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- main-area -->
-<main>
+<main class="mb-95">
 {{--    <a href="/register" id="freg">--}}
 {{--        <a href="/" id="t freg" class="fa my-float btn btn-primary" style="margin-top:22px;">Register Now</a>--}}
 {{--    </a>--}}

@@ -49,6 +49,26 @@
 {{--    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>--}}
 
     <style>
+
+        .body-container {
+            width: 100vw;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .color-picker-main-container {
+            width: 100%;
+            font-size: 22px;
+            padding-bottom: 10px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
         .more {display: none;}
         /* COMPACT CAPTCHA */
 
@@ -480,45 +500,6 @@
 
     function setTranslate(xPos, yPos, el) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-    }
-</script>
-
-<script>
-    window.onload = function () {
-        if (typeof history.pushState === "function") {
-            history.pushState("jibberish", null, null);
-            window.onpopstate = function () {
-                history.pushState('newjibberish', null, null);
-                // Handle the back (or forward) buttons here
-                // Will NOT handle refresh, use onbeforeunload for this.
-                var r = confirm("You pressed a Back button! Are you sure?!");
-
-                if (r == true) {
-                    // Call Back button programmatically as per user confirmation.
-                    history.back();
-                    // Uncomment below line to redirect to the previous page instead.
-                    // window.location = document.referrer // Note: IE11 is not supporting this.
-                } else {
-                    // Stay on the current page.
-                }
-            };
-        }
-        else {
-            var ignoreHashChange = true;
-            window.onhashchange = function () {
-                if (!ignoreHashChange) {
-                    ignoreHashChange = true;
-                    window.location.hash = Math.random();
-                    // Detect and redirect change here
-                    // Works in older FF and IE9
-                    // * it does mess with your hash symbol (anchor?) pound sign
-                    // delimiter on the end of the URL
-                }
-                else {
-                    ignoreHashChange = false;
-                }
-            };
-        }
     }
 </script>
 

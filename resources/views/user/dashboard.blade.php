@@ -29,7 +29,7 @@
 
                     <div class="row mb-6">
                         <div class="col-6">
-                    <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code: {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+                    <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code<br/> {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
                         </div>
                         <div class="col-6 text-right">
                     @if(\Illuminate\Support\Facades\Auth::user()->plan==1)

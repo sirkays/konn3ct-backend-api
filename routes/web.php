@@ -179,7 +179,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 
-        Route::get('/deleterecording', [RecordingsController::class, 'delete'])->name('admin.recordings.delete');
+        Route::get('/deleterecording', [RecordingsController::class, 'delete'])->name('admin.recording.delete');
 
         Route::get('/dashboard', [RoomController::class, 'show'])->name('admin.dashboard');
 

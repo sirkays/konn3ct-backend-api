@@ -183,11 +183,11 @@
                                                 @endif
                                         </td>
                                          @if(isset($record['playback']['format']['url']))
-                                        <td style="min-width: 50px; max-width: 150px">
+                                        <td style="overflow-wrap: break-word; min-width: 50px; max-width: 150px">
                                             <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
                                             <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
                                         </td>
-                                        
+
                                         <td style="min-width: 50px; max-width: 100px">
 
                                             <div class="dropdown">
@@ -197,9 +197,12 @@
                                                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Manage
                                                 </button>
-                                                <a class="waves-effect waves-light btn btn-danger" href="#">
-                                                    Delete
-                                                </a>
+
+                                                <form method="POST" action="{{route('recording.delete')}}">
+                                                    @csrf
+                                                    <input name="id" value="{{$record['recordID']}}" type="hidden"/>
+                                                    <button type="submit" class="waves-effect waves-light btn btn-danger">Delete</button>
+                                                </form>
 
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
@@ -259,11 +262,4 @@
         }
     </script>
 
-    <script>
-        import Button from "../../js/Jetstream/Button";
-
-        export default {
-            components: {Button}
-        }
-    </script>
 @endsection

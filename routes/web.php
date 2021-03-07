@@ -112,6 +112,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
+    Route::post('/deleterecording', [RecordingController::class, 'delete'])->name('recording.delete');
+
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
@@ -176,6 +178,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
+
+        Route::get('/deleterecording', [RecordingsController::class, 'delete'])->name('admin.recordings.delete');
 
         Route::get('/dashboard', [RoomController::class, 'show'])->name('admin.dashboard');
 

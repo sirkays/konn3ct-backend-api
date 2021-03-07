@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <button class="btn su">Join</button>
-                                    <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                                    <a href="{{route('welcome')}}" class="btn btn-outline-danger">Go Home</a>
                                 </div>
                             </div>
                         </form>
@@ -66,7 +66,7 @@
                             @csrf
                             <div class="form-group">
                                 <button class="btn su">Join</button>
-                                <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                                <a href="{{route('welcome')}}" class="btn btn-outline-danger">Go Home</a>
                             </div>
                         </form>
                         @endif

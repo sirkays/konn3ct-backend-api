@@ -122,12 +122,12 @@
                             </div>
                             <div class="box-body">
                                 <div class="table-responsive">
-                                    <table class="table no-border">
+                                    <table class="table no-border table-responsive">
                                         <thead>
                                         <tr class="text-uppercase bg-lightest">
                                             <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
                                             <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
-                                            <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
+                                            <th style="min-width: 20px; max-width: 50px; overflow-wrap: break-word;"><span class="text-fade">Link</span></th>
                                             <th style="min-width: 100px"><span class="text-fade">Options</span></th>
                                         </tr>
                                         </thead>
@@ -168,7 +168,7 @@
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
                                             </td>
-                                            <td style="min-width: 50px; max-width: 150px">
+                                            <td style="overflow-wrap: break-word; min-width: 50px; max-width: 150px;">
                                                 <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
                                                 <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
                                             </td>
@@ -181,9 +181,11 @@
                                                     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         Manage
                                                     </button>
-                                                    <a class="waves-effect waves-light btn btn-danger" href="#">
-                                                        Delete
-                                                    </a>
+                                                    <form method="POST" action="{{route('recording.delete')}}">
+                                                    @csrf
+                                                    <input name="id" value="{{$record['recordID']}}" type="hidden"/>
+                                                        <button type="submit" class="waves-effect waves-light btn btn-danger">Delete</button>
+                                                    </form>
 
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
@@ -239,14 +241,6 @@
 
                     /* Alert the copied text */
                     alert("Copied the text: " + copyText.value);
-                }
-            </script>
-
-            <script>
-                import Button from "../../js/Jetstream/Button";
-
-                export default {
-                    components: {Button}
                 }
             </script>
 @endsection

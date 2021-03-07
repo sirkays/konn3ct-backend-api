@@ -14,7 +14,7 @@
 {{ "Date: $idate" }}
 <br />
 {{ "Time: $itime" }} {{$itimezone}}
-<br />
+
 {{ "$iadditional" }}
 
 {{ "" }}

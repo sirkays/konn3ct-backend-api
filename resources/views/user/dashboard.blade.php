@@ -455,6 +455,7 @@
 
                                                         <div class="form-group">
                                                             <label>Host Name:</label>
+                                                            <input type="hidden" name="roomname" class="form-control" value="{{$room->name}}" />
                                                             <input type="text" name="hostname" class="form-control" placeholder="e.g Newwaves" required />
                                                         </div>
 
@@ -620,7 +621,7 @@
 
                                                         <div class="form-group">
                                                             <label>Additional Information</i>:</label>
-                                                            <textarea name="additional" rows="4" class="form-control" placeholder="e.g Meeting Agenda"></textarea>
+                                                            <textarea name="additional" rows="4" class="form-control" placeholder="e.g Meeting Agenda"> </textarea>
                                                         </div>
 
                                                         <div class="form-group">

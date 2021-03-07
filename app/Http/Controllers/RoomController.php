@@ -65,14 +65,14 @@ class RoomController extends Controller
         if($input['access_code']=="") {
             if (isset($input['aujam'])) {
                 $input['password_attendee'] = "moderator";
-                $input['password_moderator'] = "moderator";
+                $input['password_moderator'] = "attendee";
             } else {
                 $input['password_attendee'] = "attendee";
                 $input['password_moderator'] = "moderator";
             }
         }else{
             if (isset($input['aujam'])) {
-                $input['password_attendee'] = $input['access_code'];
+                $input['password_attendee'] = "moderator";
                 $input['password_moderator'] = $input['access_code'];
             } else {
                 $input['password_attendee'] = $input['access_code'];
@@ -274,6 +274,12 @@ class RoomController extends Controller
                 $dsn=false;
             }
 
+            if($i->aujam){
+                $up="moderator";
+            }else{
+                $up=$i->password_attendee;
+            }
+
             if($i->banner!=""){
                 $banner= url('/') . "/roombanner/".$i->banner;
             }else{
@@ -283,7 +289,7 @@ class RoomController extends Controller
             $mdata['meeting_id']=$i->id;
             $mdata['name']=Auth::user()->lastname ." " .Auth::user()->firstname;
             $mdata['email']=Auth::user()->email;
-            $mdata['password_attendee']=$i->password_attendee;
+            $mdata['password_attendee']=$up;
             $mdata['status']="start meeting";
             $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
@@ -291,7 +297,7 @@ class RoomController extends Controller
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
-                'attendeePW' => $i->password_attendee, //attendee password here
+                'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
@@ -334,7 +340,7 @@ class RoomController extends Controller
         $u=User::find($i->user_id);
 
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
-//        $ms=0;
+//        $ms=1;
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -407,6 +413,10 @@ class RoomController extends Controller
             $password_attendee = $request->get('accesscode');
         }else{
             $password_attendee = 'attendee';
+        }
+
+        if($i->aujam){
+            $password_attendee="moderator";
         }
 
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
@@ -495,7 +505,7 @@ class RoomController extends Controller
 
                     $data['itimezone']=$input['timezone'];
 
-                    $data['iadditional']=$input['additional'];
+                    $data['iadditional']=$input['additional']??'';
 
                     Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }

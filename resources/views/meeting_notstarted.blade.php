@@ -38,7 +38,7 @@
 
                     <div class="col-12 text-center mb-lg-15 mt-10">
                         <p></p>
-                        <p><i class="fa fa-spinner"></i> </p>
+                        <p><img src="/assets/images/brokencircle.gif"/></p>
                         <h3>Waiting for Room to Start</h3>
                         <br/>
 
@@ -73,14 +73,13 @@
     <!-- main-area-end -->
 
     <script>
-        setInterval(checkmeeting(), 60000);
-
         function checkmeeting() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState === 4 && this.status === 200) {
                     var sta=JSON.parse(this.responseText);
                     if(sta.status===1) {
+                        clearInterval(timeinterval);
                         document.myForm.submit();
                     }
                 }else{
@@ -90,6 +89,8 @@
             xhttp.open("GET", "/roomstatus/{{$url}}", true);
             xhttp.send();
         }
+
+        const timeinterval =setInterval(checkmeeting, 60000);
     </script>
 
 

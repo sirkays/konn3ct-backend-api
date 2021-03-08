@@ -64,9 +64,9 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                                <span class="text-dark font-weight-600 d-block font-size-10">
-													{{ number_format(($record['size']/1000000))."MB"}}
-												</span>
+{{--                                                <span class="text-dark font-weight-600 d-block font-size-10">--}}
+{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
+{{--												</span>--}}
                                             </td>
 
                                             <td>
@@ -164,9 +164,9 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                                <span class="text-dark font-weight-600 d-block font-size-16">
-													{{ number_format(($record['size']/1000000))."MB"}}
-												</span>
+{{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
+{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
+{{--												</span>--}}
                                             </td>
                                             <td style="min-width: 50px; max-width: 150px">
                                                 <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>

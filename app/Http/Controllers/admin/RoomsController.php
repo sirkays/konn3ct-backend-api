@@ -28,18 +28,18 @@ class RoomsController extends Controller
 
         $datas['active']=0;
 
-        try {
-            if (!App::environment(['local', 'staging'])) {
-                foreach ($datas['roomys'] as $i) {
-                    $ms = \Bigbluebutton::isMeetingRunning($i->id);
-                    if ($ms) {
-                        $datas['active']++;
-                    }
-                }
-            }
-        }catch (Exception $e){
-            echo "skipping error";
-        }
+//        try {
+//            if (!App::environment(['local', 'staging'])) {
+//                foreach ($datas['roomys'] as $i) {
+//                    $ms = \Bigbluebutton::isMeetingRunning($i->id);
+//                    if ($ms) {
+//                        $datas['active']++;
+//                    }
+//                }
+//            }
+//        }catch (Exception $e){
+//            echo "skipping error";
+//        }
 
         $datas['i']=1;
 

@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <button class="btn su">Join</button>
-                                    <a href="{{route('welcome')}}" class="btn btn-outline-danger">Go Home</a>
+                                    <a href="{{url('/')}}" class="btn btn-outline-danger">Go Home</a>
                                 </div>
                             </div>
                         </form>

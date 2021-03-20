@@ -49,26 +49,6 @@
 {{--    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>--}}
 
     <style>
-
-        .body-container {
-            width: 100vw;
-            height: calc(100vh - 100px);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .color-picker-main-container {
-            width: 100%;
-            font-size: 22px;
-            padding-bottom: 10px;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
         .more {display: none;}
         /* COMPACT CAPTCHA */
 

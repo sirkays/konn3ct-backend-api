@@ -450,6 +450,8 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
+                'avatarURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'clientURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png'
             ])
         );
     }

@@ -29,10 +29,11 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         {{--                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>--}}
-                        <li><a class="active" href="#up" data-toggle="tab">Meeting Room(s)</a></li>
+                        <li><a class="active" href="#mr" data-toggle="tab">Meeting Room(s)</a></li>
                         <li><a href="#fa2" data-toggle="tab">Payment(s)</a></li>
                         <li><a href="#bs" data-toggle="tab">Recording(s)</a></li>
                         <li><a href="#ms" data-toggle="tab">Meeting(s) Joined</a></li>
+                        <li><a href="#up" data-toggle="tab">Upgrade Plan</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -58,7 +59,107 @@
                                         <div class="box-body">
                                             <div class="table-responsive">
 
-                                                <table class="table no-border font-size-12" id="complex_header" >
+                                                <form action="{{route('admin.upgradeplan')}}" method="POST">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Select Plan:</label>
+                                                        <select class="form-control" name="plan">
+                                                            @foreach($plans as $plan)
+                                                            <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Months:</label>
+                                                        <select class="form-control" name="month">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <button type="submit" class="btn bg-gradient-success">Upgrade Now</button>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+
+                                </div>
+                            </div>
+
+
+                            {{--                    Desktop View--}}
+                            <div class="row hidden-xs-down">
+                                <div class="col-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+                                                <table class="table no-border" id="complex_header">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Room Name</th>
+                                                        <th>Room URL</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($rooms as $room)
+                                                        <tr>
+                                                            <td class="pl-0 py-8">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div>
+                                                                        <a href="#"
+                                                                           class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$room->name}}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                <span id="c{{$room->id}}"
+                                                      class="text-dark font-weight-600 d-block font-size-16">
+                                                    {{url('/join/')}}/{{$room->url}}
+                                                </span>
+
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane active" id="mr">
+
+
+                            {{--                    Mobile View--}}
+                            <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
+                                <div class="col-12">
+                                    <div class="box">
+                                        <div class="box-header">
+
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+
+                                                <table class="table no-border font-size-12" id="complex_header">
                                                     <tbody>
                                                     @foreach($rooms as $room)
                                                         <tr>
@@ -92,7 +193,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border" id="complex_header" >
+                                                <table class="table no-border" id="complex_header">
                                                     <thead>
                                                     <tr>
                                                         <th>Room Name</th>
@@ -196,7 +297,7 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border" id="complex_header" >
+                                                <table class="table no-border" id="complex_header">
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest font-size-10">
                                                         <th><span class="text-fade">Name</span></th>
@@ -210,12 +311,15 @@
                                                                 <div class="d-flex align-items-center">
                                                                     <div>
                                                                         @if(isset($record['playback']['format']['preview']['images']['image'][0]))
-                                                                            <img src="{{$record['playback']['format']['preview']['images']['image'][0]}}" class="img img-thumbnail">
+                                                                            <img
+                                                                                src="{{$record['playback']['format']['preview']['images']['image'][0]}}"
+                                                                                class="img img-thumbnail">
                                                                         @else
                                                                             No Image Preview
                                                                         @endif
                                                                         <br/>
-                                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
+                                                                        <a href="#"
+                                                                           class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -239,10 +343,12 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
 												</span>
-                                                                <span class="text-dark font-weight-600 d-block font-size-10">
+                                                                <span
+                                                                    class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                                                <span class="text-dark font-weight-600 d-block font-size-10">
+                                                                <span
+                                                                    class="text-dark font-weight-600 d-block font-size-10">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
                                                             </td>
@@ -262,12 +368,15 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border" id="complex_header" >
+                                                <table class="table no-border" id="complex_header">
                                                     <thead>
                                                     <tr class="text-uppercase bg-lightest">
-                                                        <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
-                                                        <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
-                                                        <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
+                                                        <th style="min-width: 20px; max-width: 50px"><span
+                                                                class="text-fade">Meeting Name</span></th>
+                                                        <th style="min-width: 20px; max-width: 50px"><span
+                                                                class="text-fade">Parameters</span></th>
+                                                        <th style="min-width: 50px; max-width: 100px"><span
+                                                                class="text-fade">Link</span></th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -276,7 +385,8 @@
                                                             <td style="min-width: 20px; max-width: 50px">
                                                                 <div class="d-flex align-items-center">
                                                                     <div>
-                                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
+                                                                        <a href="#"
+                                                                           class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -300,16 +410,20 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['participants']}} Participants
 												</span>
-                                                                <span class="text-dark font-weight-600 d-block font-size-16">
+                                                                <span
+                                                                    class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                                                <span class="text-dark font-weight-600 d-block font-size-16">
+                                                                <span
+                                                                    class="text-dark font-weight-600 d-block font-size-16">
 													{{ number_format(($record['size']/1000000))."MB"}}
 												</span>
                                                             </td>
                                                             <td style="min-width: 50px; max-width: 150px">
-                                                                <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
-                                                                <input type="hidden" value="{{$record['playback']['format']['url']}}"/>
+                                                                <span
+                                                                    class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
+                                                                <input type="hidden"
+                                                                       value="{{$record['playback']['format']['url']}}"/>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -330,7 +444,7 @@
                                     <table id="example" class="table table-lg invoice-archive">
                                         <thead>
                                         <tr>
-{{--                                            <th>#</th>--}}
+                                            {{--                                            <th>#</th>--}}
                                             <th>Meeting Name</th>
                                             <th>User Name</th>
                                             <th>Status</th>
@@ -340,7 +454,7 @@
                                         <tbody>
                                         @foreach($meetings as $meeting)
                                             <tr>
-{{--                                                <td>#{{$i=0; $i++;}}</td>--}}
+                                                {{--                                                <td>#{{$i=0; $i++;}}</td>--}}
                                                 <td>{{$meeting->roomname}}</td>
                                                 <td>
                                                     {{$meeting->name}}
@@ -418,9 +532,9 @@
                             <!-- /.col -->
                         </div>
                         <div class="col-12" style="background-color: black">
-                        @if($referredby!="")
+                            @if($referredby!="")
                                 <span style="color: white">Referred by {{$referredby}}</span>
-                        @endif
+                            @endif
                         </div>
                         <!-- /.row -->
                     </div>

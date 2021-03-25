@@ -38,7 +38,7 @@ sed -i 's/moderatorsJoinViaHTML5Client=.*/moderatorsJoinViaHTML5Client=true/g' /
 
 echo "Set Welcome message"
 sed -i 's/defaultWelcomeMessage=.*/defaultWelcomeMessage=Welcome to <b>\%\%CONFNAME\%\%<\/b>\!/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
-sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=Use a headset to avoid causing background noise.<br>Refresh the browser in case of any network issue./g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=For Help: Send a mail to support@konn3ct.com /g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 
 #echo "Set dial in number"
 #sed -i 's/defaultDialAccessNumber=.*/defaultDialAccessNumber=+12564725575/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties

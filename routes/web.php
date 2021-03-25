@@ -177,6 +177,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
+        Route::get('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
+
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 
         Route::get('/deleterecording', [RecordingsController::class, 'delete'])->name('admin.recording.delete');

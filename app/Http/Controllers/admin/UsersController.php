@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\MeetingsModel;
 use App\Models\PaymentModel;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class UsersController extends Controller
     public function showUser($id){
 
         $datas['user']=User::find($id);
+        $datas['plans']=PlanModel::get();
         if(!$datas['user']){
             return back()->with("error", "User does not exist");
         }
@@ -99,5 +101,9 @@ class UsersController extends Controller
 //        $datas['recordings']=json_decode($datas['record'], true);
 
         return view('admin.user', $datas);
+    }
+
+    public function upgradeplan(){
+
     }
 }

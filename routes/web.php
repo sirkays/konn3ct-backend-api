@@ -154,6 +154,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
+    Route::get('/paystackpayment/{plan}/transid/{id}', [PaymentController::class, 'verifyPaystack'])->name('verifypaystackpayment');
+
     Route::get('/changeplan/{plan}', [PaymentController::class, 'changeplan'])->name('changeplan');
 
     Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy'])->name('logouts');
@@ -177,7 +179,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
-        Route::get('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
+        Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 

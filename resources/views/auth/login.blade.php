@@ -71,6 +71,11 @@
     </x-jet-authentication-card>
 </x-guest-layout>
 
+<p style="margin-top: 200px">
+
+</p>
+
+
 <script type="text/javascript">
 
     // Captcha Script

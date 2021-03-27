@@ -143,14 +143,14 @@
 
                                             <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 10.99
                                                 @elseif($plan==3) 15.99 @endif</button>
-                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}")' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
+                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
                                                 @elseif($plan==3)6000 @endif</button>
 
                                                 @else
 
                                                     <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
+                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
 
                                                 @endif
@@ -163,14 +163,14 @@
 
                                             <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if($plan==2)120
                                                 @elseif($plan==3)175 @endif</button>
-                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}")' class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
+                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
                                                 @elseif($plan==3)67000 @endif</button>
 
                                                 @else
 
                                                     <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}")' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
+                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
                                                 @endif
 
@@ -486,7 +486,7 @@
 </script>
 
 <script>
-    function payWithPaystack(plan) {
+    function payWithPaystack(plan, planid) {
         var handler = PaystackPop.setup({
             key: "{{env('PAYSTACK_PUB_KEY')}}", // Replace with your public key
             email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
@@ -496,11 +496,15 @@
             callback: function(response) {
                 //this happens after the payment is completed successfully
                 var reference = response.reference;
-                alert('Payment complete! Reference: ' + reference);
+                // alert('Payment complete! Reference: ' + reference);
                 // Make an AJAX call to your server with the reference to verify the transaction
+                console.log(response);
+                window.location.href = "/paystackpayment/"+planid+"/transid/" + reference;
             },
             onClose: function() {
                 alert('Transaction was not completed, window closed.');
+                // close modal
+                // window.location.href = "/payment/2/transid/3456789";
             },
         });
         handler.openIframe();

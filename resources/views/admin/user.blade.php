@@ -26,6 +26,28 @@
         <div class="row">
             <div class="col-12 col-lg-7 col-xl-8">
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         {{--                                <li><a class="active" href="#usertimeline" data-toggle="tab">Profile Information</a></li>--}}
@@ -46,7 +68,7 @@
 
                         <!-- /.tab-pane -->
 
-                        <div class="tab-pane active" id="up">
+                        <div class="tab-pane" id="up">
 
 
                             {{--                    Mobile View--}}
@@ -60,19 +82,25 @@
                                             <div class="table-responsive">
 
                                                 <form action="{{route('admin.upgradeplan')}}" method="POST">
+                                                    @csrf
+                                                        <input type="hidden" name="user" value="{{$user->id}}">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Select Plan:</label>
                                                         <select class="form-control" name="plan">
                                                             @foreach($plans as $plan)
-                                                            <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                                                @if($plan->id=="3")
+                                                                    <option value="{{$plan->id}}" selected>{{$plan->name}}</option>
+                                                                @else
+                                                                    <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label>Months:</label>
-                                                        <select class="form-control" name="month">
+                                                        <select class="form-control" name="duration">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -102,35 +130,39 @@
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="table-responsive">
-                                                <table class="table no-border" id="complex_header">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Room Name</th>
-                                                        <th>Room URL</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($rooms as $room)
-                                                        <tr>
-                                                            <td class="pl-0 py-8">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <a href="#"
-                                                                           class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$room->name}}</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                <span id="c{{$room->id}}"
-                                                      class="text-dark font-weight-600 d-block font-size-16">
-                                                    {{url('/join/')}}/{{$room->url}}
-                                                </span>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
+                                                <form action="{{route('admin.upgradeplan')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="user" value="{{$user->id}}">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Select Plan:</label>
+                                                        <select class="form-control" name="plan">
+                                                            @foreach($plans as $plan)
+                                                                @if($plan->id=="3")
+                                                                    <option value="{{$plan->id}}" selected>{{$plan->name}}</option>
+                                                                @else
+                                                                    <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Months:</label>
+                                                        <select class="form-control" name="duration">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <button type="submit" class="btn bg-gradient-success">Upgrade Now</button>
+
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

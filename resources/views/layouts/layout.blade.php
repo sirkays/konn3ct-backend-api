@@ -273,7 +273,11 @@
                     <div class="col-lg-11 text-center mt-3">
                         <div class="logo">
                             <button class="previous pull-left" style="" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
-                            <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+
+                                <a href="/" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+
+                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="30px"></a>
+
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
                             <button class="previous pull-right" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
                         </div>
@@ -348,18 +352,33 @@
 <footer class="footer-bg footer-p">
     <div class="copyright-wrap">
         <div class="container">
-            <div class="row">
+
+            <div class="row hidden-xs-down">
                 <div class="col-6">
                     <div class="copyright-text">
-                        <p>&copy; 2020 Newwaves Ecosystem Limited</p>
+                        <p>&copy; {{date('Y')}} Newwaves Ecosystem Limited</p>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 font-size-8">
                     <div class="copyright-text">
                         <p>Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>
+
+            <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
+                <div class="col-6">
+                    <div class="copyright-text">
+                        <p style="font-size: smaller">&copy; {{date('Y')}} Newwaves Ecosystem Limited</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="copyright-text">
+                        <p style="font-size: smaller">Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </footer>

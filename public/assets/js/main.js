@@ -11,7 +11,7 @@ $('.main-menu nav ul').onePageNav({
 // sticky
 $(window).on('scroll', function () {
 	var scroll = $(window).scrollTop();
-	if (scroll < 200) {
+	if (scroll < 150) {
 		$("#header-sticky").removeClass("sticky-menu");
 	} else {
 		$("#header-sticky").addClass("sticky-menu");
@@ -287,7 +287,7 @@ $.scrollUp({
 	// filter items on button click
 	$('.button-group').on('click', 'button', function () {
 		var filterValue = $(this).attr('data-filter');
-		$grid.isotope({ filter: filterValue });		
+		$grid.isotope({ filter: filterValue });
 	});
 
 });

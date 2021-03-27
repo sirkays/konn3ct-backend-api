@@ -8,6 +8,7 @@ use App\Models\PaymentModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -103,7 +104,26 @@ class UsersController extends Controller
         return view('admin.user', $datas);
     }
 
-    public function upgradeplan(){
+    public function upgradeplan(Request $request){
+        $input=$request->all();
+        $user=User::find($input['user']);
+        if($input['plan']!=1){
+
+            if($input['plan']==$user->plan){
+                if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) < 0) {
+                    $subd=Carbon::now()->addMonths($input['duration']);
+                }else{
+                    $subd = Carbon::parse($user->subscription)->addMonths($input['duration']);
+                }
+            }else{
+                $subd=Carbon::now()->addMonths($input['duration']);
+            }
+            User::where('id',$input['user'])->update(['subscription'=>$subd, 'plan'=>$input['plan'], 'status'=>'active']);
+        }else{
+            User::where('id',$input['user'])->update(['plan'=>$input['plan'], 'status'=>'active']);
+        }
+
+        return back()->with("success", "User subscription modified successfully");
 
     }
 }

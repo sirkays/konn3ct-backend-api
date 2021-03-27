@@ -110,7 +110,11 @@ class CreateNewUser implements CreatesNewUsers
 
             RoomModel::create($input);
 
-            Mail::to($u->email)->send(new UserWelcomeMail());
+            try {
+                Mail::to($u->email)->send(new UserWelcomeMail());
+            }catch(\Exception $e){
+                echo $e;
+            }
 
             return $u;
     }

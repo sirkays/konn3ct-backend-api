@@ -130,6 +130,123 @@ class PaymentController extends Controller
 
     }
 
+    public function verifyPaystack($plan, $id){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/json",
+                "Authorization: Bearer ".env("paystack_prv_key")
+            ),
+        ));
+
+        if (App::environment(['local', 'staging'])) {
+            // The environment is either local OR staging...
+            $response = '{ "status": true, "message": "Verification successful", "data": { "amount": 27000, "currency": "NGN", "transaction_date": "2016-10-01T11:03:09.000Z", "status": "success", "reference": "DG4uishudoq90LD", "domain": "test", "metadata": 0, "gateway_response": "Successful", "message": null, "channel": "card", "ip_address": "41.1.25.1", "log": { "time_spent": 9, "attempts": 1, "authentication": null, "errors": 0, "success": true, "mobile": false, "input": [], "channel": null, "history": [{ "type": "input", "message": "Filled these fields: card number, card expiry, card cvv", "time": 7 }, { "type": "action", "message": "Attempted to pay", "time": 7 }, { "type": "success", "message": "Successfully paid", "time": 8 }, { "type": "close", "message": "Page closed", "time": 9 } ] } "fees": null, "authorization": { "authorization_code": "AUTH_8dfhjjdt", "card_type": "visa", "last4": "1381", "exp_month": "08", "exp_year": "2018", "bin": "412345", "bank": "TEST BANK", "channel": "card", "signature": "SIG_idyuhgd87dUYSHO92D", "reusable": true, "country_code": "NG", "account_name": "BoJack Horseman" }, "customer": { "id": 84312, "customer_code": "CUS_hdhye17yj8qd2tx", "first_name": "BoJack", "last_name": "Horseman", "email": "bojack@horseman.com" }, "plan": "PLN_0as2m9n02cl0kp6", "requested_amount": 1500000 } }';
+        }else{
+            $response = curl_exec($curl);
+            curl_close($curl);
+        }
+
+//        echo $response;
+
+        $resp=json_decode($response, true);
+
+        if($resp['data']['status']=="success"){
+
+            $data['user_id']=Auth::id();
+            $data['gateway']="Paystack";
+            $data['amount']=$resp['data']['amount']/100;
+            $data['date']=Carbon::now();
+            $data['reference']=$resp['data']['reference'];
+            $data['currency']=$resp['data']['currency'];
+            $data['gateway_reference']=$resp['data']['reference'];
+            $data['gateway_response']=$response;
+
+            if (App::environment(['local', 'staging'])) {
+                // The environment is either local OR staging...
+                $p =false;
+            }else{
+                $p=PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
+            }
+
+            if(!$p) {
+                $data['status'] = $resp['status'];
+
+                if(session('job')=="change_plan"){
+                    $data['plan']=session('plan');
+
+                    if($plan==1){
+                        $data['duration'] = "a month";
+                        if($data['plan']==Auth::user()->plan){
+                            if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                                $subd=Carbon::now()->addMonth();
+                            }else{
+                                $subd = Carbon::parse(Auth::user()->subscription)->addMonth();
+                            }
+                        }else{
+                            $subd=Carbon::now()->addMonth();
+                        }
+                        User::where('id',Auth::id())->update(['subscription'=>$subd, 'plan'=>session('plan'), 'status'=>'active']);
+                    }else{
+                        $data['duration'] = "a year";
+
+                        if($data['plan']==Auth::user()->plan){
+                            if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                                $subd=Carbon::now()->addYear();
+                            }else{
+                                $subd = Carbon::parse(Auth::user()->subscription)->addYear();
+                            }
+                        }else{
+                            $subd=Carbon::now()->addYear();
+                        }
+
+                        User::where('id',Auth::id())->update(['subscription'=>$subd, 'plan'=>session('plan'), 'status'=>'active']);
+                    }
+                }else{
+                    $data['plan']=Auth::user()->plan;
+
+                    if($plan==1){
+                        $data['duration'] = "a month";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'status'=>'active']);
+                    }else{
+                        $data['duration'] = "a year";
+                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'status'=>'active']);
+                    }
+                }
+
+                PaymentModel::create($data);
+
+                return redirect('room')->with('success', 'Your payment is successfully!');
+            }else{
+                $data['status'] = 'Suspicious';
+
+                if(session('job')=="change_plan") {
+                    $data['plan'] = session('plan');
+                }else{
+                    $data['plan']=Auth::user()->plan;
+                }
+
+                PaymentModel::create($data);
+                return back()
+                    ->with('error', 'Kindly contact our support with reference -> '. $data['reference']);
+            }
+        }else{
+            return back()
+                ->with('error', 'Invalid Payment!');
+        }
+
+    }
+
     public function list(){
         $datas['payments']=PaymentModel::join('plans','plans.id','=','payment.plan')->where('payment.user_id', Auth::id())->select('payment.*', 'plans.name as plan')->OrderBy('id', 'desc')->limit(1)->get();
         $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');

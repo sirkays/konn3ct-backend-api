@@ -5,9 +5,9 @@
 
 
 {{-- Intro Lines --}}
-{{ 'We are excited to have you join the growing number of professionals and desision influencers konn3ct-ing with the rest of the world without missing a thing.' }}
+{{ 'We are excited to have you join the growing number of professionals and decision influencers konn3ct-ing with the rest of the world without missing a thing.' }}
 
-{{ 'To get you started on the journey to an improved virtual life, take the next 3 minutes to do the following' }}
+{{ 'To get you started on the journey to an improved virtual life, take the next 3 minutes to do the following : ' }}
 
 {{-- Action Button --}}
 @component('mail::button', ['url' => url('/login'), 'color' => "green"])
@@ -48,7 +48,8 @@
 @slot('subcopy')
 
     <a href="https://www.facebook.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/fb.png" alt="fb Logo"></a>
-    <a href="https://www.instagram.com/konnectapp"> <img src="{{url('/')}}/assets/images/in.png" alt="Instagram Logo"></a>
+{{--    <a href="https://www.instagram.com/konnectapp"> <img src="{{url('/')}}/assets/images/in.png" alt="Instagram Logo"></a>--}}
+    <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"> <img src="{{url('/')}}/assets/images/yt.png" alt="Youtube Logo"></a>
     <a href="https://twitter.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/tw.png" alt="Twitter Logo"></a>
     <a href="{{url('/')}}"> <img src="{{url('/')}}/assets/images/lk.png" alt="Link Logo"></a>
     <a href="mailto:support@konn3ct.com"> <img src="{{url('/')}}/assets/images/em.png" alt="Email Logo"></a>

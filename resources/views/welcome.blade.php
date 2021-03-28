@@ -224,7 +224,7 @@
                                     </li>
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
-                                        <span>Up To 20,000 Participants​</span>
+                                        <span>Up To 250 Participants​</span>
                                     </li>
                                 </ul>
                             </div>

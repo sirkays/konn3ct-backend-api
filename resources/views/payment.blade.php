@@ -150,7 +150,7 @@
 
                                                     <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
+                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_hzw5ilaruq41vhh" : "PLN_vg5n2nnlzsxiika" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
 
                                                 @endif
@@ -170,7 +170,7 @@
 
                                                     <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
+                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_zh6xy6lbgkl4t4t" : "PLN_b2ntofnisqqro7h" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
                                                 @endif
 

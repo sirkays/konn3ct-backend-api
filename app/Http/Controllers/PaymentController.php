@@ -145,7 +145,7 @@ class PaymentController extends Controller
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "Authorization: Bearer ".env("paystack_prv_key")
+                "Authorization: Bearer ".env("PAYSTACK_PRV_KEY")
             ),
         ));
 

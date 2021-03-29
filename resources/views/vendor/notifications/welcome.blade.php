@@ -48,7 +48,6 @@
 @slot('subcopy')
 
     <a href="https://www.facebook.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/fb.png" alt="fb Logo"></a>
-{{--    <a href="https://www.instagram.com/konnectapp"> <img src="{{url('/')}}/assets/images/in.png" alt="Instagram Logo"></a>--}}
     <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"> <img src="{{url('/')}}/assets/images/yt.png" alt="Youtube Logo"></a>
     <a href="https://twitter.com/konn3ctapp"> <img src="{{url('/')}}/assets/images/tw.png" alt="Twitter Logo"></a>
     <a href="{{url('/')}}"> <img src="{{url('/')}}/assets/images/lk.png" alt="Link Logo"></a>

@@ -69,9 +69,7 @@
         </section>
         <!-- pricing-area-end -->
 
-        <p style="margin-top: 10px">
-
-        </p>
+        <p style="margin-top: 20px"></p>
 
     </main>
     <!-- main-area-end -->

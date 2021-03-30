@@ -104,7 +104,7 @@ class RoomController extends Controller
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> <span style="color: #008b8b;">%%CONFNUM%%</span>'); //overwrite default configuration
+        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>'); //overwrite default configuration
 //        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
         if(isset($input['muj'])){
@@ -302,7 +302,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <span style="color: #008b8b;">%%CONFNUM%%</span>',
+                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,

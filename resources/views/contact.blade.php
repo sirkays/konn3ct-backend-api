@@ -45,8 +45,8 @@
                             <i class="far fa-mobile"></i>
                         </div>
                         <h5>Support Phone number</h5>
-                        <p>+234 803 304 6408 <br>
-                            +234 807 335 1737</p>
+                        <p><a href="tel:+234 803 304 6408"> +234 803 304 6408</a> <br>
+                            <a href="tel:+234 807 335 1737">+234 807 335 1737</a></p>
                     </div>
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">

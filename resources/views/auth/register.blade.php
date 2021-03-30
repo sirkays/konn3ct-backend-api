@@ -103,7 +103,7 @@
                                             <div class="capbox-inner">
                                                 Type the number:<br>
                                                 <input type="hidden" id="txtCaptcha">
-                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                                             </div>
                                         </div>
@@ -226,8 +226,7 @@
                                             <div class="capbox-inner">
                                                 Type the number:<br>
                                                 <input type="hidden" id="txtCaptcha2">
-                                                <input type="text" name="CaptchaInput2" id="CaptchaInput2"
-                                                       size="15"><br>
+                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                                             </div>
                                         </div>

@@ -44,10 +44,10 @@
         <div class="inside-header">
             <div class="d-flex align-items-center logo-box justify-content-between">
                 <!-- Logo -->
-                <a href="index.html" class="logo">
+                <a href="/" class="logo">
                     <!-- logo-->
                     <div class="logo-lg">
-                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->lastname}} {{\Illuminate\Support\Facades\Auth::user()->firstname}}</span>
+                        <span style="color: white">Welcome, {{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}</span>
                         {{--                        <span class="light-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                         {{--                        <span class="dark-logo"><img src="/user_assets/images/logo-light-text.png" alt="logo"></span>--}}
                     </div>
@@ -492,7 +492,6 @@
             email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
             plan: plan, // the amount value is multiplied by 100 to convert to the lowest currency unit
             currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
-            ref: "konn3ct_{{rand().time()}}", // Replace with a reference you generated
             callback: function(response) {
                 //this happens after the payment is completed successfully
                 var reference = response.reference;

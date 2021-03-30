@@ -302,7 +302,7 @@ class RoomController extends Controller
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> <span style="color: #008b8b;">%%CONFNUM%%</span>',
+                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <span style="color: #008b8b;">%%CONFNUM%%</span>',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,
@@ -339,8 +339,8 @@ class RoomController extends Controller
 
         $u=User::find($i->user_id);
 
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
-//        $ms=1;
+//        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $ms=1;
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;

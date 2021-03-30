@@ -367,12 +367,12 @@
             </div>
 
             <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
-                <div class="col-6">
+                <div class="col-4">
                     <div class="copyright-text">
                         <p style="font-size: smaller">&copy; {{date('Y')}} Newwaves Ecosystem Limited</p>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-8 font-size-5">
                     <div class="copyright-text">
                         <p style="font-size: smaller">Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>

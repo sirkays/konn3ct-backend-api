@@ -27,13 +27,29 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        if(!isset($input['type'])) {
+            $messages = [
+                'firstname.required' => 'First name is required.',
+                'firstname.max' => 'First name characters too long.',
+                'firstname.min' => 'The firstname must be at least 3 characters long.',
+                'firstname.string' => 'First name requires alphabet only.',
+            ];
+        }else{
+            $messages = [
+                'firstname.required' => 'Business Name is required.',
+                'firstname.max' => 'Business Name characters too long.',
+                'firstname.min' => 'The Business Name must be at least 3 characters long.',
+                'firstname.string' => 'Business Name requires alphabet only.',
+            ];
+        }
+
         Validator::make($input, [
-            'firstname' => ['required', 'string', 'min:3', 'max:20'],
+            'firstname' => ['required', 'string', 'min:3', 'max:30'],
             'email' => ['required', 'string', 'email', 'min:5', 'max:50', 'unique:users'],
 //            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
-            'phone' => ['required', 'string', 'max:15'],
+            'phone' => ['required', 'string', 'max:20'],
             'password' => $this->passwordRules(),
-        ])->validate();
+        ], $messages)->validate();
 
         $input['firstname']=htmlspecialchars($input['firstname']);
         $input['email']=htmlspecialchars($input['email']);
@@ -42,7 +58,7 @@ class CreateNewUser implements CreatesNewUsers
         if(!isset($input['type'])){
             if($input['lastname']==""){
                 Validator::make($input, [
-                    'lastname' => ['required', 'string', 'max:255'],
+                    'lastname' => ['required', 'string', 'max:20'],
                 ])->validate();
             }
         }

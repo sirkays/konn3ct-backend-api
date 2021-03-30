@@ -236,7 +236,7 @@
                                                                 </div>
                                                                 <div class="modal-footer modal-footer-uniform">
                                                                     <button type="submit" class="btn bg-success float-left">Save</button>
-                                                                    <button type="submit" class="btn bg-dark float-right" onclick="document.getElementById('type{{$room->id}}').value='auto';document.getElementById('accesscode{{$room->id}}').value='.......';">Auto Generate</button>
+                                                                    <button type="button" class="btn bg-dark float-right" onclick="document.getElementById('dkaccesscode{{$room->id}}').value=getRandomString(10);">Auto Generate</button>
                                                                 </div>
                                                             </div>
                                                             <!-- /.modal-content -->
@@ -646,7 +646,7 @@
                                                             </div>
                                                             <div class="modal-footer modal-footer-uniform">
                                                                 <button type="submit" class="btn bg-success float-left">Save</button>
-                                                                <button type="submit" class="btn bg-dark float-right" onclick="document.getElementById('type{{$room->id}}').value='auto';document.getElementById('dkaccesscode{{$room->id}}').value='.......';">Auto Generate</button>
+                                                                <button type="button" class="btn bg-dark float-right" onclick="document.getElementById('dkaccesscode{{$room->id}}').value=getRandomString(10);">Auto Generate</button>
                                                             </div>
                                                         </div>
                                                         <!-- /.modal-content -->
@@ -1130,6 +1130,17 @@
             $temp.val($(element).text()).select();
             document.execCommand("copy");
             $temp.remove();
+        }
+    </script>
+
+    <script>
+        function getRandomString(length) {
+            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            for ( var i = 0; i < length; i++ ) {
+                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return result;
         }
     </script>
 

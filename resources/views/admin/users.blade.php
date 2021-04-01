@@ -134,13 +134,13 @@
                                                 @if($user->plan==1)
                                                     Forever
                                                 @elseif($user->plan==2)
-                                                    @if($user->subsciption=='new')
+                                                    @if($user->subscription=='new')
                                                         Not yet Subscribed
                                                     @else
                                                         Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days
                                                     @endif
                                                 @else
-                                                    @if($user->subsciption=='new')
+                                                    @if($user->subscription=='new')
                                                         Not yet Subscribed
                                                     @else
                                                         Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($user->subscription), false)}} days

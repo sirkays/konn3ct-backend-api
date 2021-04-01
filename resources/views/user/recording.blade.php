@@ -67,42 +67,36 @@
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                            <span class="text-dark font-weight-600 d-block font-size-10">
-													{{ number_format(($record['size']/1000000))."MB"}}
-												</span>
-                                        </td>
 
-                                        <td>
-                                            <a class="waves-effect waves-light btn btn-success font-size-10"
-                                               href="{{$record['playback']['format']['url']}}">
-                                                Play
-                                            </a>
+{{--                                                <span class="text-dark font-weight-600 d-block font-size-10">--}}
+{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
+{{--												</span>--}}
+                                            </td>
 
-                                            <br/>
-                                            <br/>
+                                            <td>
+                                                <a class="waves-effect waves-light btn btn-success font-size-10" href="{{$record['playback']['format']['url']}}">
+                                                    Play
+                                                </a>
+
+                                                <br/>
+                                                <br/>
 
 
-                                            <input type="hidden" id="c{{$i}}"
-                                                   value="{{$record['playback']['format']['url']}}"/>
+                                                <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
 
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-primary dropdown-toggle font-size-10"
-                                                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    Manage
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <Button class="dropdown-item"
-                                                            class="waves-effect waves-light btn font-size-10"
-                                                            onclick="myFunction('c{{$i++}}')">
-                                                        Copy
-                                                    </Button>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Manage
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <Button class="dropdown-item" class="waves-effect waves-light btn font-size-10" onclick="myFunction('c{{$i++}}')">
+                                                            Copy
+                                                        </Button>
 
-                                                    <a class="dropdown-item font-size-10"
-                                                       href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}"
-                                                       class="waves-effect waves-light btn btn-primary">
-                                                        Email Recording
-                                                    </a>
+                                                        <a class="dropdown-item font-size-10" href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn btn-primary">
+                                                            Email Recording
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <br/>
@@ -179,89 +173,45 @@
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                            <span class="text-dark font-weight-600 d-block font-size-16">
-													{{ number_format(($record['size']/1000000))."MB"}}
-												</span>
-                                        </td>
-                                        <td style="overflow-wrap: break-word; min-width: 50px; max-width: 150px;">
-                                            <span
-                                                class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
-                                            <input type="hidden" id="c{{$i}}"
-                                                   value="{{$record['playback']['format']['url']}}"/>
-                                        </td>
-                                        <td style="min-width: 50px; max-width: 100px">
 
-                                            <div class="dropdown">
-                                                <a class="waves-effect waves-light btn btn-success"
-                                                   href="{{$record['playback']['format']['url']}}">
-                                                    Play Video
-                                                </a>
-                                                <button class="btn btn-outline-primary dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    Manage
-                                                </button>
+{{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
+{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
+{{--												</span>--}}
+                                            </td>
+                                            <td style="min-width: 50px; max-width: 150px">
+                                                <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
+                                                <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
+                                            </td>
+                                            <td style="min-width: 50px; max-width: 100px">
 
-                                                <Button type="button" class="waves-effect waves-light btn btn-danger"
-                                                        data-toggle="modal" data-target="#deleterecording{{$i}}-modal">
-                                                    Delete
-                                                </Button>
+                                                <div class="dropdown">
+                                                    <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}">
+                                                        Play Video
+                                                    </a>
+                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Manage
+                                                    </button>
+                                                    <a class="waves-effect waves-light btn btn-danger" href="#">
+                                                        Delete
+                                                    </a>
 
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <Button type="button" class="dropdown-item waves-effect waves-light"
-                                                            onclick="myFunction('c{{$i}}')">
-                                                        Copy
-                                                    </Button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
+                                                            Copy
+                                                        </Button>
 
-                                                    <Button
-                                                        href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}"
-                                                        class="dropdown-item waves-effect waves-light">
-                                                        Email Recording
-                                                    </Button>
+                                                        <Button href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn">
+                                                            Email Recording
+                                                        </Button>
 
 
-                                                    {{--                                                        <form action="/deleteroom" method="POST">--}}
-                                                    {{--                                                            @csrf--}}
-                                                    {{--                                                            <input type="hidden" name="id" value="{{$i->id}}" />--}}
-                                                    {{--                                                            <Button type="submit" class="waves-effect waves-light btn">--}}
-                                                    {{--                                                                Delete--}}
-                                                    {{--                                                            </Button>--}}
-                                                    {{--                                                        </form>--}}
-                                                </div>
-                                            </div>
-
-                                            {{--                                                <a class="waves-effect waves-light btn btn-danger" href="#">--}}
-                                            {{--                                                   Delete--}}
-                                            {{--                                                </a>--}}
-                                        </td>
-                                    </tr>
-                                    <div class="modal deleterecording-modal fade" id="deleterecording{{$i++}}-modal"
-                                         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                                         aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-md">
-                                            <form method="post" action="{{route('recording.delete')}}">
-                                                @csrf
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="mySmallModalLabel">Delete
-                                                            Recording</h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-hidden="true">×
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        You are about to delete your recording.<br/>
-                                                        Once deleted you won't be able to access it again<br/><br/>
-                                                    </div>
-                                                    <div class="modal-footer modal-footer-uniform">
-                                                        <input name="id" value="{{$record['recordID']}}" type="hidden"/>
-                                                        <button type="submit"
-                                                                class="waves-effect waves-light btn btn-danger float-left">
-                                                            Delete
-                                                        </button>
-                                                        <button type="button" data-dismiss="modal"
-                                                                class="btn bg-dark float-right">Close
-                                                        </button>
+{{--                                                        <form action="/deleteroom" method="POST">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="hidden" name="id" value="{{$i->id}}" />--}}
+{{--                                                            <Button type="submit" class="waves-effect waves-light btn">--}}
+{{--                                                                Delete--}}
+{{--                                                            </Button>--}}
+{{--                                                        </form>--}}
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->

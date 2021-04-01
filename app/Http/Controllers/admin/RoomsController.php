@@ -8,6 +8,7 @@ use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 
 class RoomsController extends Controller
 {
@@ -27,14 +28,18 @@ class RoomsController extends Controller
 
         $datas['active']=0;
 
-        if (!App::environment(['local', 'staging'])) {
-            foreach ($datas['roomys'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning($i->id);
-                if ($ms) {
-                    $datas['active']++;
-                }
-            }
-        }
+//        try {
+//            if (!App::environment(['local', 'staging'])) {
+//                foreach ($datas['roomys'] as $i) {
+//                    $ms = \Bigbluebutton::isMeetingRunning($i->id);
+//                    if ($ms) {
+//                        $datas['active']++;
+//                    }
+//                }
+//            }
+//        }catch (Exception $e){
+//            echo "skipping error";
+//        }
 
         $datas['i']=1;
 

@@ -9,9 +9,13 @@
 
 {{ "Meeting Room Name: $iroom" }}
 <br />
+{{ "Access Code: $iaccesscode" }}
+<br />
 {{ "Date: $idate" }}
 <br />
 {{ "Time: $itime" }} {{$itimezone}}
+
+{{ "$iadditional" }}
 
 {{ "" }}
 Click this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in your preferred browser.

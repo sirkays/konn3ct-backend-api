@@ -6,7 +6,7 @@
 
     <!-- contact-area -->
 {{--    <section id="contact" class="contact-area contact-bg pt-120 pb-120 p-relative fix" style="background-image:url(img/bg/contact_bg.jpg)">--}}
-        <div class="container">
+        <div class="container mb-80">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-title text-center mb-30 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
@@ -38,15 +38,15 @@
                 </div>
             @endif
 
-            <div class="row">
+            <div class="row mb-90">
                 <div class="col-lg-4">
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
                             <i class="far fa-mobile"></i>
                         </div>
                         <h5>Support Phone number</h5>
-                        <p>+234 803 304 6408 <br>
-                            +234 807 335 1737</p>
+                        <p><a href="tel:+234 803 304 6408"> +234 803 304 6408</a> <br>
+                            <a href="tel:+234 807 335 1737">+234 807 335 1737</a></p>
                     </div>
                     <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         <div class="f-cta-icon">
@@ -59,7 +59,7 @@
 
                 </div>
 
-                <div class="col-lg-8">
+                <div class="col-lg-8 mb-40">
                     <form action="contact" method="post" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                         @csrf
                         <div class="row">

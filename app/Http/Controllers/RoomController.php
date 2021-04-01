@@ -60,19 +60,19 @@ class RoomController extends Controller
         $input['logout_url']=url('/leftsession');
         $input['max_participants']=$max_user;
         $input['duration']=$duration;
-        $input['url']=trim($input['url']);
+        $input['url']=preg_replace('/\s+/', '', $input['url']);
 
         if($input['access_code']=="") {
             if (isset($input['aujam'])) {
                 $input['password_attendee'] = "moderator";
-                $input['password_moderator'] = "moderator";
+                $input['password_moderator'] = "attendee";
             } else {
                 $input['password_attendee'] = "attendee";
                 $input['password_moderator'] = "moderator";
             }
         }else{
             if (isset($input['aujam'])) {
-                $input['password_attendee'] = $input['access_code'];
+                $input['password_attendee'] = "moderator";
                 $input['password_moderator'] = $input['access_code'];
             } else {
                 $input['password_attendee'] = $input['access_code'];
@@ -104,7 +104,7 @@ class RoomController extends Controller
             $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
         }
         $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br><br>No internet? Ask participants to dial: <span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone.'); //overwrite default configuration
+        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>'); //overwrite default configuration
 //        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
 
         if(isset($input['muj'])){
@@ -274,10 +274,22 @@ class RoomController extends Controller
                 $dsn=false;
             }
 
+            if($i->aujam){
+                $up="moderator";
+            }else{
+                $up=$i->password_attendee;
+            }
+
+            if($i->banner!=""){
+                $banner= url('/') . "/roombanner/".$i->banner;
+            }else{
+                $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
+            }
+
             $mdata['meeting_id']=$i->id;
             $mdata['name']=Auth::user()->lastname ." " .Auth::user()->firstname;
             $mdata['email']=Auth::user()->email;
-            $mdata['password_attendee']=$i->password_attendee;
+            $mdata['password_attendee']=$up;
             $mdata['status']="start meeting";
             $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
@@ -285,12 +297,12 @@ class RoomController extends Controller
             $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
-                'attendeePW' => $i->password_attendee, //attendee password here
+                'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
                 'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
                 'endCallbackUrl'  => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a><br><br>No internet? Ask participants to dial: <span style="color: #008b8b;">%%DIALNUM%%</span> and enter <span style="color: #008b8b;">%%CONFNUM%%</span> as Room PIN to join meeting via phone.',
+                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording'=> $record,
                 'record'=>$record,
@@ -301,7 +313,8 @@ class RoomController extends Controller
                 'lockSettingsDisablePrivateChat' => $dprc,
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote'=> $dsn
+                'lockSettingsDisableNote'=> $dsn,
+                'logo'=>$banner
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
             return redirect()->to($url);
@@ -324,7 +337,10 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
+        $u=User::find($i->user_id);
+
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
+//        $ms=1;
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -336,15 +352,21 @@ class RoomController extends Controller
 
             MeetingsModel::create($mdata);
 
-            return back()
-                ->with('error', 'Meeting has not started!');
+            $mns['name']=$name;
+            $mns['email']=$email;
+            $mns['url']=$url;
+            $mns['room']=$i;
+            $mns['owner']=$u;
+
+            return view('meeting_notstarted', $mns);
+//
+//            return back()
+//                ->with('error', 'Meeting has not started!');
         }else{
             $mds=\Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
-
-            $u=User::find($i->user_id);
 
             $data['status']="Currently on";
             $data['meetingname']=$i->name;
@@ -393,6 +415,10 @@ class RoomController extends Controller
             $password_attendee = 'attendee';
         }
 
+        if($i->aujam){
+            $password_attendee="moderator";
+        }
+
         $ms=\Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
@@ -424,6 +450,8 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
+                'avatarURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'clientURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png'
             ])
         );
     }
@@ -450,6 +478,9 @@ class RoomController extends Controller
             return back()->with('error', 'Guest emails can not be empty');
         }
 
+        #TODO: save all emails sent to one table for campaigns later
+        $input['guest'].=",".Auth::user()->email;
+
         // use of explode
         $str_arr = explode (",", $input['guest']);
 
@@ -464,6 +495,8 @@ class RoomController extends Controller
 
                     $data['ilink']=$input['roomlink'];
 
+                    $data['iaccesscode']=$input['accesscode'];
+
                     $data['imtitle']=$input['title'];
 
                     $data['idate']=$input['date'];
@@ -474,6 +507,8 @@ class RoomController extends Controller
 
                     $data['itimezone']=$input['timezone'];
 
+                    $data['iadditional']=$input['additional']??'';
+
                     Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }
             }catch (\Exception $e){
@@ -482,5 +517,77 @@ class RoomController extends Controller
         }
 
         return redirect('room')->with('success', 'Invite Sent Successfully!');
+    }
+
+    public function accesscode(Request $request){
+        $input=$request->all();
+
+        $r=RoomModel::find($input['id']);
+
+        if ($input['type']=="manual" && $input['accesscode']==""){
+            return back()->with('error', 'Access code can not be empty');
+        }else{
+            $r->password_attendee=$input['accesscode'];
+            $r->save();
+        }
+
+        if($input['type']!="manual"){
+            $code=rand(11111,9999999999);
+            $r->password_attendee=$code;
+            $r->save();
+        }
+
+        return redirect('room')->with('success', 'Access code changed Successfully!');
+    }
+
+    public function limituser(Request $request){
+        $input=$request->all();
+
+        $r=RoomModel::find($input['id']);
+
+        $r->max_participants=$input['users'];
+        $r->save();
+
+        return redirect('room')->with('success', 'User Limit changed Successfully!');
+    }
+
+    public function roomstatus($url){
+        $i=RoomModel::where('url',$url)->first();
+        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+//        $ms=0;
+        if($ms!=1){
+            return response()->json(['status'=>0, 'message'=>'Meeting not started']);
+        }
+
+        return response()->json(['status'=>1, 'message'=>'Meeting not started']);
+    }
+
+    public function bannerupload(Request $request){
+
+        if (!$request->hasFile('banner')) {
+            return back()->with('error', 'Upload file not found');
+        }
+
+        $file = $request->file('banner');
+        if (!$file->isValid()) {
+            return back()->with('error', 'Invalid file upload');
+        }
+
+        if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
+            return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+        }
+
+        $fName = rand().".jpg";
+
+        $path = storage_path('roombanner/');
+        $file->move($path, $fName);
+
+        echo "Uploaded successfully";
+
+        $i=RoomModel::find($request->id);
+        $i->banner=$fName;
+        $i->save();
+
+        return back()->with('success', 'Banner has been uploaded successfully');
     }
 }

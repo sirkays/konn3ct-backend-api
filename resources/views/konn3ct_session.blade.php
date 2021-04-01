@@ -52,11 +52,11 @@
                             @csrf
                             <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
                                 <div class="form-group">
-                                    <input type="text" name="accesscode" class="" value="" placeholder="For Example: 37323" required>
+                                    <input type="text" name="accesscode" style="border-color: #0b2e13; border-style: solid; border-width: medium" value="" placeholder="For Example: 37323" required>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn su">Join</button>
-                                    <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                                    <a href="{{url('/')}}" class="btn btn-outline-danger">Go Home</a>
                                 </div>
                             </div>
                         </form>
@@ -66,7 +66,7 @@
                             @csrf
                             <div class="form-group">
                                 <button class="btn su">Join</button>
-                                <a href="{{back()}}" class="btn btn-outline-danger">Go Back</a>
+                                <a href="{{url('/')}}" class="btn btn-outline-danger">Go Home</a>
                             </div>
                         </form>
                         @endif
@@ -79,5 +79,8 @@
 
     </main>
     <!-- main-area-end -->
+
+    <p style="margin-top: 20px"></p>
+
 
 @endsection

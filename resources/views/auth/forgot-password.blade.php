@@ -34,7 +34,7 @@
                     <div class="capbox-inner">
                         Type the number:<br>
                         <input type="hidden" id="txtCaptcha">
-                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                     </div>
                 </div>

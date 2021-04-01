@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}" onsubmit="return checkform(this);">
+        <form class="mb-90" method="POST" action="{{ route('login') }}" onsubmit="return checkform(this);">
             @csrf
 
             <div>
@@ -42,7 +42,7 @@
                     <div class="capbox-inner">
                         Type the number:<br>
                         <input type="hidden" id="txtCaptcha">
-                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                     </div>
                 </div>
@@ -70,6 +70,11 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+
+<p style="margin-top: 200px">
+
+</p>
+
 
 <script type="text/javascript">
 

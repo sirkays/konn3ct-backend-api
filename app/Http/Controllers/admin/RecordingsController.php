@@ -63,7 +63,14 @@ class RecordingsController extends Controller
 
             return view('admin.recording', $datas);
         }
+    }
 
+    public function delete(Request $request){
+        $id=$request->id;
+        \Bigbluebutton::deleteRecordings([
+            'recordID' => $id,
+        ]);
 
+        return redirect()->route('admin.recordings.delete')->with(['success'=>'Deleted successfully']);
     }
 }

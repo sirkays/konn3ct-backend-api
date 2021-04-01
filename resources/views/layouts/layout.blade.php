@@ -5,26 +5,31 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Konn3ct</title>
-    <meta name="description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
-    <meta name="og:url" content="http://konn3ct.com">
-    <meta name="og:description" content="Start a meeting in 5 secs, Customize link, Enjoy HD Audio & Video in meetings for up-to 1000 students, Full-Featured Admin Controls, Multi-User Whiteboard.">
+    <meta name="description" content="Host your virtual events on konn3ct! It's Free!! Register Now!!!">
+    <meta name="author" content="Newwaves Ecosystem Limited">
+
+    <meta name="og:url" content="https://konn3ct.com">
+    <meta name="og:description" content="Host your virtual events on konn3ct! It's Free!! Register Now!!!">
     <meta name="og:type" content="website">
     <meta name="og:title" content="konn3ct">
-    <meta name="og:image" content="https://konn3ct.com/assets/images/konn3ct_logo.png">
+    <meta name="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg">
+    <meta name="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel='manifest' href='/assets/manifest.json'>
+    @laravelPWA
 
-{{--    <link rel="manifest" href="/js/manifest.json"></link>--}}
-    <script src="/js/pwabuilder-sw.js"></script>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
-    ></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
 
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -37,10 +42,11 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">
-    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>
+{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">--}}
+{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">--}}
+{{--    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>--}}
 
     <style>
         .more {display: none;}
@@ -140,14 +146,14 @@
         }
 
         a.su{
-            color: blue;
+            color: #042c69;
         }
         a.su:hover{
             color: green;
         }
 
         button.su{
-            background-color: blue;
+            background-color: #042c69;
         }
         button.su:hover{
             background-color: green;
@@ -194,12 +200,39 @@
         }
     </style>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
 
-    <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
-    ></script>
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #1696e7;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #35ac39;
+        }
+        .previous {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        .next {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
 
     <!-- Start of Async Drift Code -->
 {{--    <script>--}}
@@ -237,10 +270,16 @@
         <div class="container">
             <div class="second-menu">
                 <div class="row align-items-center">
-                    <div class="col-lg-11 text-center">
+                    <div class="col-lg-11 text-center mt-3">
                         <div class="logo">
-                            <a href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+                            <button class="previous pull-left" style="" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
+
+                                <a href="/" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+
+                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="30px"></a>
+
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
+                            <button class="previous pull-right" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
 
@@ -300,6 +339,7 @@
 
 @yield("content")
 
+@if(!\Illuminate\Support\Facades\Auth::user())
 <div id="outerContainer">
     <div id="container">
             <a href="/register">
@@ -307,53 +347,44 @@
             </a>
     </div>
 </div>
+@endif
 <!-- footer -->
 <footer class="footer-bg footer-p">
     <div class="copyright-wrap">
         <div class="container">
-            <div class="row">
+
+            <div class="row hidden-xs-down">
                 <div class="col-6">
                     <div class="copyright-text">
-                        <p>&copy; 2020 Newwaves Ecosystem Limited</p>
+                        <p>&copy; {{date('Y')}} Newwaves Ecosystem Limited</p>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 font-size-8">
                     <div class="copyright-text">
                         <p>Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>
+
+            <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
+                <div class="col-4">
+                    <div class="copyright-text">
+                        <p style="font-size: smaller">&copy; {{date('Y')}} Newwaves Ecosystem Limited</p>
+                    </div>
+                </div>
+                <div class="col-8 font-size-5">
+                    <div class="copyright-text">
+                        <p style="font-size: smaller">Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </footer>
 <!-- footer-end -->
 
-<!-- Scripts -->
-<script type="module">
 
-    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-    const el = document.createElement('pwa-update');
-    document.body.appendChild(el);
-</script>
-
-<script type="module" src="/assets/pwabuilder-sw.js"> </script>
-
-<script type="module">
-
-    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-
-    const el = document.createElement('pwa-update');
-    document.body.appendChild(el);
-</script>
-
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
-    }
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script>
@@ -375,6 +406,14 @@
         }
     });
 </script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL}, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
@@ -462,6 +501,7 @@
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
 </script>
+
 </body>
 
 </html>

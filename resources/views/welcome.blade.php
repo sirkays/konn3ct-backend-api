@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- main-area -->
-<main>
+<main class="mb-95">
     <!-- services-area -->
 {{--    <section id="services" class="services-area services-bg services-two pt-120 pb-90">--}}
         <div class="container">
@@ -224,7 +224,7 @@
                                     </li>
                                     <li>
                                         <i class="icon dripicons-checkmark"></i>
-                                        <span>Up To 20,000 Participants​</span>
+                                        <span>Up To 250 Participants​</span>
                                     </li>
                                 </ul>
                             </div>

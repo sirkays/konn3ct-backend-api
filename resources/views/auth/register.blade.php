@@ -3,7 +3,7 @@
 @section('content')
     <x-guest-layout>
 
-        <div class="row bg-gray-100 mb-20">
+        <div class="row bg-gray-100 mb-95">
 
             <div class="col-12">
                 <div class="box-body">
@@ -91,8 +91,7 @@
                                         <div class="row mx-4">
                                             <div class="form-group">
                                                 <input type="checkbox" id="freetrial" name="freetrial" value="true">
-                                                <label for="freetrial"> <Strong>Start Free Trial ({{$freetrial_days}}
-                                                        days)</Strong></label><br>
+                                                <label for="freetrial"> <Strong>Activate Pro Plan Free Trial ({{$freetrial_days}} days)</Strong></label><br>
                                             </div>
                                         </div>
                                     @endif
@@ -104,7 +103,7 @@
                                             <div class="capbox-inner">
                                                 Type the number:<br>
                                                 <input type="hidden" id="txtCaptcha">
-                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                                             </div>
                                         </div>
@@ -215,8 +214,7 @@
                                         <div class="row mx-4">
                                             <div class="form-group">
                                                 <input type="checkbox" id="freetrial" name="freetrial" value="true">
-                                                <label for="freetrial"> <Strong>Start Free Trial ({{$freetrial_days}}
-                                                        days)</Strong></label><br>
+                                                <label for="freetrial"> <Strong>Activate Pro Plan Free Trial ({{$freetrial_days}} days)</Strong></label><br>
                                             </div>
                                         </div>
                                     @endif
@@ -228,8 +226,7 @@
                                             <div class="capbox-inner">
                                                 Type the number:<br>
                                                 <input type="hidden" id="txtCaptcha2">
-                                                <input type="text" name="CaptchaInput2" id="CaptchaInput2"
-                                                       size="15"><br>
+                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
 
                                             </div>
                                         </div>

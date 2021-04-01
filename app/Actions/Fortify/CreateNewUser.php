@@ -27,19 +27,38 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make($input, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
-            'phone' => 'required',
-            'password' => $this->passwordRules(),
-        ])->validate();
+        if(!isset($input['type'])) {
+            $messages = [
+                'firstname.required' => 'First name is required.',
+                'firstname.max' => 'First name characters too long.',
+                'firstname.min' => 'The firstname must be at least 3 characters long.',
+                'firstname.string' => 'First name requires alphabet only.',
+            ];
+        }else{
+            $messages = [
+                'firstname.required' => 'Business Name is required.',
+                'firstname.max' => 'Business Name characters too long.',
+                'firstname.min' => 'The Business Name must be at least 3 characters long.',
+                'firstname.string' => 'Business Name requires alphabet only.',
+            ];
+        }
 
+        Validator::make($input, [
+            'firstname' => ['required', 'string', 'min:3', 'max:30'],
+            'email' => ['required', 'string', 'email', 'min:5', 'max:50', 'unique:users'],
+//            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
+            'phone' => ['required', 'string', 'max:20'],
+            'password' => $this->passwordRules(),
+        ], $messages)->validate();
+
+        $input['firstname']=htmlspecialchars($input['firstname']);
+        $input['email']=htmlspecialchars($input['email']);
+        $input['phone']=htmlspecialchars($input['phone']);
 
         if(!isset($input['type'])){
             if($input['lastname']==""){
                 Validator::make($input, [
-                    'lastname' => ['required', 'string', 'max:255'],
+                    'lastname' => ['required', 'string', 'max:20'],
                 ])->validate();
             }
         }
@@ -80,18 +99,24 @@ class CreateNewUser implements CreatesNewUsers
             $u->status="free_trial";
             $u->save();
         }
-//
+
             $plan = PlanModel::where("id", $u->plan)->first();
             $duration = $plan->duration;
             $max_user = $plan->participant;
 
             $num = trim(date('siyh'));
             $shuffled = str_shuffle($num);
-            $sfinal = substr($shuffled, 0, 4);
+            $sfin = substr($shuffled, 0, 4);
+            $sfina = substr(strtolower($input['firstname']), 0, 2);
+            $sfinal = str_shuffle($sfin.$sfina);
             $input['name'] = $input['firstname'] ." Room";
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-            $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            if(!isset($input['type'])) {
+                $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
+            }else{
+                $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+            }
             $input['welcome_message']="";
             $input['logout_url']=url('/leftsession');
             $input['max_participants']=$max_user;
@@ -101,9 +126,11 @@ class CreateNewUser implements CreatesNewUsers
 
             RoomModel::create($input);
 
-            $data['messag']="";
-
-        Mail::to($u->email)->send(new UserWelcomeMail());
+            try {
+                Mail::to($u->email)->send(new UserWelcomeMail());
+            }catch(\Exception $e){
+                echo $e;
+            }
 
             return $u;
     }

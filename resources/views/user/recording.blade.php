@@ -2,68 +2,72 @@
 
 @section('content')
 
-            <!-- Main content -->
-            <section class="content">
+    <!-- Main content -->
+    <section class="content">
 
-{{--                Mobile View--}}
-                <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
-                    <div class="col-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h4 class="box-title align-items-start flex-column">
-                                    Recording
-                                    <small class="subtitle">Below are your meeting recording(s)</small>
-                                </h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="table-responsive">
-                                    <table class="table no-border">
-                                        <thead>
-                                        <tr class="text-uppercase bg-lightest font-size-10">
-                                            <th><span class="text-fade">Name</span></th>
-                                            <th><span class="text-fade">Parameters</span></th>
-                                            <th><span class="text-fade"></span></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($recordings as $record)
-                                        <tr>
-                                            <td class="pl-0 py-8">
-                                                <div class="d-flex align-items-center">
-                                                    <div>
-                                                        @if(isset($record['playback']['format']['preview']['images']['image'][0]))
-                                                            <img src="{{$record['playback']['format']['preview']['images']['image'][0]}}" class="img img-thumbnail">
-                                                        @else
-                                                            No Image Preview
-                                                        @endif
-                                                        <br/>
-                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
-                                                    </div>
+        {{--                Mobile View--}}
+        <div class="row hidden-lg-up hidden-sm-up hidden-xl-up">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="box-title align-items-start flex-column">
+                            Recording
+                            <small class="subtitle">Below are your meeting recording(s)</small>
+                        </h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table no-border">
+                                <thead>
+                                <tr class="text-uppercase bg-lightest font-size-10">
+                                    <th><span class="text-fade">Name</span></th>
+                                    <th><span class="text-fade">Parameters</span></th>
+                                    <th><span class="text-fade"></span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($recordings as $record)
+                                    <tr>
+                                        <td class="pl-0 py-8">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    @if(isset($record['playback']['format']['preview']['images']['image'][0]))
+                                                        <img
+                                                            src="{{$record['playback']['format']['preview']['images']['image'][0]}}"
+                                                            class="img img-thumbnail">
+                                                    @else
+                                                        No Image Preview
+                                                    @endif
+                                                    <br/>
+                                                    <a href="#"
+                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </td>
 
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
-{{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
-{{--                                                        @endforeach--}}
-{{--                                            </td>--}}
+                                        {{--                                            <td class="pl-0 py-8">--}}
+                                        {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
+                                        {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
+                                        {{--                                                        @endforeach--}}
+                                        {{--                                            </td>--}}
 
 
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
-{{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
-{{--                                                @else--}}
-{{--                                                    No Image Preview--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
+                                        {{--                                            <td class="pl-0 py-8">--}}
+                                        {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
+                                        {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
+                                        {{--                                                @else--}}
+                                        {{--                                                    No Image Preview--}}
+                                        {{--                                                @endif--}}
+                                        {{--                                            </td>--}}
 
-                                            <td>
+                                        <td>
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
 												</span>
-                                                <span class="text-dark font-weight-600 d-block font-size-10">
+                                            <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
+
 {{--                                                <span class="text-dark font-weight-600 d-block font-size-10">--}}
 {{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
 {{--												</span>--}}
@@ -94,76 +98,82 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <br/>
+                                            </div>
+                                            <br/>
 
-                                                <a class="waves-effect waves-light btn btn-danger font-size-10" href="#">
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                            <a class="waves-effect waves-light btn btn-danger font-size-10" href="#">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-{{--                Desktop view--}}
-                <div class="row hidden-xs-down">
-                    <div class="col-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h4 class="box-title align-items-start flex-column">
-                                    Recording
-                                    <small class="subtitle">Below are your meeting recording(s)</small>
-                                </h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="table-responsive">
-                                    <table class="table no-border">
-                                        <thead>
-                                        <tr class="text-uppercase bg-lightest">
-                                            <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Meeting Name</span></th>
-                                            <th style="min-width: 20px; max-width: 50px"><span class="text-fade">Parameters</span></th>
-                                            <th style="min-width: 50px; max-width: 100px"><span class="text-fade">Link</span></th>
-                                            <th style="min-width: 100px"><span class="text-fade">Options</span></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($recordings as $record)
-                                        <tr>
-                                            <td style="min-width: 20px; max-width: 50px">
-                                                <div class="d-flex align-items-center">
-                                                    <div>
-                                                        <a href="#" class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
-                                                    </div>
+        {{--                Desktop view--}}
+        <div class="row hidden-xs-down">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="box-title align-items-start flex-column">
+                            Recording
+                            <small class="subtitle">Below are your meeting recording(s)</small>
+                        </h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table no-border table-responsive">
+                                <thead>
+                                <tr class="text-uppercase bg-lightest">
+                                    <th style="min-width: 20px; max-width: 50px"><span
+                                            class="text-fade">Meeting Name</span></th>
+                                    <th style="min-width: 20px; max-width: 50px"><span
+                                            class="text-fade">Parameters</span></th>
+                                    <th style="min-width: 20px; max-width: 50px; overflow-wrap: break-word;"><span
+                                            class="text-fade">Link</span></th>
+                                    <th style="min-width: 100px"><span class="text-fade">Options</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($recordings as $record)
+                                    <tr>
+                                        <td style="min-width: 20px; max-width: 50px">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+                                                    <a href="#"
+                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$record['name']}}</a>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </td>
 
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
-{{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
-{{--                                                        @endforeach--}}
-{{--                                            </td>--}}
+                                        {{--                                            <td class="pl-0 py-8">--}}
+                                        {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
+                                        {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
+                                        {{--                                                        @endforeach--}}
+                                        {{--                                            </td>--}}
 
 
-{{--                                            <td class="pl-0 py-8">--}}
-{{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
-{{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
-{{--                                                @else--}}
-{{--                                                    No Image Preview--}}
-{{--                                                @endif--}}
-{{--                                            </td>--}}
+                                        {{--                                            <td class="pl-0 py-8">--}}
+                                        {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
+                                        {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
+                                        {{--                                                @else--}}
+                                        {{--                                                    No Image Preview--}}
+                                        {{--                                                @endif--}}
+                                        {{--                                            </td>--}}
 
-                                            <td style="min-width: 20px; max-width: 50px">
+                                        <td style="min-width: 20px; max-width: 50px">
                                                 <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['participants']}} Participants
 												</span>
-                                                <span class="text-dark font-weight-600 d-block font-size-16">
+                                            <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
+
 {{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
 {{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
 {{--												</span>--}}
@@ -204,49 +214,41 @@
 {{--                                                        </form>--}}
                                                     </div>
                                                 </div>
+                                                <!-- /.modal-content -->
+                                            </form>
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
 
-{{--                                                <a class="waves-effect waves-light btn btn-danger" href="#">--}}
-{{--                                                   Delete--}}
-{{--                                                </a>--}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- /.content -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
 
-            <script type="application/javascript">
-                function myFunction(id) {
-                    /* Get the text field */
-                    var copyText = document.getElementById(id);
+    <script type="application/javascript">
+        function myFunction(id) {
+            /* Get the text field */
+            var copyText = document.getElementById(id);
 
-                    copyText.type='text';
+            copyText.type = 'text';
 
-                    /* Select the text field */
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
 
-                    /* Copy the text inside the text field */
-                    document.execCommand("copy");
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
 
-                    copyText.type='hidden';
+            copyText.type = 'hidden';
 
-                    /* Alert the copied text */
-                    alert("Copied the text: " + copyText.value);
-                }
-            </script>
-
-            <script>
-                import Button from "../../js/Jetstream/Button";
-
-                export default {
-                    components: {Button}
-                }
-            </script>
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
+        }
+    </script>
 @endsection

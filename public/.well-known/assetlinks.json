@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "com.konn3ct.twa",
+                   "sha256_cert_fingerprints": ["04:C6:10:CC:AA:01:C0:BD:87:45:4A:B4:00:91:17:A8:34:57:C7:1E:A6:10:28:F3:04:A6:0D:CE:09:91:33:7A"] }
+    }]

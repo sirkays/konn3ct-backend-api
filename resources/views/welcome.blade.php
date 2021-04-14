@@ -335,3 +335,6 @@
 
 @stop
 
+@section('before-styles')
+    @laravelPWA
+@stop

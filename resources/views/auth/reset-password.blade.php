@@ -39,3 +39,7 @@
 </x-guest-layout>
 
 @endsection
+
+@section('before-styles')
+    @laravelPWA
+@stop

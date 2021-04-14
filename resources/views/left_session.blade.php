@@ -49,3 +49,7 @@
 
 @endsection
 
+@section('before-styles')
+    @laravelPWA
+@stop
+

@@ -334,3 +334,7 @@
 </main>
 
 @endsection
+
+@section('before-styles')
+    @laravelPWA
+@stop

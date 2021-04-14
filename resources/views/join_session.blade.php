@@ -56,3 +56,8 @@
     <p style="margin-top: 20px"></p>
 
 @endsection
+
+
+@section('before-styles')
+    @laravelPWA
+@stop

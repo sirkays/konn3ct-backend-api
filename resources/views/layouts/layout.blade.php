@@ -20,13 +20,13 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    @laravelPWA
+{{--    @laravelPWA--}}
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
@@ -417,13 +417,13 @@
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/vendor/jquery3.6.0.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/one-page-nav-min.js"></script>
 <script src="/assets/js/slick.min.js"></script>
-<script src="/assets/js/ajax-form.js"></script>
-<script src="/assets/js/paroller.js"></script>
+<script src="/assets/js/ajax-form.min.js"></script>
+<script src="/assets/js/paroller.min.js"></script>
 <script src="/assets/js/wow.min.js"></script>
 <script src="/assets/js/js_isotope.pkgd.min.js"></script>
 <script src="/assets/js/imagesloaded.min.js"></script>
@@ -431,10 +431,10 @@
 <script src="/assets/js/jquery.waypoints.min.js"></script>
 <script src="/assets/js/jquery.counterup.min.js"></script>
 <script src="/assets/js/jquery.scrollUp.min.js"></script>
-<script src="/assets/js/parallax-scroll.js"></script>
+<script src="/assets/js/parallax-scroll.min.js"></script>
 <script src="/assets/js/jquery.magnific-popup.min.js"></script>
-<script src="/assets/js/element-in-view.js"></script>
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/element-in-view.min.js"></script>
+<script src="/assets/js/main.min.js"></script>
 
 <script>
     var dragItem = document.querySelector("#item");

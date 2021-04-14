@@ -20,7 +20,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    @if (Request::segment(1) === '' || Request::segment(1) === 'joinsession' || Request::segment(1) === 'contact' || Request::segment(1) === 'pricing' )
+    @if (Request::segment(1) === 'joinsession' )
         <script>
             window.alert("pwa")
         </script>

@@ -333,7 +333,7 @@
     <!-- counter-area-end -->
 </main>
 
-@endsection
+@stop
 
 @section('before-styles')
     @laravelPWA

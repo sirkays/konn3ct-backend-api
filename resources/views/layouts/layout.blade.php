@@ -20,7 +20,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
     <!-- Place favicon.ico in the root directory -->
 
-{{--    @laravelPWA--}}
+    @if (!(Request::segment(1) === 'login' || Request::segment(1) === 'register' ))
+        <script>
+            window.alert("pwa")
+        </script>
+        @laravelPWA
+    @endif
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -417,7 +422,7 @@
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="/assets/js/vendor/jquery3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/one-page-nav-min.js"></script>

@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Konn3ct</title>
     <meta name="description" content="Host your virtual events on konn3ct! It's Free!! Register Now!!!">
     <meta name="author" content="Newwaves Ecosystem Limited">
@@ -16,23 +15,22 @@
     <meta name="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
 
+    <meta property="og:title" content="konn3ct" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://konn3ct.com" />
+    <meta property="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3cticon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct.ico">
     <!-- Place favicon.ico in the root directory -->
 
     @yield('before-styles')
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
-
+{{--    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">--}}
     <!-- CSS here -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap-5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">
     <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
@@ -41,12 +39,6 @@
     <link rel="stylesheet" href="/assets/css/default.min.css">
     <link rel="stylesheet" href="/assets/css/style.min.css">
     <link rel="stylesheet" href="/assets/css/responsive.min.css">
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
-{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsenui.css">--}}
-{{--    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/css/onsen-css-components.css">--}}
-{{--    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI-dist/2.0.0-beta.5/js/onsenui.js"></script>--}}
 
     <style>
         .more {display: none;}
@@ -233,6 +225,21 @@
         }
     </style>
 
+    <script>
+        var deviceDetect = navigator.platform;
+        var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',
+            'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];
+
+        // If on Apple device
+        if(appleDevicesArr.includes(deviceDetect)) {
+            // Execute code
+        }
+// If NOT on Apple device
+        else {
+            // Execute code
+        }
+    </script>
+
 
     <!-- Start of Async Drift Code -->
 {{--    <script>--}}
@@ -385,6 +392,15 @@
 <!-- footer-end -->
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
+<!-- Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script>
@@ -417,9 +433,9 @@
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
-<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-5/js/bootstrap.min.js"></script>
 <script src="/assets/js/one-page-nav-min.js"></script>
 <script src="/assets/js/slick.min.js"></script>
 <script src="/assets/js/ajax-form.min.js"></script>
@@ -434,7 +450,7 @@
 <script src="/assets/js/parallax-scroll.min.js"></script>
 <script src="/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="/assets/js/element-in-view.min.js"></script>
-<script src="/assets/js/main.min.js"></script>
+{{--<script src="/assets/js/main.min.js"></script>--}}
 
 <script>
     var dragItem = document.querySelector("#item");

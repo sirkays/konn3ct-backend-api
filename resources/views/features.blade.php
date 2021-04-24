@@ -9,7 +9,7 @@
 
     <!-- choose-area -->
 {{--    <section class="choose-area pt-120 pb-120 p-relative" style="background:#f5f8fa;">--}}
-        <div class="wow fadeInRight animated" data-animation="fadeInRight animated" data-delay=".2s" style="background-image:url(/assets/img/bg/about.jpg)"></div>
+        <div class="wow fadeInRight animated" data-animation="fadeInRight animated" data-delay=".2s" style="background-image:url(/assets/img/bg/about.webp)"></div>
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">

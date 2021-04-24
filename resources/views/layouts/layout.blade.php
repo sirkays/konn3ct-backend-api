@@ -280,9 +280,9 @@
                         <div class="logo">
                             <button class="previous pull-left" style="" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
 
-                                <a href="/" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="50px"></a>
+                                <a href="{{route('welcome')}}" aria-label="Go to welcome page" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" height="50px"></a>
 
-                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="/"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="logo" height="30px"></a>
+                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="{{route('welcome')}}" aria-label="Go to welcome page"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" height="30px"></a>
 
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
                             <button class="previous pull-right" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
@@ -294,25 +294,25 @@
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li><a href="/features"><span class="lih">Features</span></a></li>
-                                    <li><a href="/pricing"><span class="lih">Plans & Pricing</span></a></li>
-                                    <li><a href="/contact"><span class="lih">Contact Us</span></a></li>
+                                    <li><a href="/features" aria-label="Navigate to Features"><span class="lih">Features</span></a></li>
+                                    <li><a href="/pricing" aria-label="Navigate to Plans & Pricing"><span class="lih">Plans & Pricing</span></a></li>
+                                    <li><a href="/contact" aria-label="Navigate to Contact Us"><span class="lih">Contact Us</span></a></li>
                                     <li>&nbsp;</li>
 
                                     @auth
-                                        <li><a href="/room"><span class="lih">Dashboard</span></a></li>
+                                        <li><a href="/room" aria-label="Navigate to Dashboard"><span class="lih">Dashboard</span></a></li>
                                     @else
-                                        <li><a href="/register" class="su"><strong>Register (It's free - Start Free Trial)</strong></a></li>
+                                        <li><a href="/register" aria-label="Navigate to Create Account" class="su"><strong>Register (It's free - Start Free Trial)</strong></a></li>
                                     @endif
 
                                     <li>&nbsp;</li>
 
-                                    <li><a href="/joinsession"><span class="lih">Join a Meeting Room</span></a></li>
+                                    <li><a href="/joinsession" aria-label="Navigate to Join a room"><span class="lih">Join a Meeting Room</span></a></li>
 
                                     @auth
-                                        <li><a href="/logouts"><span class="lih">Signout</span></a></li>
+                                        <li><a href="/logouts" aria-label="Signout your account"><span class="lih">Signout</span></a></li>
                                     @else
-                                        <li><a href="{{ route('login') }}"><span class="lih">Sign In</span></a></li>
+                                        <li><a href="{{ route('login') }}" aria-label="Navigate to login page"><span class="lih">Sign In</span></a></li>
                                     @endif
                                 </ul>
                             </nav>
@@ -322,11 +322,11 @@
                         <div class="header-btn second-header-btn">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn">Meeting Room</a>
+                                    <a href="{{ url('/dashboard') }}" aria-label="Navigate to dashboard page" class="btn">Meeting Room</a>
                                 @else
                                     {{--                                    <a href="{{ route('login') }}" class="btn">Sign in</a>--}}
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="btn">Register</a>
+                                        <a href="{{ route('register') }}" aria-label="Navigate to Create Account" class="btn">Register</a>
                                     @endif
                                 @endif
                             @endif
@@ -348,9 +348,9 @@
 @if(!\Illuminate\Support\Facades\Auth::user())
 <div id="outerContainer">
     <div id="container">
-            <a href="/register">
-            <img id="item" src="/assets/img/register.png" width="60px" height="60px"/>
-            </a>
+        <a href="/register" aria-label="Register Link">
+            <img id="item" src="/assets/img/register.webp" alt="Register Image" width="60px" height="60px"/>
+        </a>
     </div>
 </div>
 @endif

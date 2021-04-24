@@ -31,7 +31,7 @@ Route::get('/offline', function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/register/{id}', [MyAuthController::class, 'register']);
 

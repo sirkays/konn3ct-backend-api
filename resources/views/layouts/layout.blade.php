@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <title>Konn3ct</title>
@@ -278,14 +277,14 @@
                 <div class="row align-items-center">
                     <div class="col-lg-11 text-center mt-3">
                         <div class="logo">
-                            <button class="previous pull-left" style="" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
+                            <button class="previous pull-left" style="" aria-label="Go back" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
 
-                                <a href="{{route('welcome')}}" aria-label="Go to welcome page" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" height="50px"></a>
+                                <a href="{{route('welcome')}}" aria-label="Go to welcome page" class="hidden-xs-down"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" width="150" height="50px"></a>
 
-                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="{{route('welcome')}}" aria-label="Go to welcome page"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" height="30px"></a>
+                                <a class="hidden-lg-up hidden-sm-up hidden-xl-up" href="{{route('welcome')}}" aria-label="Go to welcome page"><img class="text-center" src="/assets/images/konn3ct_logo.png" alt="Konn3ct logo" width="150" height="30px"></a>
 
                             {{--                                                <img src="/assets/images/konn3ct_logo.png" height="100px" width="300px" alt="logo">--}}
-                            <button class="previous pull-right" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
+                            <button class="previous pull-right" aria-label="Go forward" style="margin-right: 20px" onclick="history.go(1)"><i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
 
@@ -392,16 +391,13 @@
 
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
-<!-- Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+<script rel="noopener" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script rel="noopener" src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script>
     window.cookieconsent.initialise({
         "palette": {
@@ -428,7 +424,7 @@
     }
 </script>
 
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" rel="noopener" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>

@@ -324,7 +324,7 @@
 
 
                 <div class="col-12 text-center">
-                    <a href="/features" class="btn btn-primary">See More</a>
+                    <a href="/features" class="btn btn-primary">View Details</a>
                 </div>
 
             </div>

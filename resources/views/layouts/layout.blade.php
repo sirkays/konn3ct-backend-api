@@ -24,7 +24,22 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct.ico">
     <!-- Place favicon.ico in the root directory -->
 
-    @yield('before-styles')
+
+    <script>
+        var deviceDetect = navigator.platform;
+        var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',
+            'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];
+
+        // If on Apple device
+        if(appleDevicesArr.includes(deviceDetect)) {
+            // Execute code
+        }
+// If NOT on Apple device
+        else {
+            // Execute code
+        @laravelPWA
+        }
+    </script>
 
 
     <!-- Styles -->
@@ -224,22 +239,6 @@
             color: white;
         }
     </style>
-
-    <script>
-        var deviceDetect = navigator.platform;
-        var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',
-            'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];
-
-        // If on Apple device
-        if(appleDevicesArr.includes(deviceDetect)) {
-            // Execute code
-        }
-// If NOT on Apple device
-        else {
-            // Execute code
-        }
-    </script>
-
 
     <!-- Start of Async Drift Code -->
 {{--    <script>--}}

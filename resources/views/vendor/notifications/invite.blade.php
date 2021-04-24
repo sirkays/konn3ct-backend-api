@@ -36,6 +36,16 @@ Click this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in
 <span class="text-center">Visit https://konn3ct.com</span><br />
 <span class="text-center">...Amazing Virtual Experience</span><br />
 
+<br/>
+👇👇👇
+<br/>
+<span style="color: #61be72">
+    Watch these <strong>"HOW TO VIDEOS"</strong> to learn more<br/>
+-How to Join Meeting Room <a href="https://www.youtube.com/watch?v=mLoHB9cltWs">Watch Now</a><br/>
+-How to Manage Meeting Room <a href="https://www.youtube.com/watch?v=eCblbRoL4gs">Watch Now</a><br/>
+<a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg">Watch More</a><br/>
+</span>
+
 
 
 {{-- Subcopy --}}

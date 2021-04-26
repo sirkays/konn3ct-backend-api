@@ -23,8 +23,40 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct.ico">
     <!-- Place favicon.ico in the root directory -->
 
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="http://127.0.0.1:8000/manifest.json">
+    <!-- Chrome for Android theme color -->
+    <meta name="theme-color" content="#042c69">
 
-    <script>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Konn3ct">
+    <link rel="icon" sizes="512x512" href="/assets/manifest/k512.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Konn3ct">
+    <link rel="apple-touch-icon" href="/assets/manifest/k512.png">
+
+
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="/assets/images/konn3ct_logo.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+    <!-- Tile for Win8 -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/manifest/k512.png">
+
+
+    <script type="text/javascript">
         var deviceDetect = navigator.platform;
         var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',
             'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];
@@ -35,8 +67,19 @@
         }
 // If NOT on Apple device
         else {
-            // Execute code
-        @laravelPWA
+
+            // Initialize the service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/serviceworker.js', {
+                    scope: '.'
+                }).then(function (registration) {
+                    // Registration was successful
+                    console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+                });
+            }
         }
     </script>
 
@@ -415,7 +458,7 @@
                 </div>
                 <div class="col-6 font-size-8">
                     <div class="copyright-text">
-                        <p>Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                        <p>Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf" aria-label="GDPR Document">GDPR</a> | <a aria-label="NDPR Document" href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a aria-label="Privacy Policy" href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a aria-label="cookers policy" href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>
@@ -428,7 +471,7 @@
                 </div>
                 <div class="col-8 font-size-5">
                     <div class="copyright-text">
-                        <p style="font-size: smaller">Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf">GDPR</a> | <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
+                        <p style="font-size: smaller">Terms of Service | <a href="/docs/EU_GDPR_Full_Text_EN.pdf" aria-label="GDPR Document">GDPR</a> | <a aria-label="NDPR Document" href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf">NDPR</a> | <a aria-label="Privacy Policy" href="/docs/DATAPRIVACY.pdf"> Privacy & Data Protection </a> | <a aria-label="cookers policy" href="/docs/COOKIESPOLICY.pdf">Cookies policy</a></p>
                     </div>
                 </div>
             </div>

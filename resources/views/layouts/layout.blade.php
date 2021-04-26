@@ -24,7 +24,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- Web Application Manifest -->
-    <link rel="manifest" href="http://127.0.0.1:8000/manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <!-- Chrome for Android theme color -->
     <meta name="theme-color" content="#042c69">
 
@@ -70,7 +70,7 @@
 
             // Initialize the service worker
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/serviceworker.js', {
+                navigator.serviceWorker.register('/serviceworker.min.js', {
                     scope: '.'
                 }).then(function (registration) {
                     // Registration was successful
@@ -402,7 +402,7 @@
     <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-10">
             <div class="section-title text-center pl-40 pr-40 mb-20 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                <h3 data-animation="fadeInUp" data-delay=".4s">Watch these <strong>"HOW TO VIDEOS"</strong> to <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg" aria-label="Konn3ct Youtube channel"> learn more</a><br/></h3>
+                <h3 data-animation="fadeInUp" data-delay=".4s">Watch these <strong>"HOW TO VIDEOS"</strong> to learn more<br/></h3>
             </div>
         </div>
     </div>

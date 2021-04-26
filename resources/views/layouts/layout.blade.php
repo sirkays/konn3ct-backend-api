@@ -387,15 +387,6 @@
 
 @yield("content")
 
-@if(!\Illuminate\Support\Facades\Auth::user())
-<div id="outerContainer">
-    <div id="container">
-        <a href="/register" aria-label="Register Link">
-            <img id="item" src="/assets/img/register.webp" alt="Register Image" width="60px" height="60px"/>
-        </a>
-    </div>
-</div>
-@endif
 <!-- footer -->
 
 <div class="container">
@@ -481,6 +472,16 @@
 </footer>
 <!-- footer-end -->
 
+@if(!\Illuminate\Support\Facades\Auth::user())
+    <div id="outerContainer">
+        <div id="container">
+            <a href="/register" aria-label="Register Link">
+                <img id="item" src="/assets/img/register.webp" alt="Register Image" width="60px" height="60px"/>
+            </a>
+        </div>
+    </div>
+@endif
+
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 
@@ -520,7 +521,7 @@
 
 <!-- JS here -->
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/bootstrap-5/js/bootstrap.min.js"></script>
 <script src="/assets/js/one-page-nav-min.js"></script>

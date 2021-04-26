@@ -179,10 +179,10 @@
                                                                         Copy
                                                                     </Button>
 
-                                                                    <a class="dropdown-item waves-effect waves-light" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Google Calender">
+                                                                    <a class="dropdown-item" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Google Calender">
                                                                         Google Calender Invite
                                                                     </a>
-                                                                    <a class="dropdown-item waves-effect waves-light" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
+                                                                    <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
                                                                         Outlook Calendar Invite
                                                                     </a>
                                                                     <button type="button" style="font-size: 12px"  class="dropdown-item" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">

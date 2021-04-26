@@ -240,7 +240,7 @@
     <!-- choose-area-end -->
 
     <!-- counter-area -->
-    <div class="counter-area pt-20 pb-30" style="background-image:url(/assets/img/bg/count-bg.jpg)">
+    <div class="counter-area pt-20 pb-30" style="background-image:url(/assets/img/bg/count-bg.webp)">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8">

@@ -354,6 +354,55 @@
 </div>
 @endif
 <!-- footer -->
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+            <div class="section-title text-center pl-40 pr-40 mb-20 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                <h3 data-animation="fadeInUp" data-delay=".4s">Watch these <strong>"HOW TO VIDEOS"</strong> to <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg" aria-label="Konn3ct Youtube channel"> learn more</a><br/></h3>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-10">
+        <div class="col-lg-3 col-md-6">
+            <div class="s-single-services active wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                <div class="second-services-content">
+                    <h5>How to Register on konn3ct</h5>
+                    <p><a href="https://www.youtube.com/watch?v=jEV7vjngo4g" aria-label="how to register on konn3ct">Watch Now</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="s-single-services active wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                <div class="second-services-content">
+                    <h5>How to Create Meeting Room</h5>
+                    <p><a href="https://www.youtube.com/watch?v=Dn323U-br5Q" aria-label="how to create meeting room">Watch Now</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="s-single-services active wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                <div class="second-services-content">
+                    <h5>How to Join Meeting Room</h5>
+                    <p><a href="https://www.youtube.com/watch?v=mLoHB9cltWs" aria-label="how to join meeting room">Watch Now</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="s-single-services active wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
+                <div class="second-services-content">
+                    <h5>How to Manage Meeting Room</h5>
+                    <p><a href="https://www.youtube.com/watch?v=eCblbRoL4gs" aria-label="how to manage meeting room">Watch Now</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <footer class="footer-bg footer-p">
     <div class="copyright-wrap">
         <div class="container">
@@ -442,7 +491,7 @@
 <script src="/assets/js/jquery.waypoints.min.js"></script>
 <script src="/assets/js/jquery.counterup.min.js"></script>
 <script src="/assets/js/jquery.scrollUp.min.js"></script>
-<script src="/assets/js/parallax-scroll.min.js"></script>
+{{--<script src="/assets/js/parallax-scroll.min.js"></script>--}}
 <script src="/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="/assets/js/element-in-view.min.js"></script>
 {{--<script src="/assets/js/main.min.js"></script>--}}

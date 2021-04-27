@@ -38,7 +38,7 @@
                     </span>
                 </div>
 
-                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()" data-toggle="tooltip" data-placement="top" title="Select photo from your pictures or file manager">
                     {{ __('Select A New Photo') }}
                 </x-jet-secondary-button>
 
@@ -95,7 +95,7 @@
             {{ __('Saved.') }}
         </x-jet-action-message>
 
-        <x-jet-button wire:loading.attr="disabled" wire:target="photo">
+        <x-jet-button wire:loading.attr="disabled" wire:target="photo" data-toggle="tooltip" data-placement="top" title="Save changes made">
             {{ __('Save') }}
         </x-jet-button>
     </x-slot>

@@ -52,7 +52,7 @@
         @endif
 
         <div class="flex items-center mt-5">
-            <x-jet-button wire:click="confirmLogout" wire:loading.attr="disabled">
+            <x-jet-button wire:click="confirmLogout" wire:loading.attr="disabled" data-toggle="tooltip" data-placement="top" title="Clear your account sessions from devices">
                 {{ __('Logout Other Browser Sessions') }}
             </x-jet-button>
 

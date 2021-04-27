@@ -85,7 +85,7 @@
 
 
     <!-- Styles -->
-{{--    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
     <!-- CSS here -->
     <link rel="stylesheet" href="/assets/bootstrap-5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">
@@ -227,6 +227,13 @@
     </style>
 
     <style>
+        #container2 {
+            position:fixed;
+            width:60px;
+            height:130px;
+            bottom:140px;
+            left:20px;
+        }
         #container {
             position:fixed;
             width:60px;
@@ -339,15 +346,12 @@
                                     <li><a href="/features" aria-label="Navigate to Features"><span class="lih">Features</span></a></li>
                                     <li><a href="/pricing" aria-label="Navigate to Plans & Pricing"><span class="lih">Plans & Pricing</span></a></li>
                                     <li><a href="/contact" aria-label="Navigate to Contact Us"><span class="lih">Contact Us</span></a></li>
-                                    <li>&nbsp;</li>
 
                                     @auth
                                         <li><a href="/room" aria-label="Navigate to Dashboard"><span class="lih">Dashboard</span></a></li>
                                     @else
                                         <li><a href="/register" aria-label="Navigate to Create Account" class="su"><strong>Register (It's free - Start Free Trial)</strong></a></li>
                                     @endif
-
-                                    <li>&nbsp;</li>
 
                                     <li><a href="/joinsession" aria-label="Navigate to Join a room"><span class="lih">Join a Meeting Room</span></a></li>
 
@@ -474,13 +478,21 @@
 
 @if(!\Illuminate\Support\Facades\Auth::user())
     <div id="outerContainer">
-        <div id="container">
+        <div id="container" data-toggle="tooltip" data-placement="top" title="Register on konn3ct">
             <a href="/register" aria-label="Register Link">
                 <img id="item" src="/assets/img/register.webp" alt="Register Image" width="60px" height="60px"/>
             </a>
         </div>
     </div>
 @endif
+
+{{--<div id="outerContainer">--}}
+{{--    <div id="container2" data-toggle="tooltip" data-placement="top" title="Join a meeting room">--}}
+{{--        <a href="/joinsession" aria-label="Join Meeting">--}}
+{{--            <img id="item2" src="/assets/img/jmeeting.png" alt="Register Image" width="60px" height="60px"/>--}}
+{{--        </a>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
@@ -535,10 +547,10 @@
 <script src="/assets/js/jquery.waypoints.min.js"></script>
 <script src="/assets/js/jquery.counterup.min.js"></script>
 <script src="/assets/js/jquery.scrollUp.min.js"></script>
-{{--<script src="/assets/js/parallax-scroll.min.js"></script>--}}
+<script src="/assets/js/parallax-scroll.min.js"></script>
 <script src="/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="/assets/js/element-in-view.min.js"></script>
-{{--<script src="/assets/js/main.min.js"></script>--}}
+<script src="/assets/js/main.min.js"></script>
 
 <script>
     var dragItem = document.querySelector("#item");

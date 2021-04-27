@@ -71,7 +71,7 @@
     </x-jet-authentication-card>
 </x-guest-layout>
 
-<p style="margin-top: 200px">
+<p style="margin-top: 20px">
 
 </p>
 

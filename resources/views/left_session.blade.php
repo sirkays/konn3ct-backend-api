@@ -29,7 +29,7 @@
                             @auth
                                 <a href="/room" class="btn btn-outline">Goto Meeting Room</a>
                             @else
-                                <a href="/register" class="btn btn-outline">Click here to Register</a>
+                                <a href="/register" class="btn btn-outline">Register Here</a>
                             @endif
 
                             <br />
@@ -48,4 +48,8 @@
     <p style="margin-top: 20px"></p>
 
 @endsection
+
+@section('before-styles')
+    @laravelPWA
+@stop
 

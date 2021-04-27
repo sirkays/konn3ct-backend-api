@@ -11,7 +11,7 @@ $('.main-menu nav ul').onePageNav({
 // sticky
 $(window).on('scroll', function () {
 	var scroll = $(window).scrollTop();
-	if (scroll < 150) {
+	if (scroll < 300) {
 		$("#header-sticky").removeClass("sticky-menu");
 	} else {
 		$("#header-sticky").addClass("sticky-menu");

@@ -185,13 +185,13 @@
                                             <td style="min-width: 50px; max-width: 100px">
 
                                                 <div class="dropdown">
-                                                    <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}">
+                                                    <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}" data-toggle="tooltip" data-placement="top" title="Play meeting recording">
                                                         Play Video
                                                     </a>
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placement="top" title="Do more with the recording">
                                                         Manage
                                                     </button>
-                                                    <a class="waves-effect waves-light btn btn-danger" href="#">
+                                                    <a class="waves-effect waves-light btn btn-danger" href="#" data-toggle="tooltip" data-placement="top" title="Delete Meeting Recording">
                                                         Delete
                                                     </a>
 

@@ -63,21 +63,11 @@ class RoomController extends Controller
         $input['url']=preg_replace('/\s+/', '', $input['url']);
 
         if($input['access_code']=="") {
-            if (isset($input['aujam'])) {
-                $input['password_attendee'] = "moderator";
-                $input['password_moderator'] = "attendee";
-            } else {
-                $input['password_attendee'] = "attendee";
-                $input['password_moderator'] = "moderator";
-            }
+            $input['password_attendee'] = "attendee";
+            $input['password_moderator'] = "moderator";
         }else{
-            if (isset($input['aujam'])) {
-                $input['password_attendee'] = "moderator";
-                $input['password_moderator'] = $input['access_code'];
-            } else {
-                $input['password_attendee'] = $input['access_code'];
-                $input['password_moderator'] = "moderator";
-            }
+            $input['password_attendee'] = $input['access_code'];
+            $input['password_moderator'] = "moderator";
         }
 
         $r=RoomModel::create($input);
@@ -330,11 +320,11 @@ class RoomController extends Controller
         session(['name' => $name]);
         session(['email' => $email]);
 
-        $i=RoomModel::where('url',$url)->first();
+        $i=RoomModel::where('url',$url)->orWhere('name',$url)->first();
 
         if(!$i){
             return back()
-                ->with('error', 'Invalid Room!');
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
         $u=User::find($i->user_id);
@@ -398,17 +388,17 @@ class RoomController extends Controller
         $name=session('name');
         $email=session('email');
 
-        $i=RoomModel::where('url',$url)->first();
+        $i=RoomModel::where('url',$url)->orWhere('name',$url)->first();
 
         if(!$i){
             return redirect('joinsession')
-                ->with('error', 'Invalid Room!');
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
         if($i->password_attendee != 'attendee'){
             if($i->password_attendee != $request->get('accesscode')) {
                 return redirect('joinsession')
-                    ->with('error', 'Wrong access code!');
+                    ->with('error', 'Wrong access code, kindly ask the correct access code from the moderator!');
             }
             $password_attendee = $request->get('accesscode');
         }else{

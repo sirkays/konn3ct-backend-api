@@ -72,7 +72,7 @@
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>
                                             </td>
                                             <td>
-                                                <a class="btn" href="/receipt"> View Receipt</a>
+                                                <a class="btn" href="/receipt" data-toggle="tooltip" data-placement="top" title="View receipt of payment"> View Receipt</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -114,9 +114,4 @@
             </section>
             <!-- /.content -->
 @endsection
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-</script>
+

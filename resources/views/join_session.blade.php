@@ -4,7 +4,7 @@
     <!-- main-area -->
     <main>
         <!-- pricing-area -->
-        <section id="pricing" class="pricing-area pt-20 pb-20">
+        <section id="pricing" class="pricing-area pt-20 pb-20 mb-30">
             <div class="container">
 
                 @if (session('success'))
@@ -28,16 +28,16 @@
                             <form action="/ajoinroom" method="POST">
                                 @csrf
                                 <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                    <div class="form-group">
+                                    <div class="form-group mt-10">
                                         <input type="text" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-10">
                                         <input type="text" name="name" class="form-control" value="" placeholder="Enter your name e.g Samji Diamond" required autofocus autocomplete="name" >
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-10">
                                         <input type="text" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-20 mb-40">
                                         <button class="btn su">Konn3ct</button>
                                     </div>
                                 </div>
@@ -53,6 +53,5 @@
     </main>
     <!-- main-area-end -->
 
-    <p style="margin-top: 20px"></p>
-
 @endsection
+

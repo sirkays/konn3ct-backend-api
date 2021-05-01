@@ -349,7 +349,7 @@ return [
         'block-all-mixed-content' => false,
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests
-        'upgrade-insecure-requests' => false,
+        'upgrade-insecure-requests' => true,
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri
         'base-uri' => [

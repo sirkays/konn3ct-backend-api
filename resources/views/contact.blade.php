@@ -107,3 +107,7 @@
     <!-- contact-area-end -->
 
 @endsection
+
+@section('before-styles')
+    @laravelPWA
+@stop

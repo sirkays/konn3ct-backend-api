@@ -124,7 +124,7 @@
     <section id="home" class="slider-area fix p-relative">
 
         <div class="slider-active">
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider1.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider1.webp)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -143,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider2.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider2.webp)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider4.jpg)">
+            <div class="single-slider slider-bg d-flex align-items-center" style="background-image:url(/assets/img/slider/slider4.webp)">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-2">
@@ -188,7 +188,7 @@
 
     <!-- choose-area -->
     <section class="choose-area pt-20 pb-20 p-relative" style="background:#f5f8fa;">
-        <div class="chosse-img wow fadeInRight animated" data-animation="fadeInRight animated" data-delay=".2s" style="background-image:url(/assets/img/bg/about.jpg)"></div>
+        <div class="chosse-img wow fadeInRight animated" data-animation="fadeInRight animated" data-delay=".2s" style="background-image:url(/assets/img/bg/about.webp)"></div>
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
@@ -240,7 +240,7 @@
     <!-- choose-area-end -->
 
     <!-- counter-area -->
-    <div class="counter-area pt-20 pb-30" style="background-image:url(/assets/img/bg/count-bg.jpg)">
+    <div class="counter-area pt-20 pb-30" style="background-image:url(/assets/img/bg/count-bg.webp)">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8">
@@ -324,7 +324,7 @@
 
 
                 <div class="col-12 text-center">
-                    <a href="/features" class="btn btn-primary">See More</a>
+                    <a href="/features" class="btn btn-primary">View Details</a>
                 </div>
 
             </div>
@@ -333,4 +333,5 @@
     <!-- counter-area-end -->
 </main>
 
-@endsection
+@stop
+

@@ -166,7 +166,8 @@
                                                             <input type="hidden" name="id" value="{{$room->id}}" />
 
                                                             <div class="dropdown">
-                                                                    <Button type="submit" class="waves-effect waves-light font-size-10 btn btn-success">Konn3ct Now</Button>
+                                                                    <Button type="submit" class="waves-effect waves-light font-size-10 btn btn-success" data-toggle="tooltip" data-placement="top" title="Start the meeting">Konn3ct Now <br>
+                                                                        <span class="font-size-8">Start Meeting</span></Button>
 
                                                                 </form>
 
@@ -174,14 +175,14 @@
                                                                     Manage
                                                                 </button>
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                    <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')">
+                                                                    <Button type="button" class="dropdown-item waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
                                                                         Copy
                                                                     </Button>
 
-                                                                    <a class="dropdown-item" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                                    <a class="dropdown-item" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Google Calender">
                                                                         Google Calender Invite
                                                                     </a>
-                                                                    <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                                    <a class="dropdown-item" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
                                                                         Outlook Calendar Invite
                                                                     </a>
                                                                     <button type="button" style="font-size: 12px"  class="dropdown-item" data-toggle="modal" data-target=".invite-lg-{{$room->id}}">
@@ -203,7 +204,7 @@
                                                                         <form action="/deleteroom" method="POST">
                                                                             @csrf
                                                                             <input type="hidden" name="id" value="{{$room->id}}" />
-                                                                            <Button type="submit" class="waves-effect waves-light btn">
+                                                                            <Button type="submit" class="waves-effect waves-light btn"  data-toggle="tooltip" data-placement="top" title="Delete the meeting">
                                                                                 Delete
                                                                             </Button>
                                                                         </form>
@@ -593,32 +594,32 @@
                                                 </span>
                                                 <br/>
                                                 <div class="dropdown">
-                                                    <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')">
+                                                    <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
                                                         <i class="fa fa-copy"></i> Copy
                                                     </Button>
-                                                    <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                    <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary" data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Google Invite">
                                                         Google Calender Invite
                                                     </a>
 
-                                                    <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary">
+                                                    <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
                                                         Outlook Calendar Invite
                                                     </a>
 
-                                                    <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".dk-invite-lg-{{$room->id}}">
+                                                    <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".dk-invite-lg-{{$room->id}}" data-placement="top" title="Schedule meeting with guests email">
                                                         Konn3ct Invite
                                                     </button>
-                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placement="top" title="Do more with meeting room">
                                                         Manage Room
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-accesscode{{$room->id}}-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-accesscode{{$room->id}}-modal" data-placement="top" title="Add or remove access code">
                                                             Access Code
                                                         </Button>
 
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-limituser{{$room->id}}-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-limituser{{$room->id}}-modal" data-placement="top" title="Increase or decrease users size for meeting">
                                                             Users Limit
                                                         </Button>
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-roombanner{{$room->id}}-modal">
+                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-roombanner{{$room->id}}-modal"  data-placement="top" title="Upload a desired meeting banner">
                                                             Meeting Room Banner Upload
                                                         </Button>
                                                     </div>
@@ -947,8 +948,9 @@
                                                 <form action="/joinroom" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{$room->id}}" />
-                                                    <Button type="submit" class="waves-effect waves-light btn btn-success">
-                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now
+                                                    <Button type="submit" class="waves-effect waves-light btn btn-success" data-toggle="tooltip" data-placement="top" title="Start the meeting">
+                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now <br>
+                                                        <span class="font-size-10">Start Meeting</span>
                                                     </Button>
                                                 </form>
                                             </td>
@@ -958,7 +960,7 @@
                                                         <form action="/deleteroom" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="id" value="{{$room->id}}" />
-                                                            <Button type="submit" class="waves-effect waves-light btn btn-danger">
+                                                            <Button type="submit" class="waves-effect waves-light btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete the meeting">
                                                                 <i class="fa fa-trash"></i> Delete
                                                             </Button>
                                                         </form>

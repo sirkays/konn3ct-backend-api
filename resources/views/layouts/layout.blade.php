@@ -317,6 +317,17 @@
 {{--        drift.load('9u4f4f3mumcc');--}}
 {{--    </script>--}}
 <!-- End of Async Drift Code -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-196433825-1');
+    </script>
+
 </head>
 <body>
 <!-- header -->

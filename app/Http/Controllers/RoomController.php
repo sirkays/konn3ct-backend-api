@@ -183,7 +183,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = Bigbluebutton::isMeetingRunning($i->id);
+                $ms = \Bigbluebutton::isMeetingRunning($i->id);
                 if ($ms) {
                     $datas['active']++;
                 }

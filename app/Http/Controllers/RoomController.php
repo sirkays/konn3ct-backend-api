@@ -306,10 +306,10 @@ class RoomController extends Controller
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner,
                 'meta' => [
-                    ['userdata-bbb_auto_join_audio' => true],
-                    ['userdata-bbb_listen_only_mode' => true],
-                    ['userdata-userdata-bbb_force_listen_only' => true],
-                    ['userdata-bbb_skip_check_audio' => true]
+                    'userdata-bbb_auto_join_audio' => true,
+                    'userdata-bbb_listen_only_mode' => true,
+                    'userdata-userdata-bbb_force_listen_only' => true,
+                    'userdata-bbb_skip_check_audio' => true
                 ]
                 //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);

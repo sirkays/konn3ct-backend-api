@@ -305,13 +305,13 @@ class RoomController extends Controller
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner,
-                'meta' => [
+                'customParameters' => [
                     'userdata-bbb_auto_join_audio' => 'true',
-                    'userdata-bbb_listen_only_mode' => 'true',
-                    'userdata-userdata-bbb_force_listen_only' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
                     'userdata-bbb_skip_check_audio' => 'true'
                 ]
-                //'redirect' => false // only want to create and meeting and get join url then use this parameter
             ]);
 //            return redirect()->to($url);
             return $url;
@@ -442,35 +442,35 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-//        return redirect()->to(
-//            \Bigbluebutton::join([
-//                'meetingID' => $i->id,
-//                'userName' => $name,
-//                'password' => $password_attendee, //which user role want to join set password here
-//                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-//                'clientUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-//                'customParameters' => [
-//                    ['userdata-bbb_auto_join_audio' => 'true'],
-//                    ['userdata-bbb_listen_only_mode' => 'true'],
-//                    ['userdata-userdata-bbb_force_listen_only' => 'true'],
-//                    ['userdata-bbb_skip_check_audio' => 'true']
-//                ]
-//            ])
-//        );
-
-           return \Bigbluebutton::join([
+        return redirect()->to(
+            \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-               'customParameters' => [
-                   'userdata-bbb_auto_join_audio' => 'true',
-                   'userdata-bbb_enable_video' => 'true',
-                   'userdata-bbb_listen_only_mode' => 'false',
-                   'userdata-bbb_force_listen_only' => 'false',
-                   'userdata-bbb_skip_check_audio' => 'true'
-               ],
-            ]);
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true'
+                ],
+            ])
+        );
+
+//           return \Bigbluebutton::join([
+//                'meetingID' => $i->id,
+//                'userName' => $name,
+//                'password' => $password_attendee, //which user role want to join set password here
+//                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+//               'customParameters' => [
+//                   'userdata-bbb_auto_join_audio' => 'true',
+//                   'userdata-bbb_enable_video' => 'true',
+//                   'userdata-bbb_listen_only_mode' => 'false',
+//                   'userdata-bbb_force_listen_only' => 'false',
+//                   'userdata-bbb_skip_check_audio' => 'true'
+//               ],
+//            ]);
     }
 
     public function delete(Request $request){

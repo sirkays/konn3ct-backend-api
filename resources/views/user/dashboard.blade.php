@@ -1046,7 +1046,7 @@
                                                 </div>
                                                 <div class="c-inputs-stacked">
                                                     <input type="checkbox" name="dpuc" id="checkbox_34">
-                                                    <label for="checkbox_34" class="block">Disable public chat</label>
+                                                    <label for="checkbox_34" class="block">Disable Group Chat</label>
                                                 </div>
     {{--                                            <div class="c-inputs-stacked">--}}
     {{--                                                <input type="checkbox" name="dprc" id="checkbox_4">--}}
@@ -1062,7 +1062,7 @@
                                                 </div>
                                                 <div class="c-inputs-stacked">
                                                     <input type="checkbox" name="dsn" id="checkbox_41">
-                                                    <label for="checkbox_41" class="block">Disable Shared Note</label>
+                                                    <label for="checkbox_41" class="block">Disable Konn3ct Doc</label>
                                                 </div>
     {{--                                            <div class="c-inputs-stacked">--}}
     {{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}

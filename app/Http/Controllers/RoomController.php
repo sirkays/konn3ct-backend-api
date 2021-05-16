@@ -466,8 +466,8 @@ class RoomController extends Controller
                'customParameters' => [
                    'userdata-bbb_auto_join_audio' => 'true',
                    'userdata-bbb_enable_video' => 'true',
-                   'userdata-bbb_listen_only_mode' => 'true',
-                   'userdata-bbb_force_listen_only' => 'true',
+                   'userdata-bbb_listen_only_mode' => 'false',
+                   'userdata-bbb_force_listen_only' => 'false',
                    'userdata-bbb_skip_check_audio' => 'true'
                ],
             ]);

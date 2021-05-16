@@ -440,8 +440,14 @@ class RoomController extends Controller
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
-                'avatarURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-                'clientURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png'
+                'avatarUrl' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'clientUrl' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'meta'=> [
+                    ['userdata-bbb_auto_join_audio' => true],
+                    ['userdata-bbb_listen_only_mode' => true],
+                    ['userdata-userdata-bbb_force_listen_only' => true],
+                    ['userdata-bbb_skip_check_audio' => true]
+                ]
             ])
         );
     }

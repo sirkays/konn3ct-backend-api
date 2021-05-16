@@ -444,11 +444,12 @@ class RoomController extends Controller
         MeetingsModel::create($mdata);
 
         $u=User::where('email', $email)->first();
+        $dp = 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png';
 
-        if($u->profile_photo_url==""){
-            $dp='https://dev.konn3ct.net/assets/images/konn3ctIcon.png';
-        }else{
-            $dp=$u->profile_photo_url;
+        if($u!=null) {
+            if ($u->profile_photo_url != "") {
+                $dp = $u->profile_photo_url;
+            }
         }
 
         return redirect()->to(

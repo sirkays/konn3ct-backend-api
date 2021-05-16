@@ -305,6 +305,7 @@ class RoomController extends Controller
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner,
+                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
                 'customParameters' => [
                     'userdata-bbb_auto_join_audio' => 'true',
                     'userdata-bbb_enable_video' => 'true',
@@ -442,12 +443,20 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
+        $u=User::where('email', $email)->first();
+
+        if($u->profile_photo_url==""){
+            $dp='https://dev.konn3ct.net/assets/images/konn3ctIcon.png';
+        }else{
+            $dp=$u->profile_photo_url;
+        }
+
         return redirect()->to(
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
-                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'avatarUrl' => $dp,
                 'customParameters' => [
                     'userdata-bbb_auto_join_audio' => 'true',
                     'userdata-bbb_enable_video' => 'true',
@@ -458,19 +467,6 @@ class RoomController extends Controller
             ])
         );
 
-//           return \Bigbluebutton::join([
-//                'meetingID' => $i->id,
-//                'userName' => $name,
-//                'password' => $password_attendee, //which user role want to join set password here
-//                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-//               'customParameters' => [
-//                   'userdata-bbb_auto_join_audio' => 'true',
-//                   'userdata-bbb_enable_video' => 'true',
-//                   'userdata-bbb_listen_only_mode' => 'false',
-//                   'userdata-bbb_force_listen_only' => 'false',
-//                   'userdata-bbb_skip_check_audio' => 'true'
-//               ],
-//            ]);
     }
 
     public function delete(Request $request){

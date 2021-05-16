@@ -464,13 +464,13 @@ class RoomController extends Controller
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
                'customParameters' => [
-                   'userdata-bbb_auto_join_audio' => true,
-                   'userdata-bbb_listen_only_mode' => true,
-                   'userdata-userdata-bbb_force_listen_only' => true,
-                   'userdata-bbb_skip_check_audio' => true
+                   'userdata-bbb_auto_join_audio' => 'true',
+                   'userdata-bbb_enable_video' => 'true',
+                   'userdata-bbb_listen_only_mode' => 'true',
+                   'userdata-bbb_force_listen_only' => 'true',
+                   'userdata-bbb_skip_check_audio' => 'true'
                ],
             ]);
-
     }
 
     public function delete(Request $request){

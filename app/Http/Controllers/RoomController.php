@@ -7,12 +7,12 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use JoisarJignesh\Bigbluebutton\Bigbluebutton;
 
 class RoomController extends Controller
 {
@@ -442,7 +442,7 @@ class RoomController extends Controller
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
                 'clientUrl' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-                'meta'=> [
+                'customParameters' => [
                     ['userdata-bbb_auto_join_audio' => true],
                     ['userdata-bbb_listen_only_mode' => true],
                     ['userdata-userdata-bbb_force_listen_only' => true],
@@ -497,17 +497,17 @@ class RoomController extends Controller
 
                     $data['idate']=$input['date'];
 
-                    $data['itime']=$input['time'];
+                    $data['itime'] = $input['time'];
 
-                    $data['iroom']=$input['roomname'];
+                    $data['iroom'] = $input['roomname'];
 
-                    $data['itimezone']=$input['timezone'];
+                    $data['itimezone'] = $input['timezone'];
 
-                    $data['iadditional']=$input['additional']??'';
+                    $data['iadditional'] = $input['additional'] ?? '';
 
                     Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
                 }
-            }catch (\Exception $e){
+            } catch (Exception $e) {
                 echo "error when sending email";
             }
         }

@@ -92,7 +92,7 @@
             xhttp.send();
         }
 
-        const timeinterval =setInterval(checkmeeting, 60000);
+        const timeinterval =setInterval(checkmeeting, 30000);
     </script>
 
 

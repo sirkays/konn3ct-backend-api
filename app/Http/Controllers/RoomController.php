@@ -314,8 +314,7 @@ class RoomController extends Controller
                     'userdata-bbb_skip_check_audio' => 'true'
                 ]
             ]);
-//            return redirect()->to($url);
-            return $url;
+            return redirect()->to($url);
         }
 
     }

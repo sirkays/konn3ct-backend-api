@@ -42,7 +42,7 @@ class RecordingsController extends Controller
             $r=$r2->id;
             $er="1";
             for ($i=2; $i <= $r; $i++){
-                $er=$er.",".$r->id;
+                $er=$er.",".$i;
             }
             $fer="[".$er."]";
 

@@ -184,10 +184,6 @@
     </section>
     <!-- /.content -->
 
-    <iframe
-        src="https://konn3ct.com/monitoring/d-solo/HIbd_CXZz8/bigbluebutton-server-instance-node_exporter?orgId=1&refresh=10s&var-datasource=default&var-job=bbb&var-job_node_exporter=bbb_node_exporter&var-instance=localhost&var-interface=br-soffice&from=1621316676042&to=1621338276042&panelId=2"
-        width="450" height="200" frameborder="0"></iframe>
-
     <!-- Modal -->
     <div class="modal modal-left fade" id="modal-left" tabindex="-1">
         <form action="/createroom" method="POST">
@@ -292,10 +288,3 @@
     </script>
 
 @endsection
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-
-</script>

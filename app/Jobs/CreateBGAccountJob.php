@@ -26,11 +26,11 @@ class CreateBGAccountJob implements ShouldQueue
      *
      * @return void
      */
-    public $job;
+    public $jobi;
 
-    public function __construct($job)
+    public function __construct($jobi)
     {
-        $this->job = $job;
+        $this->jobi = $jobi;
     }
 
     /**
@@ -40,8 +40,8 @@ class CreateBGAccountJob implements ShouldQueue
      */
     public function handle()
     {
-        $name = $this->job['name'];
-        $email = $this->job['email'];
+        $name = $this->jobi['name'];
+        $email = $this->jobi['email'];
         $password = Str::random(8);
 
         $fname = $name . explode(" ");

@@ -451,10 +451,10 @@ class RoomController extends Controller
                 $dp = $u->profile_photo_url;
             }
         } else {
-            $job['name'] = $name;
-            $job['email'] = $email;
+            $jobi['name'] = $name;
+            $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($job)->delay(now()->addMinutes(1));
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
         }
 
         return redirect()->to(

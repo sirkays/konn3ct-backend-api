@@ -72,6 +72,9 @@
                         @endif
                     </div>
 
+                    <span
+                        class="text-muted">Kindly note that on joining this room an account may be created for you</span>
+
                 </div>
             </div>
         </section>

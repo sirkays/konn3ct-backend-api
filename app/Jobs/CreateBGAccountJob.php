@@ -45,7 +45,7 @@ class CreateBGAccountJob implements ShouldQueue
         $email = $this->jobi['email'];
         $password = Str::random(8);
 
-        $fname = $name . explode(" ");
+        $fname = explode(" ", $name);
 
         $set = SettingsModel::first();
         $exp = Carbon::now()->addDays($set->freetrial_days);

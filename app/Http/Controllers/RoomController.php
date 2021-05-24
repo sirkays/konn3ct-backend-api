@@ -454,7 +454,7 @@ class RoomController extends Controller
             $job['name'] = $name;
             $job['email'] = $email;
 
-            CreateBGAccountJob::dispatch()->delay(now()->addMinutes(1));
+            CreateBGAccountJob::dispatch($job)->delay(now()->addMinutes(1));
         }
 
         return redirect()->to(

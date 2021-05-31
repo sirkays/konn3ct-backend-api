@@ -180,6 +180,9 @@
                                                     </div>
                                                 @endif
 
+                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master Card</a>
+                                                <input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />
+
 
                                             </div>
                                         </div>

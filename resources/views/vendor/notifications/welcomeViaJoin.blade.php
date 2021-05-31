@@ -34,8 +34,13 @@
 
     {{ "Visit https://konn3ct.com" }}
 
+    @component('mail::panel')
+        You get this email because you checked that an account should be created for you on the room you joined recently.
+    @endcomponent
+
     {{-- Outro Lines --}}
-    {{ 'You get this email because you checked that an account should be created for you on the room you joined recently.' }}
+{{--    {{ '' }}--}}
+
 
     {{-- Salutation --}}
     <br><br>

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -151,6 +152,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('payment');
 
 //    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+
+    Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'CreateSession'])->name('CreateSession');
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 

@@ -87,7 +87,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
     <!-- CSS here -->
-    <link rel="stylesheet" href="/assets/bootstrap-5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">
     <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
@@ -546,7 +546,7 @@
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
-<script src="/assets/bootstrap-5/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/one-page-nav-min.js"></script>
 <script src="/assets/js/slick.min.js"></script>
 <script src="/assets/js/ajax-form.min.js"></script>

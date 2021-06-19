@@ -213,9 +213,18 @@
             <li><a href="/room"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Room(s)</a></li>
             <li><a href="/joinsession"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Join a Meeting Room</a></li>
 {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
-            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>
-            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>
-            <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a></li>
+            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Recording(s)</a></li>
+            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a>
+            </li>
+            <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a>
+            </li>
+            <li><a href="/referee"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Referee(s)</a>
+            </li>
+            <li><a href="/modules"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Modules</a>
+            </li>
+            <li><a href="/modules"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Invite
+                    History</a></li>
 {{--            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>--}}
 {{--            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>--}}
             @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
@@ -517,7 +526,7 @@
 
 <script src="/user_assets/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
-@if(Request::segment(1) === 'payment')
+@if(Request::segment(1) === 'payment' || Request::segment(1) === 'participants')
 <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 @endif
 

@@ -143,14 +143,21 @@
 
         <!-- Sample menu definition -->
         <ul id="main-menu" class="sm sm-blue">
-            <li><a href="{{route('admin.users')}}"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Users</a></li>
-            <li><a href="{{route('admin.rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Rooms</a></li>
-{{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
-{{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
-{{--            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>--}}
-            <li><a href="{{route('admin.recordings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recordings</a></li>
-            <li><a href="{{route('admin.meetings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Meetings</a></li>
-            <li><a href="{{route('admin.payments')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Payments</a></li>
+            <li><a href="{{route('admin.users')}}"><i class="icon-User"><span class="path1"></span><span
+                            class="path2"></span></i>Users</a></li>
+            <li><a href="{{route('admin.rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Rooms</a></li>
+            {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
+            {{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
+            {{--            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>--}}
+            <li><a href="{{route('admin.recordings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Recordings</a></li>
+            <li><a href="{{route('admin.meetings')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Meetings</a></li>
+            <li><a href="{{route('admin.payments')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Payments</a></li>
+            <li><a href="{{route('admin.referrals')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Referrals</a></li>
         </ul>
     </nav>
 
@@ -159,8 +166,8 @@
         <div class="content-wrapper-before"></div>
         <div class="container-full">
             <!-- Main content -->
-            @yield('content')
-            <!-- /.content -->
+        @yield('content')
+        <!-- /.content -->
         </div>
     </div>
     <!-- /.content-wrapper -->

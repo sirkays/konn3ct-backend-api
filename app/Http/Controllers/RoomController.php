@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
-use App\Mail\InviteMail;
+use App\Jobs\EmailInviteJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
+use App\Models\PreRegModel;
+use App\Models\PreRegUserModel;
 use App\Models\RoomModel;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RoomController extends Controller
 {
@@ -73,7 +74,7 @@ class RoomController extends Controller
 
         $r=RoomModel::create($input);
 
-        $createMeeting = \Bigbluebutton::initCreateMeeting([
+        $createMeeting = Bigbluebutton::initCreateMeeting([
             'meetingID' => $r->id,
             'meetingName' => $input['name'],
             'attendeePW' => $input['password_attendee'],
@@ -147,7 +148,7 @@ class RoomController extends Controller
 //$meetingParams->setLockSettingsLockedLayout
 //$meetingParams->setLockSettingsLockOnJoin
 //    $meetingParams->setFreeJoin
-        $bbb = \Bigbluebutton::create($createMeeting);
+        $bbb = Bigbluebutton::create($createMeeting);
 //       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
 
         $bba=json_decode($bbb, true);
@@ -184,7 +185,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning($i->id);
+                $ms = Bigbluebutton::isMeetingRunning($i->id);
                 if ($ms) {
                     $datas['active']++;
                 }
@@ -208,11 +209,11 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 
         if($ms==1) {
             return redirect()->to(
-                \Bigbluebutton::join([
+                Bigbluebutton::join([
                     'meetingID' => $i->id,
                     'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
@@ -285,7 +286,7 @@ class RoomController extends Controller
             $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
 
-            $url = \Bigbluebutton::start([
+            $url = Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
@@ -337,7 +338,7 @@ class RoomController extends Controller
 
         $u=User::find($i->user_id);
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=1;
 
         $mdata['meeting_id']=$i->id;
@@ -361,7 +362,7 @@ class RoomController extends Controller
 //            return back()
 //                ->with('error', 'Meeting has not started!');
         }else{
-            $mds = \Bigbluebutton::getMeetingInfo([
+            $mds = Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
@@ -417,7 +418,7 @@ class RoomController extends Controller
             $password_attendee="moderator";
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -458,7 +459,7 @@ class RoomController extends Controller
         }
 
         return redirect()->to(
-            \Bigbluebutton::join([
+            Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
@@ -493,53 +494,32 @@ class RoomController extends Controller
     public function invite(Request $request){
         $input=$request->all();
 
-        if ($input['guest']==""){
+        if ($input['guest'] == "") {
             return back()->with('error', 'Guest emails can not be empty');
         }
 
         #TODO: save all emails sent to one table for campaigns later
-        $input['guest'].=",".Auth::user()->email;
+        $input['guest'] .= "," . Auth::user()->email;
 
-        // use of explode
-        $str_arr = explode (",", $input['guest']);
+        EmailInviteJob::dispatch($input)->delay(now()->addMinutes(1));
 
-        foreach ($str_arr as $arr) {
+        return redirect('room')->with('success', 'Invite Sent Successfully!');
+    }
 
-            $GLOBALS['recipient'] = trim($arr);
+    public function invite_whatsapp(Request $request)
+    {
+        $input = $request->all();
 
-            try {
-                if ($GLOBALS['recipient'] != "") {
-
-                    $data['ihost']=$input['hostname'];
-
-                    $data['ilink']=$input['roomlink'];
-
-                    $data['iaccesscode']=$input['accesscode'];
-
-                    $data['imtitle']=$input['title'];
-
-                    $data['idate']=$input['date'];
-
-                    $data['itime'] = $input['time'];
-
-                    $data['iroom'] = $input['roomname'];
-
-                    $data['itimezone'] = $input['timezone'];
-
-                    $data['iadditional'] = $input['additional'] ?? '';
-
-                    Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
-                }
-            } catch (Exception $e) {
-                echo "error when sending email";
-            }
+        if ($input['guest'] == "") {
+            return back()->with('error', 'Guest emails can not be empty');
         }
 
         return redirect('room')->with('success', 'Invite Sent Successfully!');
     }
 
-    public function accesscode(Request $request){
-        $input=$request->all();
+    public function accesscode(Request $request)
+    {
+        $input = $request->all();
 
         $r=RoomModel::find($input['id']);
 
@@ -572,7 +552,7 @@ class RoomController extends Controller
 
     public function roomstatus($url){
         $i = RoomModel::where('url', $url)->first();
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);
@@ -603,10 +583,170 @@ class RoomController extends Controller
 
         echo "Uploaded successfully";
 
-        $i=RoomModel::find($request->id);
-        $i->banner=$fName;
+        $i = RoomModel::find($request->id);
+        $i->banner = $fName;
         $i->save();
 
         return back()->with('success', 'Banner has been uploaded successfully');
     }
+
+    public function prereg(Request $request)
+    {
+
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'hostname' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'timezone' => 'required',
+            'about' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $reglink = Str::random(20);
+
+        PreRegModel::create([
+            "user_id" => Auth::id(),
+            "room_id" => $input['id'],
+            "reference" => $reglink,
+            "title" => $input['title'],
+            "host_name" => $input['hostname'],
+            "date" => $input['date'],
+            "time" => $input['time'],
+            "timezone" => $input['timezone'],
+            "about" => $input['about'],
+        ]);
+
+        $r = RoomModel::find($input['id']);
+        $r->prereg = $reglink;
+        $r->save();
+
+
+        return back()->with('success', 'Processed successfully. Your Pre-registration link is ' . url("/preregistration/" . $reglink));
+    }
+
+    public function dprereg($reference)
+    {
+
+        $pr = PreRegModel::where("reference", $reference)->first();
+        $pr->status = 0;
+        $pr->save();
+
+        $r = RoomModel::find($pr->room_id);
+        $r->prereg = "";
+        $r->save();
+
+        return back()->with('success', 'Processed successfully. Pre-registration link has been disabled');
+    }
+
+    public function preregshow($url)
+    {
+
+        $data['preg'] = PreRegModel::where('reference', $url)->first();
+
+        if (!$data['preg']) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        $data['u'] = User::find($data['preg']->user_id);
+
+        if ($data['u'] == NULL) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        $data['room'] = RoomModel::find($data['preg']->room_id);
+
+        if ($data['room'] == NULL) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        return view('preregistration', $data);
+
+    }
+
+    public function registerprereg(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'ref' => 'required|max:255',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $data['preg'] = PreRegModel::where('reference', $request->ref)->first();
+
+        if (!$data['preg']) {
+            return redirect()->to("preregistration")
+                ->with('error', 'An error occured. Kindly contact support.');
+        }
+
+        PreRegUserModel::create([
+            "prereg_id" => $data['preg']->id,
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone" => $request->phone,
+        ]);
+
+        $data['room'] = RoomModel::find($data['preg']->room_id);
+
+        session(['roomurl' => $data['room']->url]);
+        session(['roomname' => $data['room']->name]);
+
+        return redirect()->route("preregsuccess");
+    }
+
+    public function attendance($id)
+    {
+        $room = RoomModel::find($id);
+        if ($room->user_id != Auth::id()) {
+            abort(404);
+        }
+        $datas['meetings'] = MeetingsModel::where([["meeting_id", $id], ["status", "=", "start meeting"]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance', $datas);
+    }
+
+    public function participants($id)
+    {
+        $datas['meetings'] = MeetingsModel::where([["identifier", "=", $id]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance_participants', $datas);
+    }
+
+
+    public function prereParticipants($reference)
+    {
+        $datas['prereg'] = PreRegModel::where("reference", $reference)->first();
+        if ($datas['prereg'] == null) {
+            abort(404);
+        }
+
+        if ($datas['prereg']->user_id != Auth::id()) {
+            abort(404);
+        }
+        $datas['users'] = PreRegUserModel::where("prereg_id", $datas['prereg']->id)->latest()->get();
+        $datas['i'] = 1;
+        return view('user.attendance_participants', $datas);
+    }
+
 }

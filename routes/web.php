@@ -11,7 +11,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\UserWelcomeMail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -53,7 +53,7 @@ Route::get('/leftsession', function () {
 });
 
 Route::get('/join/{url}', function ($url) {
-    return view('join_session', ['url'=>$url]);
+    return view('join_session', ['url' => $url]);
 });
 
 Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
@@ -61,6 +61,18 @@ Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join
 Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 
 Route::get('/roomstatus/{url}', [RoomController::class, 'roomstatus'])->name('roomstatus');
+
+Route::get('/preregistration', function () {
+    abort(404);
+});
+
+Route::get('/preregistration/{url}', [RoomController::class, 'preregshow'])->name('preregshow');
+
+Route::post('/registerprereg', [RoomController::class, 'registerprereg'])->name('registerprereg');
+
+Route::get('/preregistrationsuccess', function () {
+    return view('success');
+})->name('preregsuccess');
 
 Route::get('/features', function () {
     return view('features');
@@ -92,12 +104,22 @@ Route::get('/roombanner/{filename}', function ($filename)
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
+
     Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
+
     Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
     Route::get('/room', [RoomController::class, 'show'])->name('room');
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
+
+    Route::post('/preregistration', [RoomController::class, 'prereg'])->name('prereg');
+
+    Route::get('/preregistration_participants/{reference}', [RoomController::class, 'prereParticipants'])->name('prereParticipants');
+
+    Route::get('/disbalepreregistration/{reference}', [RoomController::class, 'dprereg'])->name('dprereg');
+
+    Route::get('/preregusers/{reference}', [RoomController::class, 'preregusers'])->name('preregusers');
 
     Route::get('/activateft', [PaymentController::class, 'activatefree'])->name('activatefree');
 
@@ -113,6 +135,12 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
+    Route::get('/referee', [ProfileController::class, 'referee'])->name('referee');
+
+    Route::get('/attendance/{id}', [RoomController::class, 'attendance'])->name('attendance');
+
+    Route::get('/participants/{id}', [RoomController::class, 'participants'])->name('participants');
+
     Route::post('/deleterecording', [RecordingController::class, 'delete'])->name('recording.delete');
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
@@ -124,7 +152,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');
 
     Route::get('/welcomemail', function (){
-        return (new \App\Mail\UserWelcomeMail())->render();
+        return (new UserWelcomeMail())->render();
     })->name('mailtest');
 
 Route::get('/invitemail', function (){
@@ -140,7 +168,7 @@ Route::get('/invitemail', function (){
 
         $data['iroom']="Sammy Room";
 
-        return (new \App\Mail\UserWelcomeMail($data))->render();
+    return (new UserWelcomeMail($data))->render();
     })->name('mailtest');
 
 });
@@ -183,6 +211,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
         Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
+
+        Route::get('/referrals', [UsersController::class, 'referrals'])->name('referrals');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 

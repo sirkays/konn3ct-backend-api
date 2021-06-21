@@ -8,7 +8,7 @@
         <div class="content-header">
             <div class="d-flex align-items-center">
                 <div class="w-p100 d-md-flex align-items-center justify-content-between">
-                    <h3 class="page-title">Referee List</h3>
+                    <h3 class="page-title">Invites History</h3>
                     <div class="d-inline-block align-items-center">
                         <nav>
                             <ol class="breadcrumb">
@@ -27,8 +27,7 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h6 class="box-subtitle">The table below show the list of people who has joined our platform
-                            using your referral code</h6>
+                        <h6 class="box-subtitle">The table below show the list of invites sent from the system</h6>
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
@@ -37,41 +36,31 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email Address</th>
-                                    <th>Plan</th>
-                                    <th>Date Registered</th>
-                                    <th>Referred By</th>
+                                    <th>Type</th>
+                                    <th>Room Name</th>
+                                    <th>Text</th>
+                                    <th>Guest</th>
+                                    <th>Date Sent</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($referee as $data)
+                                @foreach($invites as $data)
                                     <tr>
                                         <td>#{{$i++}}</td>
                                         <td>
                                             <h6 class="mb-0">
-                                                <a href="#">{{$data->firstname}} {{$data->lastname}}</a>
+                                                <a href="#">{{$data->type}}</a>
                                             </h6>
                                         </td>
-                                        <td><span class="d-block text-muted"> {{$data->email}}</span>
+                                        <td><span class="d-block text-muted"> {{$data->roomname}}</span>
                                         </td>
-                                        <td>
-                                                <span class="badge badge-pill badge-success">
-                                                    @if($data->plan==1)
-                                                        Basic
-                                                    @elseif($data->plan==2)
-                                                        Lite
-                                                    @else
-                                                        Pro
-                                                    @endif
-                                                </span>
-                                        </td>
+                                        <td> {{$data->addtional}} </td>
+                                        <td> {{$data->guest}} </td>
                                         <td>
                                             {{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}
                                         </td>
-                                        <td>
-
-                                        </td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

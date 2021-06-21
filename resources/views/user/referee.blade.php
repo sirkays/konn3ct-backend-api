@@ -31,9 +31,9 @@
                             using your referral code</h6>
                     </div>
                     <div class="box-body">
-                        <div class="table-responsive">
+                        <div id="complex_header_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
 
-                            <table id="example" class="table table-lg invoice-archive">
+                            <table id="complex_header" class="table table-striped table-bordered display dataTable">
                                 <thead>
                                 <tr>
                                     <th>#</th>

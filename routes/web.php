@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
@@ -147,6 +148,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::post('/deleterecording', [RecordingController::class, 'delete'])->name('recording.delete');
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+
+    Route::get('/invites', [OtherController::class, 'invites'])->name('invites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 

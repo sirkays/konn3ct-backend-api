@@ -62,7 +62,7 @@
                                         <td>
                                             {{$data->price}}
                                         </td>
-                                        <td
+                                        <td></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

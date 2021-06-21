@@ -128,7 +128,7 @@ class UsersController extends Controller
 
     public function referrals()
     {
-        $datas['referee'] = User::join('users as frnd', 'frnd.referral_code', '=', 'users.referral')->where('users.referral', '!=', NULL)->get();
+        $datas['referee'] = User::where('users.referral', '!=', NULL)->get();
         $datas['i'] = 1;
 
         return view('admin.referrals', $datas);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddonController;
 use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
@@ -120,6 +121,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::get('/disbalepreregistration/{reference}', [RoomController::class, 'dprereg'])->name('dprereg');
 
     Route::get('/preregusers/{reference}', [RoomController::class, 'preregusers'])->name('preregusers');
+
+    Route::get('/addonsubscription', [AddonController::class, 'show'])->name('addonsubscription');
 
     Route::get('/activateft', [PaymentController::class, 'activatefree'])->name('activatefree');
 

@@ -221,9 +221,9 @@
             </li>
             <li><a href="/referee"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Referee(s)</a>
             </li>
-            <li><a href="/modules"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Modules</a>
+            <li><a href="/addonsubscription"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Addon Subscription</a>
             </li>
-            <li><a href="/modules"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Invite
+            <li><a href="/invites"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Invite
                     History</a></li>
 {{--            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>--}}
 {{--            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>--}}

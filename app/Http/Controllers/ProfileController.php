@@ -19,8 +19,12 @@ class ProfileController extends Controller
 
     public function referee()
     {
-        $datas['referee'] = User::where('referral', Auth::user()->referral_code)->get();
         $datas['i'] = 1;
+        if(Auth::user()->referral_code == NULL){
+            $datas['referee']=[];
+            return view('user.referee', $datas);
+        }
+        $datas['referee'] = User::where('referral', Auth::user()->referral_code)->get();
 
         return view('user.referee', $datas);
     }

@@ -215,7 +215,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
 
-        Route::get('/referrals', [UsersController::class, 'referrals'])->name('referrals');
+        Route::get('/referrals', [UsersController::class, 'referrals'])->name('admin.referrels');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
 

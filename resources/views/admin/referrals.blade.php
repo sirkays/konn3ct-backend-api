@@ -41,6 +41,7 @@
                                     <th>Email Address</th>
                                     <th>Plan</th>
                                     <th>Date Registered</th>
+                                    <th>Referred By</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,6 +68,9 @@
                                         </td>
                                         <td>
                                             {{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}
+                                        </td>
+                                        <td>
+                                            {{$data->frnd}}
                                         </td>
                                     </tr>
                                 @endforeach

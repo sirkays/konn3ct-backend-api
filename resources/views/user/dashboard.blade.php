@@ -615,11 +615,20 @@
                                                         Google Calender Invite
                                                     </a>
 
-                                                    <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
+                                                    <a style="font-size: 12px"
+                                                       href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}"
+                                                       class="waves-effect waves-light btn btn-primary"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       title="Schedule Meeting on Outlook Calender">
                                                         Outlook Calendar Invite
                                                     </a>
 
-                                                    <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".dk-invite-lg-{{$room->id}}" data-placement="top" title="Schedule meeting with guests email">
+                                                    <button style="font-size: 12px"
+                                                            class="waves-effect waves-light btn btn-primary"
+                                                            data-toggle="modal"
+                                                            data-target=".dk-maininvite-lg-{{$room->id}}"
+                                                            data-placement="top"
+                                                            title="Schedule meeting with guests email">
                                                         Konn3ct Invite
                                                     </button>
                                                     <button class="btn btn-sm btn-outline-primary dropdown-toggle"
@@ -640,12 +649,6 @@
                                                                 data-placement="top"
                                                                 title="Increase or decrease users size for meeting">
                                                             Users Limit
-                                                        </Button>
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal"
-                                                                data-target="#dk-roombanner{{$room->id}}-modal"
-                                                                data-placement="top"
-                                                                title="Upload a desired meeting banner">
-                                                            Whatsapp Invite
                                                         </Button>
                                                         <Button type="button" class="dropdown-item" data-toggle="modal"
                                                                 data-target="#dk-roombanner{{$room->id}}-modal"
@@ -763,28 +766,77 @@
                                                                 <div class="form-group row">
                                                                     <div class="col-lg-10">
                                                                         <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
-                                                                        <input type="file" class="form-control" name="banner" required>
+                                                                        <input type="file" class="form-control"
+                                                                               name="banner" required>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
-                                                            <div class="modal-footer modal-footer-uniform">
-                                                                <button type="submit" class="btn bg-success float-left">Upload</button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
+                                                             <div class="modal-footer modal-footer-uniform">
+                                                                 <button type="submit"
+                                                                         class="btn bg-success float-left">
+                                                                     Upload
+                                                                 </button>
+                                                             </div>
+                                                         </div>
+                                                            <!-- /.modal-content -->
                                                         </form>
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                                 <!-- /.modal -->
 
-                                                <div class="modal fade dk-invite-lg-{{$room->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+
+                                                <div class="modal dk-maininvite-lg-{{$room->id}} fade" tabindex="-1"
+                                                     role="dialog" aria-labelledby="mySmallModalLabel"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="mySmallModalLabel">Invite
+                                                                    Attendees</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                You can invite attendees via email or
+                                                                whatsapp.<br/><br/>
+
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button class="btn bg-primary float-left"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-invite-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Schedule meeting with guests email">Email
+                                                                </button>
+                                                                <button class="btn bg-success float-left"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-whatsapinvite-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Schedule meeting with guests via whatsapp">
+                                                                    Whatsapp
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
+                                                <div class="modal fade dk-invite-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabel"
+                                                     aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct Invite</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct
+                                                                    Invite</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
                                                             </div>
 
                                                             <form method="post" action="{{route('invite')}}">
@@ -987,6 +1039,57 @@
                                                                     <div class="form-group">
                                                                         <label>Guest Email(s)<i>Separated by commas</i>:</label>
                                                                         <textarea maxlength="500" name="guest" rows="9" class="form-control" placeholder="e.g info@newaves.com, info@konn3ct.com" required></textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Send
+                                                                        Invite
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+                                                <div class="modal fade dk-whatsapinvite-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabelw"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct
+                                                                    Invite</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+
+                                                            <form method="post" action="{{route('whatsappinvite')}}">
+                                                                <div class="modal-body">
+                                                                    @csrf
+                                                                    <input type="hidden" name="room"
+                                                                           value="{{$room->name}}">
+
+                                                                    <div class="form-group">
+                                                                        <label>Message</i>:</label>
+                                                                        <textarea name="text" rows="4"
+                                                                                  class="form-control"
+                                                                                  placeholder="e.g We are ">Hello, You have been invited by {{\Illuminate\Support\Facades\Auth::user()->firstname}} to attend {{$room->name}} Meeting. Click this link {{url('/')}}/join/{{$room->url}} to join or copy and paste in your preferred browser. Thank you.</textarea>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Guest Number(s)<i>Separated by commas</i>:</label>
+                                                                        <textarea maxlength="500" name="guest" rows="9"
+                                                                                  class="form-control"
+                                                                                  placeholder="08166....," required>{{\Illuminate\Support\Facades\Auth::user()->phone}},</textarea>
                                                                     </div>
 
                                                                 </div>
@@ -1477,25 +1580,29 @@
             <!-- /.modal -->
 
 
-    <script>
-        function copyToClipboard(element) {
-            var $temp = $("<input>");
-            $("body").append($temp);
-            $temp.val($(element).text()).select();
-            document.execCommand("copy");
-            $temp.remove();
-        }
-    </script>
+            <script>
+                function copyToClipboard(element) {
+                    var $temp = $("<input>");
+                    $("body").append($temp);
+                    $temp.val($(element).text()).select();
+                    document.execCommand("copy");
+                    $temp.remove();
+                }
 
-    <script>
-        function getRandomString(length) {
-            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var result = '';
-            for ( var i = 0; i < length; i++ ) {
-                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-            }
-            return result;
-        }
-    </script>
+                export default {
+                    components: {Input}
+                }
+            </script>
+
+            <script>
+                function getRandomString(length) {
+                    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    var result = '';
+                    for (var i = 0; i < length; i++) {
+                        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+                    }
+                    return result;
+                }
+            </script>
 
 @endsection

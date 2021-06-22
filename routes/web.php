@@ -149,7 +149,11 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
 
+    Route::post('/whatsappinvite', [RoomController::class, 'invite_whatsapp'])->name('whatsappinvite');
+
     Route::get('/invites', [OtherController::class, 'invites'])->name('invites');
+
+    Route::get('/resendinvites/{id}', [OtherController::class, 'invites'])->name('resendinvites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 
@@ -157,7 +161,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');
 
-    Route::get('/welcomemail', function (){
+    Route::get('/welcomemail', function () {
         return (new UserWelcomeMail())->render();
     })->name('mailtest');
 

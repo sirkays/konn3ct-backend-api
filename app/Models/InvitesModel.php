@@ -10,4 +10,5 @@ class InvitesModel extends Model
     use HasFactory;
 
     protected $table = 'invites';
+    protected $fillable = ["user_id", "type", "hostname", "roomlink", "accesscode", "title", "date", "time", "roomname", "timezone", "additional", "guest"];
 }

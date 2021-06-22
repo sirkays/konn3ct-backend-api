@@ -161,27 +161,41 @@
 
                                                 @if($plan ?? false)
 
-                                            <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if($plan==2)120
-                                                @elseif($plan==3)175 @endif</button>
-                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
-                                                @elseif($plan==3)67000 @endif</button>
+                                                    <button type="button" onClick='makePayment("USD2")'
+                                                            class="btn btn-success">US Dollars $ @if($plan==2)120
+                                                        @elseif($plan==3)175 @endif</button>
+                                                    <button type="button"
+                                                            onClick='payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}})'
+                                                            class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
+                                                        @elseif($plan==3)67000 @endif</button>
 
                                                 @else
 
-                                                    <button type="button" onClick='makePayment("USD2")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)175 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)46000
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)67000 @endif</button>
+                                                    <button type="button" onClick='makePayment("USD2")'
+                                                            class="btn btn-success">US Dollars
+                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            175 @endif</button>
+                                                    <button type="button"
+                                                            onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
+                                                            class="btn btn-success">Naira
+                                                        &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                                            46000
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            67000 @endif</button>
                                                 @endif
 
                                                 @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
                                                     <div class="col-12 mt-25">
-                                                        <button data-toggle="modal" data-target="#basicplan-modal" class="btn btn-danger btn-block">Can't Pay Now? Migrate to Basic Plan</button>
+                                                        <button data-toggle="modal" data-target="#basicplan-modal"
+                                                                class="btn btn-danger btn-block">Can't Pay Now? Migrate
+                                                            to Basic Plan
+                                                        </button>
                                                     </div>
                                                 @endif
 
-                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master Card</a>
-                                                <input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />
+                                                {{--                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master Card</a>--}}
+                                                {{--                                                <input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />--}}
 
 
                                             </div>

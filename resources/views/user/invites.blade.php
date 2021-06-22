@@ -55,12 +55,13 @@
                                         </td>
                                         <td><span class="d-block text-muted"> {{$data->roomname}}</span>
                                         </td>
-                                        <td> {{$data->addtional}} </td>
+                                        <td> {{$data->additional}} </td>
                                         <td> {{$data->guest}} </td>
                                         <td>
                                             {{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}
                                         </td>
-                                        <td></td>
+                                        <td><a href="{{route('resendinvites', $data->id)}}" class="btn btn-primary">Send
+                                                Again</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -153,7 +153,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/invites', [OtherController::class, 'invites'])->name('invites');
 
-    Route::get('/resendinvites/{id}', [OtherController::class, 'invites'])->name('resendinvites');
+    Route::get('/resendinvites/{id}', [OtherController::class, 'resendinvite'])->name('resendinvites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 
@@ -194,6 +194,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'CreateSession'])->name('CreateSession');
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+
+    Route::get('/addonpayment/{plan}/transid/{id}', [PaymentController::class, 'verifyAddonsub'])->name('verifyAddonsub');
 
     Route::get('/paystackpayment/{plan}/transid/{id}', [PaymentController::class, 'verifyPaystack'])->name('verifypaystackpayment');
 

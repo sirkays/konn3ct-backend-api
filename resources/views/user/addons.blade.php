@@ -25,6 +25,29 @@
 
         <div class="row">
             <div class="col-12">
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="box">
                     <div class="box-header with-border">
                         <h6 class="box-subtitle">The table below show the list addon available for you</h6>
@@ -56,13 +79,19 @@
                                         </td>
                                         <td>
                                                 <span class="badge badge-pill badge-danger">
+                                                    @if(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0")
                                                     Not yet activated
+                                                    @else
+                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}} days
+                                                    @endif
                                                 </span>
                                         </td>
                                         <td>
                                             {{$data->price}}
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="makePayment({{$data->price}}, {{$data->id}})">Subscribe Now</button>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -102,5 +131,39 @@
         </div>
     </section>
     <!-- /.content -->
+
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+    <script>
+        function makePayment(amount, id) {
+            FlutterwaveCheckout({
+                public_key: "{{env('RAVE_PUB_KEY')}}",
+                tx_ref: "konn3ct_{{rand().time()}}",
+                amount: amount,
+                currency: "NGN",
+                country: "NG",
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+                    phone_number: "{{\Illuminate\Support\Facades\Auth::user()->phone}}",
+                    name: "{{\Illuminate\Support\Facades\Auth::user()->firstname}} {{\Illuminate\Support\Facades\Auth::user()->lastname}}",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    window.location.href = "/addonpayment/"+id+"/" + data.transaction_id;
+                },
+                onclose: function () {
+                    // close modal
+                    // window.location.href = "/payment/2/transid/3456789";
+                },
+                customizations: {
+                    title: "Konn3ct Addon",
+                    description: "Payment for Addon",
+                    logo: "https://konn3ct.com/assets/images/konn3ctIcon.png",
+                },
+            });
+        }
+    </script>
+
 @endsection
 

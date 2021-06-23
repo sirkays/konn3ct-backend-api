@@ -13,8 +13,8 @@
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                <li class="breadcrumb-item" aria-current="page">Referral</li>
-                                <li class="breadcrumb-item active" aria-current="page">Referee List</li>
+                                <li class="breadcrumb-item" aria-current="page">Invites</li>
+                                <li class="breadcrumb-item active" aria-current="page">History</li>
                             </ol>
                         </nav>
                     </div>
@@ -22,6 +22,28 @@
 
             </div>
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <div class="row">
             <div class="col-12">
@@ -55,13 +77,20 @@
                                         </td>
                                         <td><span class="d-block text-muted"> {{$data->roomname}}</span>
                                         </td>
-                                        <td> {{$data->additional}} </td>
+                                        <td>
+                                            @if($data->type=="email")
+                                                Hello, You have been invited by {{$data->hostname??''}} to attend {{$data->roomname??''}} scheduled as follows:
+                                                <br/>Date: {{$data->date??''}}<br/>
+                                                Time: {{$data->time??''}} ...
+                                            @else
+                                            {{$data->additional}}
+                                            @endif
+                                        </td>
                                         <td> {{$data->guest}} </td>
                                         <td>
                                             {{\Carbon\Carbon::parse($data->created_at)->toFormattedDateString()}}
                                         </td>
-                                        <td><a href="{{route('resendinvites', $data->id)}}" class="btn btn-primary">Send
-                                                Again</a></td>
+                                        <td><a href="{{route('resendinvites', $data->id)}}" class="btn btn-primary">Send Again</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -12,6 +12,7 @@ use App\Models\PreRegModel;
 use App\Models\PreRegUserModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +77,7 @@ class RoomController extends Controller
 
         $r=RoomModel::create($input);
 
-        $createMeeting = Bigbluebutton::initCreateMeeting([
+        $createMeeting = \Bigbluebutton::initCreateMeeting([
             'meetingID' => $r->id,
             'meetingName' => $input['name'],
             'attendeePW' => $input['password_attendee'],
@@ -150,7 +151,7 @@ class RoomController extends Controller
 //$meetingParams->setLockSettingsLockedLayout
 //$meetingParams->setLockSettingsLockOnJoin
 //    $meetingParams->setFreeJoin
-        $bbb = Bigbluebutton::create($createMeeting);
+        $bbb = \Bigbluebutton::create($createMeeting);
 //       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
 
         $bba=json_decode($bbb, true);
@@ -187,7 +188,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = Bigbluebutton::isMeetingRunning($i->id);
+                $ms = \Bigbluebutton::isMeetingRunning($i->id);
                 if ($ms) {
                     $datas['active']++;
                 }
@@ -211,11 +212,11 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms = Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 
         if($ms==1) {
             return redirect()->to(
-                Bigbluebutton::join([
+                \Bigbluebutton::join([
                     'meetingID' => $i->id,
                     'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
@@ -288,7 +289,7 @@ class RoomController extends Controller
             $mdata['identifier']=$i->id.rand();
             MeetingsModel::create($mdata);
 
-            $url = Bigbluebutton::start([
+            $url = \Bigbluebutton::start([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
@@ -340,7 +341,7 @@ class RoomController extends Controller
 
         $u=User::find($i->user_id);
 
-        $ms = Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=1;
 
         $mdata['meeting_id']=$i->id;
@@ -364,7 +365,7 @@ class RoomController extends Controller
 //            return back()
 //                ->with('error', 'Meeting has not started!');
         }else{
-            $mds = Bigbluebutton::getMeetingInfo([
+            $mds = \Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
@@ -420,7 +421,7 @@ class RoomController extends Controller
             $password_attendee="moderator";
         }
 
-        $ms = Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -461,7 +462,7 @@ class RoomController extends Controller
         }
 
         return redirect()->to(
-            Bigbluebutton::join([
+            \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
@@ -546,6 +547,12 @@ class RoomController extends Controller
 
         WhatsappInviteJob::dispatch($input)->delay(now()->addSeconds(5));
 
+        $user=User::find(Auth::id());
+        if($user->whatsapp_invite == "0") {
+            $user->whatsapp_invite = Carbon::now()->addDays(8);
+            $user->save();
+        }
+
         return redirect('room')->with('success', 'Invite Sent Successfully!');
     }
 
@@ -584,7 +591,7 @@ class RoomController extends Controller
 
     public function roomstatus($url){
         $i = RoomModel::where('url', $url)->first();
-        $ms = Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);

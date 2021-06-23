@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\InvitesModel;
 use App\Models\MeetingsModel;
 use App\Models\PaymentModel;
 use App\Models\PlanModel;
@@ -132,6 +133,14 @@ class UsersController extends Controller
         $datas['i'] = 1;
 
         return view('admin.referrals', $datas);
+    }
+
+    public function invites()
+    {
+        $data['invites'] = InvitesModel::latest()->get();
+        $data['i'] = 1;
+
+        return view('admin.invites', $data);
     }
 
 }

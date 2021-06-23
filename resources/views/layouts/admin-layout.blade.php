@@ -158,6 +158,8 @@
                             class="path2"></span></i>Payments</a></li>
             <li><a href="{{route('admin.referrals')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Referrals</a></li>
+            <li><a href="{{route('admin.invites')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Invite History</a></li>
         </ul>
     </nav>
 

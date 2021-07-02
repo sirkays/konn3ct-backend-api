@@ -43,6 +43,11 @@ class RoomController extends Controller
 
         $rc=RoomModel::where("user_id",Auth::id())->count();
 
+//        echo $r;
+//        echo $plan->rooms;
+//        echo "|||" .  Auth::user()->room_bundles ."|||||";
+//        echo intval(($plan->rooms * 1)) + intval((Auth::user()->room_bundles * 1));
+//        return;
         if($rc >= $r){
             return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
         }

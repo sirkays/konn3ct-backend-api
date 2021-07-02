@@ -79,18 +79,25 @@
                                         </td>
                                         <td>
                                                 <span class="badge badge-pill badge-danger">
-                                                    @if(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0")
-                                                    Not yet activated
-                                                    @else
-                                                        Expires in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}} days
+                                                    @if($data->name == "Whatsapp Invite")
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0")
+                                                            Not yet activated
+                                                        @else
+                                                            Expires
+                                                            in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
+                                                            days
+                                                        @endif
                                                     @endif
+
                                                 </span>
                                         </td>
                                         <td>
                                             {{$data->price}}
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary" onclick="makePayment({{$data->price}}, {{$data->id}})">Subscribe Now</button>
+                                            <button class="btn btn-primary"
+                                                    onclick="makePayment({{$data->price}}, {{$data->id}})">Subscribe Now
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -150,7 +157,7 @@
                 },
                 callback: function (data) {
                     console.log(data);
-                    window.location.href = "/addonpayment/"+id+"/" + data.transaction_id;
+                    window.location.href = "/addonpayment/" + id + "/transid/" + data.transaction_id;
                 },
                 onclose: function () {
                     // close modal

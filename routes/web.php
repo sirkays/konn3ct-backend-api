@@ -187,7 +187,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 //    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
-    Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'CreateSession'])->name('CreateSession');
+    Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'CreateSessionO'])->name('CreateSession');
+    Route::get('/payment/mastercardview', function () {
+        return view('mastercard');
+    })->name('CreateSession');
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 

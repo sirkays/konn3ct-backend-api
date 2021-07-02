@@ -25,7 +25,7 @@ class ContactController extends Controller
                 ->withInput();
         }
 
-        Mail::to("support@newwavesecosystem.com.odoo.com")->send(new ContactMail($input));
+        Mail::to("support@newwavesecosystem.odoo.com")->send(new ContactMail($input));
 
         return redirect('contact')->with('success', 'Mail sent successfully!');
 

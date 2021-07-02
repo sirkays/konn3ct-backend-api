@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\SettingsModel;
-use PDF;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class PaymentController extends Controller
 {
@@ -375,20 +375,29 @@ class PaymentController extends Controller
 
             if(!$p) {
                 $data['status'] = $resp['status'];
-
-
-                if (Auth::user()->whatsapp_invite == "0") {
-                    $subd=Carbon::now()->addYear();
-                }else if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->whatsapp_invite), false) < 0) {
-                    $subd=Carbon::now()->addYear();
-                }else{
-                    $subd = Carbon::parse(Auth::user()->whatsapp_invite)->addYear();
-                }
-                User::where('id',Auth::id())->update(['whatsapp_invite'=>$subd]);
+                $data['plan'] = $plan;
 
                 PaymentModel::create($data);
 
-                return redirect('invites')->with('success', 'Your payment is successfully!');
+                $addons = AddonModel::find($plan);
+
+                if ($addons->name == "Whatsapp Invite") {
+                    if (Auth::user()->whatsapp_invite == "0") {
+                        $subd = Carbon::now()->addYear();
+                    } else if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->whatsapp_invite), false) < 0) {
+                        $subd = Carbon::now()->addYear();
+                    } else {
+                        $subd = Carbon::parse(Auth::user()->whatsapp_invite)->addYear();
+                    }
+                    User::where('id', Auth::id())->update(['whatsapp_invite' => $subd]);
+                }
+
+                if ($addons->name == "Room Bundles - 10") {
+                    $prv = Auth::user()->room_bundles;
+                    User::where('id', Auth::id())->update(['room_bundles' => $prv + 10]);
+                }
+
+                return redirect('addonsubscription')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
 

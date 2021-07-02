@@ -78,18 +78,19 @@
                                         <td><span class="d-block text-muted"> {{$data->description}}</span>
                                         </td>
                                         <td>
+                                            @if($data->name == "Whatsapp Invite")
                                                 <span class="badge badge-pill badge-danger">
-                                                    @if($data->name == "Whatsapp Invite")
                                                         @if(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0")
-                                                            Not yet activated
-                                                        @else
-                                                            Expires
-                                                            in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
-                                                            days
-                                                        @endif
+                                                        Not yet activated
+                                                    @else
+                                                        Expires
+                                                        in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
+                                                        days
                                                     @endif
-
                                                 </span>
+                                            @else
+                                                Available
+                                            @endif
                                         </td>
                                         <td>
                                             {{$data->price}}

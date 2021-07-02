@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentModel;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ class ProfileController extends Controller
     {
         $datas['rm'] = RoomModel::where('user_id', Auth::id())->count();
         $datas['p'] = PaymentModel::where('user_id', Auth::id())->count();
+        $datas['user_plan'] = PlanModel::find(Auth::user()->plan);
 
         return view('user.profile', $datas);
     }

@@ -512,7 +512,7 @@
                     </div>
                     <!-- /.tab-content -->
                 </div>
-                <!-- /.nav-tabs-custom -->
+                    <!-- /.nav-tabs-custom -->
             </div>
             <!-- /.col -->
 
@@ -521,11 +521,11 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-black"
                          style="background: url('/user_assets/images/gallery/full/10.jpg') center center;">
-                        <h3 class="widget-user-username">{{\Illuminate\Support\Facades\Auth::user()->firstname}}</h3>
+                        <h3 class="widget-user-username">{{$user->firstname}}</h3>
                         <h6 class="widget-user-desc">
-                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                            @if($user->plan==1)
                                 Basic
-                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                            @elseif($user->plan==2)
                                 Lite
                             @else
                                 Pro
@@ -548,8 +548,8 @@
                             <!-- /.col -->
                             <div class="col-sm-4 br-1 bl-1">
                                 <div class="description-block">
-                                    {{--                                            <h5 class="description-header">550</h5>--}}
-                                    {{--                                            <span class="description-text">FOLLOWERS</span>--}}
+                                    <h5 class="description-header">{{$user_plan->rooms + $user->room_bundles}}</h5>
+                                    <span class="description-text">Maximum Rooms</span>
                                 </div>
                                 <!-- /.description-block -->
                             </div>

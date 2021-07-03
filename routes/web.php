@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
 use App\Mail\UserWelcomeMail;
+use App\Mail\WelcomeMailViaJoin;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -164,18 +165,20 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 Route::get('/invitemail', function (){
         $data['ihost']="Samji";
 
-        $data['ilink']=url('/join/')."login";
+    $data['ilink'] = url('/join/') . "login";
 
-        $data['idate']="2020-12";
+    $data['idate'] = "2020-12";
 
-        $data['iaccesscode']="hello";
+    $data['iaccesscode'] = "hello";
 
-        $data['itime']="12:40";
+    $data['itime'] = "12:40";
 
-        $data['iroom']="Sammy Room";
+    $data['iroom'] = "Sammy Room";
+    $data['email'] = "Sammy Room";
+    $data['password'] = "passwi";
 
-    return (new UserWelcomeMail($data))->render();
-    })->name('mailtest');
+    return (new WelcomeMailViaJoin($data))->render();
+})->name('mailtest');
 
 });
 

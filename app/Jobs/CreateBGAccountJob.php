@@ -84,8 +84,11 @@ class CreateBGAccountJob implements ShouldQueue
 
         RoomModel::create($input);
 
+        $data['email'] = $u->email;
+        $data['password'] = $password;
+
         try {
-            Mail::to($u->email)->send(new WelcomeMailViaJoin());
+            Mail::to($u->email)->send(new WelcomeMailViaJoin($data));
         } catch (Exception $e) {
             echo $e;
         }

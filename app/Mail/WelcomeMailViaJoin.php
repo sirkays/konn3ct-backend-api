@@ -15,9 +15,11 @@ class WelcomeMailViaJoin extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -27,7 +29,9 @@ class WelcomeMailViaJoin extends Mailable
      */
     public function build()
     {
-        return $this->markdown('vendor.notifications.welcomeViaJoin')
-            ->subject('Welcome to konn3ct!');
+        return $this->markdown('vendor.notifications.welcomeViaJoining')
+            ->subject('Welcome to konn3ct!')->with([
+                'data' => $this->data,
+            ]);
     }
 }

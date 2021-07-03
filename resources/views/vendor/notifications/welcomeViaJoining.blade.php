@@ -9,6 +9,13 @@
 
     {{ 'To get you started on the journey to an improved virtual life, take the next 3 minutes to do the following : ' }}
 
+    # @lang('Find your login credentials below')
+
+    {{'Username: '.$data['email']}}
+
+    {{'Password: '.$data['password']}}
+
+
     {{-- Action Button --}}
     @component('mail::button', ['url' => url('/login'), 'color' => "green"])
         {{ "Sign In" }}
@@ -34,13 +41,8 @@
 
     {{ "Visit https://konn3ct.com" }}
 
-    @component('mail::panel')
-        You get this email because you checked that an account should be created for you on the room you joined recently.
-    @endcomponent
-
     {{-- Outro Lines --}}
-{{--    {{ '' }}--}}
-
+    {{--{{ '' }}--}}
 
     {{-- Salutation --}}
     <br><br>

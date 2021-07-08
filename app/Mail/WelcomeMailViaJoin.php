@@ -29,7 +29,7 @@ class WelcomeMailViaJoin extends Mailable
      */
     public function build()
     {
-        return $this->markdown('vendor.notifications.welcomeViaJoining')
+        return $this->markdown('vendor.notifications.autowelcome')
             ->subject('Welcome to konn3ct!')->with([
                 'data' => $this->data,
             ]);

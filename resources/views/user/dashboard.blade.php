@@ -1087,6 +1087,7 @@
 
                                                                     <div class="form-group">
                                                                         <label>Guest Number(s)<i>Separated by commas</i>:</label>
+                                                                        <br\><span class="text-danger">Note: The phone number should start with country code e.g 234 for Nigeria</span>
                                                                         <textarea maxlength="500" name="guest" rows="9"
                                                                                   class="form-control"
                                                                                   placeholder="08166....," required>{{\Illuminate\Support\Facades\Auth::user()->phone}},</textarea>

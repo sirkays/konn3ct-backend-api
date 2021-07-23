@@ -1082,7 +1082,7 @@
                                                                         <label>Message</i>:</label>
                                                                         <textarea name="text" rows="4"
                                                                                   class="form-control"
-                                                                                  placeholder="e.g We are ">Hello, You have been invited by {{\Illuminate\Support\Facades\Auth::user()->firstname}} to attend {{$room->name}} Meeting. Click this link {{url('/')}}/join/{{$room->url}} to join or copy and paste in your preferred browser. Thank you.</textarea>
+                                                                                  placeholder="e.g We are ">*Hello*,\nYou have been invited by {{\Illuminate\Support\Facades\Auth::user()->firstname}} to attend {{$room->name}} Meeting scheduled as follows:\n\nMeeting Room Name: {{$room->name}}\nDate: {{\Carbon\Carbon::now()->toDateString()}}\nTime: {{\Carbon\Carbon::now()->toTimeString()}} Africa/Lagos (UTC+01:00)\n\nClick this link {{url('/')}}/join/{{$room->url}} to join or copy and paste in your preferred browser.\n\nThank you.\n...............\nVisit https://konn3ct.com\n...Amazing Virtual Experience</textarea>
                                                                     </div>
 
                                                                     <div class="form-group">

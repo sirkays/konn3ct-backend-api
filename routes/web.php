@@ -25,6 +25,39 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
+Route::get('/nlg', function () {
+    return view('new-login');
+});
+
+Route::get('/nsu', function () {
+    return view('new-signup');
+});
+
+Route::get('/njm', function () {
+    return view('new-joinmeeting');
+});
+
+Route::get('/nrs', function () {
+    return view('new-roompreview');
+});
+
+Route::get('/nrpa', function () {
+    return view('new-roompreviewavailable');
+});
+
+Route::get('/nps', function () {
+    return view('new-pricing');
+});
+
+Route::get('/ncs', function () {
+    return view('new-contactsales');
+});
+
+Route::get('/nhp', function () {
+    return view('new-homepage');
+});
+
+
 Route::get('/offline', function () {
     return view('vendor/laravelpwa/offline');
 });

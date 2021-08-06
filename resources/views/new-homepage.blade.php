@@ -5,6 +5,8 @@
             background-color: #fff;
             overflow: auto;
             white-space: nowrap;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
 
         div.scrollmenu a {
@@ -22,41 +24,54 @@
         .checked {
             color: orange;
         }
-    </style>
-    <div class="row mt-5">
 
-        <div class="row">
-            <div class="col-6">
-                <h2>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        div.scrollmenu::-webkit-scrollbar {
+            display: none;
+        }
+
+    </style>
+    <div class="row">
+
+        <div class="row" style="background-image: url('/assets/images/pathgroup.png'); padding-left: 100px">
+            <div class="col-6 align-self-center" style="color: white;">
+                <h2 style="font-weight: bolder; font-size: 69px">
                     Konn3ct
                 </h2>
 
-                <h4>
+                <h4 class="mt-3">
                     Meet, chat, and collaborate<br/>
                     in just one place.
                 </h4>
 
-                <div class="row">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-primary">Start Free Trial</button>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder">
+                            Start Free Trial
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn px-3 py-3 ml-3 mt-2"
+                                style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
+                            Host a meeting
+                        </button>
                     </div>
+                </div>
 
-                    <div class="col-6">
-                        <button type="button" class="btn btn-primary">Start Free Trial</button>
-                    </div>
-
+                <div class="mt-5">
+                    <i class="fa fa-arrow-right"> </i> Scroll to explore
                 </div>
 
             </div>
 
             <div class="col-6">
-                <img src="/assets/images/front1.png" class="img col-12" alt="pix"/>
+                <img src="/assets/images/front1@2x.png" class="img col-12" alt="pix"/>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <h2>
+        <div class="row" style="padding-left: 100px">
+            <div class="col-6 align-self-center">
+                <h2 style="font-weight: bolder">
                     UNIQUE FEATURES
                 </h2>
 
@@ -69,44 +84,43 @@
             </div>
 
             <div class="col-6">
-                <img src="/assets/images/group99.png" class="img col-12" alt="pix"/>
+                <img src="/assets/images/group99@2x.png" class="img col-12" alt="pix"/>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-5" style="padding-left: 100px">
             <div class="col-12">
-                <h2>
+                <h2 style="font-weight: bolder">
                     WHY KONN3CT
                 </h2>
 
-                <h4>
-                    Konn3ct is the first fully featured web-conferencing solution developed in Nigeria and Africa.
+                <h6 class="text-justify">
+                    Konn3ct is the first fully featured web-conferencing solution developed in Nigeria and Africa.<br/>
                     This gives konn3ct the pioneer status and puts Nigeria in the leadership role we have always
-                    provided on the continent.
+                    provided on the continent.<br/>
                     This leadership statement is best proven with konn3ct’s adoption by large corporates and
-                    governmental institutions,
+                    governmental institutions,<br/>
                     and its commercial success. This gives the technological edge to every African country as well as
                     her people to thrive on
-                </h4>
+                </h6>
 
             </div>
 
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <img src="/assets/images/2345thyj.png" class="img col-12" alt="pix"/>
+        <div class="row" style="background-image: url('/assets/images/path1539.png'); padding-left: 100px">
+
+            <div class="col-6 px-3 py-3">
+                <img src="/assets/images/2345thyj.png" class="img img-fluid" alt="pix"/>
             </div>
-            <div class="col-6">
-                <h5>
+
+            <div class="col-6 mt-4" style="color: white">
+                <h5 class="mb-4">
                     Get to know more about
                 </h5>
                 <img src="/assets/images/konn3ct_logo123.png" class="img" alt="pix"/>
-                <h2>
-                    UNIQUE FEATURES
-                </h2>
 
-                <h4>
+                <h5 class="mt-5">
                     Konn3ct is technically a suite of web-conferencing
                     solutions that cover a range of applications used for
                     meetings, conferences, webinars, rooms, live-classroom,
@@ -114,10 +128,13 @@
                     of all these applications that is accessible from free plans
                     that allows 100 participants for 60 minutes and paid plans
                     for more features.
-                </h4>
+                </h5>
 
-                <div class="col-6">
-                    <button type="button" class="btn btn-primary">Learn more</button>
+                <div class="col-6 mt-5">
+                    <button type="button" class="btn px-2 py-2 ml-3 mt-2"
+                            style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
+                        Learn more
+                    </button>
                 </div>
 
             </div>
@@ -154,20 +171,20 @@
                         <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
                              class="img col-12" alt="pix"/>
                     </div>
-                    <div class="col-8 px-4 py-4">
+                    <div class="col-8 align-self-center" style="padding-left: 180px">
                         <div>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
                         </div>
-                        <div style="color: white">
+                        <h5 class="mb-5 mt-4" style="color: white">
                             "Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
                             Voluptatem Accusantium Doloremque Laudantium,
                             Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo
                             Modi Tem."
-                        </div>
+                        </h5>
                         <div class="mt-4" style="font-weight: bolder; color: white">
                             Samuel Adekunle
                         </div>

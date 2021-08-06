@@ -7,9 +7,10 @@
             <h5 class="text-center" style="color: white">Contact us for a quote today</h5>
         </div>
 
-        <div class="mx-3 my-3 px-3 py-3  row" style="background-color: white; border-radius: 15px">
-            <div class="col-md-12 col-lg-6 ml-4">
-                <form>
+        <form>
+            <div class="mx-3 my-3 px-3 py-3  row" style="background-color: white; border-radius: 15px">
+
+                <div class="col-md-12 col-lg-6 ml-4">
                     <div class="mb-3">
 
                         <div class="row justify-content-start">
@@ -17,7 +18,7 @@
                                 <div class="input-group mb-3">
                                     <span class="mr-4">Name<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="text" class="form-control ml-3" name="name"
-                                           style="border-radius: 10px">
+                                           style="border-radius: 10px" required>
                                 </div>
                             </div>
 
@@ -25,7 +26,7 @@
                                 <div class="input-group mb-3">
                                     <span class="mr-4">Mail<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="text" class="form-control ml-3" name="email"
-                                           style="border-radius: 10px">
+                                           style="border-radius: 10px" required>
                                 </div>
                             </div>
 
@@ -33,7 +34,7 @@
                                 <div class="input-group mb-3">
                                     <span class="mr-4">Phone number<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="text" class="form-control ml-3" name="phone"
-                                           style="border-radius: 10px">
+                                           style="border-radius: 10px" required>
                                 </div>
                             </div>
 
@@ -41,7 +42,7 @@
                                 <div class="input-group mb-3">
                                     <span class="mr-4">Subject<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="text" class="form-control ml-3" name="phone"
-                                           style="border-radius: 10px">
+                                           style="border-radius: 10px" required>
                                 </div>
                             </div>
 
@@ -58,37 +59,40 @@
 
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+                <div class="col-md-12 col-lg-6 justify-content-right">
 
-            <div class="col-md-12 col-lg-6 justify-content-right">
+                    <div class="px-3 py-2 col-12 mr-2">
+                        <div class="input-group mb-3">
+                            <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <textarea class="form-control ml-3" name="message" style="border-radius: 10px"
+                                      rows="10" required></textarea>
+                        </div>
 
-                <div class="px-3 py-2 col-12 mr-2">
-                    <div class="input-group mb-3">
-                        <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <textarea class="form-control ml-3" name="message" style="border-radius: 10px"
-                                  rows="10"></textarea>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="m-lg-4">
+                        <div class="mt-5">
+                            <i class="fa fa-envelope"></i> Message Us
+                        </div>
+
+                        <div class="mt-3">
+                            We are always with you to solve<br/>
+                            your problem mail us :
+                        </div>
+
+                        <div class="mt-3" style="color: #012E89">
+                            support@konn3ct.com
+                        </div>
                     </div>
                 </div>
 
-                <div class="m-lg-4">
-                    <div class="mt-5">
-                        <i class="fa fa-envelope"></i> Message Us
-                    </div>
-
-                    <div class="mt-3">
-                        We are always with you to solve<br/>
-                        your problem mail us :
-                    </div>
-
-                    <div class="mt-3" style="color: #012E89">
-                        support@konn3ct.com
-                    </div>
-                </div>
             </div>
-
-        </div>
+        </form>
 
         <div class="row text-center mb-4">
             <div>

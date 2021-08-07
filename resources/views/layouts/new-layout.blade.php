@@ -74,8 +74,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="img img-responsive" src="/assets/images/konn3ct_logo@2x.png"
-                                                  height="30" alt="Konn3ct logo"/></a>
+            <a class="navbar-brand" href="{{route('new-homepage')}}"><img class="img img-responsive"
+                                                                          src="/assets/images/konn3ct_logo@2x.png"
+                                                                          height="30" alt="Konn3ct logo"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -131,15 +132,8 @@
 
     <footer>
         <div class="row">
-            <div class="col-4">
-                <span>© 2021 konn3ct • All Rights Reserved</span>
-            </div>
-
-        </div>
-
-        <div class="row">
             <div class="col-5">
-                <span>© 2021 konn3ct • All Rights Reserved</span>
+                <span style="color: #012E88">© 2021 konn3ct • All Rights Reserved</span>
             </div>
 
             <div class="col-5 text-right">

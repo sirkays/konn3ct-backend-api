@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 col-lg-6 ml-4">
-            <img src="/assets/images/leftkonn3ctdiagram@2x.png" class="img col-12" alt="pix"/>
+            <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="550px" width="" class="img col-12" alt="pix"/>
         </div>
         <div class="col-md-12 col-lg-6">
             <h2 class="text-center" style="color: #012E89">Welcome back</h2>

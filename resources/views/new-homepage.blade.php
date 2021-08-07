@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <i class="fa fa-arrow-right"> </i> Scroll to explore
+                    <i class="fa fa-arrow-down"> </i> Scroll to explore
                 </div>
 
             </div>

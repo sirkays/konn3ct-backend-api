@@ -55,7 +55,7 @@ Route::get('/ncs', function () {
 
 Route::get('/nhp', function () {
     return view('new-homepage');
-});
+})->name('new-homepage');
 
 
 Route::get('/offline', function () {

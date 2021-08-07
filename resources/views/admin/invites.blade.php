@@ -60,7 +60,6 @@
                                     <th>#</th>
                                     <th>Type</th>
                                     <th>Room Name</th>
-                                    <th>Text</th>
                                     <th>Guest</th>
                                     <th>Date Sent</th>
                                 </tr>
@@ -75,16 +74,6 @@
                                             </h6>
                                         </td>
                                         <td><span class="d-block text-muted"> {{$data->roomname}}</span>
-                                        </td>
-                                        <td>
-                                            @if($data->type=="email")
-                                                Hello, You have been invited by {{$data->hostname??''}} to
-                                                attend {{$data->roomname??''}} scheduled as follows:
-                                                <br/>Date: {{$data->date??''}}<br/>
-                                                Time: {{$data->time??''}} ...
-                                            @else
-                                                {{$data->additional}}
-                                            @endif
                                         </td>
                                         <td> {{$data->guest}} </td>
                                         <td>

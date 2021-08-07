@@ -37,6 +37,36 @@
             font-size: 20px;
             color: rgba(1, 46, 137, 1);
         }
+
+        #navLink {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 137, 1);
+        }
+
+        #Register_btn {
+            overflow: visible;
+            width: 82px;
+            white-space: nowrap;
+            text-align: center;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 137, 1);
+        }
+
+        #Group_btn {
+            width: 191px;
+            height: 54px;
+            top: 13px;
+            margin-left: 40px;
+            overflow: visible;
+        }
     </style>
 </head>
 <body>
@@ -44,7 +74,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="img img-responsive" src="/assets/images/konn3ct_logo.png"
+            <a class="navbar-brand" href="#"><img class="img img-responsive" src="/assets/images/konn3ct_logo@2x.png"
                                                   height="30" alt="Konn3ct logo"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,31 +83,51 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Solutions</a>
+                        <a id="navLink" class="nav-link active" aria-current="page" href="#">Solutions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact sales</a>
+                        <a id="navLink" class="nav-link" href="#">Contact sales</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Plans & Pricing</a>
+                        <a id="navLink" class="nav-link" href="#">Plans & Pricing</a>
                     </li>
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Join a Meeting Room</a>
+                            <a id="navLink" class="nav-link" href="#">Join a Meeting Room</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Signin</a>
+                            <a id="navLink" class="nav-link" href="#">Signin</a>
                         </li>
                     </ul>
-                    <button class="btn btn-outline-success" type="button">Register</button>
+
+                    <button id="Group_btn" class="btn text-center" type="button"
+                            style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
+                        <span id="Register_btn">Register</span>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
     @yield('content')
+
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                    style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+                <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px"/> &nbsp;
+                Join a meeting
+            </button>
+            &nbsp;
+            <button type="button" class="btn px-3 py-3 ml-3 mt-2"
+                    style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+                <img src="/assets/images/registerIcon.png" width="25px" height="30px"/> &nbsp;
+                Register
+            </button>
+        </div>
+    </div>
 
     <footer>
         <div class="row">

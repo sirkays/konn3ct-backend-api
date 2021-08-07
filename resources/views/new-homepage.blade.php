@@ -34,7 +34,7 @@
     <div class="row">
 
         <div class="row" style="background-image: url('/assets/images/pathgroup.png'); padding-left: 100px">
-            <div class="col-6 align-self-center" style="color: white;">
+            <div class="col-md-12 col-lg-6 align-self-center" style="color: white;">
                 <h2 style="font-weight: bolder; font-size: 69px">
                     Konn3ct
                 </h2>
@@ -64,13 +64,13 @@
 
             </div>
 
-            <div class="col-6">
+            <div class="col-md-12 col-lg-6">
                 <img src="/assets/images/front1@2x.png" class="img col-12" alt="pix"/>
             </div>
         </div>
 
-        <div class="row" style="padding-left: 100px">
-            <div class="col-6 align-self-center">
+        <div class="row mt-3" style="padding-left: 100px">
+            <div class="col-md-12 col-lg-6 align-self-center">
                 <h2 style="font-weight: bolder">
                     UNIQUE FEATURES
                 </h2>
@@ -83,12 +83,12 @@
 
             </div>
 
-            <div class="col-6">
+            <div class="col-md-12 col-lg-6">
                 <img src="/assets/images/group99@2x.png" class="img col-12" alt="pix"/>
             </div>
         </div>
 
-        <div class="row mb-5" style="padding-left: 100px">
+        <div class="row mt-3 mb-5" style="padding-left: 100px">
             <div class="col-12">
                 <h2 style="font-weight: bolder">
                     WHY KONN3CT
@@ -110,11 +110,11 @@
 
         <div class="row" style="background-image: url('/assets/images/path1539.png'); padding-left: 100px">
 
-            <div class="col-6 px-3 py-3">
+            <div class="col-md-12 col-lg-6 px-3 py-3">
                 <img src="/assets/images/2345thyj.png" class="img img-fluid" alt="pix"/>
             </div>
 
-            <div class="col-6 mt-4" style="color: white">
+            <div class="col-md-12 col-lg-6 mt-4" style="color: white">
                 <h5 class="mb-4">
                     Get to know more about
                 </h5>
@@ -130,7 +130,7 @@
                     for more features.
                 </h5>
 
-                <div class="col-6 mt-5">
+                <div class="col-6 mt-5 mb-4">
                     <button type="button" class="btn px-2 py-2 ml-3 mt-2"
                             style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
                         Learn more
@@ -166,12 +166,13 @@
                     Our Clients Feedback
                 </h2>
 
-                <div class="row" style="background-color: #012E89">
-                    <div class="col-4">
+                <div class="row" style="background-color: #012E89; margin-left: 100px; margin-right: 100px">
+                    <div class="col-md-12 col-lg-4">
                         <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
                              class="img col-12" alt="pix"/>
                     </div>
-                    <div class="col-8 align-self-center" style="padding-left: 180px">
+
+                    <div class="col-md-12 col-lg-8 align-self-center" style="padding-left: 180px">
                         <div>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>

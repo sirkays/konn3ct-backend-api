@@ -26,7 +26,7 @@
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div id="home" class="container tab-pane active">
                         <form>
-                            <div class="mb-3">
+                            <div class="mb-3" style="color: grey">
 
                                 <div class="row justify-content-start">
                                     <div class="px-3 py-2 col-6 mr-2">

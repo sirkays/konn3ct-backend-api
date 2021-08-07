@@ -2,10 +2,10 @@
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12 col-lg-12">
-            <h2 class="text-center">JOIN A MEETING ROOM</h2>
+            <h2 class="text-center mb-4" style="color: #012E89">JOIN A MEETING ROOM</h2>
 
             <form>
-                <div class="mb-3" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
@@ -40,7 +40,10 @@
                 </div>
 
                 <div class="d-grid gap-2" style="margin-left: 20%; margin-right: 20%">
-                    <button class="btn btn-primary" type="button">Konn3ct</button>
+                    <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                        Konn3ct
+                    </button>
                 </div>
 
             </form>

@@ -86,7 +86,7 @@
                         <a id="navLink" class="nav-link active" aria-current="page" href="#">Solutions</a>
                     </li>
                     <li class="nav-item">
-                        <a id="navLink" class="nav-link" href="#">Contact sales</a>
+                        <a id="navLink" class="nav-link" href="{{route('contactsales')}}">Contact sales</a>
                     </li>
                     <li class="nav-item">
                         <a id="navLink" class="nav-link" href="#">Plans & Pricing</a>
@@ -95,17 +95,17 @@
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="#">Join a Meeting Room</a>
+                            <a id="navLink" class="nav-link" href="{{route('new-joinmeeting')}}">Join a Meeting Room</a>
                         </li>
                         <li class="nav-item">
                             <a id="navLink" class="nav-link" href="#">Signin</a>
                         </li>
                     </ul>
 
-                    <button id="Group_btn" class="btn text-center" type="button"
-                            style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
+                    <a href="{{route('new-signup')}}" id="Group_btn" class="btn text-center"
+                       style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
                         <span id="Register_btn">Register</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -115,17 +115,17 @@
 
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <button type="button" class="btn px-3 py-3 mr-3 mt-2"
-                    style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
-                <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px"/> &nbsp;
+            <a href="{{route('new-joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"
+               style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+                <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px" alt="joinmeetingIcon"/> &nbsp;
                 Join a meeting
-            </button>
+            </a>
             &nbsp;
-            <button type="button" class="btn px-3 py-3 ml-3 mt-2"
-                    style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
-                <img src="/assets/images/registerIcon.png" width="25px" height="30px"/> &nbsp;
+            <a href="{{route('new-signup')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
+               style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+                <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
                 Register
-            </button>
+            </a>
         </div>
     </div>
 

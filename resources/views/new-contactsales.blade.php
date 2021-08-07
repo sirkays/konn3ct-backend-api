@@ -1,8 +1,8 @@
 @extends('layouts.new-layout')
 @section('content')
-    <div class="row" style="background-color: #012E89">
+    <div class="row pt-5" style="background-color: #012E89">
 
-        <div class="mt-3 mb-5">
+        <div class="mt-5 mb-5">
             <h2 class="text-center" style="color: white; font-weight: bold">Get In Touch</h2>
             <h5 class="text-center" style="color: white">Contact us for a quote today</h5>
         </div>

@@ -31,11 +31,11 @@ Route::get('/nlg', function () {
 
 Route::get('/nsu', function () {
     return view('new-signup');
-});
+})->name('new-signup');
 
 Route::get('/njm', function () {
     return view('new-joinmeeting');
-});
+})->name('new-joinmeeting');
 
 Route::get('/nrs', function () {
     return view('new-roompreview');
@@ -51,7 +51,7 @@ Route::get('/nps', function () {
 
 Route::get('/ncs', function () {
     return view('new-contactsales');
-});
+})->name("contactsales");
 
 Route::get('/nhp', function () {
     return view('new-homepage');

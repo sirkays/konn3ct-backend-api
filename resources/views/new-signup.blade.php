@@ -22,13 +22,18 @@
                 </li>
             </ul>
 
+            {{--            <div class="nav nav-tabs justify-content-center mb-5" id="nav-tab" role="tablist">--}}
+            {{--                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>--}}
+            {{--                <button class="nav-link" id="pills-profile-tab"  data-bs-toggle="tab" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Corporate</button>--}}
+            {{--            </div>--}}
+
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div id="home" class="container tab-pane active">
                         <form>
-                            <div class="mb-3" style="color: grey">
+                            <div class="mb-3">
 
-                                <div class="row justify-content-start">
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                     <div class="px-3 py-2 col-6 mr-2">
                                         <label for="exampleInputEmail1" class="form-label text-left">First Name</label>
                                         <div class="input-group mb-3">
@@ -46,7 +51,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-start">
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                     <div class="px-3 py-2 col-6 mr-2">
                                         <label for="exampleInputEmail1" class="form-label text-left">Email
                                             Address</label>
@@ -65,7 +70,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-start">
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                     <div class="px-3 py-2 col-6 mr-2">
                                         <label for="exampleInputEmail1" class="form-label text-left">Password</label>
                                         <div class="input-group mb-3">
@@ -83,7 +88,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-start">
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                     <div class="px-3 py-2 col-6 mr-2">
                                         <label for="exampleInputEmail1" class="form-label text-left">Referral Code
                                             (Optional)</label>
@@ -94,7 +99,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="color: grey">
                                     <div class="mb-3 form-check col-6">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free
@@ -102,16 +107,19 @@
                                     </div>
                                 </div>
 
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-primary" type="button">Register</button>
+                                <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                                    <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                        Register
+                                    </button>
                                 </div>
 
 
-                                <div class="col-12 text-center mt-4">
-                                    I have an account? <a href="#">Login</a>
+                                <div class="col-12 text-center mt-4" style="color: grey">
+                                    I have an account? <a href="{{route('new-login')}}" style="color: grey">Login</a>
                                 </div>
 
-                                <div class="col-12 text-center mt-5">
+                                <div class="col-12 text-center mt-5" style="color: grey">
                                     Konn3ct is protected by reCAPTCHA and their Privacy Policy<br/>
                                     and Terms of Service apply.
                                 </div>

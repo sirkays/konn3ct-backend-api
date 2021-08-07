@@ -11,7 +11,8 @@
             <form>
                 <div class="mb-3 mt-5">
 
-                    <div class="px-3 py-2" style="outline: 1px solid grey; border-radius: 30px">
+                    <div class="px-3 py-2"
+                         style="border-radius: 10px; border-style: solid; border-color: grey; border-width: 1px">
                         <label for="exampleInputEmail1" class="form-label" style="color: grey">Email</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-32"><i class="fas fa-envelope"></i> </span>
@@ -20,7 +21,8 @@
                         </div>
                     </div>
 
-                    <div class="px-3 py-2 mt-4" style="outline: 1px solid grey; border-radius: 10px">
+                    <div class="px-3 py-2 mt-4"
+                         style="border-radius: 10px; border-style: solid; border-color: grey; border-width: 1px">
                         <label for="exampleInputEmail1" class="form-label" style="color: grey">Password</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i> </span>
@@ -47,8 +49,11 @@
 
                 </div>
 
-                <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button">Submit</button>
+                <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                    <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                        LOGIN
+                    </button>
                 </div>
 
 

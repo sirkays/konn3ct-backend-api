@@ -98,7 +98,7 @@
                             <a id="navLink" class="nav-link" href="{{route('new-joinmeeting')}}">Join a Meeting Room</a>
                         </li>
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="#">Signin</a>
+                            <a id="navLink" class="nav-link" href="{{route('new-login')}}">Signin</a>
                         </li>
                     </ul>
 

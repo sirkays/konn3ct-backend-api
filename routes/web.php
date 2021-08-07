@@ -27,7 +27,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/nlg', function () {
     return view('new-login');
-});
+})->name('new-login');
 
 Route::get('/nsu', function () {
     return view('new-signup');

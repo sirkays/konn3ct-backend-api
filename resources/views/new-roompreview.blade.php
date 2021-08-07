@@ -2,7 +2,7 @@
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12 col-lg-12">
-            <h2 class="text-center">MEETING ROOM PREVIEW</h2>
+            <h2 class="text-center" style="color: #012E89">MEETING ROOM PREVIEW</h2>
 
             <form>
                 <div class="mb-3">

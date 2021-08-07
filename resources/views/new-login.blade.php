@@ -52,7 +52,7 @@
                 <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
                     <button type="button" class="btn px-3 py-3 mr-3 mt-2"
                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
-                        LOGIN
+                        LOG IN
                     </button>
                 </div>
 

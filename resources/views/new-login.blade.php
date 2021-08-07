@@ -1,6 +1,6 @@
 @extends('layouts.new-layout')
 @section('content')
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-md-12 col-lg-6 ml-4">
             <img src="/assets/images/leftkonn3ctdiagram@2x.png" class="img col-12" alt="pix"/>
         </div>
@@ -9,7 +9,7 @@
             <h6 class="text-center" style="color: grey">Login back to Konn3ct</h6>
 
             <form>
-                <div class="mb-3 mt-5">
+                <div class="mb-2">
 
                     <div class="px-3 py-2"
                          style="border-radius: 10px; border-style: solid; border-color: grey; border-width: 1px">
@@ -49,7 +49,7 @@
 
                 </div>
 
-                <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                <div class="d-grid gap-2 mt-1" style="margin-left: 20%; margin-right: 20%">
                     <button type="button" class="btn px-3 py-3 mr-3 mt-2"
                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
                         LOG IN

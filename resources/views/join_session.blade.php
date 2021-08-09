@@ -24,7 +24,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="url" class="form-control"
                                        value="{{$url ?? ''}}" placeholder="Paste invite link or Enter meeting room name"
-                                       aria-label="First Name" aria-describedby="basic-addon1">
+                                       aria-label="First Name" aria-describedby="basic-addon1" required>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="name" value=""
                                        placeholder="Enter your name e.g. Samji Diamond" aria-label="First Name"
-                                       aria-describedby="basic-addon1">
+                                       aria-describedby="basic-addon1" required>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                 <input type="email" class="form-control" name="email"
                                        placeholder="Enter your email address"
                                        value="{{\Illuminate\Support\Facades\Auth::user()->email ?? old('email')}}"
-                                       aria-label="email" aria-describedby="basic-addon1">
+                                       aria-label="email" aria-describedby="basic-addon1" required>
                             </div>
                         </div>
                     </div>

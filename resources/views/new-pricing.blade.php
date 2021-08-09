@@ -5,7 +5,7 @@
         @import url("https://fonts.googleapis.com/css?family=Lato");
 
         #pricing-tables {
-            background-color: #eeeeee;
+            background-color: #fff;
             padding: 30px 0;
             position: relative;
             font-family: "Lato", sans-serif;
@@ -14,8 +14,8 @@
         #pricing-tables .col-md-3,
         #pricing-tables .col-sm-6,
         #pricing-tables .col-xs-12 {
-            padding-right: 0;
-            padding-left: 0;
+            padding-right: 10px;
+            padding-left: 10px;
         }
 
         #pricing-tables .col-md-3:hover,
@@ -37,8 +37,15 @@
         }
 
         .single-table .plan-header {
-            background: #e67e22;
+            background: #012E89;
             color: #fff;
+            text-transform: capitalize;
+            padding: 2px 0;
+        }
+
+        .single-table .plan-headerRecomended {
+            background: #FFFFFF;
+            color: #000000;
             text-transform: capitalize;
             padding: 2px 0;
         }
@@ -53,11 +60,23 @@
             display: inline-block;
             color: #e67e22;
             margin: 0 0 10px 0;
-            font-size: 25px;
+            font-size: 17px;
             font-weight: bold;
             background: #fff;
             border-radius: 50%;
             color: #e67e22;
+            padding: 33px 15px;
+        }
+
+        .single-table .plan-priceRecomended {
+            display: inline-block;
+            color: #000000;
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            font-weight: bold;
+            background: #fff;
+            border-radius: 50%;
+            color: #000000;
             padding: 33px 15px;
         }
 
@@ -222,16 +241,15 @@
     <div class="row mt-5">
         <div class="col-md-12 col-lg-12">
             <h2 class="text-center" style="font-weight: bolder">Ready to start with <br/>Konn3ct?</h2>
-            <div class="text-center" , style="color: grey">Choose the package that suits you.</div>
+            <div class="text-center" style="color: grey">Choose the package that suits you.</div>
+        </div>
 
-            <div class="col-12 justify-content-center">
-                <div class="form-check form-switch">
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Monthly</label>
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Yearly</label>
-                </div>
+        <div class="col-12 text-center mt-5">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckChecked">Monthly</label>
+                <input class="form-check-input text-center" type="checkbox" id="flexSwitchCheckChecked" checked>
+                <label class="form-check-label" for="flexSwitchCheckChecked">Yearly</label>
             </div>
-
         </div>
 
     </div>
@@ -242,10 +260,9 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12 color-1">
                     <div class="single-table text-center">
-                        <div class="plan-header">
-                            <h3>basic</h3>
-                            <p>plan for basic user</p>
-                            <h4 class="plan-price">$30<span>/mo</span></h4>
+                        <div class="plan-header mb-3">
+                            <h3 style="font-weight: bolder">BASIC PLAN</h3>
+                            <p>Free forever</p>
                         </div>
 
 
@@ -261,11 +278,12 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 color-2">
-                    <div class="single-table text-center">
-                        <div class="plan-header">
-                            <h3>basic</h3>
-                            <p>plan for basic user</p>
-                            <h4 class="plan-price">$30<span>/mo</span></h4>
+                    <div class="single-table text-center"
+                         style="border-radius: 20px; border-color: #628F41; border-width: 2px; border-style: solid">
+                        <div class="plan-headerRecomended">
+                            <h3 style="font-weight: bolder">LITE PLAN</h3>
+                            <p></p>
+                            <h4 class="plan-priceRecomended">$10.99 <sup>Month</sup> / ₦4,000 <sup>Month</sup></h4>
                         </div>
 
 

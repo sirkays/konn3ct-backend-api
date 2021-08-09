@@ -651,7 +651,7 @@
             <div class="row">
 
                 <!-- Grid column -->
-                <div class="col-md-3 mt-md-0 mt-3">
+                <div class="col-lg-3 col-md-6 mt-md-0 mt-3">
 
                     <!-- Content -->
                     <a href="{{route('new-homepage')}}">
@@ -678,7 +678,7 @@
                 <hr class="clearfix w-100 d-md-none pb-3">
 
                 <!-- Grid column -->
-                <div class="col-md-2 mx-auto">
+                <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                     <!-- Links -->
                     <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Learn</span>
@@ -698,10 +698,10 @@
                 </div>
                 <!-- Grid column -->
 
-                <hr class="clearfix w-100 d-md-none">
+                <hr class="clearfix w-100 d-md-none d-sm-none">
 
                 <!-- Grid column -->
-                <div class="col-md-2 mx-auto">
+                <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                     <!-- Links -->
                     <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Solutions</span>
@@ -724,10 +724,10 @@
                 </div>
                 <!-- Grid column -->
 
-                <hr class="clearfix w-100 d-md-none">
+                <hr class="clearfix w-100 d-md-none d-sm-none col-">
 
                 <!-- Grid column -->
-                <div class="col-md-2 mx-auto">
+                <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                     <!-- Links -->
                     <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Legal</span>
@@ -751,10 +751,10 @@
                 </div>
                 <!-- Grid column -->
 
-                <hr class="clearfix w-100 d-md-none">
+                <hr class="clearfix w-100 d-md-none d-sm-none">
 
                 <!-- Grid column -->
-                <div class="col-md-2 mx-auto">
+                <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                     <!-- Links -->
                     <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Contact</span>
@@ -775,15 +775,15 @@
         <!-- Footer Links -->
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3 mt-5">
+        <div class="footer-copyright text-center py-3 mt-4">
             <div class="row">
-                <div class="col-4">
+                <div class="col-lg-4 col-sm-6 col-md-6">
                     <span style="color: #012E88; font-style: normal; font-weight: normal;">© 2021 konn3ct • All Rights Reserved</span>
                 </div>
 
-                <div class="col-4"></div>
+                <div class="col-lg-4 d-md-none d-sm-none d-lg-block"></div>
 
-                <div class="col-4 justify-content-right">
+                <div class="col-lg-4 col-sm-6 col-md-6 justify-content-right">
                     <a href="/docs/DATAPRIVACY.pdf"
                        style="color: #012E88; font-style: normal; font-weight: normal; margin-right: 20px; text-decoration: none">Terms
                         of use</a> | <a

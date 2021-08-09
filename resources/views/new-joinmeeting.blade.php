@@ -5,7 +5,7 @@
             <h2 class="text-center mb-4" style="color: #012E89">JOIN A MEETING ROOM</h2>
 
             <form>
-                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="mb-2" style="margin-left: 20%; margin-right: 20%">
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">

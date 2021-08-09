@@ -67,6 +67,517 @@
             margin-left: 40px;
             overflow: visible;
         }
+
+        #Group_1647 {
+            position: absolute;
+            width: 1920px;
+            height: 557px;
+            left: 0px;
+            top: 53px;
+            overflow: visible;
+        }
+
+        #Path_1527 {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .Path_1527 {
+            overflow: visible;
+            position: absolute;
+            width: 1920px;
+            height: 557px;
+            left: 0px;
+            top: 0px;
+            transform: matrix(1, 0, 0, 1, 0, 0);
+        }
+
+        #Group_52_ir {
+            position: absolute;
+            width: 1609px;
+            height: 49px;
+            left: 161px;
+            top: 464px;
+            overflow: visible;
+        }
+
+        #_2021_konn3ct__All_Rights_Rese {
+            left: 0px;
+            top: 6px;
+            position: absolute;
+            overflow: visible;
+            width: 269px;
+            white-space: nowrap;
+            line-height: 22px;
+            margin-top: -3.5px;
+            text-align: center;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            color: rgba(1, 46, 136, 1);
+            text-transform: capitalize;
+        }
+
+        #Group_51_it {
+            position: absolute;
+            width: 293px;
+            height: 49px;
+            left: 1316px;
+            top: 0px;
+            overflow: visible;
+        }
+
+        #Terms_of_use_ {
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            overflow: visible;
+            width: 97px;
+            white-space: nowrap;
+            line-height: 28px;
+            margin-top: -6.5px;
+            text-align: center;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Privacy__Policy_ {
+            left: 187px;
+            top: 0px;
+            position: absolute;
+            overflow: visible;
+            width: 107px;
+            white-space: nowrap;
+            line-height: 28px;
+            margin-top: -6.5px;
+            text-align: center;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Line_5_iw {
+            fill: transparent;
+            stroke: rgba(112, 112, 112, 1);
+            stroke-width: 1px;
+            stroke-linejoin: miter;
+            stroke-linecap: butt;
+            stroke-miterlimit: 4;
+            shape-rendering: auto;
+        }
+
+        .Line_5_iw {
+            overflow: visible;
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            left: 150.5px;
+            top: 4.5px;
+            transform: matrix(1, 0, 0, 1, 0, 0);
+        }
+
+        #About_us {
+            left: 589px;
+            top: 189px;
+            position: absolute;
+            overflow: visible;
+            width: 89px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Blog {
+            left: 589px;
+            top: 244px;
+            position: absolute;
+            overflow: visible;
+            width: 45px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #FAQ {
+            left: 589px;
+            top: 299px;
+            position: absolute;
+            overflow: visible;
+            width: 40px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Learn {
+            left: 589px;
+            top: 137px;
+            position: absolute;
+            overflow: visible;
+            width: 71px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 25px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Group_1020 {
+            position: absolute;
+            width: 136px;
+            height: 255px;
+            left: 1280px;
+            top: 124px;
+            overflow: visible;
+        }
+
+        #Terms_of_Use {
+            left: 1px;
+            top: 62px;
+            position: absolute;
+            overflow: visible;
+            width: 129px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Privacy_Policy {
+            left: 1px;
+            top: 117px;
+            position: absolute;
+            overflow: visible;
+            width: 136px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #NDPR {
+            left: 1px;
+            top: 172px;
+            position: absolute;
+            overflow: visible;
+            width: 53px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #GDPR {
+            left: 0px;
+            top: 227px;
+            position: absolute;
+            overflow: visible;
+            width: 54px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Legal {
+            left: 1px;
+            top: 0px;
+            position: absolute;
+            overflow: visible;
+            width: 69px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 25px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Branding {
+            left: 893px;
+            top: 189px;
+            position: absolute;
+            overflow: visible;
+            width: 92px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Optimized_Bandwidth {
+            left: 893px;
+            top: 244px;
+            position: absolute;
+            overflow: visible;
+            width: 215px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Multi-Channel_Support {
+            left: 893px;
+            top: 299px;
+            position: absolute;
+            overflow: visible;
+            width: 228px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Konn3ct_Doc {
+            left: 892px;
+            top: 354px;
+            position: absolute;
+            overflow: visible;
+            width: 127px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Solutions_jb {
+            left: 893px;
+            top: 127px;
+            position: absolute;
+            overflow: visible;
+            width: 118px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 25px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Contact {
+            left: 1657px;
+            top: 137px;
+            position: absolute;
+            overflow: visible;
+            width: 104px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 25px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #Hellokonn3ctcom {
+            left: 1578px;
+            top: 199px;
+            position: absolute;
+            overflow: visible;
+            width: 200px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #konn3ct_logo_je {
+            position: absolute;
+            width: 283px;
+            height: 90px;
+            left: 140px;
+            top: 127px;
+            overflow: visible;
+        }
+
+        #Ellipse_12 {
+            fill: rgba(1, 46, 137, 1);
+        }
+
+        .Ellipse_12 {
+            position: absolute;
+            overflow: visible;
+            width: 42px;
+            height: 42px;
+            left: 150px;
+            top: 238px;
+        }
+
+        #Ellipse_13 {
+            fill: rgba(1, 46, 137, 1);
+        }
+
+        .Ellipse_13 {
+            position: absolute;
+            overflow: visible;
+            width: 42px;
+            height: 42px;
+            left: 198px;
+            top: 238px;
+        }
+
+        #Ellipse_14 {
+            fill: rgba(1, 46, 137, 1);
+        }
+
+        .Ellipse_14 {
+            position: absolute;
+            overflow: visible;
+            width: 43px;
+            height: 42px;
+            left: 248px;
+            top: 237px;
+        }
+
+        #Ellipse_15 {
+            fill: rgba(1, 46, 137, 1);
+        }
+
+        .Ellipse_15 {
+            position: absolute;
+            overflow: visible;
+            width: 43px;
+            height: 42px;
+            left: 297px;
+            top: 237px;
+        }
+
+        #Ellipse_16 {
+            fill: rgba(1, 46, 137, 1);
+        }
+
+        .Ellipse_16 {
+            position: absolute;
+            overflow: visible;
+            width: 43px;
+            height: 42px;
+            left: 346px;
+            top: 237px;
+        }
+
+        #Group_97 {
+            position: absolute;
+            width: 235px;
+            height: 39px;
+            left: 152px;
+            top: 239px;
+            overflow: visible;
+        }
+
+        #Facebook_white {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            left: 0px;
+            top: 1px;
+            overflow: visible;
+        }
+
+        #LinkedIN_white {
+            position: absolute;
+            width: 39px;
+            height: 38px;
+            left: 147px;
+            top: 0px;
+            overflow: visible;
+        }
+
+        #Instagram_white {
+            position: absolute;
+            width: 39px;
+            height: 38px;
+            left: 98px;
+            top: 0px;
+            overflow: visible;
+        }
+
+        #Youtube_white {
+            position: absolute;
+            width: 39px;
+            height: 38px;
+            left: 196px;
+            top: 0px;
+            overflow: visible;
+        }
+
+        #Twitter_white {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            left: 48px;
+            top: 1px;
+            overflow: visible;
+        }
+
+        #footer_link_header {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bolder;
+            font-size: 20px;
+            color: rgba(1, 46, 136, 1);
+        }
+
+        #footer_link {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            color: rgba(1, 46, 136, 1);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -130,21 +641,162 @@
         </div>
     </div>
 
-    <footer>
-        <div class="row">
-            <div class="col-5">
-                <span style="color: #012E88">© 2021 konn3ct • All Rights Reserved</span>
-            </div>
+    <!-- Footer -->
+    <footer class="page-footer font-small indigo mt-5">
 
-            <div class="col-5 text-right">
-                <span style="margin-right: 20px">Terms of use</span> | <span
-                    style="margin-left: 20px">Privacy  Policy</span>
-            </div>
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
 
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-3 mt-md-0 mt-3">
+
+                    <!-- Content -->
+                    <a href="{{route('new-homepage')}}">
+                        <img class="img img-responsive" src="/assets/images/konn3ct_logo@2x.png" height="90"
+                             alt="Konn3ct logo"/>
+                    </a>
+                    <div id="text-center">
+                        <img href="https://www.facebook.com/konn3ctapp" src="/assets/images/group2005.png">
+
+                        <img href="https://twitter.com/konn3ctapp" src="/assets/images/group2004.png">
+
+                        <img href="https://www.instagram.com/konn3ctng" src="/assets/images/group2003.png">
+
+                        <img src="/assets/images/group2002.png"/>
+
+                        <img href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"
+                             src="/assets/images/group2001.png">
+
+                    </div>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none pb-3">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Learn</span>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" id="footer_link">About us</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">FAQ</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Solutions</span>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" id="footer_link">Branding</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">Optimized Bandwidth</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">Multi-Channel Support</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">Konn3ct Doc</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Legal</span>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" id="footer_link">Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">NDPR</a>
+                        </li>
+                        <li>
+                            <a href="#!" id="footer_link">GDPR</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 mx-auto">
+
+                    <!-- Links -->
+                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Contact</span>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@konn3ct.com" id="footer_link">info@konn3ct.com</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
 
         </div>
-    </footer>
+        <!-- Footer Links -->
 
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 mt-5">
+            <div class="row">
+                <div class="col-4">
+                    <span style="color: #012E88; font-style: normal; font-weight: normal;">© 2021 konn3ct • All Rights Reserved</span>
+                </div>
+
+                <div class="col-4"></div>
+
+                <div class="col-4 justify-content-right">
+                    <a href="/docs/DATAPRIVACY.pdf"
+                       style="color: #012E88; font-style: normal; font-weight: normal; margin-right: 20px; text-decoration: none">Terms
+                        of use</a> | <a
+                        style="margin-left: 20px; color: #012E88; font-style: normal; font-weight: normal;">Privacy
+                        Policy</a>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
 </div>
 
 <!-- JS here -->

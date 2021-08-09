@@ -30,6 +30,16 @@
             display: none;
         }
 
+        #Konn3ct_is_the_first_fully_fea {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            color: rgba(0, 0, 0, 1);
+        }
+
     </style>
     <div class="row">
 
@@ -46,20 +56,21 @@
 
                 <div class="row mt-5">
                     <div class="col-12">
-                        <button type="button" class="btn px-3 py-3 mr-3 mt-2"
-                                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder">
+                        <a href="{{route('new-signup')}}" type="button" class="btn px-3 py-3 mr-3 mt-2"
+                           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder">
                             Start Free Trial
-                        </button>
+                        </a>
                         &nbsp;
-                        <button type="button" class="btn px-3 py-3 ml-3 mt-2"
-                                style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
+                        <a href="{{route('new-login')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
+                           style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
                             Host a meeting
-                        </button>
+                        </a>
                     </div>
                 </div>
 
                 <div class="mt-5">
-                    <i class="fa fa-arrow-down"> </i> Scroll to explore
+                    <i class="fa fa-arrow-down"> </i> <a href="#unique" style="text-decoration: none; color: white">
+                        Scroll to explore</a>
                 </div>
 
             </div>
@@ -69,7 +80,7 @@
             </div>
         </div>
 
-        <div class="row mt-3" style="padding-left: 100px">
+        <div id="unique" class="row mt-3" style="padding-left: 100px">
             <div class="col-md-12 col-lg-6 align-self-center">
                 <h2 style="font-weight: bolder">
                     UNIQUE FEATURES
@@ -94,15 +105,9 @@
                     WHY KONN3CT
                 </h2>
 
-                <h6 class="text-justify">
-                    Konn3ct is the first fully featured web-conferencing solution developed in Nigeria and Africa.<br/>
-                    This gives konn3ct the pioneer status and puts Nigeria in the leadership role we have always
-                    provided on the continent.<br/>
-                    This leadership statement is best proven with konn3ct’s adoption by large corporates and
-                    governmental institutions,<br/>
-                    and its commercial success. This gives the technological edge to every African country as well as
-                    her people to thrive on
-                </h6>
+                <div id="Konn3ct_is_the_first_fully_fea">
+                    <span>Konn3ct is the first fully featured web-conferencing solution developed in Nigeria and Africa.<br/>This gives konn3ct the pioneer status and puts Nigeria in the leadership role we have always provided on the continent.<br/>This leadership statement is best proven with konn3ct’s adoption by large corporates and governmental institutions,<br/>and its commercial success. This gives the technological edge to every African country as well as her people to thrive on </span><br>
+                </div>
 
             </div>
 
@@ -147,14 +152,22 @@
                 </h2>
 
                 <div class="scrollmenu">
-                    <a href="#home"><img src="/assets/images/group73.png" class="img" alt="pix"/></a>
-                    <a href="#news"><img src="/assets/images/group74.png" class="img" alt="pix"/></a>
-                    <a href="#home"><img src="/assets/images/group75.png" class="img" alt="pix"/></a>
-                    <a href="#news"><img src="/assets/images/group76.png" class="img" alt="pix"/></a>
-                    <a href="#home"><img src="/assets/images/group77.png" class="img" alt="pix"/></a>
-                    <a href="#news"><img src="/assets/images/group78.png" class="img" alt="pix"/></a>
-                    <a href="#home"><img src="/assets/images/group79.png" class="img" alt="pix"/></a>
-                    <a href="#news"><img src="/assets/images/group80.png" class="img" alt="pix"/></a>
+                    <a href="https://guardian.ng/business-services/nigerias-konn3ct-competes-for-78b-virtual-market"><img
+                            src="/assets/images/group73.png" class="img" alt="pix"/></a>
+                    <a href="https://businessday.ng/financial-inclusion/article/nigerias-newwaves-ecosystem-launches-africas-first-zoom-like-app-konn3ct/"><img
+                            src="/assets/images/group74.png" class="img" alt="pix"/></a>
+                    <a href="https://www.premiumtimesng.com/business/business-news/452206-nigerian-firm-newwaves-launches-africas-first-virtual-meeting-solution-konn3ct.html"><img
+                            src="/assets/images/group75.png" class="img" alt="pix"/></a>
+                    <a href="https://www.sunnewsonline.com/nigeria-taps-into-global-online-meetings-business"><img
+                            src="/assets/images/group76.png" class="img" alt="pix"/></a>
+                    <a href="https://pmnewsnigeria.com/2021/04/07/konn3ct-nigerian-tech-firm-unveils-virtual-meeting-app-better-than-zoom/?amp=1"><img
+                            src="/assets/images/group77.png" class="img" alt="pix"/></a>
+                    <a href="https://thisnigeria.com/nigerian-tech-firm-unveils-virtual-meeting-app"><img
+                            src="/assets/images/group78.png" class="img" alt="pix"/></a>
+                    <a href="https://www.nipc.gov.ng/2021/03/31/newwaves-launches-virtual-meeting-solution-konn3ct"><img
+                            src="/assets/images/group79.png" class="img" alt="pix"/></a>
+                    <a href="https://www.prnewswire.com/news-releases/konn3ct-nigerian-tech-start-up-develops-first-online-meeting-solution-in-africa-301261102.html"><img
+                            src="/assets/images/group80.png" class="img" alt="pix"/></a>
                 </div>
 
             </div>

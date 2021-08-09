@@ -46,7 +46,8 @@
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
-                                <input type="email" class="form-control" placeholder="Enter your email address"
+                                <input type="email" class="form-control" name="email"
+                                       placeholder="Enter your email address"
                                        value="{{\Illuminate\Support\Facades\Auth::user()->email ?? old('email')}}"
                                        aria-label="email" aria-describedby="basic-addon1">
                             </div>

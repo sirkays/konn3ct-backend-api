@@ -63,7 +63,7 @@ Route::get('/offline', function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('new-homepage');
 })->name('welcome');
 
 Route::get('/register/{id}', [MyAuthController::class, 'register']);
@@ -74,7 +74,7 @@ Route::get('/pricing', function () {
 
 Route::get('/joinsession', function () {
     return view('join_session');
-});
+})->name('joinmeeting');
 
 Route::get('/konn3ct', function () {
     return view('konn3ct_session');

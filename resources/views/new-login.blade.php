@@ -4,11 +4,18 @@
         <div class="col-md-12 col-lg-6 ml-4">
             <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="550px" width="" class="img col-12" alt="pix"/>
         </div>
-        <div class="col-md-12 col-lg-6">
+        <div class="col-md-12 col-lg-6 mt-1">
             <h2 class="text-center" style="color: #012E89">Welcome back</h2>
             <h6 class="text-center" style="color: grey">Login back to Konn3ct</h6>
 
-            <form>
+            @if (session('status'))
+                <div class="mb-1 font-medium text-sm text-green-600">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
                 <div class="mb-2">
 
                     <div class="px-3 py-2"
@@ -17,7 +24,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-32"><i class="fas fa-envelope"></i> </span>
                             <input type="email" class="form-control" placeholder="email" aria-label="Email"
-                                   aria-describedby="basic-addon1">
+                                   aria-describedby="basic-addon1" value="{{old('email')}}" autofocus>
                         </div>
                     </div>
 
@@ -27,11 +34,12 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i> </span>
                             <input type="password" id="inputPassword5" class="form-control"
-                                   aria-describedby="passwordHelpBlock">
-                            <div id="passwordHelpBlock" class="form-text" style="color: grey">
-                                Your password must be 8-20 characters long, contain letters and numbers, and must not
-                                contain spaces, special characters, or emoji.
-                            </div>
+                                   aria-describedby="passwordHelpBlock" name="password" required
+                                   autocomplete="current-password">
+                            {{--                            <div id="passwordHelpBlock" class="form-text" style="color: grey">--}}
+                            {{--                                Your password must be 8-20 characters long, contain letters and numbers, and must not--}}
+                            {{--                                contain spaces, special characters, or emoji.--}}
+                            {{--                            </div>--}}
                         </div>
 
                     </div>
@@ -39,7 +47,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 form-check col-6">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
                         <label class="form-check-label" for="exampleCheck1" style="color: grey">Remember me</label>
                     </div>
 
@@ -50,7 +58,7 @@
                 </div>
 
                 <div class="d-grid gap-2 mt-1" style="margin-left: 20%; margin-right: 20%">
-                    <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                    <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
                         LOG IN
                     </button>

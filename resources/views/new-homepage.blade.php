@@ -31,7 +31,6 @@
         }
 
         #Konn3ct_is_the_first_fully_fea {
-            white-space: nowrap;
             text-align: left;
             font-family: Poppins;
             font-style: normal;
@@ -61,7 +60,7 @@
                             Start Free Trial
                         </a>
                         &nbsp;
-                        <a href="{{route('new-login')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
+                        <a href="{{route('login')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
                            style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
                             Host a meeting
                         </a>

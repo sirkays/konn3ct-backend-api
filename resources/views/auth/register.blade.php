@@ -1,353 +1,268 @@
-@extends('layouts.layout')
-
+@extends('layouts.new-layout')
 @section('content')
-    <x-guest-layout>
-
-        <div class="row bg-gray-100 mb-95">
-
-            <div class="col-12">
-                <div class="box-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-pills rounded nav-justified">
-                        <li class="nav-item"><a href="#navpills-1" class="nav-link active" data-toggle="tab"
-                                                aria-expanded="false" style="font-weight: bolder">For Personal</a></li>
-                        <li class="nav-item"><a href="#navpills-2" class="nav-link" data-toggle="tab"
-                                                aria-expanded="false" style="font-weight: bolder">For Corporate</a></li>
-                    </ul>
-                </div>
-                <!-- /.box-body -->
-            </div>
-
-            <div class="col-12 text-center">
-                <!-- Tab panes -->
-                <div class="tab-content text-center">
-                    <div id="navpills-1" class="tab-pane active">
-                        <!-- Categroy 1 -->
-                        <div class="col-12 text-left">
-                            <x-jet-authentication-card>
-                                <x-slot name="logo">
-                                </x-slot>
-
-                                <x-jet-validation-errors class="mb-1"/>
-
-                                <form method="POST" action="{{ route('register') }}" onsubmit="return checkform(this);">
-                                    @csrf
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="firstname" value="{{ __('First Name') }}"/>
-                                            <x-jet-input id="firstname" class="block mt-1 w-full" type="text"
-                                                         name="firstname" :value="old('firstname')" required autofocus
-                                                         autocomplete="firstname"/>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="lastname" value="{{ __('Last Name') }}"/>
-                                            <x-jet-input id="lastname" class="block mt-1 w-full" type="text"
-                                                         name="lastname" :value="old('lastname')" required autofocus
-                                                         autocomplete="lastname"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="email" value="{{ __('Email Address') }}"/>
-                                            <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                                         :value="old('email')" required/>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="phone" value="{{ __('Phone Number') }}"/>
-                                            <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone"
-                                                         :value="old('phone')" required/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="password" value="{{ __('Password') }}"/>
-                                            <x-jet-input id="password" class="block mt-1 w-full" type="password"
-                                                         name="password" required autocomplete="new-password"/>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="password_confirmation"
-                                                         value="{{ __('Confirm Password') }}"/>
-                                            <x-jet-input id="password_confirmation" class="block mt-1 w-full"
-                                                         type="password" name="password_confirmation" required
-                                                         autocomplete="new-password"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-12">
-                                            <x-jet-label for="referral" value="{{ __('Referral Code (Optional)') }}"/>
-                                            <x-jet-input id="referral" class="block mt-1 w-full" type="text"
-                                                         name="referral" :value="old('referral')" maxlength="6"/>
-                                        </div>
-                                    </div>
-
-                                    @if($freetrial==1)
-                                        <div class="row mx-4">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="freetrial" name="freetrial" value="true">
-                                                <label for="freetrial"> <Strong>Activate Pro Plan Free Trial ({{$freetrial_days}} days)</Strong></label><br>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <div class="block mt-4 text-center">
-                                        <!-- START CAPTCHA -->
-                                        <div class="capbox">
-                                            <div id="CaptchaDiv"></div>
-                                            <div class="capbox-inner">
-                                                Type the number:<br>
-                                                <input type="hidden" id="txtCaptcha">
-                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
-
-                                            </div>
-                                        </div>
-                                        <!-- END CAPTCHA -->
-                                        <br/>
-                                        <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png"
-                                                                             height="30px" width="100px"
-                                                                             alt="logo"></sup> is protected by reCAPTCHA​</span>
-                                    </div>
-
-                                    <div class="flex items-center justify-end mt-4">
-                                        {{--                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">--}}
-                                        {{--                    {{ __('Already registered?') }}--}}
-                                        {{--                </a>--}}
-
-                                        <div class="text-left">
-                                            <span class="ml-2 text-sm">Already have a <sup><img
-                                                        src="/assets/images/konn3ct_logo.png" height="30px"
-                                                        width="100px" alt="logo"></sup> account? <a class="su"
-                                                                                                    href="{{ route('login') }}"
-                                                                                                    style="font-weight: bolder">Sign In</a>​</span>
-                                        </div>
-
-                                        <x-jet-button class="ml-4">
-                                            {{ __('Register') }}
-                                        </x-jet-button>
-                                    </div>
-
-                                    {{--            <div class="block mt-4 text-center">--}}
-                                    {{--                <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>--}}
-                                    {{--            </div>--}}
-
-                                </form>
-
-
-                            </x-jet-authentication-card>
-                        </div>
-                    </div>
-
-                    <div id="navpills-2" class="tab-pane">
-                        <!-- Categroy 2 -->
-                        <div class="col-12 text-left">
-                            <x-jet-authentication-card>
-                                <x-slot name="logo">
-                                </x-slot>
-
-                                <x-jet-validation-errors class="mb-1"/>
-
-                                <form method="POST" action="{{ route('register') }}"
-                                      onsubmit="return checkform2(this);">
-                                    @csrf
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-12">
-                                            <x-jet-label for="firstname" value="{{ __('Business Name') }}"/>
-                                            <x-jet-input id="firstname" class="block mt-1 w-full" type="text"
-                                                         name="firstname" :value="old('firstname')" required autofocus
-                                                         autocomplete="firstname"/>
-                                            <x-jet-input class="block mt-1 w-full" type="hidden" name="type" value="biz"
-                                                         required autofocus autocomplete="firstname"/>
-                                        </div>
-
-                                        <div class="col-lg-6 hidden" style="display: none">
-                                            <x-jet-label for="lastname" value="{{ __('Last Name') }}"/>
-                                            {{--                                <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" autofocus autocomplete="lastname" />--}}
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="email" value="{{ __('Email Address') }}"/>
-                                            <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                                         :value="old('email')" required/>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="phone" value="{{ __('Phone Number') }}"/>
-                                            <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone"
-                                                         :value="old('phone')" required/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="password" value="{{ __('Password') }}"/>
-                                            <x-jet-input id="password" class="block mt-1 w-full" type="password"
-                                                         name="password" required autocomplete="new-password"/>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <x-jet-label for="password_confirmation"
-                                                         value="{{ __('Confirm Password') }}"/>
-                                            <x-jet-input id="password_confirmation" class="block mt-1 w-full"
-                                                         type="password" name="password_confirmation" required
-                                                         autocomplete="new-password"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col-lg-12">
-                                            <x-jet-label for="referral" value="{{ __('Referral Code (Optional)') }}"/>
-                                            <x-jet-input id="referral" class="block mt-1 w-full" type="text"
-                                                         name="referral" :value="old('referral')" maxlength="6" />
-                                        </div>
-                                    </div>
-
-                                    @if($freetrial==1)
-                                        <div class="row mx-4">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="freetrial" name="freetrial" value="true">
-                                                <label for="freetrial"> <Strong>Activate Pro Plan Free Trial ({{$freetrial_days}} days)</Strong></label><br>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <div class="block mt-4 text-center">
-                                        <!-- START CAPTCHA -->
-                                        <div class="capbox">
-                                            <div id="CaptchaDiv2"></div>
-                                            <div class="capbox-inner">
-                                                Type the number:<br>
-                                                <input type="hidden" id="txtCaptcha2">
-                                                <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
-
-                                            </div>
-                                        </div>
-                                        <!-- END CAPTCHA -->
-                                        <br/>
-                                        <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png"
-                                                                             height="30px" width="100px"
-                                                                             alt="logo"></sup> is protected by reCAPTCHA​</span>
-                                    </div>
-
-                                    <div class="flex items-center justify-end mt-4">
-                                        {{--                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">--}}
-                                        {{--                    {{ __('Already registered?') }}--}}
-                                        {{--                </a>--}}
-
-                                        <div class="text-left">
-                                            <span class="ml-2 text-sm">Already have a <sup><img
-                                                        src="/assets/images/konn3ct_logo.png" height="30px"
-                                                        width="100px" alt="logo"></sup> account? <a class="su"
-                                                                                                    href="{{ route('login') }}"
-                                                                                                    style="font-weight: bolder">Sign In</a>​</span>
-                                        </div>
-
-                                        <x-jet-button class="ml-4">
-                                            {{ __('Register') }}
-                                        </x-jet-button>
-                                    </div>
-
-                                    {{--            <div class="block mt-4 text-center">--}}
-                                    {{--                <span class="ml-2 text-sm">Already have a <sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup> account? <a href="{{ route('login') }}" style="font-weight: bolder">Sign In</a>​</span>--}}
-                                    {{--            </div>--}}
-
-                                </form>
-
-
-                            </x-jet-authentication-card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-6 ml-4">
+            <img src="/assets/images/leftkonn3ctdiagram@2x.png" class="img col-12" alt="pix"/>
         </div>
 
-    </x-guest-layout>
+        <div class="col-md-12 col-lg-6 justify-content-right">
 
-    <script type="text/javascript">
+            <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">Personal
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false">Corporate
+                    </button>
+                </li>
+            </ul>
 
-        // Captcha Script
+            @if ($errors->any())
+                <div {{ $attributes }}>
+                    <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
 
-        function checkform(theform) {
-            var why = "";
-
-            if (theform.CaptchaInput.value == "") {
-                why += "- Please Enter CAPTCHA Code.\n";
-            }
-            if (theform.CaptchaInput.value != "") {
-                if (ValidCaptcha(theform.CaptchaInput.value) == false) {
-                    why += "- The CAPTCHA Code Does Not Match.\n";
-                }
-            }
-            if (why != "") {
-                alert(why);
-                return false;
-            }
-        }
-
-        var a = Math.ceil(Math.random() * 9) + '';
-        var b = Math.ceil(Math.random() * 9) + '';
-        var c = Math.ceil(Math.random() * 9) + '';
-        var d = Math.ceil(Math.random() * 9) + '';
-        var e = Math.ceil(Math.random() * 9) + '';
-
-        var code = a + b + c + d + e;
-        document.getElementById("txtCaptcha").value = code;
-        document.getElementById("CaptchaDiv").innerHTML = code;
-
-        document.getElementById("txtCaptcha2").value = code;
-        document.getElementById("CaptchaDiv2").innerHTML = code;
-
-        // Validate input against the generated number
-        function ValidCaptcha() {
-            var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
-            var str2 = removeSpaces(document.getElementById('CaptchaInput').value);
-
-            var str1a = removeSpaces(document.getElementById('txtCaptcha2').value);
-            var str2b = removeSpaces(document.getElementById('CaptchaInput2').value);
-            if (str1 == str2 || str1a == str2b) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        // Remove the spaces from the entered and generated code
-        function removeSpaces(string) {
-            return string.split(' ').join('');
-        }
-    </script>
+                    <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
 
-    <script type="text/javascript">
+            {{--            <div class="nav nav-tabs justify-content-center mb-5" id="nav-tab" role="tablist">--}}
+            {{--                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>--}}
+            {{--                <button class="nav-link" id="pills-profile-tab"  data-bs-toggle="tab" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Corporate</button>--}}
+            {{--            </div>--}}
 
-        // Captcha Script
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div id="home" class="container tab-pane active">
+                        <form method="POST" action="{{ route('register') }}">
+                            <div class="mb-3">
 
-        function checkform2(theform) {
-            var why = "";
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">First Name</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="First Name"
+                                                   name="firstname" value="{{old('firstname')}}" required autofocus
+                                                   autocomplete="firstname" aria-label="First Name"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
 
-            if (theform.CaptchaInput2.value == "") {
-                why += "- Please Enter CAPTCHA Code.\n";
-            }
-            if (theform.CaptchaInput2.value != "") {
-                if (ValidCaptcha(theform.CaptchaInput2.value) == false) {
-                    why += "- The CAPTCHA Code Does Not Match.\n";
-                }
-            }
-            if (why != "") {
-                alert(why);
-                return false;
-            }
-        }
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Last Name"
+                                                   name="lastname" value="{{old('lastname')}}" required autofocus
+                                                   autocomplete="lastname" aria-label="Last Name"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
 
-    </script>
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Email
+                                            Address</label>
+                                        <div class="input-group mb-3">
+                                            <input type="email" class="form-control" placeholder="Email Address"
+                                                   name="email"
+                                                   value="{{old('email')}}" required aria-label="Email Address"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
 
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                                        <div class="input-group mb-3">
+                                            <input type="tel" class="form-control" placeholder="Phone Number"
+                                                   name="phone"
+                                                   value="{{old('phone')}}" required aria-label="Phone Number"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Password</label>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                   name="password" required autocomplete="new-password"
+                                                   aria-label="Password" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Confirm Password"
+                                                   name="password_confirmation" required
+                                                   autocomplete="new-password" aria-label="Confirm Password"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Referral Code
+                                            (Optional)</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Referral Code"
+                                                   name="referral" value="{{old('referral')}}" maxlength="6"
+                                                   aria-label="Referral Code" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if($freetrial==1)
+                                    <div class="row" style="color: grey">
+                                        <div class="mb-3 form-check col-6">
+                                            <input type="checkbox" class="form-check-input" id="freetrial"
+                                                   name="freetrial" value="true">
+                                            <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free
+                                                Trial ({{$freetrial_days}} days)</label>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                                    <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
+                                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                        Register
+                                    </button>
+                                </div>
+
+
+                                <div class="col-12 text-center mt-4" style="color: grey">
+                                    I have an account? <a href="{{route('new-login')}}" style="color: grey">Login</a>
+                                </div>
+
+                                <div class="col-12 text-center mt-5" style="color: grey">
+                                    Konn3ct is protected by reCAPTCHA and their Privacy Policy<br/>
+                                    and Terms of Service apply.
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <form method="POST" action="{{ route('register') }}">
+                        <div class="mb-3">
+
+                            <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                <div class="px-3 py-2 col-12 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Business Name</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Business Name"
+                                               name="firstname" value="{{old('firstname')}}" required autofocus
+                                               autocomplete="firstname" aria-label="First Name"
+                                               aria-describedby="basic-addon1">
+                                        <input type="hidden" class="form-control" name="type" value="biz" required
+                                               autofocus autocomplete="firstname">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                <div class="px-3 py-2 col-6 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Email Address</label>
+                                    <div class="input-group mb-3">
+                                        <input type="email" class="form-control" placeholder="Email Address"
+                                               name="email" value="{{old('email')}}" required aria-label="Email Address"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2 col-6 ml-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                                    <div class="input-group mb-3">
+                                        <input type="tel" class="form-control" placeholder="Phone Number" name="phone"
+                                               value="{{old('phone')}}" required aria-label="Phone Number"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                <div class="px-3 py-2 col-6 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" placeholder="Password"
+                                               name="password" required autocomplete="new-password"
+                                               aria-label="Password" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2 col-6 ml-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" placeholder="Confirm Password"
+                                               name="password_confirmation" required
+                                               autocomplete="new-password" aria-label="Confirm Password"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                <div class="px-3 py-2 col-6 mr-2">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Referral Code
+                                        (Optional)</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Referral Code"
+                                               name="referral" value="{{old('referral')}}" maxlength="6"
+                                               aria-label="Referral Code" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if($freetrial==1)
+                                <div class="row" style="color: grey">
+                                    <div class="mb-3 form-check col-6">
+                                        <input type="checkbox" class="form-check-input" id="freetrial" name="freetrial"
+                                               value="true">
+                                        <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free
+                                            Trial ({{$freetrial_days}} days)</label>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                                <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
+                                        style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Register
+                                </button>
+                            </div>
+
+
+                            <div class="col-12 text-center mt-4">
+                                I have an account? <a href="{{route('login')}}">Login</a>
+                            </div>
+
+                            <div class="col-12 text-center mt-5">
+                                Konn3ct is protected by reCAPTCHA and their Privacy Policy<br/>
+                                and Terms of Service apply.
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
 @endsection
+

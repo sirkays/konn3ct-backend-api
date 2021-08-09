@@ -1,57 +1,70 @@
-@extends('layouts.layout')
-
+@extends('layouts.new-layout')
 @section('content')
-    <!-- main-area -->
-    <main>
-        <!-- pricing-area -->
-        <section id="pricing" class="pricing-area pt-20 pb-20 mb-30">
-            <div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-12">
+            <h2 class="text-center mb-4" style="color: #012E89">JOIN A MEETING ROOM</h2>
 
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-title text-center mb-80 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                                    <span>Join a Meeting Room</span>
-{{--                            <h2>Pricing & Plans​</h2>--}}
-                            <br/>
-                            <form action="/ajoinroom" method="POST">
-                                @csrf
-                                <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                    <div class="form-group mt-10">
-                                        <input type="text" name="url" class="form-control" value="{{$url ?? ''}}" placeholder="Paste Invite link or Enter Meeting Room Name" required>
-                                    </div>
-                                    <div class="form-group mt-10">
-                                        <input type="text" name="name" class="form-control" value="" placeholder="Enter your name e.g Samji Diamond" required autofocus autocomplete="name" >
-                                    </div>
-                                    <div class="form-group mt-10">
-                                        <input type="text" name="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email ?? ''}}" placeholder="Enter your Email Address e.g samjidiamond@gmail.com" required>
-                                    </div>
-                                    <div class="form-group mt-20 mb-40">
-                                        <button class="btn su">Konn3ct</button>
-                                    </div>
-                                </div>
-                            </form>
-
+            <form action="/ajoinroom" method="POST">
+                @csrf
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
+                    <div class="row">
+                        <div class="px-3 py-2 col-12 mr-2">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="url" class="form-control"
+                                       value="{{$url ?? ''}}" placeholder="Paste invite link or Enter meeting room name"
+                                       aria-label="First Name" aria-describedby="basic-addon1">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- pricing-area-end -->
 
-    </main>
-    <!-- main-area-end -->
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
+                    <div class="row">
+                        <div class="px-3 py-2 col-12 mr-2">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="name" value=""
+                                       placeholder="Enter your name e.g. Samji Diamond" aria-label="First Name"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="mb-1" style="margin-left: 20%; margin-right: 20%">
+                    <div class="row">
+                        <div class="px-3 py-2 col-12 mr-2">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Enter your email address"
+                                       value="{{\Illuminate\Support\Facades\Auth::user()->email ?? old('email')}}"
+                                       aria-label="email" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2" style="margin-left: 20%; margin-right: 20%">
+                    <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
+                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                        Konn3ct
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 @endsection
 

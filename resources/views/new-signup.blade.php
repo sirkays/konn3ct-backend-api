@@ -30,7 +30,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div id="home" class="container tab-pane active">
-                        <form>
+                        <form method="POST" action="{{ route('register') }}">
                             <div class="mb-3">
 
                                 <div class="row justify-content-start" style="color: grey; font-weight: bold">
@@ -38,7 +38,9 @@
                                         <label for="exampleInputEmail1" class="form-label text-left">First Name</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="First Name"
-                                                   aria-label="First Name" aria-describedby="basic-addon1">
+                                                   name="firstname" value="{{old('firstname')}}" required autofocus
+                                                   autocomplete="firstname" aria-label="First Name"
+                                                   aria-describedby="basic-addon1">
                                         </div>
                                     </div>
 
@@ -46,7 +48,9 @@
                                         <label for="exampleInputEmail1" class="form-label">Last Name</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Last Name"
-                                                   aria-label="Last Name" aria-describedby="basic-addon1">
+                                                   name="lastname" value="{{old('lastname')}}" required autofocus
+                                                   autocomplete="lastname" aria-label="Last Name"
+                                                   aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </div>
@@ -57,15 +61,19 @@
                                             Address</label>
                                         <div class="input-group mb-3">
                                             <input type="email" class="form-control" placeholder="Email Address"
-                                                   aria-label="Email Address" aria-describedby="basic-addon1">
+                                                   name="email"
+                                                   value="{{old('email')}}" required aria-label="Email Address"
+                                                   aria-describedby="basic-addon1">
                                         </div>
                                     </div>
 
                                     <div class="px-3 py-2 col-6 ml-2">
                                         <label for="exampleInputEmail1" class="form-label">Phone Number</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Phone Number"
-                                                   aria-label="Phone Number" aria-describedby="basic-addon1">
+                                            <input type="tel" class="form-control" placeholder="Phone Number"
+                                                   name="phone"
+                                                   value="{{old('phone')}}" required aria-label="Phone Number"
+                                                   aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </div>
@@ -75,6 +83,7 @@
                                         <label for="exampleInputEmail1" class="form-label text-left">Password</label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control" placeholder="Password"
+                                                   name="password" required autocomplete="new-password"
                                                    aria-label="Password" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -83,7 +92,9 @@
                                         <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control" placeholder="Confirm Password"
-                                                   aria-label="Confirm Password" aria-describedby="basic-addon1">
+                                                   name="password_confirmation" required
+                                                   autocomplete="new-password" aria-label="Confirm Password"
+                                                   aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </div>
@@ -94,10 +105,22 @@
                                             (Optional)</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Referral Code"
+                                                   name="referral" value="{{old('referral')}}" maxlength="6"
                                                    aria-label="Referral Code" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </div>
+
+
+                                @if($freetrial==1)
+                                    <div class="row mx-4">
+                                        <div class="form-group">
+                                            <input type="checkbox" id="freetrial" name="freetrial" value="true">
+                                            <label for="freetrial"> <Strong>Activate Pro Plan Free Trial
+                                                    ({{$freetrial_days}} days)</Strong></label><br>
+                                        </div>
+                                    </div>
+                                @endif
 
                                 <div class="row" style="color: grey">
                                     <div class="mb-3 form-check col-6">
@@ -108,7 +131,7 @@
                                 </div>
 
                                 <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
-                                    <button type="button" class="btn px-3 py-3 mr-3 mt-2"
+                                    <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
                                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
                                         Register
                                     </button>
@@ -130,7 +153,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form>
+                    <form method="POST" action="{{ route('register') }}">
                         <div class="mb-3">
 
                             <div class="row">
@@ -138,7 +161,11 @@
                                     <label for="exampleInputEmail1" class="form-label text-left">Business Name</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder="Business Name"
-                                               aria-label="First Name" aria-describedby="basic-addon1">
+                                               name="firstname" value="{{old('firstname')}}" required autofocus
+                                               autocomplete="firstname" aria-label="First Name"
+                                               aria-describedby="basic-addon1">
+                                        <input type="hidden" class="form-control" name="type" value="biz" required
+                                               autofocus autocomplete="firstname">
                                     </div>
                                 </div>
 
@@ -149,15 +176,17 @@
                                     <label for="exampleInputEmail1" class="form-label text-left">Email Address</label>
                                     <div class="input-group mb-3">
                                         <input type="email" class="form-control" placeholder="Email Address"
-                                               aria-label="Email Address" aria-describedby="basic-addon1">
+                                               name="email" value="{{old('email')}}" required aria-label="Email Address"
+                                               aria-describedby="basic-addon1">
                                     </div>
                                 </div>
 
                                 <div class="px-3 py-2 col-6 ml-2 justify-content-start">
                                     <label for="exampleInputEmail1" class="form-label">Phone Number</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Phone Number"
-                                               aria-label="Phone Number" aria-describedby="basic-addon1">
+                                        <input type="tel" class="form-control" placeholder="Phone Number" name="phone"
+                                               value="{{old('phone')}}" required aria-label="Phone Number"
+                                               aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +196,7 @@
                                     <label for="exampleInputEmail1" class="form-label text-left">Password</label>
                                     <div class="input-group mb-3">
                                         <input type="password" class="form-control" placeholder="Password"
+                                               name="password" required autocomplete="new-password"
                                                aria-label="Password" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
@@ -175,7 +205,9 @@
                                     <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
                                     <div class="input-group mb-3">
                                         <input type="password" class="form-control" placeholder="Confirm Password"
-                                               aria-label="Confirm Password" aria-describedby="basic-addon1">
+                                               name="password_confirmation" required
+                                               autocomplete="new-password" aria-label="Confirm Password"
+                                               aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                             </div>
@@ -186,10 +218,21 @@
                                         (Optional)</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder="Referral Code"
+                                               name="referral" value="{{old('referral')}}" maxlength="6"
                                                aria-label="Referral Code" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                             </div>
+
+                            @if($freetrial==1)
+                                <div class="row mx-4">
+                                    <div class="form-group">
+                                        <input type="checkbox" id="freetrial" name="freetrial" value="true">
+                                        <label for="freetrial"> <Strong>Activate Pro Plan Free Trial
+                                                ({{$freetrial_days}} days)</Strong></label><br>
+                                    </div>
+                                </div>
+                            @endif
 
                             <div class="row">
                                 <div class="mb-3 form-check col-6">
@@ -200,12 +243,12 @@
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button">Register</button>
+                                <button class="btn btn-primary" type="submit">Register</button>
                             </div>
 
 
                             <div class="col-12 text-center mt-4">
-                                I have an account? <a href="#">Login</a>
+                                I have an account? <a href="{{route('login')}}">Login</a>
                             </div>
 
                             <div class="col-12 text-center mt-5">

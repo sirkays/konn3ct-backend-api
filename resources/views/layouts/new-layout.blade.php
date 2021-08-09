@@ -607,14 +607,14 @@
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="{{route('new-joinmeeting')}}">Join a Meeting Room</a>
+                            <a id="navLink" class="nav-link" href="{{route('joinmeeting')}}">Join a Meeting Room</a>
                         </li>
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="{{route('new-login')}}">Log in</a>
+                            <a id="navLink" class="nav-link" href="{{route('login')}}">Log in</a>
                         </li>
                     </ul>
 
-                    <a href="{{route('new-signup')}}" id="Group_btn" class="btn text-center"
+                    <a href="{{route('register')}}" id="Group_btn" class="btn text-center"
                        style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
                         <span id="Register_btn">Register</span>
                     </a>
@@ -627,13 +627,13 @@
 
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <a href="{{route('new-joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"
+            <a href="{{route('joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"
                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
                 <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px" alt="joinmeetingIcon"/> &nbsp;
                 Join a meeting
             </a>
             &nbsp;
-            <a href="{{route('new-signup')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
+            <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
                 <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
                 Register
@@ -659,16 +659,16 @@
                              alt="Konn3ct logo"/>
                     </a>
                     <div id="text-center">
-                        <img href="https://www.facebook.com/konn3ctapp" src="/assets/images/group2005.png">
+                        <a href="https://www.facebook.com/konn3ctapp"> <img src="/assets/images/group2005.png"></a>
 
-                        <img href="https://twitter.com/konn3ctapp" src="/assets/images/group2004.png">
+                        <a href="https://twitter.com/konn3ctapp"><img src="/assets/images/group2004.png"></a>
 
-                        <img href="https://www.instagram.com/konn3ctng" src="/assets/images/group2003.png">
+                        <a href="https://www.instagram.com/konn3ctng"><img src="/assets/images/group2003.png"></a>
 
                         <img src="/assets/images/group2002.png"/>
 
-                        <img href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"
-                             src="/assets/images/group2001.png">
+                        <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"><img
+                                src="/assets/images/group2001.png"></a>
 
                     </div>
 
@@ -737,13 +737,14 @@
                             <a href="#!" id="footer_link">Terms of Use</a>
                         </li>
                         <li>
-                            <a href="#!" id="footer_link">Privacy Policy</a>
+                            <a href="/docs/DATAPRIVACY.pdf" id="footer_link">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="#!" id="footer_link">NDPR</a>
+                            <a href="/docs/Nigeria Data Protection Regulation 2019 Implementation Framework.pdf"
+                               id="footer_link">NDPR</a>
                         </li>
                         <li>
-                            <a href="#!" id="footer_link">GDPR</a>
+                            <a href="/docs/EU_GDPR_Full_Text_EN.pdf" id="footer_link">GDPR</a>
                         </li>
                     </ul>
 

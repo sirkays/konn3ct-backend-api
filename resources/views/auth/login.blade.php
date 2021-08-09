@@ -1,8 +1,8 @@
 @extends('layouts.new-layout')
 @section('content')
-    <div class="row">
-        <div class="col-md-12 col-lg-6 ml-4">
-            <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="550px" width="" class="img col-12" alt="pix"/>
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-6 ml-4 text-center">
+            <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="520px" alt="pix"/>
         </div>
         <div class="col-md-12 col-lg-6 mt-1">
             <h2 class="text-center" style="color: #012E89">Welcome back</h2>

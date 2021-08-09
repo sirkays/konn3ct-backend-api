@@ -44,13 +44,12 @@
             font-family: Poppins;
             font-style: normal;
             font-weight: normal;
-            font-size: 20px;
             color: rgba(1, 46, 137, 1);
         }
 
         #Register_btn {
             overflow: visible;
-            width: 82px;
+            width: 80px;
             white-space: nowrap;
             text-align: center;
             font-family: Poppins;
@@ -583,11 +582,11 @@
 <body>
 <div id="main" class="container-fluid">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-body">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{route('new-homepage')}}"><img class="img img-responsive"
                                                                           src="/assets/images/konn3ct_logo@2x.png"
-                                                                          height="30" alt="Konn3ct logo"/></a>
+                                                                          height="50" alt="Konn3ct logo"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -601,7 +600,7 @@
                         <a id="navLink" class="nav-link" href="{{route('contactsales')}}">Contact sales</a>
                     </li>
                     <li class="nav-item">
-                        <a id="navLink" class="nav-link" href="#">Plans & Pricing</a>
+                        <a id="navLink" class="nav-link" href="{{route('pricing')}}">Plans & Pricing</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -655,20 +654,22 @@
 
                     <!-- Content -->
                     <a href="{{route('new-homepage')}}">
-                        <img class="img img-responsive" src="/assets/images/konn3ct_logo@2x.png" height="90"
+                        <img class="img img-responsive" src="/assets/images/konn3ct_logo@2x.png" height="80"
                              alt="Konn3ct logo"/>
                     </a>
-                    <div id="text-center">
-                        <a href="https://www.facebook.com/konn3ctapp"> <img src="/assets/images/group2005.png"></a>
+                    <div class="text-center">
+                        <a href="https://www.facebook.com/konn3ctapp"> <img src="/assets/images/group2005.png"
+                                                                            height="35px"></a>
 
-                        <a href="https://twitter.com/konn3ctapp"><img src="/assets/images/group2004.png"></a>
+                        <a href="https://twitter.com/konn3ctapp"><img src="/assets/images/group2004.png" height="35px"></a>
 
-                        <a href="https://www.instagram.com/konn3ctng"><img src="/assets/images/group2003.png"></a>
+                        <a href="https://www.instagram.com/konn3ctng"><img src="/assets/images/group2003.png"
+                                                                           height="35px"></a>
 
-                        <img src="/assets/images/group2002.png"/>
+                        <img src="/assets/images/group2002.png" height="35px"/>
 
                         <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"><img
-                                src="/assets/images/group2001.png"></a>
+                                src="/assets/images/group2001.png" height="35px"></a>
 
                     </div>
 

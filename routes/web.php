@@ -70,7 +70,7 @@ Route::get('/register/{id}', [MyAuthController::class, 'register']);
 
 Route::get('/pricing', function () {
     return view('pricing');
-});
+})->name('pricing');
 
 Route::get('/joinsession', function () {
     return view('join_session');

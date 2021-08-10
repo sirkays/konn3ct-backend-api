@@ -1,4 +1,5 @@
 @extends('layouts.new-layout')
+@section('pricing','navLinkactive')
 @section('content')
 
     <style>

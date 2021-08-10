@@ -47,6 +47,15 @@
             color: rgba(1, 46, 137, 1);
         }
 
+        #navLinkactive {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            color: #6C993C;
+        }
+
         #Register_btn {
             overflow: visible;
             width: 80px;
@@ -628,16 +637,19 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a id="navLink" class="nav-link" href="{{route('contactsales')}}">Contact sales</a>
+                        <a id="@yield('contact','navLink')" class="nav-link" href="{{route('contactsales')}}">Contact
+                            sales</a>
                     </li>
                     <li class="nav-item">
-                        <a id="navLink" class="nav-link" href="{{route('pricing')}}">Plans & Pricing</a>
+                        <a id="@yield('pricing','navLink')" class="nav-link" href="{{route('pricing')}}">Plans &
+                            Pricing</a>
                     </li>
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="{{route('joinmeeting')}}">Join a Meeting Room</a>
+                            <a id="@yield('join','navLink')" class="nav-link" href="{{route('joinmeeting')}}">Join a
+                                Meeting Room</a>
                         </li>
                         <li class="nav-item">
                             <a id="navLink" class="nav-link" href="{{route('login')}}">Log in</a>

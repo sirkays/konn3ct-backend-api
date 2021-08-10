@@ -593,8 +593,39 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a id="navLink" class="nav-link active" aria-current="page" href="#">Solutions</a>
+                    <li class="nav-item dropdown">
+                        <a id="navLink" class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Solutions </a>
+                        <div class="dropdown-menu">
+                            <div class="row" style="width: 800px">
+                                <div class="col-6">
+                                    <a class="mb-4 dropdown-item" href="#"> <img
+                                            src="/assets/images/videoconference.png" height="35px" class="mr-3"
+                                            alt="navicons"> Meeting, Chat & Calling</a>
+                                    <a class="mb-4 dropdown-item" href="#"> <img src="/assets/images/online-class.png"
+                                                                                 height="35px" class="mr-3"
+                                                                                 alt="navicons"> Webinar & Conferencing
+                                    </a>
+                                    <a class="mb-4 dropdown-item" href="#"> <img src="/assets/images/online-course.png"
+                                                                                 height="35px" class="mr-3"
+                                                                                 alt="navicons"> E-Learning</a>
+                                </div>
+
+                                <div class="col-6">
+                                    <a class="mb-4 dropdown-item" href="#"> <img src="/assets/images/secure-shield.png"
+                                                                                 height="35px" class="mr-3"
+                                                                                 alt="navicons"> Security &
+                                        Compliance</a>
+                                    <a class="mb-4 dropdown-item" href="#"> <img src="/assets/images/remote.png"
+                                                                                 height="35px" class="mr-3"
+                                                                                 alt="navicons"> Work Remotely </a>
+                                    <a class="mb-4 dropdown-item" href="#"> <img src="/assets/images/ellipsis.png"
+                                                                                 height="15px" class="mr-3"
+                                                                                 alt="navicons"> Others</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a id="navLink" class="nav-link" href="{{route('contactsales')}}">Contact sales</a>

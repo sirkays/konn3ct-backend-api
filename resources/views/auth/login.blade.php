@@ -14,7 +14,19 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}">
+            @if ($errors->any())
+                <div class="alert-danger alert">
+                    <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
+
+                    <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form class="mt-2" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-2">
 
@@ -23,7 +35,7 @@
                         <label for="exampleInputEmail1" class="form-label" style="color: grey">Email</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-32"><i class="fas fa-envelope"></i> </span>
-                            <input type="email" class="form-control" placeholder="email" aria-label="Email"
+                            <input type="email" name="email" class="form-control" placeholder="email" aria-label="Email"
                                    aria-describedby="basic-addon1" value="{{old('email')}}" autofocus>
                         </div>
                     </div>

@@ -322,7 +322,7 @@
             <div class="form-check form-switch">
                 <label class="form-check-label" for="flexSwitchCheckChecked" style="color: grey">Monthly</label>
                 <label class="switch">
-                    <input type="checkbox" checked>
+                    <input id="slider" type="checkbox" value="on" checked onchange="changeSlider(this.value)">
                     <span class="slider round"></span>
                 </label>
                 <label class="form-check-label" for="flexSwitchCheckChecked" style="color: grey">Yearly</label>
@@ -367,7 +367,7 @@
 
 
                             <div class="text-center mb-4">
-                                <a href="#" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a href="/register" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Choose Plan
                                 </a>
@@ -382,7 +382,10 @@
                         <div class="plan-headerRecomended text-center">
                             <h3 class="mt-4" style="font-weight: bolder">LITE PLAN</h3>
                             <p></p>
-                            <h4 class="plan-priceRecomended">$120 <sup>Yearly</sup> / ₦46,000 <sup>Yearly</sup></h4>
+                            <h4 id="yearly" class="plan-priceRecomended">$120 <sup>Yearly</sup> / ₦46,000
+                                <sup>Yearly</sup></h4>
+                            <h4 id="monthly" class="plan-priceRecomended" style="display: none">$10.99 <sup>Month</sup>
+                                / ₦4,000 <sup>Month</sup></h4>
                         </div>
 
                         <div class="pb-4" style="background-color: #628F41; color: #FFFFFF">
@@ -417,7 +420,8 @@
                             </ul>
 
                             <div class="text-center mb-4">
-                                <a href="#" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a id="liteLink" href="/register/2"
+                                   class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #ffff; color: #628F41; font-weight: bolder">
                                     Choose Plan
                                 </a>
@@ -431,7 +435,9 @@
                         <div class="plan-header mb-3 text-center">
                             <h3 class="mt-4" style="font-weight: bolder">PRO PLAN</h3>
                             <p></p>
-                            <h4 class="plan-price">$175 <sup>Yearly</sup> / ₦67,000 <sup>Yearly</sup></h4>
+                            <h4 id="yearly1" class="plan-price">$175 <sup>Yearly</sup> / ₦67,000 <sup>Yearly</sup></h4>
+                            <h4 id="monthly1" class="plan-price" style="display: none">$15.99 <sup>Month</sup> / ₦6,000
+                                <sup>Month</sup></h4>
                         </div>
 
 
@@ -458,7 +464,8 @@
                             </ul>
 
                             <div class="text-center mb-4">
-                                <a href="#" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a id="proLink" href="/register/3"
+                                   class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Choose Plan
                                 </a>
@@ -486,7 +493,7 @@
                             </p>
 
                             <div class="text-center mb-4">
-                                <a href="#" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a href="tel:+2348033046408" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Contact us
                                 </a>
@@ -499,6 +506,44 @@
 
         </div>
     </section>
+
+    <script>
+        function changeSlider(status) {
+            console.log(status);
+            var register = document.getElementById("liteLink");
+            var register2 = document.getElementById("proLink");
+
+            if (status == "on") {
+                document.getElementById('slider').value = "off";
+                document.getElementById('yearly').style.display = 'none';
+                document.getElementById('monthly').style.display = 'block';
+                document.getElementById('yearly1').style.display = 'none';
+                document.getElementById('monthly1').style.display = 'block';
+
+                var att = document.createAttribute("href");        // Create a "href" attribute
+                att.value = "/register/21";            // Set the value of the href attribute
+                register.setAttributeNode(att);
+
+                var att2 = document.createAttribute("href");        // Create a "href" attribute
+                att2.value = "/register/31";            // Set the value of the href attribute
+                register2.setAttributeNode(att2);
+            } else {
+                document.getElementById('slider').value = "on";
+                document.getElementById('monthly').style.display = 'none';
+                document.getElementById('yearly').style.display = 'block';
+                document.getElementById('monthly1').style.display = 'none';
+                document.getElementById('yearly1').style.display = 'block';
+
+                var att = document.createAttribute("href");        // Create a "href" attribute
+                att.value = "/register/2";            // Set the value of the href attribute
+                register.setAttributeNode(att);
+
+                var att2 = document.createAttribute("href");        // Create a "href" attribute
+                att2.value = "/register/3";            // Set the value of the href attribute
+                register2.setAttributeNode(att2);
+            }
+        }
+    </script>
 
     <!-- end priceing table -->
 @endsection

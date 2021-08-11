@@ -184,8 +184,8 @@
                              class="img col-12" alt="pix"/>
                     </div>
 
-                    <div class="col-md-12 col-lg-8 align-self-center" style="padding-left: 180px">
-                        <div>
+                    <div class="col-md-12 col-lg-8 mb-4 align-self-center">
+                        <div class="mt-4">
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>

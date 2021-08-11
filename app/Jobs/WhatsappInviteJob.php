@@ -47,6 +47,9 @@ class WhatsappInviteJob implements ShouldQueue
 
                     echo str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $this->input['text'])));
 
+//                    echo "https://api.chat-api.com/" . env("CHAT_API_INSTANCE") . "/sendMessage?token=" . env("CHAT_API_TOKEN");
+//                    echo '{ "body": "' . str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $this->input['text']))) . '", "phone": ' . $GLOBALS['recipient'] . '  }';
+
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(

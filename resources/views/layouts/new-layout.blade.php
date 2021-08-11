@@ -26,6 +26,20 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/054f0e0fe6.js" crossorigin="anonymous"></script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-196433825-2');
+    </script>
+
     <style>
         #linkText {
             overflow: visible;
@@ -652,13 +666,18 @@
                                 Meeting Room</a>
                         </li>
                         <li class="nav-item">
-                            <a id="navLink" class="nav-link" href="{{route('login')}}">Log in</a>
+                            @auth
+                                <a id="navLink" class="nav-link" href="{{route('logouts')}}">Signout</a>
+                            @else
+                                <a id="navLink" class="nav-link" href="{{route('login')}}">Log in</a>
+                            @endif
                         </li>
                     </ul>
 
-                    <a href="{{route('register')}}" id="Group_btn" class="btn text-center"
+                    <a href="@auth {{route('room')}} @else {{route('register')}} @endif" id="Group_btn"
+                       class="btn text-center"
                        style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
-                        <span id="Register_btn">Register</span>
+                        <span id="Register_btn">@auth Meeting Room @else Register @endif</span>
                     </a>
                 </div>
             </div>

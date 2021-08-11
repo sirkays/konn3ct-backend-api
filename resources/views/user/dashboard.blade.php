@@ -599,68 +599,92 @@
                                                     @endif
                                                 </span>
                                                 <br/>
-                                                <div class="dropdown">
-                                                    <Button style="font-size: 12px"
-                                                            class="waves-effect waves-light btn btn-info"
-                                                            onclick="copyToClipboard('#c{{$room->id}}')"
-                                                            data-toggle="tooltip" data-placement="top"
-                                                            title="Copy Meeting Link">
-                                                        <i class="fa fa-copy"></i> Copy
-                                                    </Button>
-                                                    <a style="font-size: 12px"
-                                                       href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"
-                                                       class="waves-effect waves-light btn btn-primary"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       title="Schedule Meeting on Google Invite">
-                                                        Google Calender Invite
-                                                    </a>
 
-                                                    <a style="font-size: 12px"
-                                                       href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}"
-                                                       class="waves-effect waves-light btn btn-primary"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       title="Schedule Meeting on Outlook Calender">
-                                                        Outlook Calendar Invite
-                                                    </a>
+                                                <div class="row">
 
-                                                    <button style="font-size: 12px"
-                                                            class="waves-effect waves-light btn btn-primary"
-                                                            data-toggle="modal"
-                                                            data-target=".dk-maininvite-lg-{{$room->id}}"
-                                                            data-placement="top"
-                                                            title="Schedule meeting with guests email">
-                                                        Konn3ct Invite
-                                                    </button>
-                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle"
-                                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"
-                                                            data-placement="top" title="Do more with meeting room">
-                                                        Manage Room
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal"
-                                                                data-target="#dk-accesscode{{$room->id}}-modal"
-                                                                data-placement="top" title="Add or remove access code">
-                                                            Access Code
+                                                    <div class="dropdown mr-2">
+                                                        <Button style="font-size: 12px"
+                                                                class="waves-effect waves-light btn btn-info"
+                                                                onclick="copyToClipboard('#c{{$room->id}}')"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="Copy Meeting Link">
+                                                            <i class="fa fa-copy"></i> Copy
                                                         </Button>
+                                                    </div>
 
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal"
+                                                    <div class="dropdown mr-2">
+                                                        <button class="btn btn-sm btn-primary dropdown-toggle"
+                                                                type="button" id="dropdownMenuButton2"
+                                                                data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"
+                                                                data-placement="top" title="Do more with meeting room">
+                                                            Invites
+                                                        </button>
+                                                        <div class="dropdown-menu"
+                                                             aria-labelledby="dropdownMenuButton2">
+                                                            <a class="button dropdown-item"
+                                                               href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"
+                                                               data-placement="top" title="Add or remove access code">
+                                                                Google Calender Invite
+                                                            </a>
+
+                                                            <a class="button dropdown-item"
+                                                               href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}"
+                                                               data-placement="top" title="Add or remove access code">
+                                                                Outlook Calendar Invite
+                                                            </a>
+
+                                                            <button class="button dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target=".dk-maininvite-lg-{{$room->id}}"
+                                                                    data-placement="top"
+                                                                    title="Schedule meeting with guests email">
+                                                                Konn3ct Invite
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        <a href="{{route('attendance', $room->id)}}"
+                                                           class="btn btn-secondary" data-placement="top"
+                                                           title="Upload a desired meeting banner">
+                                                            Attendance
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        <Button class="btn btn-secondary" data-toggle="modal"
                                                                 data-target="#dk-limituser{{$room->id}}-modal"
                                                                 data-placement="top"
                                                                 title="Increase or decrease users size for meeting">
                                                             Users Limit
                                                         </Button>
+                                                    </div>
+
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                                type="button" id="dropdownMenuButton"
+                                                                data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"
+                                                                data-placement="top" title="Do more with meeting room">
+                                                            Manage Room
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <Button type="button" class="dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target="#dk-accesscode{{$room->id}}-modal"
+                                                                    data-placement="top"
+                                                                    title="Add or remove access code">
+                                                            Access Code
+                                                        </Button>
+
                                                         <Button type="button" class="dropdown-item" data-toggle="modal"
                                                                 data-target="#dk-roombanner{{$room->id}}-modal"
                                                                 data-placement="top"
                                                                 title="Upload a desired meeting banner">
                                                             Meeting Room Banner Upload
                                                         </Button>
-                                                        <a href="{{route('attendance', $room->id)}}" type="button"
-                                                           class="dropdown-item" data-placement="top"
-                                                           title="Upload a desired meeting banner">
-                                                            Attendance
-                                                        </a>
+
                                                         @if($room->prereg==NULL)
                                                             <Button type="button" class="dropdown-item"
                                                                     data-toggle="modal"
@@ -681,6 +705,8 @@
                                                                 Disable Pre-Registration
                                                             </a>
                                                         @endif
+
+                                                        </div>
 
                                                     </div>
                                                 </div>

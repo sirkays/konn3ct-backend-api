@@ -32,7 +32,7 @@
                 <div class="box">
                     <div class="box-header">
                         <h4 class="box-title align-items-start flex-column">
-                            Meetings Attendance
+                            Pre-Registered Users
                             {{--                                    <small class="subtitle">This table show the list of meetings joined </small>--}}
                         </h4>
 
@@ -45,30 +45,31 @@
                                     <th><span class="text-fade">S/N</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Name</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Email</span></th>
-                                    <th style="min-width: 10px"><span class="text-fade">Status</span></th>
+                                    {{--                                    <th style="min-width: 10px"><span class="text-fade">Phone</span></th>--}}
+                                    {{--                                            <th style="min-width: 10px"><span class="text-fade">Status</span></th>--}}
                                     <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($meetings as $meeting)
+                                @foreach($users as $user)
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td class="pl-0 py-8">
                                             <div class="d-flex align-items-center">
                                                 <div>
                                                     <a href="#"
-                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$meeting->name}}</a>
+                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$user->name}}</a>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <span>{{$meeting->email}}</span>
+                                            <span>{{$user->email}}</span>
                                         </td>
+                                        {{--                                        <td>--}}
+                                        {{--                                            <span>{{$user->phone}}</span>--}}
+                                        {{--                                        </td>--}}
                                         <td>
-                                            <span>{{$meeting->status}}</span>
-                                        </td>
-                                        <td>
-                                            <span>{{$meeting->created_at}}</span>
+                                            <span>{{$user->created_at}}</span>
                                         </td>
                                     </tr>
                                 @endforeach

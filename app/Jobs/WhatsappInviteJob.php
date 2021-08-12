@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -43,12 +44,29 @@ class WhatsappInviteJob implements ShouldQueue
 //            echo $GLOBALS['recipient'];
 
             try {
+
                 if ($GLOBALS['recipient'] != "") {
 
-                    echo str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $this->input['text'])));
+                    $data['ihost'] = $this->input['hostname'];
 
-//                    echo "https://api.chat-api.com/" . env("CHAT_API_INSTANCE") . "/sendMessage?token=" . env("CHAT_API_TOKEN");
-//                    echo '{ "body": "' . str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $this->input['text']))) . '", "phone": ' . $GLOBALS['recipient'] . '  }';
+                    $data['ilink'] = $this->input['roomlink'];
+
+                    $data['iaccesscode'] = $this->input['accesscode'];
+
+                    $data['imtitle'] = $this->input['title'];
+
+                    $data['idate'] = $this->input['date'];
+
+                    $data['itime'] = $this->input['time'];
+
+                    $data['iroom'] = $this->input['roomname'];
+
+                    $data['itimezone'] = $this->input['timezone'];
+
+                    $msg = '*Hello*,\nYou have been invited by ' . $data["ihost"] . ' to attend ' . $data["imtitle"] . ' scheduled as follows:\n\nMeeting Room Name: ' . $data["iroom"] . '\nAccess Code: ' . $data["iaccesscode"] . '\nDate: ' . $data["idate"] . '\nTime: ' . $data["itime"] . ' ' . $data["itimezone"] . '\n\nClick this link ' . $data["ilink"] . ' to join or copy and paste in your preferred browser.\n\nThank you.\n...............\nVisit https://konn3ct.com\n...Amazing Virtual Experience';
+
+                    $pBody = '{ "body": "' . str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $msg))) . '", "phone": ' . $GLOBALS['recipient'] . '  }';
+                    echo $pBody;
 
                     $curl = curl_init();
 
@@ -64,7 +82,7 @@ class WhatsappInviteJob implements ShouldQueue
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => "POST",
-                        CURLOPT_POSTFIELDS => '{ "body": "' . str_replace('/>', "", str_replace('<', "", str_replace('"', "'", $this->input['text']))) . '", "phone": ' . $GLOBALS['recipient'] . '  }'
+                        CURLOPT_POSTFIELDS => $pBody
                     ));
                     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
                     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
@@ -73,7 +91,9 @@ class WhatsappInviteJob implements ShouldQueue
 
                     curl_close($curl);
                     echo $response;
+
                 }
+
             } catch (Exception $e) {
                 echo "error when sending whatsapp";
             }

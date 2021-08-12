@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddonController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\OtherController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
 use App\Mail\UserWelcomeMail;
 use App\Mail\WelcomeMailViaJoin;
+use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -103,7 +105,8 @@ Route::get('/preregistration/{url}', [RoomController::class, 'preregshow'])->nam
 Route::post('/registerprereg', [RoomController::class, 'registerprereg'])->name('registerprereg');
 
 Route::get('/preregistrationsuccess', function () {
-    return view('success');
+    $data['faqs'] = Faq::where('status', 1)->get();
+    return view('success', $data);
 })->name('preregsuccess');
 
 Route::get('/features', function () {
@@ -177,9 +180,9 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/deleterecording', [RecordingController::class, 'delete'])->name('recording.delete');
 
-    Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+    Route::post('/invite', [InviteController::class, 'invite'])->name('invite');
 
-    Route::post('/whatsappinvite', [RoomController::class, 'invite_whatsapp'])->name('whatsappinvite');
+    Route::post('/whatsappinvite', [InviteController::class, 'invite_whatsapp'])->name('whatsappinvite');
 
     Route::get('/invites', [OtherController::class, 'invites'])->name('invites');
 

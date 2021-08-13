@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\OtherController;
 use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
 use App\Http\Controllers\admin\RoomsController;
@@ -53,6 +54,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/receipt/{id}', [PaymentsController::class, 'receipt'])->name('admin.receipt');
 
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+        Route::get('/faqs', [OtherController::class, 'faqs'])->name('admin.faqs');
 
 
     });

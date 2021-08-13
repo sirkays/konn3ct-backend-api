@@ -1920,10 +1920,6 @@
                     document.execCommand("copy");
                     $temp.remove();
                 }
-
-                export default {
-                    components: {Input}
-                }
             </script>
 
             <script>

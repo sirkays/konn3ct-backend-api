@@ -5,7 +5,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
-use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
@@ -65,7 +64,7 @@ Route::get('/offline', function () {
 });
 
 Route::get('/', function () {
-    return view('new-homepage');
+    return view('welcome');
 })->name('welcome');
 
 Route::get('/register/{id}', [MyAuthController::class, 'register']);
@@ -184,9 +183,9 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/whatsappinvite', [InviteController::class, 'invite_whatsapp'])->name('whatsappinvite');
 
-    Route::get('/invites', [OtherController::class, 'invites'])->name('invites');
+    Route::get('/invites', [InviteController::class, 'invites'])->name('invites');
 
-    Route::get('/resendinvites/{id}', [OtherController::class, 'resendinvite'])->name('resendinvites');
+    Route::get('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 

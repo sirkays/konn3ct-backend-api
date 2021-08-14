@@ -23,8 +23,9 @@
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="url" class="form-control"
-                                       value="{{$url ?? ''}}" placeholder="Paste invite link or Enter meeting room name"
+                                <input type="text" class="form-control" name="url"
+                                       value="{{$url ?? old('url')}}"
+                                       placeholder="Paste invite link or Enter meeting room name"
                                        aria-label="First Name" aria-describedby="basic-addon1" required>
                             </div>
                         </div>
@@ -35,7 +36,7 @@
                     <div class="row">
                         <div class="px-3 py-2 col-12 mr-2">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="name" value=""
+                                <input type="text" class="form-control" name="name" value="{{old('name')}}"
                                        placeholder="Enter your name e.g. Samji Diamond" aria-label="First Name"
                                        aria-describedby="basic-addon1" required>
                             </div>

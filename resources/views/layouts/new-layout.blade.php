@@ -603,7 +603,7 @@
     </style>
 </head>
 <body>
-<div id="main" class="container-fluid">
+<div id="main" class="container">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-body">
         <div class="container-fluid">

@@ -40,13 +40,13 @@
         }
 
     </style>
-    <div class="row">
+    <div class="col-12">
 
-        <div class="row" style="background-image: url('/assets/images/pathgroup.png'); padding-left: 100px">
+        <div class="row" style="background-image: url('/assets/images/pathgroup.png');">
             <div class="col-md-12 col-lg-6 align-self-center" style="color: white;">
-                <h2 style="font-weight: bolder; font-size: 69px">
+                <h1 style="font-weight: bolder;">
                     Konn3ct
-                </h2>
+                </h1>
 
                 <h4 class="mt-3">
                     Meet, chat, and collaborate<br/>
@@ -80,7 +80,7 @@
         </div>
 
         <div id="unique" class="row mt-3" style="padding-left: 100px">
-            <div class="col-md-12 col-lg-6 align-self-center">
+            <div class="col-sm-12 col-md-12 col-lg-6 align-self-center">
                 <h2 style="font-weight: bolder">
                     UNIQUE FEATURES
                 </h2>

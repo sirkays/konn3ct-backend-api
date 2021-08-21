@@ -45,6 +45,15 @@
             color: rgba(1, 46, 137, 1);
         }
 
+        #navLinkactive {
+            white-space: nowrap;
+            text-align: left;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: normal;
+            color: #6C993C;
+        }
+
         #Konn3ct_is_the_first_fully_fea {
             text-align: left;
             font-family: Poppins;
@@ -138,7 +147,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a id="@yield('contact','navLink')" class="nav-link" href="{{route('contactsales')}}">Contact
+                    <a id="@yield('contact','navLink')" class="nav-link" href="{{route('contact')}}">Contact
                         sales</a>
                 </li>
                 <li class="nav-item">

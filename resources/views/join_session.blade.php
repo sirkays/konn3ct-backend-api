@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.website-layout')
 @section('join','navLinkactive')
 @section('content')
     <div class="row mt-5">

@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.website-layout')
 @section('pricing','navLinkactive')
 @section('content')
 

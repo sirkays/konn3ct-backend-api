@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.website-layout')
 @section('contact','navLinkactive')
 @section('content')
     <div class="row pt-5" style="background-color: #012E89">

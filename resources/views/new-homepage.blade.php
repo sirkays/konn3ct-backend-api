@@ -84,8 +84,10 @@
 
             </div>
         </div><!--end container-->
-    </section><!--end section-->
+    </section>
+    <!--end section-->
 
+    <!-- Start -->
     <section class="other-services" style="background-image: url('/assets/images/group2008.png');">
         <div class="container mt-50">
             <div class="row">
@@ -121,6 +123,7 @@
 
         </div><!--end container-->
     </section>
+    <!--end section-->
 
     <div class="row mt-5">
         <div class="col-12">
@@ -150,6 +153,7 @@
         </div>
     </div>
 
+    <!-- Start -->
     <section class="mt-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -265,6 +269,7 @@
             </div>
         </div>
     </section>
+    <!--end section-->
 
 @endsection
 

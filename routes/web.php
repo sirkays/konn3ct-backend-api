@@ -114,7 +114,7 @@ Route::get('/features', function () {
 
 Route::get('/contact', function () {
     return view('contact');
-});
+})->name('contact');
 
 Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 

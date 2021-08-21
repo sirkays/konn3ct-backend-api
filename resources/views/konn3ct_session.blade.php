@@ -46,9 +46,22 @@
 
                 <div class="row mt-5 mb-3">
                     @if($acode)
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center mb-3">
                             This meeting room is restricted. <br/>
                             To join, kindly input the Room Access Code
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-4 text-center">
+                                <div class="input-group mb-3 w-100">
+                                    @csrf
+                                    <input type="text" name="accesscode" class="form-control"
+                                           placeholder="For Example: 2134"
+                                           value="" autofocus @if($acode) required @endif />
+                                </div>
+                            </div>
+                            <div class="col-4"></div>
                         </div>
                     @else
                         <div class="col-12 text-center">
@@ -56,20 +69,6 @@
                         </div>
                     @endif
                 </div>
-
-                @if(!$acode)
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col-4 text-center">
-                        <div class="input-group mb-3 w-100">
-                            @csrf
-                            <input type="text" name="accesscode" class="form-control" placeholder="For Example: 2134"
-                                   value="" autofocus @if($acode) required @endif />
-                        </div>
-                    </div>
-                    <div class="col-4"></div>
-                </div>
-                @endif
 
 
                 <div class="row mt-4">

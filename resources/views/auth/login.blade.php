@@ -36,7 +36,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-32"><i class="fas fa-envelope"></i> </span>
                             <input type="email" name="email" class="form-control" placeholder="email" aria-label="Email"
-                                   aria-describedby="basic-addon1" value="{{old('email')}}" autofocus>
+                                   aria-describedby="basic-addon1" value="{{old('email')}}" autofocus required>
                         </div>
                     </div>
 

@@ -1,89 +1,96 @@
-@extends('layouts.layout')
-
+@extends('layouts.website-layout')
 @section('content')
-    <!-- main-area -->
-    <main>
-        <!-- pricing-area -->
-        <section id="pricing" class="pricing-area pt-20 pb-20">
-            <div class="container">
+    <div class="row mt-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+        <div class="col-md-12 col-lg-12" style="color: #012E89;">
+            <h2 class="text-center" style="color: #012E89; font-weight: bold">MEETING ROOM PREVIEW</h2>
+            <h6 class="text-center" style="color: #012E89;">Welcome to {{$meetingname}} hosted by {{$meetinghost}}</h6>
 
-                <div class="row justify-content-center">
+            <form action="{{route('konn3ct')}}" method="POST">
 
-                    <div class="col-12 text-center">
-                        <h2 class="text-success">Meeting Room Preview</h2>
-                        <span>Welcome to {{$meetingname}} hosted by {{$meetinghost}}</span>
-                        <p></p>
-                    </div>
-
-                    <div class="col-6">
-                        <h4>Join via Phone? Dial</h4>
-                        <p><i class="fa fa-phone"></i> Phone No: {{$dialNumber}}</p>
-                        <p><i class="fa fa-user-secret"></i> Pin: @if($acode) xxx @else {{$pin}} @endif </p>
+                <div class="row mb-3 mt-5 ml-5 text-justify">
+                    <div class="col-2"></div>
+                    <div class="px-3 py-2 col-4 mr-2">
+                        <div style="color: #012E89">
+                            <span style="font-weight: bolder">Join via Phone? Dial</span> <br/>
+                            <i class="fa fa-check"> </i>Phone No : {{$dialNumber}} <br/>
+                            Pin: @if($acode) xxx @else {{$pin}} @endif
+                        </div>
                     </div>
 
-                    <div class="col-6 wow fadeInDown animated text-center" data-animation="fadeInDown animated" data-delay=".2s">
-                            <h4>Meeting Status: {{$status}}</h4>
-
-                            <p><i class="fa fa-users"></i> Participants: {{$pcount}}</p>
-                            <p><i class="fa fa-user-plus"></i> Roll-call: {{$participants??''}}</p>
+                    <div class="col-2">
+                        <img src="/assets/images/animation_500_krj7eu2n.gif" alt="loader" width="85px"
+                             height="85px"/>
                     </div>
 
-                    <div class="col-12 text-center">
-                        <p></p>
-                        <p></p>
-                        @if($acode)
-                        This meeting room is restricted. <br/>
-                        To join, kindly input the Room Access Code
-                        <br/>
+                    <div class="px-3 py-2 col-4 mr-2">
+                        <div style="color: #012E89">
+                            <span style="font-weight: bolder">Meeting Status :</span> {{$status}} <br/>
+                            Participants: {{$pcount}} <br/>
+                            Roll-Call: {{substr($participants, 0,  80)??''}}
+                        </div>
+                    </div>
 
-                            <form action="{{route('konn3ct')}}" method="POST">
+                </div>
+
+                <div class="row mt-5 mb-3">
+                    @if($acode)
+                        <div class="col-12 text-center">
+                            This meeting room is restricted. <br/>
+                            To join, kindly input the Room Access Code
+                        </div>
+                    @else
+                        <div class="col-12 text-center">
+                            This meeting room is unrestricted.
+                        </div>
+                    @endif
+                </div>
+
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4 text-center">
+                        <div class="input-group mb-3 w-100">
                             @csrf
-                            <div class="text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                                <div class="form-group">
-                                    <input type="text" name="accesscode" style="border-color: #0b2e13; border-style: solid; border-width: medium" value="" placeholder="For Example: 37323" required>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn su">Join</button>
-                                    <a href="{{url('/')}}" class="btn btn-outline-danger">Go Home</a>
-                                </div>
-                            </div>
-                        </form>
-                        @else
-                            <span>This meeting room is unrestricted.</span>
-                        <form action="{{route('konn3ct')}}" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <button class="btn su">Join</button>
-                                <a href="{{url('/')}}" class="btn btn-outline-danger">Go Home</a>
-                            </div>
-                        </form>
-                        @endif
+                            <input type="text" name="accesscode" class="form-control" placeholder="For Example: 2134"
+                                   value="" autofocus @if($acode) required @endif />
+                        </div>
                     </div>
+                    <div class="col-4"></div>
+                </div>
 
+
+                <div class="row mt-4">
+                    <div class="col-3"></div>
+                    <div class="d-grid gap-2 col-3 mx-auto">
+                        <button class="btn" type="submit" style="background-color: #012E89; color: white">Join</button>
+                    </div>
+                    <div class="d-grid gap-2 col-3 mx-auto">
+                        <a href="{{url('/')}}" class="btn" style="color: white; background-color: #669340">Go Home</a>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+
+                <div>
                     <span
                         class="text-muted mt-2">Kindly note that on joining this room an account may be created for you</span>
 
                 </div>
-            </div>
-        </section>
-        <!-- pricing-area-end -->
 
-    </main>
-    <!-- main-area-end -->
+            </form>
 
-    <p style="margin-top: 20px"></p>
+        </div>
 
-
+    </div>
 @endsection
+

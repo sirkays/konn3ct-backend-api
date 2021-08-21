@@ -18,6 +18,7 @@
             <h6 class="text-center" style="color: #012E89;">Welcome to {{$meetingname}} hosted by {{$meetinghost}}</h6>
 
             <form action="{{route('konn3ct')}}" method="POST">
+                @csrf
 
                 <div class="row mb-3 mt-5 ml-5 text-justify">
                     <div class="col-2"></div>
@@ -55,7 +56,6 @@
                             <div class="col-4"></div>
                             <div class="col-4 text-center">
                                 <div class="input-group mb-3 w-100">
-                                    @csrf
                                     <input type="text" name="accesscode" class="form-control"
                                            placeholder="For Example: 2134"
                                            value="" autofocus @if($acode) required @endif />

@@ -15,8 +15,8 @@
 
         <div class="col-md-12 col-lg-12" style="color: #012E89;">
             <h2 class="text-center" style="color: #012E89; font-weight: bold">MEETING ROOM PREVIEW</h2>
-            <h6 class="text-center" style="color: #012E89;">Welcome to {{$meetingname ?? ''}} hosted
-                by {{$meetinghost ?? ''}}</h6>
+            <h6 class="text-center" style="color: #012E89;">Welcome to {{$room->name ?? ''}} hosted
+                by {{$owner->firstname ?? ''}} {{$owner->lastname ?? ''}}</h6>
 
             <form action="{{route('konn3ct')}}" method="POST">
 
@@ -25,7 +25,7 @@
                     <div class="px-3 py-2 col-4 mr-2">
                         <div style="color: #012E89">
                             <span style="font-weight: bolder">Join via Phone? Dial</span> <br/>
-                            <i class="fa fa-check"> </i>Phone No : {{$dialNumber ?? ''}} <br/>
+                            <i class="fa fa-check"> </i>Phone No : {{$room->dial_number ?? ''}} <br/>
                         </div>
                     </div>
 

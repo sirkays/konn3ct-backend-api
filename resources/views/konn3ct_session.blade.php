@@ -81,9 +81,12 @@
                     <div class="col-3"></div>
                 </div>
 
-                <div>
+                <div class="row">
+                    <div class="col-12">
                     <span
                         class="text-muted mt-2">Kindly note that on joining this room an account may be created for you</span>
+
+                    </div>
 
                 </div>
 

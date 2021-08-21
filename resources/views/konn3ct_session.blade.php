@@ -57,6 +57,7 @@
                     @endif
                 </div>
 
+                @if(!$acode)
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col-4 text-center">
@@ -68,6 +69,7 @@
                     </div>
                     <div class="col-4"></div>
                 </div>
+                @endif
 
 
                 <div class="row mt-4">

@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                     <span
                         class="text-muted mt-2">Kindly note that on joining this room an account may be created for you</span>
 

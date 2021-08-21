@@ -103,9 +103,9 @@
 <!-- Loader -->
 <nav class="navbar navbar-expand-lg navbar-light bg-body">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('new-homepage')}}"><img class="img img-responsive"
-                                                                      src="/assets/images/konn3ct_logo@2x.png"
-                                                                      height="50" alt="Konn3ct logo"/></a>
+        <a class="navbar-brand" href="{{route('welcome')}}"><img class="img img-responsive"
+                                                                 src="/assets/images/konn3ct_logo@2x.png"
+                                                                 height="50" alt="Konn3ct logo"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -30,8 +30,8 @@
             </div>
         @endif
 
-        <form action="{{route('contactsent')}}" method="post" class="contact-form wow fadeInUp animated"
-              data-animation="fadeInDown animated" data-delay=".2s">
+        <form action="{{route('contactsent')}}" method="post">
+            @csrf
             <div class="mx-3 my-3 px-3 py-3  row" style="background-color: white; border-radius: 15px">
 
                 <div class="col-md-12 col-lg-6 ml-4">
@@ -65,7 +65,7 @@
                             <div class="px-3 py-2 col-12 mr-2">
                                 <div class="input-group mb-3">
                                     <span class="mr-4">Subject<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="text" class="form-control ml-3" name="phone"
+                                    <input type="text" class="form-control ml-3" name="subject"
                                            style="border-radius: 10px" required>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                     <div class="px-3 py-2 col-12 mr-2">
                         <div class="input-group mb-3">
                             <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <textarea class="form-control ml-3" name="message" style="border-radius: 10px"
+                            <textarea class="form-control ml-3" name="content" style="border-radius: 10px"
                                       rows="10" required></textarea>
                         </div>
 

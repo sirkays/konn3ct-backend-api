@@ -36,7 +36,7 @@
 
                     <div class="px-3 py-2 col-4 mr-2">
                         <div style="color: #012E89">
-                            <span style="font-weight: bolder">Meeting Status :</span> {{$status ?? ''}} <br/>
+                            <span style="font-weight: bolder">Meeting Status :</span> Meeting not started <br/>
                         </div>
                     </div>
 

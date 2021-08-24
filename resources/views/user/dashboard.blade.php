@@ -630,7 +630,8 @@
 
                                                             <a class="button dropdown-item"
                                                                href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}"
-                                                               data-placement="top" title="Add or remove access code">
+                                                               data-placement="top"
+                                                               title="Schedule meeting on Oulook cvalendar">
                                                                 Outlook Calendar Invite
                                                             </a>
 
@@ -647,7 +648,7 @@
                                                     <div class="dropdown mr-2">
                                                         <a href="{{route('attendance', $room->id)}}"
                                                            class="btn btn-secondary" data-placement="top"
-                                                           title="Upload a desired meeting banner">
+                                                           title="See people who attended your meetings">
                                                             Attendance
                                                         </a>
                                                     </div>

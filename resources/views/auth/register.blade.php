@@ -22,6 +22,14 @@
                 </li>
             </ul>
 
+
+            @if (session('status'))
+                <div class="mb-1 font-medium text-sm text-green-600">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+
             @if ($errors->any())
                 <div {{ $attributes }}>
                     <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>

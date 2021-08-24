@@ -14,4 +14,16 @@ class OtherController extends Controller
 
         return view('admin.faqs', $datas);
     }
+
+    function encryptdata($plain)
+    {
+        return bin2hex(openssl_encrypt($plain, "aes-128-cbc", env("ENCRYPT_AESKEY"), OPENSSL_RAW_DATA, env("ENCRYPT_IVKEY")));
+    }
+
+    function decryptdata($encriptedData)
+    {
+        $ciphertext = hex2bin($encriptedData);
+        return openssl_decrypt($ciphertext, "aes-128-cbc", env("ENCRYPT_AESKEY"), OPENSSL_RAW_DATA, env("ENCRYPT_IVKEY"));
+    }
+
 }

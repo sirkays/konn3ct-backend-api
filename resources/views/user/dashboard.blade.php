@@ -163,19 +163,29 @@
 
                                                         <form action="/joinroom" method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="id" value="{{$room->id}}" />
+                                                            <input type="hidden" name="id" value="{{$room->id}}"/>
 
                                                             <div class="dropdown">
-                                                                    <Button type="submit" class="waves-effect waves-light font-size-10 btn btn-success" data-toggle="tooltip" data-placement="top" title="Start the meeting">Konn3ct Now <br>
-                                                                        <span class="font-size-8">Start Meeting</span></Button>
+                                                                <Button type="submit"
+                                                                        class="waves-effect waves-light font-size-10 btn btn-success"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="Start the meeting"
+                                                                        style="font-weight: bolder">Konn3ct Now <br>
+                                                                    <span class="font-size-8">(Start Meeting Now)</span>
+                                                                </Button>
 
-                                                                </form>
+                                                        </form>
 
-                                                                <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    Manage
-                                                                </button>
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                    <Button type="button" class="dropdown-item waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
+                                                        <button
+                                                            class="btn btn-outline-primary dropdown-toggle font-size-10"
+                                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            Manage
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <Button type="button"
+                                                                    class="dropdown-item waves-effect waves-light btn"
+                                                                    onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
                                                                         Copy
                                                                     </Button>
 
@@ -599,18 +609,7 @@
                                                     @endif
                                                 </span>
                                                 <br/>
-
                                                 <div class="row">
-
-                                                    <div class="dropdown mr-2">
-                                                        <Button style="font-size: 12px"
-                                                                class="waves-effect waves-light btn btn-info"
-                                                                onclick="copyToClipboard('#c{{$room->id}}')"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="Copy Meeting Link">
-                                                            <i class="fa fa-copy"></i> Copy
-                                                        </Button>
-                                                    </div>
 
                                                     <div class="dropdown mr-2">
                                                         <button class="btn btn-sm btn-primary dropdown-toggle"
@@ -676,39 +675,60 @@
                                                                     data-target="#dk-accesscode{{$room->id}}-modal"
                                                                     data-placement="top"
                                                                     title="Add or remove access code">
-                                                            Access Code
-                                                        </Button>
+                                                                Access Code
+                                                            </Button>
 
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal"
-                                                                data-target="#dk-roombanner{{$room->id}}-modal"
-                                                                data-placement="top"
-                                                                title="Upload a desired meeting banner">
-                                                            Meeting Room Banner Upload
-                                                        </Button>
-
-                                                        @if($room->prereg==NULL)
                                                             <Button type="button" class="dropdown-item"
                                                                     data-toggle="modal"
-                                                                    data-target=".dk-prereg-lg-{{$room->id}}"
+                                                                    data-target="#dk-roombanner{{$room->id}}-modal"
                                                                     data-placement="top"
-                                                                    title="Enable pre-registration">
-                                                                Enable Pre-Registration
+                                                                    title="Upload a desired meeting banner">
+                                                                Meeting Room Banner Upload
                                                             </Button>
-                                                        @else
-                                                            <a href="{{route("prereParticipants", $room->prereg)}}"
-                                                               type="button" class="dropdown-item" data-placement="top"
-                                                               title="View pre-registered users">
-                                                                Pre-Registered Users
-                                                            </a>
-                                                            <a href="{{route("dprereg", $room->prereg)}}" type="button"
-                                                               class="dropdown-item" data-placement="top"
-                                                               title="Disable pre-registration">
-                                                                Disable Pre-Registration
-                                                            </a>
-                                                        @endif
+
+                                                            @if($room->prereg==NULL)
+                                                                <Button type="button" class="dropdown-item"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-prereg-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Enable pre-registration">
+                                                                    Enable Pre-Registration
+                                                                </Button>
+                                                            @else
+                                                                <a href="{{route("prereParticipants", $room->prereg)}}"
+                                                                   type="button" class="dropdown-item"
+                                                                   data-placement="top"
+                                                                   title="View pre-registered users">
+                                                                    Pre-Registered Users
+                                                                </a>
+                                                                <a href="{{route("dprereg", $room->prereg)}}"
+                                                                   type="button"
+                                                                   class="dropdown-item" data-placement="top"
+                                                                   title="Disable pre-registration">
+                                                                    Disable Pre-Registration
+                                                                </a>
+                                                            @endif
 
                                                         </div>
 
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                                            @if($room->default_room!="yes")
+                                                                <form action="/deleteroom" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id"
+                                                                           value="{{$room->id}}"/>
+                                                                    <Button type="submit"
+                                                                            class="waves-effect waves-light btn btn-sm btn-danger"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="Delete the meeting">
+                                                                        <i class="fa fa-trash"></i> Delete
+                                                                    </Button>
+                                                                </form>
+                                                            @endif
+                                                        @endif
                                                     </div>
                                                 </div>
 
@@ -1731,32 +1751,30 @@
 
                                             </td>
 
-                                            <td>
+                                            <td style="alignment-baseline: bottom; alignment: bottom">
                                                 <form action="/joinroom" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{$room->id}}"/>
                                                     <Button type="submit"
                                                             class="waves-effect waves-light btn btn-success"
                                                             data-toggle="tooltip" data-placement="top"
-                                                            title="Start the meeting">
-                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now <br>
-                                                        <span class="font-size-10">Start Meeting</span>
+                                                            title="Start the meeting"
+                                                            style="font-size: 20px; min-height: 90px; font-weight: bolder">
+                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now
+                                                        <span class="font-size-10">(Start Meeting Now)</span>
+                                                    </Button>
+
+                                                    <Button style="font-size: 12px"
+                                                            class="waves-effect waves-light btn btn-info"
+                                                            onclick="copyToClipboard('#c{{$room->id}}')"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Copy Meeting Link">
+                                                        <i class="fa fa-copy"></i> Copy
                                                     </Button>
                                                 </form>
+
                                             </td>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                                @if($room->default_room!="yes")
-                                                    <td>
-                                                        <form action="/deleteroom" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="id" value="{{$room->id}}" />
-                                                            <Button type="submit" class="waves-effect waves-light btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete the meeting">
-                                                                <i class="fa fa-trash"></i> Delete
-                                                            </Button>
-                                                        </form>
-                                                    </td>
-                                                @endif
-                                            @endif
+
                                         </tr>
                                         @endforeach
                                         </tbody>

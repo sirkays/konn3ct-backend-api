@@ -83,9 +83,13 @@
                                                         @if(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0")
                                                         Not yet activated
                                                     @else
-                                                        Expires
-                                                        in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
-                                                        days
+                                                        @if(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false) > 0)
+                                                            Expires
+                                                            in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
+                                                            days
+                                                            @else
+                                                            Expired
+                                                            @endif
                                                     @endif
                                                 </span>
                                             @else

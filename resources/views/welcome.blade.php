@@ -17,7 +17,7 @@
 
                     <div class="row mt-5">
                         <div class="col-12">
-                            <a href="{{route('new-signup')}}" type="button" class="btn px-3 py-3 mr-3 mt-2"
+                            <a href="{{route('register')}}" type="button" class="btn px-3 py-3 mr-3 mt-2"
                                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder">
                                 Start Free Trial
                             </a>

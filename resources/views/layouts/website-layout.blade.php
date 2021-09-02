@@ -91,85 +91,85 @@
             clip: rect(0, 1349px, 673px, 0);
         }</style>
 
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <!-- Chrome for Android theme color -->
-    <meta name="theme-color" content="#042c69">
+    {{--    <!-- Web Application Manifest -->--}}
+    {{--    <link rel="manifest" href="/manifest.json">--}}
+    {{--    <!-- Chrome for Android theme color -->--}}
+    {{--    <meta name="theme-color" content="#042c69">--}}
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Konn3ct">
-    <link rel="icon" sizes="512x512" href="/assets/manifest/k512.png">
+    {{--    <!-- Add to homescreen for Chrome on Android -->--}}
+    {{--    <meta name="mobile-web-app-capable" content="yes">--}}
+    {{--    <meta name="application-name" content="Konn3ct">--}}
+    {{--    <link rel="icon" sizes="512x512" href="/assets/manifest/k512.png">--}}
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Konn3ct">
-    <link rel="apple-touch-icon" href="/assets/manifest/k512.png">
-
-
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-    <link href="/assets/images/konn3ct_logo.png"
-          media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
-          rel="apple-touch-startup-image"/>
-
-    <!-- Tile for Win8 -->
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/assets/manifest/k512.png">
+    {{--    <!-- Add to homescreen for Safari on iOS -->--}}
+    {{--    <meta name="apple-mobile-web-app-capable" content="yes">--}}
+    {{--    <meta name="apple-mobile-web-app-status-bar-style" content="black">--}}
+    {{--    <meta name="apple-mobile-web-app-title" content="Konn3ct">--}}
+    {{--    <link rel="apple-touch-icon" href="/assets/manifest/k512.png">--}}
 
 
-    <script type="text/javascript">
-        var deviceDetect = navigator.platform;
-        var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',
-            'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
+    {{--    <link href="/assets/images/konn3ct_logo.png"--}}
+    {{--          media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"--}}
+    {{--          rel="apple-touch-startup-image"/>--}}
 
-        // If on Apple device
-        if (appleDevicesArr.includes(deviceDetect)) {
-            // Execute code
-        }
-// If NOT on Apple device
-        else {
+    {{--    <!-- Tile for Win8 -->--}}
+    {{--    <meta name="msapplication-TileColor" content="#ffffff">--}}
+    {{--    <meta name="msapplication-TileImage" content="/assets/manifest/k512.png">--}}
 
-            // Initialize the service worker
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/serviceworker.min.js', {
-                    scope: '.'
-                }).then(function (registration) {
-                    // Registration was successful
-                    console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
-                }, function (err) {
-                    // registration failed :(
-                    console.log('Laravel PWA: ServiceWorker registration failed: ', err);
-                });
-            }
-        }
-    </script>
+
+    {{--    <script type="text/javascript">--}}
+    {{--        var deviceDetect = navigator.platform;--}}
+    {{--        var appleDevicesArr = ['MacIntel', 'MacPPC', 'Mac68K', 'Macintosh', 'iPhone',--}}
+    {{--            'iPod', 'iPad', 'iPhone Simulator', 'iPod Simulator', 'iPad Simulator', 'Pike v7.6 release 92', 'Pike v7.8 release 517'];--}}
+
+    {{--        // If on Apple device--}}
+    {{--        if (appleDevicesArr.includes(deviceDetect)) {--}}
+    {{--            // Execute code--}}
+    {{--        }--}}
+    {{--// If NOT on Apple device--}}
+    {{--        else {--}}
+
+    {{--            // Initialize the service worker--}}
+    {{--            if ('serviceWorker' in navigator) {--}}
+    {{--                navigator.serviceWorker.register('/serviceworker.min.js', {--}}
+    {{--                    scope: '.'--}}
+    {{--                }).then(function (registration) {--}}
+    {{--                    // Registration was successful--}}
+    {{--                    console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);--}}
+    {{--                }, function (err) {--}}
+    {{--                    // registration failed :(--}}
+    {{--                    console.log('Laravel PWA: ServiceWorker registration failed: ', err);--}}
+    {{--                });--}}
+    {{--            }--}}
+    {{--        }--}}
+    {{--    </script>--}}
 
 </head>
 

@@ -31,7 +31,7 @@
 
 
             @if ($errors->any())
-                <div {{ $attributes }}>
+                <div class="alert-danger alert">
                     <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
 
                     <ul class="mt-3 list-disc list-inside text-sm text-red-600">
@@ -52,6 +52,7 @@
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div id="home" class="container tab-pane active">
                         <form method="POST" action="{{ route('register') }}">
+                            @csrf
                             <div class="mb-3">
 
                                 <div class="row justify-content-start" style="color: grey; font-weight: bold">
@@ -167,6 +168,7 @@
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <form method="POST" action="{{ route('register') }}">
+                        @csrf
                         <div class="mb-3">
 
                             <div class="row justify-content-start" style="color: grey; font-weight: bold">

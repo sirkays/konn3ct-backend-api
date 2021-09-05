@@ -86,6 +86,144 @@
             text-decoration: none;
         }
     </style>
+
+    <style>
+        .more {
+            display: none;
+        }
+
+        /* COMPACT CAPTCHA */
+
+        .capbox {
+            background-color: #BBBBBB;
+            background-image: linear-gradient(#BBBBBB, #9E9E9E);
+            border: #2A7D05 0px solid;
+            border-width: 2px 2px 2px 20px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            display: inline-block;
+            padding: 5px 8px 5px 8px;
+            border-radius: 4px 4px 4px 4px;
+        }
+
+        .capbox-inner {
+            font: bold 12px arial, sans-serif;
+            color: #000000;
+            background-color: #E3E3E3;
+            margin: 0px auto 0px auto;
+            padding: 3px 10px 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #CaptchaDiv {
+            color: #000000;
+            font: normal 25px Impact, Charcoal, arial, sans-serif;
+            font-style: italic;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            user-select: none;
+            display: inline-block;
+            padding: 3px 14px 3px 8px;
+            margin-right: 4px;
+            border-radius: 4px;
+        }
+
+        #CaptchaInput {
+            border: #38B000 2px solid;
+            margin: 3px 0px 1px 0px;
+            width: 105px;
+        }
+
+        #CaptchaDiv2 {
+            color: #000000;
+            font: normal 25px Impact, Charcoal, arial, sans-serif;
+            font-style: italic;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            user-select: none;
+            display: inline-block;
+            padding: 3px 14px 3px 8px;
+            margin-right: 4px;
+            border-radius: 4px;
+        }
+
+        #CaptchaInput2 {
+            border: #38B000 2px solid;
+            margin: 3px 0px 1px 0px;
+            width: 105px;
+        }
+
+        #freg {
+            position: fixed;
+            width: 120px;
+            height: 50px;
+            bottom: 190px;
+            right: 40px;
+            background-color: #35ac39;
+            color: #FFF;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+        }
+
+        #freg:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            transition: all 0.5s;
+            transform: translateZ(10px);
+        }
+
+        #t:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            transition: all 0.5s;
+            transform: translateZ(10px);
+        }
+
+        #container-floating:hover {
+            height: 400px;
+            width: 180px;
+            padding: 30px;
+        }
+
+        a.su {
+            color: #042c69;
+        }
+
+        a.su:hover {
+            color: green;
+        }
+
+        button.su {
+            background-color: #042c69;
+        }
+
+        button.su:hover {
+            background-color: green;
+        }
+
+        /*body > .skiptranslate {*/
+        /*    display: none;*/
+        /*}*/
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+
+        .lih {
+            font-weight: bolder;
+            font-size: 14px
+        }
+
+    </style>
+
     <style type="text/css" id="#jarallax-clip-0">#jarallax-container-0 {
             clip: rect(0 1349px 673px 0);
             clip: rect(0, 1349px, 673px, 0);

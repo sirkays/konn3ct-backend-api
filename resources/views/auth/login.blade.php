@@ -26,7 +26,7 @@
                 </div>
             @endif
 
-            <form class="mt-2" method="POST" action="{{ route('login') }}">
+            <form class="mt-2" method="POST" action="{{ route('login') }}" onsubmit="return checkform(this);">
                 @csrf
                 <div class="mb-2">
 
@@ -69,6 +69,18 @@
 
                 </div>
 
+                <!-- START CAPTCHA -->
+                {{--                <div class="capbox">--}}
+                {{--                    <div id="CaptchaDiv"></div>--}}
+                {{--                    <div class="capbox-inner">--}}
+                {{--                        Type the number:<br>--}}
+                {{--                        <input type="hidden" id="txtCaptcha">--}}
+                {{--                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>--}}
+
+                {{--                    </div>--}}
+                {{--                </div>--}}
+            <!-- END CAPTCHA -->
+
                 <div class="d-grid gap-2 mt-1" style="margin-left: 20%; margin-right: 20%">
                     <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
@@ -96,4 +108,54 @@
         </div>
 
     </div>
+
+
+    <script type="text/javascript">
+
+        // Captcha Script
+
+        function checkform(theform) {
+            var why = "";
+
+            if (theform.CaptchaInput.value == "") {
+                why += "- Please Enter CAPTCHA Code.\n";
+            }
+            if (theform.CaptchaInput.value != "") {
+                if (ValidCaptcha(theform.CaptchaInput.value) == false) {
+                    why += "- The CAPTCHA Code Does Not Match.\n";
+                }
+            }
+            if (why != "") {
+                alert(why);
+                return false;
+            }
+        }
+
+        var a = Math.ceil(Math.random() * 9) + '';
+        var b = Math.ceil(Math.random() * 9) + '';
+        var c = Math.ceil(Math.random() * 9) + '';
+        var d = Math.ceil(Math.random() * 9) + '';
+        var e = Math.ceil(Math.random() * 9) + '';
+
+        var code = a + b + c + d + e;
+        document.getElementById("txtCaptcha").value = code;
+        document.getElementById("CaptchaDiv").innerHTML = code;
+
+        // Validate input against the generated number
+        function ValidCaptcha() {
+            var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+            var str2 = removeSpaces(document.getElementById('CaptchaInput').value);
+            if (str1 == str2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Remove the spaces from the entered and generated code
+        function removeSpaces(string) {
+            return string.split(' ').join('');
+        }
+    </script>
+
 @endsection

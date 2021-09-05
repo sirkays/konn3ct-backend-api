@@ -154,121 +154,121 @@
     </div>
 
     <!-- Start -->
-    <section class="mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <small class="">What Our Users Are Saying!</small>
-                        <h4 class="title mb-4">Our Clients Feedback</h4>
-                    </div>
-                </div><!--end col-->
-            </div><!--end row-->
-            <div id="testimonial" class="row">
-                <div class="col-12 col-md-6 col-xl-10">
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner mx-4 my-3 py-4 px-4">
-                            <div class="carousel-item active text-white">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-3">
-                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
-                                             class="img-fluid" alt="pix"/>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-8">
-                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                            Voluptatem Accusantium Doloremque Laudantium,
-                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo
-                                            Modi Tem."</p>
-                                        <div class="mt-4" style="font-weight: bolder; color: white">
-                                            Samuel Adekunle
-                                        </div>
-                                        <div style="color: white; font-size: xx-small">
-                                            Manager. @Konn3ct
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>
-                                </div>
-                            </div>
+    {{--    <section class="mt-5">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="row justify-content-center">--}}
+    {{--                <div class="col-12">--}}
+    {{--                    <div class="section-title text-center">--}}
+    {{--                        <small class="">What Our Users Are Saying!</small>--}}
+    {{--                        <h4 class="title mb-4">Our Clients Feedback</h4>--}}
+    {{--                    </div>--}}
+    {{--                </div><!--end col-->--}}
+    {{--            </div><!--end row-->--}}
+    {{--            <div id="testimonial" class="row">--}}
+    {{--                <div class="col-12 col-md-6 col-xl-10">--}}
+    {{--                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">--}}
+    {{--                        <div class="carousel-inner mx-4 my-3 py-4 px-4">--}}
+    {{--                            <div class="carousel-item active text-white">--}}
+    {{--                                <div class="row">--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-3">--}}
+    {{--                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"--}}
+    {{--                                             class="img-fluid" alt="pix"/>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-8">--}}
+    {{--                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit--}}
+    {{--                                            Voluptatem Accusantium Doloremque Laudantium,--}}
+    {{--                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo--}}
+    {{--                                            Modi Tem."</p>--}}
+    {{--                                        <div class="mt-4" style="font-weight: bolder; color: white">--}}
+    {{--                                            Samuel Adekunle--}}
+    {{--                                        </div>--}}
+    {{--                                        <div style="color: white; font-size: xx-small">--}}
+    {{--                                            Manager. @Konn3ct--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
 
-                            <div class="carousel-item text-white">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-3">
-                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
-                                             class="img-fluid" alt="pix"/>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-8">
-                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                            Voluptatem Accusantium Doloremque Laudantium,
-                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo
-                                            Modi Tem."</p>
-                                        <div class="mt-4" style="font-weight: bolder; color: white">
-                                            Samuel Adekunle
-                                        </div>
-                                        <div style="color: white; font-size: xx-small">
-                                            Manager. @Konn3ct
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>
-                                </div>
-                            </div>
-                            <div class="carousel-item text-white">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-3">
-                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
-                                             class="img-fluid" alt="pix"/>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-8">
-                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                            Voluptatem Accusantium Doloremque Laudantium,
-                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo
-                                            Modi Tem."</p>
-                                        <div class="mt-4" style="font-weight: bolder; color: white">
-                                            Samuel Adekunle
-                                        </div>
-                                        <div style="color: white; font-size: xx-small">
-                                            Manager. @Konn3ct
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>
-                                </div>
-                            </div>
-                            <div class="carousel-item text-white">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-3">
-                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"
-                                             class="img-fluid" alt="pix"/>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-8">
-                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                            Voluptatem Accusantium Doloremque Laudantium,
-                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo
-                                            Modi Tem."</p>
-                                        <div class="mt-4" style="font-weight: bolder; color: white">
-                                            Samuel Adekunle
-                                        </div>
-                                        <div style="color: white; font-size: xx-small">
-                                            Manager. @Konn3ct
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                                data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                                data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--                            <div class="carousel-item text-white">--}}
+    {{--                                <div class="row">--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-3">--}}
+    {{--                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"--}}
+    {{--                                             class="img-fluid" alt="pix"/>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-8">--}}
+    {{--                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit--}}
+    {{--                                            Voluptatem Accusantium Doloremque Laudantium,--}}
+    {{--                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo--}}
+    {{--                                            Modi Tem."</p>--}}
+    {{--                                        <div class="mt-4" style="font-weight: bolder; color: white">--}}
+    {{--                                            Samuel Adekunle--}}
+    {{--                                        </div>--}}
+    {{--                                        <div style="color: white; font-size: xx-small">--}}
+    {{--                                            Manager. @Konn3ct--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="carousel-item text-white">--}}
+    {{--                                <div class="row">--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-3">--}}
+    {{--                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"--}}
+    {{--                                             class="img-fluid" alt="pix"/>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-8">--}}
+    {{--                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit--}}
+    {{--                                            Voluptatem Accusantium Doloremque Laudantium,--}}
+    {{--                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo--}}
+    {{--                                            Modi Tem."</p>--}}
+    {{--                                        <div class="mt-4" style="font-weight: bolder; color: white">--}}
+    {{--                                            Samuel Adekunle--}}
+    {{--                                        </div>--}}
+    {{--                                        <div style="color: white; font-size: xx-small">--}}
+    {{--                                            Manager. @Konn3ct--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="carousel-item text-white">--}}
+    {{--                                <div class="row">--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-3">--}}
+    {{--                                        <img src="/assets/images/photography-of-a-guy-wearing-green-shirt-1222271.png"--}}
+    {{--                                             class="img-fluid" alt="pix"/>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-8">--}}
+    {{--                                        <p>"Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit--}}
+    {{--                                            Voluptatem Accusantium Doloremque Laudantium,--}}
+    {{--                                            Totam Rem Aperiam, Eaque Ipsa Quae Ab Illo--}}
+    {{--                                            Modi Tem."</p>--}}
+    {{--                                        <div class="mt-4" style="font-weight: bolder; color: white">--}}
+    {{--                                            Samuel Adekunle--}}
+    {{--                                        </div>--}}
+    {{--                                        <div style="color: white; font-size: xx-small">--}}
+    {{--                                            Manager. @Konn3ct--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="col-sm-12 col-md-6 col-xl-1"></div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"--}}
+    {{--                                data-bs-slide="prev">--}}
+    {{--                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
+    {{--                            <span class="visually-hidden">Previous</span>--}}
+    {{--                        </button>--}}
+    {{--                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"--}}
+    {{--                                data-bs-slide="next">--}}
+    {{--                            <span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
+    {{--                            <span class="visually-hidden">Next</span>--}}
+    {{--                        </button>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
     <!--end section-->
 
 @endsection

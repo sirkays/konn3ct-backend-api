@@ -43,8 +43,8 @@ sed -i 's/defaultWelcomeMessageFooter=.*/defaultWelcomeMessageFooter=For Help: S
 
 echo "done customizing engine"
 
-#echo "Set dial in number"
-#sed -i 's/defaultDialAccessNumber=.*/defaultDialAccessNumber=+12564725575/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+echo "Set dial in number"
+sed -i 's/defaultDialAccessNumber=.*/defaultDialAccessNumber=+1 970-519-2253/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 
 #echo "Let Moderators unmute users"
 #sed -i 's/allowModsToUnmuteUsers=.*/allowModsToUnmuteUsers=true/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties

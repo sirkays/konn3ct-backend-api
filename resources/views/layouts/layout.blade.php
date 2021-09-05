@@ -319,13 +319,13 @@
 <!-- End of Async Drift Code -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-196433825-1');
+        gtag('config', 'UA-196433825-2');
     </script>
 
 </head>
@@ -628,7 +628,6 @@
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
 </script>
-
 </body>
 
 </html>

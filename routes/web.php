@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\admin\PaymentsController;
-use App\Http\Controllers\admin\RecordingsController;
-use App\Http\Controllers\admin\RoomsController;
-use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\AddonController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\InviteController;
+use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\UserWelcomeMail;
+use App\Mail\WelcomeMailViaJoin;
+use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -25,6 +26,39 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
+Route::get('/nlg', function () {
+    return view('new-login');
+})->name('new-login');
+
+Route::get('/nsu', function () {
+    return view('new-signup');
+})->name('new-signup');
+
+Route::get('/njm', function () {
+    return view('new-joinmeeting');
+})->name('new-joinmeeting');
+
+Route::get('/nrs', function () {
+    return view('new-roompreview');
+});
+
+Route::get('/nrpa', function () {
+    return view('new-roompreviewavailable');
+});
+
+Route::get('/nps', function () {
+    return view('new-pricing');
+});
+
+Route::get('/ncs', function () {
+    return view('new-contactsales');
+})->name("contactsales");
+
+Route::get('/nhp', function () {
+    return view('new-homepage');
+})->name('new-homepage');
+
+
 Route::get('/offline', function () {
     return view('vendor/laravelpwa/offline');
 });
@@ -37,11 +71,11 @@ Route::get('/register/{id}', [MyAuthController::class, 'register']);
 
 Route::get('/pricing', function () {
     return view('pricing');
-});
+})->name('pricing');
 
 Route::get('/joinsession', function () {
     return view('join_session');
-});
+})->name('joinmeeting');
 
 Route::get('/konn3ct', function () {
     return view('konn3ct_session');
@@ -52,7 +86,7 @@ Route::get('/leftsession', function () {
 });
 
 Route::get('/join/{url}', function ($url) {
-    return view('join_session', ['url'=>$url]);
+    return view('join_session', ['url' => $url]);
 });
 
 Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
@@ -61,13 +95,26 @@ Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 
 Route::get('/roomstatus/{url}', [RoomController::class, 'roomstatus'])->name('roomstatus');
 
+Route::get('/preregistration', function () {
+    abort(404);
+});
+
+Route::get('/preregistration/{url}', [RoomController::class, 'preregshow'])->name('preregshow');
+
+Route::post('/registerprereg', [RoomController::class, 'registerprereg'])->name('registerprereg');
+
+Route::get('/preregistrationsuccess', function () {
+    $data['faqs'] = Faq::where('status', 1)->get();
+    return view('success', $data);
+})->name('preregsuccess');
+
 Route::get('/features', function () {
     return view('features');
 });
 
 Route::get('/contact', function () {
     return view('contact');
-});
+})->name('contact');
 
 Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 
@@ -91,12 +138,24 @@ Route::get('/roombanner/{filename}', function ($filename)
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
+
     Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
+
     Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
     Route::get('/room', [RoomController::class, 'show'])->name('room');
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
+
+    Route::post('/preregistration', [RoomController::class, 'prereg'])->name('prereg');
+
+    Route::get('/preregistration_participants/{reference}', [RoomController::class, 'prereParticipants'])->name('prereParticipants');
+
+    Route::get('/disbalepreregistration/{reference}', [RoomController::class, 'dprereg'])->name('dprereg');
+
+    Route::get('/preregusers/{reference}', [RoomController::class, 'preregusers'])->name('preregusers');
+
+    Route::get('/addonsubscription', [AddonController::class, 'show'])->name('addonsubscription');
 
     Route::get('/activateft', [PaymentController::class, 'activatefree'])->name('activatefree');
 
@@ -112,9 +171,21 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/recording', [RecordingController::class, 'show'])->name('recording');
 
+    Route::get('/referee', [ProfileController::class, 'referee'])->name('referee');
+
+    Route::get('/attendance/{id}', [RoomController::class, 'attendance'])->name('attendance');
+
+    Route::get('/participants/{id}', [RoomController::class, 'participants'])->name('participants');
+
     Route::post('/deleterecording', [RecordingController::class, 'delete'])->name('recording.delete');
 
-    Route::post('/invite', [RoomController::class, 'invite'])->name('invite');
+    Route::post('/invite', [InviteController::class, 'invite'])->name('invite');
+
+    Route::post('/whatsappinvite', [InviteController::class, 'invite_whatsapp'])->name('whatsappinvite');
+
+    Route::get('/invites', [InviteController::class, 'invites'])->name('invites');
+
+    Route::get('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 
@@ -122,25 +193,27 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');
 
-    Route::get('/welcomemail', function (){
-        return (new \App\Mail\UserWelcomeMail())->render();
+    Route::get('/welcomemail', function () {
+        return (new UserWelcomeMail())->render();
     })->name('mailtest');
 
 Route::get('/invitemail', function (){
         $data['ihost']="Samji";
 
-        $data['ilink']=url('/join/')."login";
+    $data['ilink'] = url('/join/') . "login";
 
-        $data['idate']="2020-12";
+    $data['idate'] = "2020-12";
 
-        $data['iaccesscode']="hello";
+    $data['iaccesscode'] = "hello";
 
-        $data['itime']="12:40";
+    $data['itime'] = "12:40";
 
-        $data['iroom']="Sammy Room";
+    $data['iroom'] = "Sammy Room";
+    $data['email'] = "Sammy Room";
+    $data['password'] = "passwi";
 
-        return (new \App\Mail\UserWelcomeMail($data))->render();
-    })->name('mailtest');
+    return (new WelcomeMailViaJoin($data))->render();
+})->name('mailtest');
 
 });
 
@@ -152,7 +225,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 //    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
+    Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'CreateSessionO'])->name('CreateSession');
+    Route::get('/payment/mastercardview', function () {
+        return view('mastercard');
+    })->name('CreateSession');
+
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+
+    Route::get('/addonpayment/{plan}/transid/{id}', [PaymentController::class, 'verifyAddonsub'])->name('verifyAddonsub');
 
     Route::get('/paystackpayment/{plan}/transid/{id}', [PaymentController::class, 'verifyPaystack'])->name('verifypaystackpayment');
 
@@ -162,37 +242,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 });
 
-Route::prefix('admin')->group(function () {
-    Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
-
-        Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
-        Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
-        Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
-
-        Route::get('/rooms', [RoomsController::class, 'show'])->name('admin.rooms');
-
-        Route::get('/meetings', [RoomsController::class, 'meetings'])->name('admin.meetings');
-
-        Route::get('/meetings/{id}', [RoomsController::class, 'meetingsd'])->name('admin.meetingsd');
-
-        Route::get('/users', [UsersController::class, 'show'])->name('admin.users');
-
-        Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
-
-        Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
-
-        Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');
-
-        Route::get('/deleterecording', [RecordingsController::class, 'delete'])->name('admin.recording.delete');
-
-        Route::get('/dashboard', [RoomController::class, 'show'])->name('admin.dashboard');
-
-        Route::get('/payment', [PaymentsController::class, 'list'])->name('admin.payments');
-
-        Route::get('/receipt/{id}', [PaymentsController::class, 'receipt'])->name('admin.receipt');
-
-        Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-
-
-    });
-});
+require __DIR__ . '/admin.php';

@@ -8,8 +8,7 @@ use App\Models\RoomModel;
 use App\Models\SettingsModel;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -22,8 +21,8 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param  array  $input
-     * @return \App\Models\User
+     * @param array $input
+     * @return User
      */
     public function create(array $input)
     {
@@ -47,7 +46,7 @@ class CreateNewUser implements CreatesNewUsers
             'firstname' => ['required', 'string', 'min:3', 'max:30'],
             'email' => ['required', 'string', 'email', 'min:5', 'max:50', 'unique:users'],
 //            'phone' => 'required|regex:/(0)[0-9]{1}[0-1]{1}[0-9]{8}/',
-            'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:15'],
             'password' => $this->passwordRules(),
         ], $messages)->validate();
 
@@ -126,11 +125,11 @@ class CreateNewUser implements CreatesNewUsers
 
             RoomModel::create($input);
 
-            try {
-                Mail::to($u->email)->send(new UserWelcomeMail());
-            }catch(\Exception $e){
-                echo $e;
-            }
+        try {
+            Mail::to($u->email)->send(new UserWelcomeMail());
+        } catch (Exception $e) {
+            echo $e;
+        }
 
             return $u;
     }

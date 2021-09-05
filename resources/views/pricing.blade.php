@@ -1,254 +1,550 @@
-@extends('layouts.layout')
-
+@extends('layouts.website-layout')
+@section('pricing','navLinkactive')
 @section('content')
-<!-- main-area -->
-<main>
-    <!-- pricing-area -->
-{{--    <section id="pricing" class="pricing-area pt-113 pb-90">--}}
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8">
-                    <div class="section-title text-center wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-{{--                        <span>Pricing List</span>--}}
-                        <h3>Plans & Pricing</h3>
-{{--                        <br>--}}
-{{--                        <a href="#planssi" onclick="myFunction()" id="myBtn">Click me to See Annual Price</a>--}}
-                    </div>
-                </div>
-            </div>
-            <div class="row" id="planssi">
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box mb-60 text-center wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="pricing-head" style="margin-bottom: -10px">
-                            <h4>Basic Plan</h4>
-                            <div class="price-count">
-                                <h2><span><strong>Free forever</strong></span></h2>
-                            </div>
-                        </div>
-                        <div class="pricing-body text-left" style="font-size: 10px">
-{{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
-                            <ul>
-                                <li>Participant - 100</li>
-                                <li>Session Timeout - 1 hour</li>
-                                <li>Number of Rooms - 1</li>
-                                <li>Audio & Video Preview Window</li>
-                                <li>Screen Sharing</li>
-                                <li>Whiteboard & Annotation Tools</li>
-                                <li>User Status</li>
-                                <li>Breakout Rooms</li>
-                                <li>Full-Featured Admin Controls</li>
-                                <li>Share Webcam</li>
-                                <li>Shared Notes</li>
-                                <li>Pop-Up & Tone Notifications</li>
-                                <li>Chat (Private & Public)</li>
-                                <li>Waiting Room</li>
-                                <li>Save Participants’ List​</li>
-                                <li>Download Chats in multi-formats</li>
-                                <li>Conduct Polls</li>
-                                <li>Web App</li>
-                                <li>Live Chat</li>
-                                <li>SSL Encryption</li>
-                                <li>TLS Encryption</li>
-                                <li>AES-256 Encryption</li>
-                                <li>100% Host Node &  Network Uptime</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a href="/register" class="btn">Choose Plan</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box active text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="pricing-head">
-                            <h4>Lite Plan</h4>
-                            <div class="price-count mb-30">
-                                <span id="monthly">
-                                    <h2><span><sup>$</sup>10.99<span style="font-size: 10px"> Monthly</span></span> /  <small>$</small>120<span style="font-size: 10px"> Yearly</span></h2>
-                                    <h5>&nbsp;&nbsp;&nbsp;&#x20A6;4,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;46,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-                                </span>
 
-                                <span class="more" id="yearly">
-                                    <h2><small>$</small>120 <span>/ Yearly</span></h2>
-                                    <h5>&#x20A6;46,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="pricing-body mb-40 text-left" style="font-size: 10px">
-{{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
-                            <ul>
-                                <li>Participant - 100</li>
-                                <li>Session Timeout - 10 hour</li>
-                                <li>Cloud Storage - 5GB</li>
-                                <li>Number of Rooms - 2</li>
-                                <li>Audio & Video Preview Window</li>
-                                <li>Screen Sharing</li>
-                                <li>Whiteboard & Annotation Tools</li>
-                                <li>User Status</li>
-                                <li>Breakout Rooms</li>
-                                <li>Recording</li>
-                                <li>Full-Featured Admin Controls</li>
-                                <li>Share Webcam</li>
-                                <li>Shared Notes</li>
-                                <li>Share YouTube Videos</li>
-                                <li>Preload Presentations</li>
-                                <li>Pop-Up & Tone Notifications</li>
-                                <li>Dial In</li>
-                                <li>Chat (Private & Public)</li>
-                                <li>Waiting Room</li>
-                                <li>Save Participants’ List​</li>
-                                <li>Download Chats in multi-formats</li>
-                                <li>Conduct Polls</li>
-                                <li>Web App</li>
-                                <li>Live Chat & Phone Support</li>
-                                <li>SSL Encryption</li>
-                                <li>TLS Encryption</li>
-                                <li>AES-256 Encryption</li>
-                                <li>100% Host Node &  Network Uptime</li>
-                                <li>Data Centre Compliance​
-                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a id="r1" href="/register/2" class="btn">Choose Plan</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="pricing-head">
-                            <h4>Pro Plan</h4>
-                            <div class="price-count mb-30">
-                                <span id="monthly2">
-                                    <h2><span style="color: black"><sup>$</sup>15.99<span style="font-size: 10px"> Monthly</span></span> /  <small>$</small>175<span style="font-size: 10px"> Yearly</span></h2>
-                                    <h5>&nbsp;&nbsp;&nbsp;&#x20A6;6,000<span style="font-size: 13px; color: black"> Monthly</span> / &#x20A6;67,000<span style="font-size: 13px; color: black"> Yearly</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-                                </span>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato");
 
-                                <span class="more" id="yearly2">
-                                    <h2><small>$</small>175 <span>/ Yearly</span></h2>
-                                    <h5>&#x20A6;67,000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="pricing-body mb-40 text-left" style="font-size: 10px">
-{{--                            <p>It is a long established fact that a reader will be distracted.</p>--}}
-                            <ul>
-                                <li>Participant - 250</li>
-                                <li>Session Timeout - 24 hours</li>
-                                <li>Cloud Storage - 15GB</li>
-                                <li>Number of Rooms - 3</li>
-                                <li>Audio & Video Preview Window</li>
-                                <li>Screen Sharing</li>
-                                <li>Whiteboard & Annotation Tools</li>
-                                <li>User Status</li>
-                                <li>Customize link</li>
-                                <li>Breakout Rooms</li>
-                                <li>Recording</li>
-                                <li>Full-Featured Admin Controls</li>
-                                <li>Share Webcam</li>
-                                <li>Shared Notes</li>
-                                <li>Share YouTube Videos</li>
-                                <li>Preload Presentations</li>
-                                <li>Pop-Up & Tone Notifications</li>
-                                <li>Dial In</li>
-                                <li>Chat (Private & Public)</li>
-                                <li>Waiting Room</li>
-                                <li>Save Participants’ List​</li>
-                                <li>Download Chats in multi-formats</li>
-                                <li>Conduct Polls</li>
-                                <li>Web App</li>
-                                <li>Access Code</li>
-                                <li>Live Chat & Phone Support</li>
-                                <li>SSL Encryption</li>
-                                <li>TLS Encryption</li>
-                                <li>AES-256 Encryption</li>
-                                <li>100% Host Node &  Network Uptime</li>
-                                <li>Data Centre Compliance​
-                                    SOC 1 Type I , SOC 1 Type II, SOC 2 Type II, ISO 27001 & PCI-DSS</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn">
-                            <a id="r2" href="/register/3" class="btn">Choose Plan</a>
-                        </div>
-                    </div>
-                </div>
+        #pricing-tables {
+            background-color: #fff;
+            padding: 30px 0;
+            position: relative;
+            font-family: "Lato", sans-serif;
+        }
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="pricing-box text-center mb-60 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="pricing-head">
-                            <h4>Enterprise Plan</h4>
-                            <div class="price-count mb-30">
-                                <span id="monthly2">
-                                    <h2><span style="color: black">Contact us</span></h2>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="pricing-body mb-40 text-left" style="font-size: 10px">
-                            <p>Do you need more than what Pro offers? <br/><br/>Talk to a Dedicated Success Manager and we will provide it.</p>
-                        </div>
-                        <div class="pricing-btn">
-                            <p></p>
-                            <a id="r2" href="tel:+2348033046408" class="btn" style="font-size: 14px">Call +2348033046408  </a>
-                        </div>
-                    </div>
-                </div>
+        #pricing-tables .col-md-3,
+        #pricing-tables .col-sm-6,
+        #pricing-tables .col-xs-12 {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #pricing-tables .col-md-3:hover,
+        #pricing-tables .col-sm-6:hover,
+        #pricing-tables .col-xs-12:hover {
+            box-shadow: 0px 11px 30px 0px rgba(0, 0, 0, 0.75);
+            z-index: 2;
+            transform: scale(1.06);
+            border: 0;
+            transition: 0.5s all;
+            border: none;
+        }
+
+        .single-table {
+            background: #fff;
+            transition: all 0.2s linear;
+            z-index: 1;
+            /* Bubble Float Right */
+        }
+
+        .single-table .plan-header {
+            background: #012E89;
+            color: #fff;
+            text-transform: capitalize;
+            padding: 2px 0;
+        }
+
+        .single-table .plan-headerRecomended {
+            background: #FFFFFF;
+            color: #000000;
+            text-transform: capitalize;
+            padding: 2px 0;
+            border-color: #628F41;
+            border-width: 2px;
+            border-style: solid
+        }
+
+        .single-table .plan-header h3 {
+            margin: 0;
+            padding: 20px 0 5px 0;
+            text-transform: uppercase;
+        }
+
+        .single-table .plan-price {
+            display: inline-block;
+            color: #FFFFFF;
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            font-weight: bold;
+            color: #FFFFFF;
+            padding: 33px 15px;
+        }
+
+        .single-table .plan-priceRecomended {
+            display: inline-block;
+            color: #000000;
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            font-weight: bold;
+            background: #fff;
+            border-radius: 50%;
+            color: #000000;
+            padding: 33px 15px;
+        }
+
+        .single-table .plan-price span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .single-table ul {
+            margin: 0;
+            padding: 20px 0;
+            list-style: none;
+        }
+
+        .single-table ul li {
+            padding: 8px 0;
+            margin: 0 20px;
+            border-bottom: 1px solid white;
+            font-size: 15px;
+        }
+
+        .single-table .plan-submit {
+            display: inline-block;
+            text-decoration: none;
+            margin: 20px 0 30px 0;
+            padding: 10px 40px;
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            font-size: 15px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            transition: all 0.25s linear;
+        }
+
+        .single-table .plan-submit:hover {
+            background: #e67e22;
+            color: #fff;
+            transition: all 0.25s linear;
+        }
+
+        .single-table .hvr-bubble-float-right {
+            display: inline-block;
+            vertical-align: middle;
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            transition-duration: 0.3s;
+            transition-property: transform;
+        }
+
+        .single-table .hvr-bubble-float-right:before {
+            position: absolute;
+            z-index: -1;
+            top: calc(50% - 10px);
+            right: 0;
+            content: "";
+            border-style: solid;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent transparent;
+            transition-duration: 0.3s;
+            transition-property: transform;
+        }
+
+        .single-table .hvr-bubble-float-right:hover,
+        .single-table .hvr-bubble-float-right:focus,
+        .single-table .hvr-bubble-float-right:active {
+            transform: translateX(-10px);
+        }
+
+        .single-table .hvr-bubble-float-right:hover:before,
+        .single-table .hvr-bubble-float-right:focus:before,
+        .single-table .hvr-bubble-float-right:active:before {
+            transform: translateX(10px);
+            border-color: transparent transparent transparent #012E89;
+        }
+
+        .color-2 .single-table .plan-header {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .color-2 .single-table .plan-header .plan-price {
+            color: #3498db;
+            background: #fff;
+        }
+
+        .color-2 .single-table .plan-submit {
+            border: 1px solid #3498db;
+            color: #628F41;
+            border-radius: 15px;
+            background-color: #FFFFFF;
+            height: 60px;
+            align-items: center;
+            align-self: center;
+        }
+
+        .color-2 .single-table .plan-submit:hover {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .color-2 .hvr-bubble-float-right:hover:before,
+        .color-2 .hvr-bubble-float-right:focus:before,
+        .color-2 .hvr-bubble-float-right:active:before {
+            transform: translateX(10px);
+            border-color: transparent transparent transparent #FFFFFF;
+        }
+
+        .color-3 .single-table .plan-header {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .color-3 .single-table .plan-header .plan-price {
+            color: #2ecc71;
+            background: #fff;
+        }
+
+        .color-3 .single-table .plan-submit {
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+
+        .color-3 .single-table .plan-submit:hover {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .color-3 .hvr-bubble-float-right:hover:before,
+        .color-3 .hvr-bubble-float-right:focus:before,
+        .color-3 .hvr-bubble-float-right:active:before {
+            transform: translateX(10px);
+            border-color: transparent transparent transparent #2ecc71;
+        }
+
+        .color-4 .single-table .plan-header {
+            background: #9b59b6;
+            color: #fff;
+        }
+
+        .color-4 .single-table .plan-header .plan-price {
+            color: #9b59b6;
+            background: #fff;
+        }
+
+        .color-4 .single-table .plan-submit {
+            border: 1px solid #9b59b6;
+            color: #9b59b6;
+        }
+
+        .color-4 .single-table .plan-submit:hover {
+            background: #9b59b6;
+            color: #fff;
+        }
+
+        .color-4 .hvr-bubble-float-right:hover:before,
+        .color-4 .hvr-bubble-float-right:focus:before,
+        .color-4 .hvr-bubble-float-right:active:before {
+            transform: translateX(10px);
+            border-color: transparent transparent transparent #9b59b6;
+        }
+
+        #ifeaturesRecomended {
+            color: #FFFFFF;
+        }
+
+        #ifeatures {
+            color: #628F41;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #012E89;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #012E89;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-12">
+            <h2 class="text-center" style="font-weight: bolder">Ready to start with <br/>Konn3ct?</h2>
+            <div class="text-center" style="color: grey">Choose the package that suits you.</div>
+        </div>
+
+        <div class="col-12 align-self-center text-center mt-5">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckChecked" style="color: grey">Monthly</label>
+                <label class="switch">
+                    <input id="slider" type="checkbox" value="on" checked onchange="changeSlider(this.value)">
+                    <span class="slider round"></span>
+                </label>
+                <label class="form-check-label" for="flexSwitchCheckChecked" style="color: grey">Yearly</label>
             </div>
         </div>
-{{--    </section>--}}
-    <!-- pricing-area-end -->
 
-</main>
-<!-- main-area-end -->
+    </div>
 
-<script>
-    function myFunction() {
-        var dots = document.getElementById("monthly");
-        var moreText = document.getElementById("yearly");
-        var register = document.getElementById("r1");
-        var dots2 = document.getElementById("monthly2");
-        var moreText2 = document.getElementById("yearly2");
-        var register2 = document.getElementById("r2");
-        var btnText = document.getElementById("myBtn");
+    <!-- pricing table  -->
+    <section id="pricing-tables">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12 color-1">
+                    <div class="single-table" style="border-color: #012E89; border-width: 2px; border-style: solid">
+                        <div class="plan-header mb-3 text-center">
+                            <h3 class="mt-4" style="font-weight: bolder">BASIC PLAN</h3>
+                            <p>Free forever</p>
+                        </div>
 
-        if (dots.style.display === "none") {
-            btnText.innerHTML = "See Annual Price";
 
-            dots.style.display = "inline";
-            moreText.style.display = "none";
+                        <div style="background-color: #FFFFFF; color: #000000">
+                            <ul class="text-justify">
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Participant - 100</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 10 hour
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Cloud Storage - 5GB</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 2</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Audio & Video Preview Window
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Screen Sharing</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Whiteboard & Annotation Tools
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> User Status</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Breakout Rooms</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Recording</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Full-Featured Admin Controls
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share Webcam</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Shared Notes</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share YouTube Videos</li>
+                            </ul>
 
-            var att = document.createAttribute("href");        // Create a "href" attribute
-            att.value = "/register/2";            // Set the value of the href attribute
-            register.setAttributeNode(att);
 
-            dots2.style.display = "inline";
-            moreText2.style.display = "none";
+                            <div class="text-center mb-4">
+                                <a href="/register" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                   style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Choose Plan
+                                </a>
+                            </div>
 
-            var att2 = document.createAttribute("href");        // Create a "href" attribute
-            att2.value = "/register/3";            // Set the value of the href attribute
-            register2.setAttributeNode(att2);
 
-        } else {
-            btnText.innerHTML = "See Monthly Price";
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 color-2">
+                    <div class="single-table">
+                        <div class="plan-headerRecomended text-center">
+                            <h3 class="mt-4" style="font-weight: bolder">LITE PLAN</h3>
+                            <p></p>
+                            <h4 id="yearly" class="plan-priceRecomended">$120 <sup>Yearly</sup> / ₦46,000
+                                <sup>Yearly</sup></h4>
+                            <h4 id="monthly" class="plan-priceRecomended" style="display: none">$10.99 <sup>Month</sup>
+                                / ₦4,000 <sup>Month</sup></h4>
+                        </div>
 
-            dots.style.display = "none";
-            moreText.style.display = "inline";
+                        <div class="pb-4" style="background-color: #628F41; color: #FFFFFF">
+                            <ul class="text-justify">
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Participant - 100
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Session Timeout -
+                                    10 hour
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Cloud Storage - 5GB
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Number of Rooms - 2
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Audio & Video
+                                    Preview Window
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Screen Sharing</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Whiteboard &
+                                    Annotation Tools
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> User Status</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Breakout Rooms</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Recording</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Full-Featured Admin
+                                    Controls
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Share Webcam</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Shared Notes</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeaturesRecomended"></i> Share YouTube
+                                    Videos
+                                </li>
+                            </ul>
 
-            var att = document.createAttribute("href");        // Create a "href" attribute
-            att.value = "/register/21";            // Set the value of the href attribute
-            register.setAttributeNode(att);
+                            <div class="text-center mb-4">
+                                <a id="liteLink" href="/register/2"
+                                   class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                   style="border-radius: 10px; width: 200px; background-color: #ffff; color: #628F41; font-weight: bolder">
+                                    Choose Plan
+                                </a>
+                            </div>
 
-            dots2.style.display = "none";
-            moreText2.style.display = "inline";
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 color-1">
+                    <div class="single-table" style="border-color: #012E89; border-width: 2px; border-style: solid">
+                        <div class="plan-header mb-3 text-center">
+                            <h3 class="mt-4" style="font-weight: bolder">PRO PLAN</h3>
+                            <p></p>
+                            <h4 id="yearly1" class="plan-price">$175 <sup>Yearly</sup> / ₦67,000 <sup>Yearly</sup></h4>
+                            <h4 id="monthly1" class="plan-price" style="display: none">$15.99 <sup>Month</sup> / ₦6,000
+                                <sup>Month</sup></h4>
+                        </div>
 
-            var att2 = document.createAttribute("href");        // Create a "href" attribute
-            att2.value = "/register/31";            // Set the value of the href attribute
-            register2.setAttributeNode(att2);
+
+                        <div style="background-color: #FFFFFF; color: #000000">
+                            <ul class="text-justify">
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Participant - 100</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 10 hour
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Cloud Storage - 5GB</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 2</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Audio & Video Preview Window
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Screen Sharing</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Whiteboard & Annotation Tools
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> User Status</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Breakout Rooms</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Recording</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Full-Featured Admin Controls
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share Webcam</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Shared Notes</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share YouTube Videos</li>
+                            </ul>
+
+                            <div class="text-center mb-4">
+                                <a id="proLink" href="/register/3"
+                                   class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                   style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Choose Plan
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 color-1">
+                    <div class="single-table" style="border-color: #012E89; border-width: 2px; border-style: solid">
+                        <div class="plan-header mb-3 text-center">
+                            <h3 class="mt-4" style="font-weight: bolder">ENTERPRISE PLAN</h3>
+                            <p>Contact us</p>
+                        </div>
+
+
+                        <div class="mx-4 my-3" style="background-color: #FFFFFF; color: #727272">
+                            <p>
+                                Do you need more than what Pro offers?
+                            </p>
+
+                            <p>
+                                Talk to a Dedicated Success<br/>
+                                Manager and we will provide it.
+                            </p>
+
+                            <div class="text-center mb-4">
+                                <a href="tel:+2348033046408" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                   style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Contact us
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        function changeSlider(status) {
+            console.log(status);
+            var register = document.getElementById("liteLink");
+            var register2 = document.getElementById("proLink");
+
+            if (status == "on") {
+                document.getElementById('slider').value = "off";
+                document.getElementById('yearly').style.display = 'none';
+                document.getElementById('monthly').style.display = 'block';
+                document.getElementById('yearly1').style.display = 'none';
+                document.getElementById('monthly1').style.display = 'block';
+
+                var att = document.createAttribute("href");        // Create a "href" attribute
+                att.value = "/register/21";            // Set the value of the href attribute
+                register.setAttributeNode(att);
+
+                var att2 = document.createAttribute("href");        // Create a "href" attribute
+                att2.value = "/register/31";            // Set the value of the href attribute
+                register2.setAttributeNode(att2);
+            } else {
+                document.getElementById('slider').value = "on";
+                document.getElementById('monthly').style.display = 'none';
+                document.getElementById('yearly').style.display = 'block';
+                document.getElementById('monthly1').style.display = 'none';
+                document.getElementById('yearly1').style.display = 'block';
+
+                var att = document.createAttribute("href");        // Create a "href" attribute
+                att.value = "/register/2";            // Set the value of the href attribute
+                register.setAttributeNode(att);
+
+                var att2 = document.createAttribute("href");        // Create a "href" attribute
+                att2.value = "/register/3";            // Set the value of the href attribute
+                register2.setAttributeNode(att2);
+            }
         }
-    }
-</script>
+    </script>
+
+    <!-- end priceing table -->
 @endsection
-
-
-@section('before-styles')
-    @laravelPWA
-@stop

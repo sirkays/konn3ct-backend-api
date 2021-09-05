@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\InviteMail;
+use App\Jobs\CreateBGAccountJob;
+use App\Models\Faq;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
+use App\Models\PreRegModel;
+use App\Models\PreRegUserModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use JoisarJignesh\Bigbluebutton\Bigbluebutton;
+use Illuminate\Support\Str;
 
 class RoomController extends Controller
 {
@@ -31,17 +33,21 @@ class RoomController extends Controller
                 ->withInput();
         }
 
-        $plan=PlanModel::where("id", Auth::user()->plan)->first();
-        $r=$plan->rooms;
-        $duration=$plan->duration;
+        $plan = PlanModel::where("id", Auth::user()->plan)->first();
+        $r = $plan->rooms + Auth::user()->room_bundles;
+        $duration = $plan->duration;
         $max_user=$plan->participant;
 
         $rc=RoomModel::where("user_id",Auth::id())->count();
 
+//        echo $r;
+//        echo $plan->rooms;
+//        echo "|||" .  Auth::user()->room_bundles ."|||||";
+//        echo intval(($plan->rooms * 1)) + intval((Auth::user()->room_bundles * 1));
+//        return;
         if($rc >= $r){
             return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
         }
-
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
@@ -77,7 +83,7 @@ class RoomController extends Controller
             'meetingName' => $input['name'],
             'attendeePW' => $input['password_attendee'],
             'moderatorPW' => $input['password_moderator'],
-            'endCallbackUrl'  => url('/leftsession'),
+            'endCallbackUrl' => url('/leftsession'),
             'logoutUrl' => url('/leftsession'),
         ]);
 
@@ -121,7 +127,6 @@ class RoomController extends Controller
             $createMeeting->setLockSettingsDisableNote(true); //overwrite default configuration
         }
 
-
 //        $meeting->setWelcome('Welecome message for all')
 //            ->setModeratorOnlyMessage('Only teacher can see this messsage');
 
@@ -146,27 +151,27 @@ class RoomController extends Controller
 //$meetingParams->setLockSettingsLockedLayout
 //$meetingParams->setLockSettingsLockOnJoin
 //    $meetingParams->setFreeJoin
-       $bbb= \Bigbluebutton::create($createMeeting);
+        $bbb = \Bigbluebutton::create($createMeeting);
 //       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
 
         $bba=json_decode($bbb, true);
         $rm=RoomModel::find($r->id);
 
-       if($bba["returncode"]=="SUCCESS"){
-           $rm->user_id=Auth::id();
-           $rm->bbb_returncode=$bba["returncode"];
-           $rm->internalMeetingID=$bba["internalMeetingID"];
-           $rm->parentMeetingID=$bba["parentMeetingID"];
-           $rm->voiceBridge=$bba["voiceBridge"];
-           $rm->createDate=$bba["createDate"];
-           $rm->createTime=$bba["createTime"];
-           $rm->save();
+        if($bba["returncode"]=="SUCCESS"){
+            $rm->user_id=Auth::id();
+            $rm->bbb_returncode=$bba["returncode"];
+            $rm->internalMeetingID=$bba["internalMeetingID"];
+            $rm->parentMeetingID=$bba["parentMeetingID"];
+            $rm->voiceBridge=$bba["voiceBridge"];
+            $rm->createDate=$bba["createDate"];
+            $rm->createTime=$bba["createTime"];
+            $rm->save();
 
-           return redirect('room')->with('success', 'Room Created Successfully!');
-       }else{
-           $rm->delete();
-           return redirect('room')->with('error', 'Server Error while creating Meeting!');
-       }
+            return redirect('room')->with('success', 'Room Created Successfully!');
+        }else{
+            $rm->delete();
+            return redirect('room')->with('error', 'Server Error while creating Meeting!');
+        }
     }
 
     public function show(){
@@ -207,13 +212,13 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 
         if($ms==1) {
             return redirect()->to(
                 \Bigbluebutton::join([
                     'meetingID' => $i->id,
-                    'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,
+                    'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
@@ -289,23 +294,30 @@ class RoomController extends Controller
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
-                'userName' => Auth::user()->lastname ." " .Auth::user()->firstname,//for join meeting
-                'endCallbackUrl'  => url('/leftsession'),
+                'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,//for join meeting
+                'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage'=> 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$i->url.'" <span style="color: #008b8b;">'. url("/join/").'/'.$i->url.'</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
+                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
-                'allowStartStopRecording'=> $record,
-                'record'=>$record,
-                'duration' =>$duration,
-                'maxParticipants' =>$max_user,
+                'allowStartStopRecording' => $record,
+                'record' => $record,
+                'duration' => $duration,
+                'maxParticipants' => $max_user,
                 'muteOnStart' => $muj,
                 'lockSettingsDisablePublicChat' => $dpuc,
                 'lockSettingsDisablePrivateChat' => $dprc,
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote'=> $dsn,
-                'logo'=>$banner
-                //'redirect' => false // only want to create and meeting and get join url then use this parameter
+                'lockSettingsDisableNote' => $dsn,
+                'logo' => $banner,
+                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true'
+                ]
             ]);
             return redirect()->to($url);
         }
@@ -329,7 +341,7 @@ class RoomController extends Controller
 
         $u=User::find($i->user_id);
 
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=1;
 
         $mdata['meeting_id']=$i->id;
@@ -353,7 +365,7 @@ class RoomController extends Controller
 //            return back()
 //                ->with('error', 'Meeting has not started!');
         }else{
-            $mds=\Bigbluebutton::getMeetingInfo([
+            $mds = \Bigbluebutton::getMeetingInfo([
                 'meetingID' => $i->id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
@@ -409,7 +421,7 @@ class RoomController extends Controller
             $password_attendee="moderator";
         }
 
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -435,15 +447,36 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
+        $u=User::where('email', $email)->first();
+        $dp = 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png';
+
+        if ($u != null) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+                $dp = $u->profile_photo_url;
+            }
+        } else {
+            $jobi['name'] = $name;
+            $jobi['email'] = $email;
+
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
+        }
+
         return redirect()->to(
             \Bigbluebutton::join([
                 'meetingID' => $i->id,
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
-                'avatarURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-                'clientURL' =>'https://dev.konn3ct.net/assets/images/konn3ctIcon.png'
+                'avatarUrl' => $dp,
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true'
+                ],
             ])
         );
+
     }
 
     public function delete(Request $request){
@@ -451,7 +484,7 @@ class RoomController extends Controller
 
         $i=RoomModel::find($id);
 
-        if(!$i){
+        if (!$i) {
             return back()
                 ->with('error', 'Invalid Room!');
         }
@@ -461,56 +494,9 @@ class RoomController extends Controller
         return redirect('room')->with('success', 'Room Deleted Successfully!');
     }
 
-    public function invite(Request $request){
-        $input=$request->all();
-
-        if ($input['guest']==""){
-            return back()->with('error', 'Guest emails can not be empty');
-        }
-
-        #TODO: save all emails sent to one table for campaigns later
-        $input['guest'].=",".Auth::user()->email;
-
-        // use of explode
-        $str_arr = explode (",", $input['guest']);
-
-        foreach ($str_arr as $arr) {
-
-            $GLOBALS['recipient'] = trim($arr);
-
-            try {
-                if ($GLOBALS['recipient'] != "") {
-
-                    $data['ihost']=$input['hostname'];
-
-                    $data['ilink']=$input['roomlink'];
-
-                    $data['iaccesscode']=$input['accesscode'];
-
-                    $data['imtitle']=$input['title'];
-
-                    $data['idate']=$input['date'];
-
-                    $data['itime']=$input['time'];
-
-                    $data['iroom']=$input['roomname'];
-
-                    $data['itimezone']=$input['timezone'];
-
-                    $data['iadditional']=$input['additional']??'';
-
-                    Mail::to($GLOBALS['recipient'])->send(new InviteMail($data));
-                }
-            }catch (\Exception $e){
-                echo "error when sending email";
-            }
-        }
-
-        return redirect('room')->with('success', 'Invite Sent Successfully!');
-    }
-
-    public function accesscode(Request $request){
-        $input=$request->all();
+    public function accesscode(Request $request)
+    {
+        $input = $request->all();
 
         $r=RoomModel::find($input['id']);
 
@@ -542,8 +528,8 @@ class RoomController extends Controller
     }
 
     public function roomstatus($url){
-        $i=RoomModel::where('url',$url)->first();
-        $ms=\Bigbluebutton::isMeetingRunning($i->id);
+        $i = RoomModel::where('url', $url)->first();
+        $ms = \Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);
@@ -574,10 +560,171 @@ class RoomController extends Controller
 
         echo "Uploaded successfully";
 
-        $i=RoomModel::find($request->id);
-        $i->banner=$fName;
+        $i = RoomModel::find($request->id);
+        $i->banner = $fName;
         $i->save();
 
         return back()->with('success', 'Banner has been uploaded successfully');
     }
+
+    public function prereg(Request $request)
+    {
+
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'hostname' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'timezone' => 'required',
+            'about' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $reglink = Str::random(20);
+
+        PreRegModel::create([
+            "user_id" => Auth::id(),
+            "room_id" => $input['id'],
+            "reference" => $reglink,
+            "title" => $input['title'],
+            "host_name" => $input['hostname'],
+            "date" => $input['date'],
+            "time" => $input['time'],
+            "timezone" => $input['timezone'],
+            "about" => $input['about'],
+        ]);
+
+        $r = RoomModel::find($input['id']);
+        $r->prereg = $reglink;
+        $r->save();
+
+
+        return back()->with('success', 'Processed successfully. Your Pre-registration link is ' . url("/preregistration/" . $reglink));
+    }
+
+    public function dprereg($reference)
+    {
+
+        $pr = PreRegModel::where("reference", $reference)->first();
+        $pr->status = 0;
+        $pr->save();
+
+        $r = RoomModel::find($pr->room_id);
+        $r->prereg = "";
+        $r->save();
+
+        return back()->with('success', 'Processed successfully. Pre-registration link has been disabled');
+    }
+
+    public function preregshow($url)
+    {
+
+        $data['preg'] = PreRegModel::where('reference', $url)->first();
+
+        if (!$data['preg']) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        $data['u'] = User::find($data['preg']->user_id);
+
+        if ($data['u'] == NULL) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        $data['room'] = RoomModel::find($data['preg']->room_id);
+
+        if ($data['room'] == NULL) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        $data['faqs'] = Faq::where('status', 1)->get();
+
+        return view('preregistration', $data);
+
+    }
+
+    public function registerprereg(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'ref' => 'required|max:255',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $data['preg'] = PreRegModel::where('reference', $request->ref)->first();
+
+        if (!$data['preg']) {
+            return redirect()->to("preregistration")
+                ->with('error', 'An error occured. Kindly contact support.');
+        }
+
+        PreRegUserModel::create([
+            "prereg_id" => $data['preg']->id,
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone" => $request->phone,
+        ]);
+
+        $data['room'] = RoomModel::find($data['preg']->room_id);
+
+        session(['roomurl' => $data['room']->url]);
+        session(['roomname' => $data['room']->name]);
+
+        return redirect()->route("preregsuccess");
+    }
+
+    public function attendance($id)
+    {
+        $room = RoomModel::find($id);
+        if ($room->user_id != Auth::id()) {
+            abort(404);
+        }
+        $datas['meetings'] = MeetingsModel::where([["meeting_id", $id], ["status", "=", "start meeting"]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance', $datas);
+    }
+
+    public function participants($id)
+    {
+        $datas['meetings'] = MeetingsModel::where([["identifier", "=", $id]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance_participants', $datas);
+    }
+
+    public function prereParticipants($reference)
+    {
+        $datas['prereg'] = PreRegModel::where("reference", $reference)->first();
+        if ($datas['prereg'] == null) {
+            abort(404);
+        }
+
+        if ($datas['prereg']->user_id != Auth::id()) {
+            abort(404);
+        }
+        $datas['users'] = PreRegUserModel::where("prereg_id", $datas['prereg']->id)->latest()->get();
+        $datas['i'] = 1;
+        return view('user.prereg_participants', $datas);
+    }
+
 }

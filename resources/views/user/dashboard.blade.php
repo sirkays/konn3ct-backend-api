@@ -163,19 +163,29 @@
 
                                                         <form action="/joinroom" method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="id" value="{{$room->id}}" />
+                                                            <input type="hidden" name="id" value="{{$room->id}}"/>
 
                                                             <div class="dropdown">
-                                                                    <Button type="submit" class="waves-effect waves-light font-size-10 btn btn-success" data-toggle="tooltip" data-placement="top" title="Start the meeting">Konn3ct Now <br>
-                                                                        <span class="font-size-8">Start Meeting</span></Button>
+                                                                <Button type="submit"
+                                                                        class="waves-effect waves-light font-size-10 btn btn-success"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="Start the meeting"
+                                                                        style="font-weight: bolder">Konn3ct Now <br>
+                                                                    <span class="font-size-8">(Start Meeting Now)</span>
+                                                                </Button>
 
-                                                                </form>
+                                                        </form>
 
-                                                                <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    Manage
-                                                                </button>
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                    <Button type="button" class="dropdown-item waves-effect waves-light btn" onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
+                                                        <button
+                                                            class="btn btn-outline-primary dropdown-toggle font-size-10"
+                                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            Manage
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <Button type="button"
+                                                                    class="dropdown-item waves-effect waves-light btn"
+                                                                    onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
                                                                         Copy
                                                                     </Button>
 
@@ -581,56 +591,156 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span id="c{{$room->id}}" class="text-dark font-weight-600 d-block font-size-16">
+                                                <span id="c{{$room->id}}"
+                                                      class="text-dark font-weight-600 d-block font-size-16">
                                                     {{url('/join/')}}/{{$room->url}}
 
                                                     <span class="badge badge-info">Access Code:
                                                         @if($room->password_attendee=="attendee")
-                                                                Unrestricted
-                                                            @else
-                                                                {{$room->password_attendee}}
-                                                            @endif
+                                                            Unrestricted
+                                                        @else
+                                                            {{$room->password_attendee}}
+                                                        @endif
                                                     </span>
+                                                    <br/>
+                                                    @if($room->prereg!=NULL)
+                                                        <a href="{{url('/preregistration/')}}/{{$room->prereg}}"
+                                                           style="font-size: 10px">{{url('/preregistration/')}}/{{$room->prereg}}</a>
+                                                    @endif
                                                 </span>
                                                 <br/>
-                                                <div class="dropdown">
-                                                    <Button style="font-size: 12px" class="waves-effect waves-light btn btn-info" onclick="copyToClipboard('#c{{$room->id}}')" data-toggle="tooltip" data-placement="top" title="Copy Meeting Link">
-                                                        <i class="fa fa-copy"></i> Copy
-                                                    </Button>
-                                                    <a style="font-size: 12px" href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary" data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Google Invite">
-                                                        Google Calender Invite
-                                                    </a>
+                                                <div class="row">
 
-                                                    <a style="font-size: 12px" href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}" class="waves-effect waves-light btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Schedule Meeting on Outlook Calender">
-                                                        Outlook Calendar Invite
-                                                    </a>
+                                                    <div class="dropdown mr-2">
+                                                        <button class="btn btn-sm btn-primary dropdown-toggle"
+                                                                type="button" id="dropdownMenuButton2"
+                                                                data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"
+                                                                data-placement="top" title="Do more with meeting room">
+                                                            Invites
+                                                        </button>
+                                                        <div class="dropdown-menu"
+                                                             aria-labelledby="dropdownMenuButton2">
+                                                            <a class="button dropdown-item"
+                                                               href="https://www.google.com/calendar/render?action=TEMPLATE&text={{$room->name}}&details=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}&location={{url('/join/')}}/{{$room->url}}"
+                                                               data-placement="top" title="Add or remove access code">
+                                                                Google Calender Invite
+                                                            </a>
 
-                                                    <button style="font-size: 12px"  class="waves-effect waves-light btn btn-primary" data-toggle="modal" data-target=".dk-invite-lg-{{$room->id}}" data-placement="top" title="Schedule meeting with guests email">
-                                                        Konn3ct Invite
-                                                    </button>
-                                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placement="top" title="Do more with meeting room">
-                                                        Manage Room
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-accesscode{{$room->id}}-modal" data-placement="top" title="Add or remove access code">
-                                                            Access Code
-                                                        </Button>
+                                                            <a class="button dropdown-item"
+                                                               href="https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject={{$room->name}}&body=Let%27s+konn3ct+in+my+room+using+{{url('/join/')}}/{{$room->url}}"
+                                                               data-placement="top"
+                                                               title="Schedule meeting on Oulook cvalendar">
+                                                                Outlook Calendar Invite
+                                                            </a>
 
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-limituser{{$room->id}}-modal" data-placement="top" title="Increase or decrease users size for meeting">
+                                                            <button class="button dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target=".dk-maininvite-lg-{{$room->id}}"
+                                                                    data-placement="top"
+                                                                    title="Schedule meeting with guests email">
+                                                                Konn3ct Invite
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        <a href="{{route('attendance', $room->id)}}"
+                                                           class="btn btn-secondary" data-placement="top"
+                                                           title="See people who attended your meetings">
+                                                            Attendance
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        <Button class="btn btn-secondary" data-toggle="modal"
+                                                                data-target="#dk-limituser{{$room->id}}-modal"
+                                                                data-placement="top"
+                                                                title="Increase or decrease users size for meeting">
                                                             Users Limit
                                                         </Button>
-                                                        <Button type="button" class="dropdown-item" data-toggle="modal" data-target="#dk-roombanner{{$room->id}}-modal"  data-placement="top" title="Upload a desired meeting banner">
-                                                            Meeting Room Banner Upload
-                                                        </Button>
+                                                    </div>
+
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                                type="button" id="dropdownMenuButton"
+                                                                data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"
+                                                                data-placement="top" title="Do more with meeting room">
+                                                            Manage Room
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <Button type="button" class="dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target="#dk-accesscode{{$room->id}}-modal"
+                                                                    data-placement="top"
+                                                                    title="Add or remove access code">
+                                                                Access Code
+                                                            </Button>
+
+                                                            <Button type="button" class="dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target="#dk-roombanner{{$room->id}}-modal"
+                                                                    data-placement="top"
+                                                                    title="Upload a desired meeting banner">
+                                                                Meeting Room Banner Upload
+                                                            </Button>
+
+                                                            @if($room->prereg==NULL)
+                                                                <Button type="button" class="dropdown-item"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-prereg-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Enable pre-registration">
+                                                                    Enable Pre-Registration
+                                                                </Button>
+                                                            @else
+                                                                <a href="{{route("prereParticipants", $room->prereg)}}"
+                                                                   type="button" class="dropdown-item"
+                                                                   data-placement="top"
+                                                                   title="View pre-registered users">
+                                                                    Pre-Registered Users
+                                                                </a>
+                                                                <a href="{{route("dprereg", $room->prereg)}}"
+                                                                   type="button"
+                                                                   class="dropdown-item" data-placement="top"
+                                                                   title="Disable pre-registration">
+                                                                    Disable Pre-Registration
+                                                                </a>
+                                                            @endif
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="dropdown mr-2">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                                            @if($room->default_room!="yes")
+                                                                <form action="/deleteroom" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id"
+                                                                           value="{{$room->id}}"/>
+                                                                    <Button type="submit"
+                                                                            class="waves-effect waves-light btn btn-sm btn-danger"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="Delete the meeting">
+                                                                        <i class="fa fa-trash"></i> Delete
+                                                                    </Button>
+                                                                </form>
+                                                            @endif
+                                                        @endif
                                                     </div>
                                                 </div>
 
-                                                <div class="modal accesscode-modal fade" id="dk-accesscode{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal accesscode-modal fade"
+                                                     id="dk-accesscode{{$room->id}}-modal" tabindex="-1" role="dialog"
+                                                     aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                                                     style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('accesscode')}}">
                                                             @csrf
-                                                         <div class="modal-content">
-                                                            <div class="modal-header">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
                                                                 <h4 class="modal-title" id="mySmallModalLabel">Manage Access Code</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                             </div>
@@ -703,28 +813,77 @@
                                                                 <div class="form-group row">
                                                                     <div class="col-lg-10">
                                                                         <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
-                                                                        <input type="file" class="form-control" name="banner" required>
+                                                                        <input type="file" class="form-control"
+                                                                               name="banner" required>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
-                                                            <div class="modal-footer modal-footer-uniform">
-                                                                <button type="submit" class="btn bg-success float-left">Upload</button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
+                                                             <div class="modal-footer modal-footer-uniform">
+                                                                 <button type="submit"
+                                                                         class="btn bg-success float-left">
+                                                                     Upload
+                                                                 </button>
+                                                             </div>
+                                                         </div>
+                                                            <!-- /.modal-content -->
                                                         </form>
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                                 <!-- /.modal -->
 
-                                                <div class="modal fade dk-invite-lg-{{$room->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+
+                                                <div class="modal dk-maininvite-lg-{{$room->id}} fade" tabindex="-1"
+                                                     role="dialog" aria-labelledby="mySmallModalLabel"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="mySmallModalLabel">Invite
+                                                                    Attendees</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                You can invite attendees via email or
+                                                                whatsapp.<br/><br/>
+
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button class="btn bg-primary float-left"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-invite-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Schedule meeting with guests email">Email
+                                                                </button>
+                                                                <button class="btn bg-success float-left"
+                                                                        data-toggle="modal"
+                                                                        data-target=".dk-whatsapinvite-lg-{{$room->id}}"
+                                                                        data-placement="top"
+                                                                        title="Schedule meeting with guests via whatsapp">
+                                                                    Whatsapp
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
+                                                <div class="modal fade dk-invite-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabel"
+                                                     aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct Invite</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct
+                                                                    Invite</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
                                                             </div>
 
                                                             <form method="post" action="{{route('invite')}}">
@@ -931,8 +1090,656 @@
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-success text-left">Send Invite</button>
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Send
+                                                                        Invite
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+                                                <div class="modal fade dk-whatsapinvite-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabel"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Whatsapp
+                                                                    Invite</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+
+                                                            <form method="post" action="{{route('whatsappinvite')}}">
+                                                                <div class="modal-body">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <label>Meeting Title:</label>
+                                                                        <input type="text" name="title"
+                                                                               class="form-control"
+                                                                               placeholder="Enter Title" value=""
+                                                                               required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Access Code:</label>
+
+                                                                        @if($room->password_attendee!="attendee")
+                                                                            <input type="text" name="accesscode"
+                                                                                   class="form-control" placeholder=""
+                                                                                   value="{{$room->password_attendee}}"
+                                                                                   readonly required>
+                                                                        @else
+                                                                            <input type="hidden" name="accesscode"
+                                                                                   class="form-control" placeholder=""
+                                                                                   value="No Access Code">
+                                                                            Room is open
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Room Link:</label>
+                                                                        <input type="text" class="form-control"
+                                                                               placeholder="e.g https://konn3ct..."
+                                                                               value="{{url('/join/')}}/{{$room->url}}"
+                                                                               disabled required>
+                                                                        <input type="hidden" name="roomlink"
+                                                                               class="form-control"
+                                                                               placeholder="e.g https://konn3ct..."
+                                                                               value="{{url('/join/')}}/{{$room->url}}"
+                                                                               required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Host Name:</label>
+                                                                        <input type="hidden" name="roomname"
+                                                                               class="form-control"
+                                                                               value="{{$room->name}}"/>
+                                                                        <input type="text" name="hostname"
+                                                                               class="form-control"
+                                                                               placeholder="e.g Newwaves" required/>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Date:</label>
+                                                                        <input type="date" name="date"
+                                                                               class="form-control" required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Time:</label>
+                                                                        <input type="time" name="time"
+                                                                               class="form-control" required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Timezone:</label>
+                                                                        <select class="form-control" id="timezone"
+                                                                                name="timezone">
+                                                                            <option>Pacific/Midway (UTC-11:00)</option>
+                                                                            <option>Pacific/Samoa (UTC-11:00)</option>
+                                                                            <option>Pacific/Honolulu (UTC-10:00)
+                                                                                Hawaii
+                                                                            </option>
+                                                                            <option>US/Alaska (UTC-09:00)</option>
+                                                                            <option>America/Los_Angeles (UTC-08:00)
+                                                                            </option>
+                                                                            <option>America/Tijuana (UTC-08:00)</option>
+                                                                            <option>US/Arizona (UTC-07:00)</option>
+                                                                            <option>America/Chihuahua (UTC-07:00)
+                                                                            </option>
+                                                                            <option>America/Chihuahua (UTC-07:00)
+                                                                            </option>
+                                                                            <option>America/Mazatlan (UTC-07:00)
+                                                                            </option>
+                                                                            <option>US/Mountain (UTC-07:00)</option>
+                                                                            <option>America/Managua (UTC-06:00)</option>
+                                                                            <option>US/Central (UTC-06:00)</option>
+                                                                            <option>America/Mexico_City (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Mexico_City (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Monterrey (UTC-06:00)
+                                                                            </option>
+                                                                            <option>Canada/Saskatchewan (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Bogota (UTC-05:00)</option>
+                                                                            <option>US/Eastern (UTC-05:00)</option>
+                                                                            <option>US/East-Indiana (UTC-05:00)</option>
+                                                                            <option>America/Lima (UTC-05:00)</option>
+                                                                            <option>America/Bogota (UTC-05:00)</option>
+                                                                            <option>Canada/Atlantic (UTC-04:00)</option>
+                                                                            <option>America/Caracas (UTC-04:30)</option>
+                                                                            <option>America/La_Paz (UTC-04:00)</option>
+                                                                            <option>America/Santiago (UTC-04:00)
+                                                                            </option>
+                                                                            <option>Canada/Newfoundland (UTC-03:30)
+                                                                            </option>
+                                                                            <option>America/Sao_Paulo (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Argentina/Buenos_Aires
+                                                                                (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Argentina/Buenos_Aires
+                                                                                (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Godthab (UTC-03:00)</option>
+                                                                            <option>America/Noronha (UTC-02:00)</option>
+                                                                            <option>Atlantic/Azores (UTC-01:00)</option>
+                                                                            <option>Atlantic/Cape_Verde (UTC-01:00)
+                                                                            </option>
+                                                                            <option>Africa/Casablanca (UTC+00:00)
+                                                                            </option>
+                                                                            <option>Europe/London (UTC+00:00)</option>
+                                                                            <option>Etc/Greenwich (UTC+00:00)</option>
+                                                                            <option>Europe/Lisbon (UTC+00:00)</option>
+                                                                            <option>Europe/London (UTC+00:00)</option>
+                                                                            <option>Africa/Monrovia (UTC+00:00)</option>
+                                                                            <option>UTC (UTC+00:00)</option>
+                                                                            <option>Europe/Amsterdam (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Belgrade (UTC+01:00)</option>
+                                                                            <option>Europe/Berlin (UTC+01:00)</option>
+                                                                            <option>Europe/Bern (UTC+01:00)</option>
+                                                                            <option>Europe/Bratislava (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Brussels (UTC+01:00)</option>
+                                                                            <option>Europe/Budapest (UTC+01:00)</option>
+                                                                            <option>Europe/Copenhagen (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Ljubljana (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Madrid (UTC+01:00)</option>
+                                                                            <option>Europe/Paris (UTC+01:00)</option>
+                                                                            <option>Europe/Prague (UTC+01:00)</option>
+                                                                            <option>Europe/Rome (UTC+01:00)</option>
+                                                                            <option>Europe/Sarajevo (UTC+01:00)</option>
+                                                                            <option>Europe/Skopje (UTC+01:00)</option>
+                                                                            <option>Europe/Stockholm (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Vienna (UTC+01:00)</option>
+                                                                            <option>Europe/Warsaw (UTC+01:00)</option>
+                                                                            <option selected="selected">Africa/Lagos
+                                                                                (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Zagreb (UTC+01:00)</option>
+                                                                            <option>Europe/Athens (UTC+02:00)</option>
+                                                                            <option>Europe/Bucharest (UTC+02:00)
+                                                                            </option>
+                                                                            <option>Africa/Cairo (UTC+02:00)</option>
+                                                                            <option>Africa/Harare (UTC+02:00)</option>
+                                                                            <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                            <option>Europe/Istanbul (UTC+02:00)</option>
+                                                                            <option>Asia/Jerusalem (UTC+02:00)</option>
+                                                                            <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                            <option>Africa/Johannesburg (UTC+02:00)
+                                                                            </option>
+                                                                            <option>Europe/Riga (UTC+02:00)</option>
+                                                                            <option>Europe/Sofia (UTC+02:00)</option>
+                                                                            <option>Europe/Tallinn (UTC+02:00)</option>
+                                                                            <option>Europe/Vilnius (UTC+02:00)</option>
+                                                                            <option>Asia/Baghdad (UTC+03:00)</option>
+                                                                            <option>Asia/Kuwait (UTC+03:00)</option>
+                                                                            <option>Europe/Minsk (UTC+03:00)</option>
+                                                                            <option>Africa/Nairobi (UTC+03:00)</option>
+                                                                            <option>Asia/Riyadh (UTC+03:00)</option>
+                                                                            <option>Europe/Volgograd (UTC+03:00)
+                                                                            </option>
+                                                                            <option>Asia/Tehran (UTC+03:30)</option>
+                                                                            <option>Asia/Muscat (UTC+04:00)</option>
+                                                                            <option>Asia/Baku (UTC+04:00)</option>
+                                                                            <option>Europe/Moscow (UTC+04:00)</option>
+                                                                            <option>Asia/Muscat (UTC+04:00)</option>
+                                                                            <option>Europe/Moscow (UTC+04:00)</option>
+                                                                            <option>Asia/Tbilisi (UTC+04:00)</option>
+                                                                            <option>Asia/Yerevan (UTC+04:00)</option>
+                                                                            <option>Asia/Kabul (UTC+04:30)</option>
+                                                                            <option>Asia/Islamabad (UTC+05:00)</option>
+                                                                            <option>Asia/Karachi (UTC+05:00)</option>
+                                                                            <option>Asia/Tashkent (UTC+05:00)</option>
+                                                                            <option>Asia/Calcutta/Chennai (UTC+05:30)
+                                                                            </option>
+                                                                            <option>Asia/Kolkata (UTC+05:30)</option>
+                                                                            <option>Asia/Mumbai (UTC+05:30)</option>
+                                                                            <option>Asia/New Delhi (UTC+05:30)</option>
+                                                                            <option>Asia/Sri Jayawardenepura
+                                                                                (UTC+05:30)
+                                                                            </option>
+                                                                            <option>Asia/Katmandu (UTC+05:45)</option>
+                                                                            <option>Asia/Almaty (UTC+06:00)</option>
+                                                                            <option>Asia/Astana (UTC+06:00)</option>
+                                                                            <option>Asia/Dhaka (UTC+06:00)</option>
+                                                                            <option>Asia/Yekaterinburg (UTC+06:00)
+                                                                            </option>
+                                                                            <option>Asia/Rangoon (UTC+06:30)</option>
+                                                                            <option>Asia/Bangkok (UTC+07:00)</option>
+                                                                            <option>Asia/Hanoi (UTC+07:00)</option>
+                                                                            <option>Asia/Jakarta (UTC+07:00) Jakarta
+                                                                            </option>
+                                                                            <option>Asia/Novosibirsk (UTC+07:00)
+                                                                            </option>
+                                                                            <option>Asia/Beijing (UTC+08:00)</option>
+                                                                            <option>Asia/Chongqing (UTC+08:00)</option>
+                                                                            <option>Asia/Hong_Kong (UTC+08:00)</option>
+                                                                            <option>Asia/Krasnoyarsk (UTC+08:00)
+                                                                            </option>
+                                                                            <option>Asia/Kuala_Lumpur (UTC+08:00)
+                                                                            </option>
+                                                                            <option>Australia/Perth (UTC+08:00)</option>
+                                                                            <option>Asia/Singapore (UTC+08:00)</option>
+                                                                            <option>Asia/Taipei (UTC+08:00)</option>
+                                                                            <option>Asia/Ulan_Bator (UTC+08:00)</option>
+                                                                            <option>Asia/Urumqi (UTC+08:00)</option>
+                                                                            <option>Asia/Irkutsk (UTC+09:00)</option>
+                                                                            <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                            <option>Asia/Sapporo (UTC+09:00)</option>
+                                                                            <option>Asia/Seoul (UTC+09:00)</option>
+                                                                            <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                            <option>Australia/Adelaide (UTC+09:30)
+                                                                            </option>
+                                                                            <option>Australia/Darwin (UTC+09:30)
+                                                                            </option>
+                                                                            <option>Australia/Brisbane (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Canberra (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Pacific/Guam (UTC+10:00)</option>
+                                                                            <option>Australia/Hobart (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Melbourne (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Pacific/Port_Moresby (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Sydney (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Asia/Yakutsk (UTC+10:00)</option>
+                                                                            <option>Asia/Vladivostok (UTC+11:00)
+                                                                            </option>
+                                                                            <option>Pacific/Auckland (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                            <option>Pacific/Kwajalein (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Asia/Kamchatka (UTC+12:00)</option>
+                                                                            <option>Asia/Magadan (UTC+12:00)</option>
+                                                                            <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                            <option>Asia/Magadan (UTC+12:00)</option>
+                                                                            <option>Asia/Solomon Is. (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Auckland (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Tongatapu (UTC+13:00)
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Guest Phone Number(s)<i>Separated by
+                                                                                commas</i>:</label>
+                                                                        <br\><span class="text-danger">Note: The phone number should start with country code e.g 234 for Nigeria</span>
+                                                                        <textarea maxlength="500" name="guest" rows="9"
+                                                                                  class="form-control"
+                                                                                  placeholder="2348166....,"
+                                                                                  required></textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Send
+                                                                        Invite
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+                                                <div class="modal fade dk-whatsapinvite0-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabelw"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Konn3ct
+                                                                    Invite</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+
+                                                            <form method="post" action="{{route('whatsappinvite')}}">
+                                                                <div class="modal-body">
+                                                                    @csrf
+                                                                    <input type="hidden" name="room"
+                                                                           value="{{$room->name}}">
+
+                                                                    <div class="form-group">
+                                                                        <label>Message</i>:</label>
+                                                                        <textarea name="text" rows="4"
+                                                                                  class="form-control"
+                                                                                  placeholder="e.g We are ">*Hello*,\nYou have been invited by {{\Illuminate\Support\Facades\Auth::user()->firstname}} to attend {{$room->name}} Meeting scheduled as follows:\n\nMeeting Room Name: {{$room->name}}\nDate: {{\Carbon\Carbon::now()->toDateString()}}\nTime: {{\Carbon\Carbon::now()->toTimeString()}} Africa/Lagos (UTC+01:00)\n\nClick this link {{url('/')}}/join/{{$room->url}} to join or copy and paste in your preferred browser.\n\nThank you.\n...............\nVisit https://konn3ct.com\n...Amazing Virtual Experience</textarea>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Guest Number(s)<i>Separated by commas</i>:</label>
+                                                                        <br\><span class="text-danger">Note: The phone number should start with country code e.g 234 for Nigeria</span>
+                                                                        <textarea maxlength="500" name="guest" rows="9"
+                                                                                  class="form-control"
+                                                                                  placeholder="2348166....," required>{{\Illuminate\Support\Facades\Auth::user()->phone}},</textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Send
+                                                                        Invite
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+                                                <div class="modal fade dk-prereg-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabel"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Pre
+                                                                    Registration</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+
+                                                            <form method="post" action="{{route('prereg')}}">
+                                                                <div class="modal-body">
+                                                                    @csrf
+                                                                    <div class="form-group">
+                                                                        <label>Event Title:</label>
+                                                                        <input type="text" name="title"
+                                                                               class="form-control"
+                                                                               placeholder="Enter Title" value=""
+                                                                               required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Room Link:</label>
+                                                                        <input type="text" class="form-control"
+                                                                               placeholder="e.g https://konn3ct..."
+                                                                               value="{{url('/join/')}}/{{$room->url}}"
+                                                                               disabled required>
+                                                                        <input type="hidden" name="roomlink"
+                                                                               class="form-control"
+                                                                               placeholder="e.g https://konn3ct..."
+                                                                               value="{{url('/join/')}}/{{$room->url}}"
+                                                                               required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Host Name:</label>
+                                                                        <input type="hidden" name="id"
+                                                                               class="form-control"
+                                                                               value="{{$room->id}}"/>
+                                                                        <input type="text" name="hostname"
+                                                                               class="form-control"
+                                                                               placeholder="e.g Newwaves" required/>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Event Date:</label>
+                                                                        <input type="date" name="date"
+                                                                               class="form-control" required>
+                                                                        <span class="text-danger font-size-12">Joining of session on this date will be restricted to people that registered through the pre-registration link</span>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Event Time:</label>
+                                                                        <input type="time" name="time"
+                                                                               class="form-control" required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Timezone:</label>
+                                                                        <select class="form-control" id="timezone"
+                                                                                name="timezone">
+                                                                            <option>Pacific/Midway (UTC-11:00)</option>
+                                                                            <option>Pacific/Samoa (UTC-11:00)</option>
+                                                                            <option>Pacific/Honolulu (UTC-10:00)
+                                                                                Hawaii
+                                                                            </option>
+                                                                            <option>US/Alaska (UTC-09:00)</option>
+                                                                            <option>America/Los_Angeles (UTC-08:00)
+                                                                            </option>
+                                                                            <option>America/Tijuana (UTC-08:00)</option>
+                                                                            <option>US/Arizona (UTC-07:00)</option>
+                                                                            <option>America/Chihuahua (UTC-07:00)
+                                                                            </option>
+                                                                            <option>America/Chihuahua (UTC-07:00)
+                                                                            </option>
+                                                                            <option>America/Mazatlan (UTC-07:00)
+                                                                            </option>
+                                                                            <option>US/Mountain (UTC-07:00)</option>
+                                                                            <option>America/Managua (UTC-06:00)</option>
+                                                                            <option>US/Central (UTC-06:00)</option>
+                                                                            <option>America/Mexico_City (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Mexico_City (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Monterrey (UTC-06:00)
+                                                                            </option>
+                                                                            <option>Canada/Saskatchewan (UTC-06:00)
+                                                                            </option>
+                                                                            <option>America/Bogota (UTC-05:00)</option>
+                                                                            <option>US/Eastern (UTC-05:00)</option>
+                                                                            <option>US/East-Indiana (UTC-05:00)</option>
+                                                                            <option>America/Lima (UTC-05:00)</option>
+                                                                            <option>America/Bogota (UTC-05:00)</option>
+                                                                            <option>Canada/Atlantic (UTC-04:00)</option>
+                                                                            <option>America/Caracas (UTC-04:30)</option>
+                                                                            <option>America/La_Paz (UTC-04:00)</option>
+                                                                            <option>America/Santiago (UTC-04:00)
+                                                                            </option>
+                                                                            <option>Canada/Newfoundland (UTC-03:30)
+                                                                            </option>
+                                                                            <option>America/Sao_Paulo (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Argentina/Buenos_Aires
+                                                                                (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Argentina/Buenos_Aires
+                                                                                (UTC-03:00)
+                                                                            </option>
+                                                                            <option>America/Godthab (UTC-03:00)</option>
+                                                                            <option>America/Noronha (UTC-02:00)</option>
+                                                                            <option>Atlantic/Azores (UTC-01:00)</option>
+                                                                            <option>Atlantic/Cape_Verde (UTC-01:00)
+                                                                            </option>
+                                                                            <option>Africa/Casablanca (UTC+00:00)
+                                                                            </option>
+                                                                            <option>Europe/London (UTC+00:00)</option>
+                                                                            <option>Etc/Greenwich (UTC+00:00)</option>
+                                                                            <option>Europe/Lisbon (UTC+00:00)</option>
+                                                                            <option>Europe/London (UTC+00:00)</option>
+                                                                            <option>Africa/Monrovia (UTC+00:00)</option>
+                                                                            <option>UTC (UTC+00:00)</option>
+                                                                            <option>Europe/Amsterdam (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Belgrade (UTC+01:00)</option>
+                                                                            <option>Europe/Berlin (UTC+01:00)</option>
+                                                                            <option>Europe/Bern (UTC+01:00)</option>
+                                                                            <option>Europe/Bratislava (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Brussels (UTC+01:00)</option>
+                                                                            <option>Europe/Budapest (UTC+01:00)</option>
+                                                                            <option>Europe/Copenhagen (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Ljubljana (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Madrid (UTC+01:00)</option>
+                                                                            <option>Europe/Paris (UTC+01:00)</option>
+                                                                            <option>Europe/Prague (UTC+01:00)</option>
+                                                                            <option>Europe/Rome (UTC+01:00)</option>
+                                                                            <option>Europe/Sarajevo (UTC+01:00)</option>
+                                                                            <option>Europe/Skopje (UTC+01:00)</option>
+                                                                            <option>Europe/Stockholm (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Vienna (UTC+01:00)</option>
+                                                                            <option>Europe/Warsaw (UTC+01:00)</option>
+                                                                            <option selected="selected">Africa/Lagos
+                                                                                (UTC+01:00)
+                                                                            </option>
+                                                                            <option>Europe/Zagreb (UTC+01:00)</option>
+                                                                            <option>Europe/Athens (UTC+02:00)</option>
+                                                                            <option>Europe/Bucharest (UTC+02:00)
+                                                                            </option>
+                                                                            <option>Africa/Cairo (UTC+02:00)</option>
+                                                                            <option>Africa/Harare (UTC+02:00)</option>
+                                                                            <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                            <option>Europe/Istanbul (UTC+02:00)</option>
+                                                                            <option>Asia/Jerusalem (UTC+02:00)</option>
+                                                                            <option>Europe/Helsinki (UTC+02:00)</option>
+                                                                            <option>Africa/Johannesburg (UTC+02:00)
+                                                                            </option>
+                                                                            <option>Europe/Riga (UTC+02:00)</option>
+                                                                            <option>Europe/Sofia (UTC+02:00)</option>
+                                                                            <option>Europe/Tallinn (UTC+02:00)</option>
+                                                                            <option>Europe/Vilnius (UTC+02:00)</option>
+                                                                            <option>Asia/Baghdad (UTC+03:00)</option>
+                                                                            <option>Asia/Kuwait (UTC+03:00)</option>
+                                                                            <option>Europe/Minsk (UTC+03:00)</option>
+                                                                            <option>Africa/Nairobi (UTC+03:00)</option>
+                                                                            <option>Asia/Riyadh (UTC+03:00)</option>
+                                                                            <option>Europe/Volgograd (UTC+03:00)
+                                                                            </option>
+                                                                            <option>Asia/Tehran (UTC+03:30)</option>
+                                                                            <option>Asia/Muscat (UTC+04:00)</option>
+                                                                            <option>Asia/Baku (UTC+04:00)</option>
+                                                                            <option>Europe/Moscow (UTC+04:00)</option>
+                                                                            <option>Asia/Muscat (UTC+04:00)</option>
+                                                                            <option>Europe/Moscow (UTC+04:00)</option>
+                                                                            <option>Asia/Tbilisi (UTC+04:00)</option>
+                                                                            <option>Asia/Yerevan (UTC+04:00)</option>
+                                                                            <option>Asia/Kabul (UTC+04:30)</option>
+                                                                            <option>Asia/Islamabad (UTC+05:00)</option>
+                                                                            <option>Asia/Karachi (UTC+05:00)</option>
+                                                                            <option>Asia/Tashkent (UTC+05:00)</option>
+                                                                            <option>Asia/Calcutta/Chennai (UTC+05:30)
+                                                                            </option>
+                                                                            <option>Asia/Kolkata (UTC+05:30)</option>
+                                                                            <option>Asia/Mumbai (UTC+05:30)</option>
+                                                                            <option>Asia/New Delhi (UTC+05:30)</option>
+                                                                            <option>Asia/Sri Jayawardenepura
+                                                                                (UTC+05:30)
+                                                                            </option>
+                                                                            <option>Asia/Katmandu (UTC+05:45)</option>
+                                                                            <option>Asia/Almaty (UTC+06:00)</option>
+                                                                            <option>Asia/Astana (UTC+06:00)</option>
+                                                                            <option>Asia/Dhaka (UTC+06:00)</option>
+                                                                            <option>Asia/Yekaterinburg (UTC+06:00)
+                                                                            </option>
+                                                                            <option>Asia/Rangoon (UTC+06:30)</option>
+                                                                            <option>Asia/Bangkok (UTC+07:00)</option>
+                                                                            <option>Asia/Hanoi (UTC+07:00)</option>
+                                                                            <option>Asia/Jakarta (UTC+07:00) Jakarta
+                                                                            </option>
+                                                                            <option>Asia/Novosibirsk (UTC+07:00)
+                                                                            </option>
+                                                                            <option>Asia/Beijing (UTC+08:00)</option>
+                                                                            <option>Asia/Chongqing (UTC+08:00)</option>
+                                                                            <option>Asia/Hong_Kong (UTC+08:00)</option>
+                                                                            <option>Asia/Krasnoyarsk (UTC+08:00)
+                                                                            </option>
+                                                                            <option>Asia/Kuala_Lumpur (UTC+08:00)
+                                                                            </option>
+                                                                            <option>Australia/Perth (UTC+08:00)</option>
+                                                                            <option>Asia/Singapore (UTC+08:00)</option>
+                                                                            <option>Asia/Taipei (UTC+08:00)</option>
+                                                                            <option>Asia/Ulan_Bator (UTC+08:00)</option>
+                                                                            <option>Asia/Urumqi (UTC+08:00)</option>
+                                                                            <option>Asia/Irkutsk (UTC+09:00)</option>
+                                                                            <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                            <option>Asia/Sapporo (UTC+09:00)</option>
+                                                                            <option>Asia/Seoul (UTC+09:00)</option>
+                                                                            <option>Asia/Tokyo (UTC+09:00)</option>
+                                                                            <option>Australia/Adelaide (UTC+09:30)
+                                                                            </option>
+                                                                            <option>Australia/Darwin (UTC+09:30)
+                                                                            </option>
+                                                                            <option>Australia/Brisbane (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Canberra (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Pacific/Guam (UTC+10:00)</option>
+                                                                            <option>Australia/Hobart (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Melbourne (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Pacific/Port_Moresby (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Australia/Sydney (UTC+10:00)
+                                                                            </option>
+                                                                            <option>Asia/Yakutsk (UTC+10:00)</option>
+                                                                            <option>Asia/Vladivostok (UTC+11:00)
+                                                                            </option>
+                                                                            <option>Pacific/Auckland (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                            <option>Pacific/Kwajalein (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Asia/Kamchatka (UTC+12:00)</option>
+                                                                            <option>Asia/Magadan (UTC+12:00)</option>
+                                                                            <option>Pacific/Fiji (UTC+12:00)</option>
+                                                                            <option>Asia/Magadan (UTC+12:00)</option>
+                                                                            <option>Asia/Solomon Is. (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Auckland (UTC+12:00)
+                                                                            </option>
+                                                                            <option>Pacific/Tongatapu (UTC+13:00)
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>About the Event</i>:</label>
+                                                                        <textarea name="about" rows="4"
+                                                                                  class="form-control"
+                                                                                  placeholder="e.g Meeting Agenda"> </textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Submit
+                                                                    </button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -944,29 +1751,30 @@
 
                                             </td>
 
-                                            <td>
+                                            <td style="alignment-baseline: bottom; alignment: bottom">
                                                 <form action="/joinroom" method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{{$room->id}}" />
-                                                    <Button type="submit" class="waves-effect waves-light btn btn-success" data-toggle="tooltip" data-placement="top" title="Start the meeting">
-                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now <br>
-                                                        <span class="font-size-10">Start Meeting</span>
+                                                    <input type="hidden" name="id" value="{{$room->id}}"/>
+                                                    <Button type="submit"
+                                                            class="waves-effect waves-light btn btn-success"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Start the meeting"
+                                                            style="font-size: 20px; min-height: 90px; font-weight: bolder">
+                                                        <i class="fa fa-arrow-right"></i> Konn3ct Now
+                                                        <span class="font-size-10">(Start Meeting Now)</span>
+                                                    </Button>
+
+                                                    <Button style="font-size: 12px"
+                                                            class="waves-effect waves-light btn btn-info"
+                                                            onclick="copyToClipboard('#c{{$room->id}}')"
+                                                            data-toggle="tooltip" data-placement="top"
+                                                            title="Copy Meeting Link">
+                                                        <i class="fa fa-copy"></i> Copy
                                                     </Button>
                                                 </form>
+
                                             </td>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                                @if($room->default_room!="yes")
-                                                    <td>
-                                                        <form action="/deleteroom" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="id" value="{{$room->id}}" />
-                                                            <Button type="submit" class="waves-effect waves-light btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete the meeting">
-                                                                <i class="fa fa-trash"></i> Delete
-                                                            </Button>
-                                                        </form>
-                                                    </td>
-                                                @endif
-                                            @endif
+
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -1046,7 +1854,7 @@
                                                 </div>
                                                 <div class="c-inputs-stacked">
                                                     <input type="checkbox" name="dpuc" id="checkbox_34">
-                                                    <label for="checkbox_34" class="block">Disable public chat</label>
+                                                    <label for="checkbox_34" class="block">Disable Group Chat</label>
                                                 </div>
     {{--                                            <div class="c-inputs-stacked">--}}
     {{--                                                <input type="checkbox" name="dprc" id="checkbox_4">--}}
@@ -1062,7 +1870,7 @@
                                                 </div>
                                                 <div class="c-inputs-stacked">
                                                     <input type="checkbox" name="dsn" id="checkbox_41">
-                                                    <label for="checkbox_41" class="block">Disable Shared Note</label>
+                                                    <label for="checkbox_41" class="block">Disable Konn3ct Doc</label>
                                                 </div>
     {{--                                            <div class="c-inputs-stacked">--}}
     {{--                                                <input type="checkbox" name="dwr" id="checkbox_42">--}}
@@ -1101,8 +1909,6 @@
             </div>
             <!-- /.modal -->
 
-
-
             <div class="modal activatepro-modal fade" id="activatepro-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
@@ -1125,25 +1931,25 @@
             <!-- /.modal -->
 
 
-    <script>
-        function copyToClipboard(element) {
-            var $temp = $("<input>");
-            $("body").append($temp);
-            $temp.val($(element).text()).select();
-            document.execCommand("copy");
-            $temp.remove();
-        }
-    </script>
+            <script>
+                function copyToClipboard(element) {
+                    var $temp = $("<input>");
+                    $("body").append($temp);
+                    $temp.val($(element).text()).select();
+                    document.execCommand("copy");
+                    $temp.remove();
+                }
+            </script>
 
-    <script>
-        function getRandomString(length) {
-            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var result = '';
-            for ( var i = 0; i < length; i++ ) {
-                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-            }
-            return result;
-        }
-    </script>
+            <script>
+                function getRandomString(length) {
+                    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    var result = '';
+                    for (var i = 0; i < length; i++) {
+                        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+                    }
+                    return result;
+                }
+            </script>
 
 @endsection

@@ -288,10 +288,3 @@
     </script>
 
 @endsection
-<script>
-    import Button from "../../js/Jetstream/Button";
-    export default {
-        components: {Button}
-    }
-
-</script>

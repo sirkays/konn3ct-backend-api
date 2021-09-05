@@ -1,113 +1,133 @@
-@extends('layouts.layout')
-
+@extends('layouts.website-layout')
+@section('contact','navLinkactive')
 @section('content')
-<!-- main-area -->
-<main>
+    <div class="row" style="background-color: #012E89">
 
-    <!-- contact-area -->
-{{--    <section id="contact" class="contact-area contact-bg pt-120 pb-120 p-relative fix" style="background-image:url(img/bg/contact_bg.jpg)">--}}
-        <div class="container mb-80">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8">
-                    <div class="section-title text-center mb-30 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <span>Contact</span>
-                        <h2>Get In Touch</h2>
-                    </div>
-                </div>
-            </div>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            <div class="row mb-90">
-                <div class="col-lg-4">
-                    <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="f-cta-icon">
-                            <i class="far fa-mobile"></i>
-                        </div>
-                        <h5>Support Phone number</h5>
-                        <p><a href="tel:+234 803 304 6408"> +234 803 304 6408</a> <br>
-                            <a href="tel:+234 807 335 1737">+234 807 335 1737</a></p>
-                    </div>
-                    <div class="single-cta pb-30 mb-30 wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="f-cta-icon">
-                            <i class="far fa-envelope-open"></i>
-                        </div>
-                        <h5>Message Us</h5>
-                        <p>We are always with you to solve your problem
-                            mail us : <a href="mailto:support@konn3ct.com">support@konn3ct.com</a></p>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-8 mb-40">
-                    <form action="contact" method="post" class="contact-form wow fadeInUp animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        @csrf
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="contact-field p-relative c-name mb-40">
-                                    <label>
-                                        <input type="text" placeholder="Write your name here" name="name" required />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="contact-field p-relative c-email mb-40">
-                                    <label>
-                                        <input type="text" placeholder="Write your email here" name="email" required />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="contact-field p-relative c-subject mb-40">
-                                    <label>
-                                        <input type="text" placeholder="Subject" name="subject" required />
-                                    </label>
-                                </div>
-                            </div>
-{{--                            <div class="col-lg-6">--}}
-{{--                                <div class="contact-field p-relative c-subject mb-40">--}}
-{{--                                    <input type="file" name="attachment" placeholder="Attach file">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            <div class="col-lg-12" style="margin-bottom: 50px">
-                                <div class="contact-field p-relative c-message mb-45">
-                                    <textarea name="content" id="message" cols="30" rows="10" placeholder="I would like to discuss on"></textarea>
-                                </div>
-                                <button type="submit" class="btn">Send Message</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
+        <div class="mt-3 mb-4">
+            <h2 class="text-center" style="color: white; font-weight: bold">Get In Touch</h2>
+            <h5 class="text-center" style="color: white">Contact us for a quote today</h5>
         </div>
 
-{{--    </section>--}}
-    <!-- contact-area-end -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <form action="{{route('contactsent')}}" method="post">
+            @csrf
+            <div class="mx-3 my-3 px-3 py-3  row" style="background-color: white; border-radius: 15px">
+
+                <div class="col-md-12 col-lg-6 ml-4">
+                    <div class="mb-3">
+
+                        <div class="row justify-content-start">
+                            <div class="px-3 py-2 col-12 mr-2">
+                                <div class="input-group mb-3">
+                                    <span class="mr-4">Name<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control ml-3" name="name"
+                                           style="border-radius: 10px" required>
+                                </div>
+                            </div>
+
+                            <div class="px-3 py-2 col-12 mr-2">
+                                <div class="input-group mb-3">
+                                    <span class="mr-4">Mail<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control ml-3" name="email"
+                                           style="border-radius: 10px" required>
+                                </div>
+                            </div>
+
+                            <div class="px-3 py-2 col-12 mr-2">
+                                <div class="input-group mb-3">
+                                    <span class="mr-4">Phone number<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control ml-3" name="phone"
+                                           style="border-radius: 10px" required>
+                                </div>
+                            </div>
+
+                            <div class="px-3 py-2 col-12 mr-2">
+                                <div class="input-group mb-3">
+                                    <span class="mr-4">Subject<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control ml-3" name="subject"
+                                           style="border-radius: 10px" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-5">
+                            <i class="fa fa-phone-alt"></i> Support Phone number
+                        </div>
+
+                        <div class="mt-3" style="color: #012E89">
+                            +234 803 304 6408<br/>
+                            +234 807 335 1737
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-lg-6 justify-content-right">
+
+                    <div class="px-3 py-2 col-12 mr-2">
+                        <div class="input-group mb-3">
+                            <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <textarea class="form-control ml-3" name="content" style="border-radius: 10px"
+                                      rows="10" required></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="m-lg-4">
+                        <div class="mt-5">
+                            <i class="fa fa-envelope"></i> Message Us
+                        </div>
+
+                        <div class="mt-3">
+                            We are always with you to solve<br/>
+                            your problem mail us :
+                        </div>
+
+                        <div class="mt-3" style="color: #012E89">
+                            support@konn3ct.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        {{--        <div class="row text-center mb-4">--}}
+        {{--            <div>--}}
+        {{--                <img src="/assets/images/Facebook_white.png" alt="facebook"/>--}}
+        {{--                <img src="/assets/images/Twitter_white.png" alt="twitter"/>--}}
+        {{--                <img src="/assets/images/Instagram_white.png" alt="instagram"/>--}}
+        {{--                <img src="/assets/images/LinkedIN_white.png" alt="linkedin"/>--}}
+        {{--                <img src="/assets/images/Youtube_white.png" alt="Youtube_white"/>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+
+    </div>
 @endsection
 
-@section('before-styles')
-    @laravelPWA
-@stop

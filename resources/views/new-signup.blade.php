@@ -1,0 +1,267 @@
+@extends('layouts.new-layout')
+@section('content')
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-6 ml-4">
+            <img src="/assets/images/leftkonn3ctdiagram@2x.png" class="img col-12" alt="pix"/>
+        </div>
+
+        <div class="col-md-12 col-lg-6 justify-content-right">
+
+            <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">Personal
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false">Corporate
+                    </button>
+                </li>
+            </ul>
+
+            {{--            <div class="nav nav-tabs justify-content-center mb-5" id="nav-tab" role="tablist">--}}
+            {{--                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>--}}
+            {{--                <button class="nav-link" id="pills-profile-tab"  data-bs-toggle="tab" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Corporate</button>--}}
+            {{--            </div>--}}
+
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div id="home" class="container tab-pane active">
+                        <form method="POST" action="{{ route('register') }}">
+                            <div class="mb-3">
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">First Name</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="First Name"
+                                                   name="firstname" value="{{old('firstname')}}" required autofocus
+                                                   autocomplete="firstname" aria-label="First Name"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Last Name"
+                                                   name="lastname" value="{{old('lastname')}}" required autofocus
+                                                   autocomplete="lastname" aria-label="Last Name"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Email
+                                            Address</label>
+                                        <div class="input-group mb-3">
+                                            <input type="email" class="form-control" placeholder="Email Address"
+                                                   name="email"
+                                                   value="{{old('email')}}" required aria-label="Email Address"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                                        <div class="input-group mb-3">
+                                            <input type="tel" class="form-control" placeholder="Phone Number"
+                                                   name="phone"
+                                                   value="{{old('phone')}}" required aria-label="Phone Number"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Password</label>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                   name="password" required autocomplete="new-password"
+                                                   aria-label="Password" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+
+                                    <div class="px-3 py-2 col-6 ml-2">
+                                        <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" placeholder="Confirm Password"
+                                                   name="password_confirmation" required
+                                                   autocomplete="new-password" aria-label="Confirm Password"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start" style="color: grey; font-weight: bold">
+                                    <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">Referral Code
+                                            (Optional)</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Referral Code"
+                                                   name="referral" value="{{old('referral')}}" maxlength="6"
+                                                   aria-label="Referral Code" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @if($freetrial==1)
+                                    <div class="row mx-4">
+                                        <div class="form-group">
+                                            <input type="checkbox" id="freetrial" name="freetrial" value="true">
+                                            <label for="freetrial"> <Strong>Activate Pro Plan Free Trial
+                                                    ({{$freetrial_days}} days)</Strong></label><br>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="row" style="color: grey">
+                                    <div class="mb-3 form-check col-6">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free
+                                            Trial (8 days)</label>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
+                                    <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
+                                            style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                        Register
+                                    </button>
+                                </div>
+
+
+                                <div class="col-12 text-center mt-4" style="color: grey">
+                                    I have an account? <a href="{{route('new-login')}}" style="color: grey">Login</a>
+                                </div>
+
+                                <div class="col-12 text-center mt-5" style="color: grey">
+                                    Konn3ct is protected by reCAPTCHA and their Privacy Policy<br/>
+                                    and Terms of Service apply.
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <form method="POST" action="{{ route('register') }}">
+                        <div class="mb-3">
+
+                            <div class="row">
+                                <div class="px-3 py-2 col-12 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Business Name</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Business Name"
+                                               name="firstname" value="{{old('firstname')}}" required autofocus
+                                               autocomplete="firstname" aria-label="First Name"
+                                               aria-describedby="basic-addon1">
+                                        <input type="hidden" class="form-control" name="type" value="biz" required
+                                               autofocus autocomplete="firstname">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="px-3 py-2 col-6 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Email Address</label>
+                                    <div class="input-group mb-3">
+                                        <input type="email" class="form-control" placeholder="Email Address"
+                                               name="email" value="{{old('email')}}" required aria-label="Email Address"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2 col-6 ml-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                                    <div class="input-group mb-3">
+                                        <input type="tel" class="form-control" placeholder="Phone Number" name="phone"
+                                               value="{{old('phone')}}" required aria-label="Phone Number"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="px-3 py-2 col-6 mr-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" placeholder="Password"
+                                               name="password" required autocomplete="new-password"
+                                               aria-label="Password" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2 col-6 ml-2 justify-content-start">
+                                    <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" placeholder="Confirm Password"
+                                               name="password_confirmation" required
+                                               autocomplete="new-password" aria-label="Confirm Password"
+                                               aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-start">
+                                <div class="px-3 py-2 col-6 mr-2">
+                                    <label for="exampleInputEmail1" class="form-label text-left">Referral Code
+                                        (Optional)</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Referral Code"
+                                               name="referral" value="{{old('referral')}}" maxlength="6"
+                                               aria-label="Referral Code" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if($freetrial==1)
+                                <div class="row mx-4">
+                                    <div class="form-group">
+                                        <input type="checkbox" id="freetrial" name="freetrial" value="true">
+                                        <label for="freetrial"> <Strong>Activate Pro Plan Free Trial
+                                                ({{$freetrial_days}} days)</Strong></label><br>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="row">
+                                <div class="mb-3 form-check col-6">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free Trial (8
+                                        days)</label>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Register</button>
+                            </div>
+
+
+                            <div class="col-12 text-center mt-4">
+                                I have an account? <a href="{{route('login')}}">Login</a>
+                            </div>
+
+                            <div class="col-12 text-center mt-5">
+                                Konn3ct is protected by reCAPTCHA and their Privacy Policy<br/>
+                                and Terms of Service apply.
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+@endsection
+

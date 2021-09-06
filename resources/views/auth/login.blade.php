@@ -56,6 +56,21 @@
 
                     </div>
 
+                    <div class="px-3 py-2 mt-4"
+                         style="border-radius: 10px; border-style: solid; border-color: grey; border-width: 1px">
+                        <label for="exampleInputEmail1" class="form-label" style="color: grey">reCAPTCHA: Type the
+                            number</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="font-weight: bolder">
+                                <div id="CaptchaDiv"></div>
+                                <input type="hidden" id="txtCaptcha">
+                            </span>
+                            <input type="text" name="CaptchaInput" class="form-control" id="CaptchaInput" size="15"
+                                   autocomplete="off"/>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="mb-3 form-check col-6">
@@ -68,18 +83,6 @@
                     </div>
 
                 </div>
-
-                <!-- START CAPTCHA -->
-                {{--                <div class="capbox">--}}
-                {{--                    <div id="CaptchaDiv"></div>--}}
-                {{--                    <div class="capbox-inner">--}}
-                {{--                        Type the number:<br>--}}
-                {{--                        <input type="hidden" id="txtCaptcha">--}}
-                {{--                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>--}}
-
-                {{--                    </div>--}}
-                {{--                </div>--}}
-            <!-- END CAPTCHA -->
 
                 <div class="d-grid gap-2 mt-1" style="margin-left: 20%; margin-right: 20%">
                     <button type="submit" class="btn px-3 py-3 mr-3 mt-2"

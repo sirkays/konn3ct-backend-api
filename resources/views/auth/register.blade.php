@@ -51,7 +51,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div id="home" class="container tab-pane active">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" onsubmit="return checkform(this);">
                             @csrf
                             <div class="mb-3">
 
@@ -123,6 +123,19 @@
 
                                 <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                     <div class="px-3 py-2 col-6 mr-2">
+                                        <label for="exampleInputEmail1" class="form-label text-left">reCAPTCHA: Type the
+                                            number</label>
+                                        <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1" style="font-weight: bolder">
+                                            <div id="CaptchaDiv"></div>
+                                            <input type="hidden" id="txtCaptcha">
+                                        </span>
+                                            <input type="text" name="CaptchaInput" class="form-control"
+                                                   id="CaptchaInput" size="15" autocomplete="off"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="px-3 py-2 col-6 mr-2">
                                         <label for="exampleInputEmail1" class="form-label text-left">Referral Code
                                             (Optional)</label>
                                         <div class="input-group mb-3">
@@ -167,7 +180,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return checkform2(this);">
                         @csrf
                         <div class="mb-3">
 
@@ -229,6 +242,19 @@
 
                             <div class="row justify-content-start" style="color: grey; font-weight: bold">
                                 <div class="px-3 py-2 col-6 mr-2">
+                                    <label for="exampleInputEmail1" class="form-label text-left">reCAPTCHA: Type the
+                                        number</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1" style="font-weight: bolder">
+                                            <div id="CaptchaDiv2"></div>
+                                            <input type="hidden" id="txtCaptcha2">
+                                        </span>
+                                        <input type="text" name="CaptchaInput2" class="form-control" id="CaptchaInput"
+                                               size="15" autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2 col-6 mr-2">
                                     <label for="exampleInputEmail1" class="form-label text-left">Referral Code
                                         (Optional)</label>
                                     <div class="input-group mb-3">
@@ -274,5 +300,85 @@
         </div>
 
     </div>
+
+
+    <script type="text/javascript">
+
+        // Captcha Script
+
+        function checkform(theform) {
+            var why = "";
+
+            if (theform.CaptchaInput.value == "") {
+                why += "- Please Enter CAPTCHA Code.\n";
+            }
+            if (theform.CaptchaInput.value != "") {
+                if (ValidCaptcha(theform.CaptchaInput.value) == false) {
+                    why += "- The CAPTCHA Code Does Not Match.\n";
+                }
+            }
+            if (why != "") {
+                alert(why);
+                return false;
+            }
+        }
+
+        var a = Math.ceil(Math.random() * 9) + '';
+        var b = Math.ceil(Math.random() * 9) + '';
+        var c = Math.ceil(Math.random() * 9) + '';
+        var d = Math.ceil(Math.random() * 9) + '';
+        var e = Math.ceil(Math.random() * 9) + '';
+
+        var code = a + b + c + d + e;
+        document.getElementById("txtCaptcha").value = code;
+        document.getElementById("CaptchaDiv").innerHTML = code;
+
+        document.getElementById("txtCaptcha2").value = code;
+        document.getElementById("CaptchaDiv2").innerHTML = code;
+
+        // Validate input against the generated number
+        function ValidCaptcha() {
+            var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+            var str2 = removeSpaces(document.getElementById('CaptchaInput').value);
+
+            var str1a = removeSpaces(document.getElementById('txtCaptcha2').value);
+            var str2b = removeSpaces(document.getElementById('CaptchaInput2').value);
+            if (str1 == str2 || str1a == str2b) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Remove the spaces from the entered and generated code
+        function removeSpaces(string) {
+            return string.split(' ').join('');
+        }
+    </script>
+
+
+    <script type="text/javascript">
+
+        // Captcha Script
+
+        function checkform2(theform) {
+            var why = "";
+
+            if (theform.CaptchaInput2.value == "") {
+                why += "- Please Enter CAPTCHA Code.\n";
+            }
+            if (theform.CaptchaInput2.value != "") {
+                if (ValidCaptcha(theform.CaptchaInput2.value) == false) {
+                    why += "- The CAPTCHA Code Does Not Match.\n";
+                }
+            }
+            if (why != "") {
+                alert(why);
+                return false;
+            }
+        }
+
+    </script>
+
 @endsection
 

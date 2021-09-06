@@ -347,10 +347,9 @@
                         <div style="background-color: #FFFFFF; color: #000000">
                             <ul class="text-justify">
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Participant - 100</li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 10 hour
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 1 hour
                                 </li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Cloud Storage - 5GB</li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 2</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 1</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Audio & Video Preview Window
                                 </li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Screen Sharing</li>
@@ -358,12 +357,12 @@
                                 </li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> User Status</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Breakout Rooms</li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Recording</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Full-Featured Admin Controls
                                 </li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share Webcam</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Shared Notes</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Share YouTube Videos</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Attendance</li>
                             </ul>
 
 
@@ -444,11 +443,11 @@
 
                         <div style="background-color: #FFFFFF; color: #000000">
                             <ul class="text-justify">
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Participant - 100</li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 10 hour
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Participant - 250</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Session Timeout - 24 hour
                                 </li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Cloud Storage - 5GB</li>
-                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 2</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Cloud Storage - 15GB</li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Number of Rooms - 3</li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Audio & Video Preview Window
                                 </li>
                                 <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Screen Sharing</li>
@@ -494,7 +493,7 @@
                             </p>
 
                             <div class="text-center mb-4">
-                                <a href="tel:+2348033046408" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a href="{{route('contact')}}" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Contact us
                                 </a>

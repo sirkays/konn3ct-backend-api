@@ -447,12 +447,19 @@ class RoomController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-        $u=User::where('email', $email)->first();
-        $dp = 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png';
+        $u = User::where('email', $email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
 
-        if ($u != null) {
+        if ($u) {
             if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
-                $dp = $u->profile_photo_url;
+
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
             }
         } else {
             $jobi['name'] = $name;

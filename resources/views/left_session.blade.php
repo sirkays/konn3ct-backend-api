@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.website-layout')
 
 @section('content')
     <!-- main-area -->
@@ -19,21 +19,28 @@
                     </div>
                 @endif
 
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-5">
                     <div class="col-xl-7 col-lg-8">
-                        <div class="section-title text-center mb-5 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-{{--                                                    <span>You left the Meeting</span>--}}
-                            <h2>You left the Meeting</h2>
-                        </div>
-                        <div class="text-center">
+                        <h2 class="text-center mb-4" style="color: #012E89">You left the Meeting</h2>
+
+                        <div class="d-grid gap-2" style="margin-left: 20%; margin-right: 20%">
                             @auth
-                                <a href="/room" class="btn btn-outline">Goto Meeting Room</a>
+                                <a href="/room" class="btn px-3 py-3 mr-3 mt-2"
+                                   style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Goto Meeting Room
+                                </a>
                             @else
-                                <a href="/register" class="btn btn-outline">Register Here</a>
+                                <a href="/room" class="btn px-3 py-3 mr-3 mt-2"
+                                   style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
+                                    Goto Meeting Room
+                                </a>
                             @endif
 
-                            <br />
-                            <a href="/contact" class="li">Submit Feedback</a>
+
+                            <a href="/contact" class="btn px-3 py-3 mr-3 mt-2"
+                               style="border-radius: 10px; background-color: #085523; color: white; font-weight: bolder">
+                                Submit Feedback
+                            </a>
                         </div>
 
                     </div>

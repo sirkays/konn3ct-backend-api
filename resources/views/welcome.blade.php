@@ -132,6 +132,12 @@
             </h2>
 
             <div class="scrollmenu">
+                {{--                <a href="https://itedgenews.ng/2021/08/16/galaxy-backbone-newwaves-sign-deal-to-deploy-konn3ct-solution-in-public-service/"><img--}}
+                {{--                        src="/assets/images/ITEdgeNews3.png" class="img" alt="pix"/></a>--}}
+                {{--                <a href="https://ravenewsonline.com/2021/08/16/newwaves-ecosystem-inks-mou-with-galaxy-backbone-to-deploy-konn3ct-solution-in-public-service-space/"><img--}}
+                {{--                        src="/assets/images/Ravenews-300x300.jpeg" class="img" alt="pix"/></a>--}}
+                {{--                <a href="https://techeconomy.ng/2021/08/galaxy-backbone-adopts-konn3ct-wholly-nigerian-virtual-conferencing-solution/"><img--}}
+                {{--                        src="/assets/images/tedownload.png" class="img" alt="pix"/></a>--}}
                 <a href="https://guardian.ng/business-services/nigerias-konn3ct-competes-for-78b-virtual-market"><img
                         src="/assets/images/group73.png" class="img" alt="pix"/></a>
                 <a href="https://businessday.ng/financial-inclusion/article/nigerias-newwaves-ecosystem-launches-africas-first-zoom-like-app-konn3ct/"><img

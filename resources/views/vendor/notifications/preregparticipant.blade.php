@@ -1,13 +1,11 @@
 @component('mail::message')
 {{-- Greeting --}}
 
-# @lang('Hello ' . $data['pname'])
+# @lang('Hello ' . $data['pname'].", ")
 
 
 {{-- Intro Lines --}}
 {{ 'Thank you for registering for '.$data['meeting_name'].'.' }}
-
-{{ 'To get you started on the journey to an improved virtual life, take the next 3 minutes to do the following : ' }}
 
 
 # @lang('Find information about this event below')
@@ -29,7 +27,7 @@
 {{ "Add to Google Calender" }}
 @endcomponent
 
-{{ "Contact the Host: <a href='mailto:".$data['hemail']."'>".$data['hemail'] ."</a> | <a href='mailto:".$data['hphone']."'>".$data['hphone'] ."</a>"}}
+{{ "Contact the Host: ".$data['hemail'] ." | ".$data['hphone']}}
 
 
 {{ "Own a personalized room link | Own multiple rooms with a single account | Schedule meetings & events directly from your room | Host up to 250 participants for up to 24 hours straight" }}

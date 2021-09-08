@@ -141,13 +141,13 @@ class PreregistrationController extends Controller
         session(['roomurl' => $data['room']->url]);
         session(['roomname' => $data['room']->name]);
 
-        $dat['pname']= $request->name;
+        $dat['pname']= explode(" ", $request->name)[0];
         $dat['meeting_name']=$data['room']->name;
-        $dat['host']=$host->last_name;
+        $dat['host']=$host->lastname . " ".$host->firstname;
         $dat['date']=$data['preg']->date;
         $dat['time']=$data['preg']->time;
         $dat['timezone']=$data['preg']->timezone;
-        $dat['url']= url("/preregistration/" . $data['room']->url);
+        $dat['url']= url("/join/" . $data['room']->url);
         $dat['hphone']=$host->phone;
         $dat['hemail']=$host->email;
 

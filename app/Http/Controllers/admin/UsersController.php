@@ -110,7 +110,7 @@ class UsersController extends Controller
         $user=User::find($input['user']);
         if($input['plan']!=1) {
 
-            if ($input['plan'] == "new") {
+            if ($input['subscription'] == "new") {
                 $subd = Carbon::now()->addMonths($input['duration']);
             } elseif ($input['plan'] == $user->plan) {
                 if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) < 0) {

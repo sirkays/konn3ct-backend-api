@@ -6,6 +6,7 @@ use App\Http\Controllers\InviteController;
 use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
@@ -99,9 +100,9 @@ Route::get('/preregistration', function () {
     abort(404);
 });
 
-Route::get('/preregistration/{url}', [RoomController::class, 'preregshow'])->name('preregshow');
+Route::get('/preregistration/{url}', [PreregistrationController::class, 'preregshow'])->name('preregshow');
 
-Route::post('/registerprereg', [RoomController::class, 'registerprereg'])->name('registerprereg');
+Route::post('/registerprereg', [PreregistrationController::class, 'registerprereg'])->name('registerprereg');
 
 Route::get('/preregistrationsuccess', function () {
     $data['faqs'] = Faq::where('status', 1)->get();
@@ -147,13 +148,11 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
-    Route::post('/preregistration', [RoomController::class, 'prereg'])->name('prereg');
+    Route::post('/preregistration', [PreregistrationController::class, 'prereg'])->name('prereg');
 
-    Route::get('/preregistration_participants/{reference}', [RoomController::class, 'prereParticipants'])->name('prereParticipants');
+    Route::get('/preregistration_participants/{reference}', [PreregistrationController::class, 'prereParticipants'])->name('prereParticipants');
 
-    Route::get('/disbalepreregistration/{reference}', [RoomController::class, 'dprereg'])->name('dprereg');
-
-    Route::get('/preregusers/{reference}', [RoomController::class, 'preregusers'])->name('preregusers');
+    Route::get('/disbalepreregistration/{reference}', [PreregistrationController::class, 'dprereg'])->name('dprereg');
 
     Route::get('/addonsubscription', [AddonController::class, 'show'])->name('addonsubscription');
 

@@ -14,8 +14,9 @@ class RecordingsController extends Controller
 
         $rc=RoomModel::count();
         $r=RoomModel::first();
-        $r2=RoomModel::latest()->first();
-        $r21=RoomModel::latest()->limit(600)->get();
+        $datas['rooms']=RoomModel::latest()->paginate(600);
+        $r210 =$datas['rooms']->toArray();
+
         $datas['recordings']=[];
         $datas['i']=1;
 
@@ -40,10 +41,11 @@ class RecordingsController extends Controller
             return view('admin.recording', $datas);
 
         }else{
-            $r=$r2->id/2;
+            $from=$r210['from'];
+            $to=$r210['to'];
             $fer=[];
 
-            for ($i=1; $i <= $r; $i++){
+            for ($i=$from; $i <= $to; $i++){
                 array_push($fer,$i);
             }
 

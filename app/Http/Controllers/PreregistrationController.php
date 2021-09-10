@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EventReminderMail;
 use App\Mail\PreregParticipantMail;
 use App\Models\Faq;
 use App\Models\PreRegModel;
 use App\Models\PreRegUserModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +30,7 @@ class PreregistrationController extends Controller
             'time' => 'required',
             'timezone' => 'required',
             'about' => 'required',
+            'reminder' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,6 +40,37 @@ class PreregistrationController extends Controller
         }
 
         $reglink = Str::random(20);
+        $fName="";
+
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            if (!$file->isValid()) {
+                return back()->with('error', 'Invalid file upload');
+            }
+
+            if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
+                return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+            }
+
+            $fName = rand().".png";
+
+            $path = storage_path('prereg/');
+            $file->move($path, $fName);
+
+            echo "Uploaded successfully";
+        }
+
+
+        $pd=date_parse($input['date']);
+        print_r($pd);
+
+        $rd=$pd['year']."-".$pd['month']."-".$pd['day'];
+
+        echo $rd;
+
+        $date=date_create($rd);
+        date_sub($date,date_interval_create_from_date_string($input['reminder']." days"));
+        $reminder= date_format($date,"Y-m-d");
 
         PreRegModel::create([
             "user_id" => Auth::id(),
@@ -48,6 +82,8 @@ class PreregistrationController extends Controller
             "time" => $input['time'],
             "timezone" => $input['timezone'],
             "about" => $input['about'],
+            "logo" => $fName,
+            "reminder" => $reminder,
         ]);
 
         $r = RoomModel::find($input['id']);
@@ -78,6 +114,11 @@ class PreregistrationController extends Controller
         $data['preg'] = PreRegModel::where('reference', $url)->first();
 
         if (!$data['preg']) {
+            return redirect()->to("preregistration")
+                ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
+        }
+
+        if ($data['preg']->status != 1) {
             return redirect()->to("preregistration")
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
@@ -169,6 +210,48 @@ class PreregistrationController extends Controller
         $datas['users'] = PreRegUserModel::where("prereg_id", $datas['prereg']->id)->latest()->get();
         $datas['i'] = 1;
         return view('user.prereg_participants', $datas);
+    }
+
+    public function checkReminder(){
+        echo "Starting check event Reminder";
+        echo "\n";
+
+        $preg_lists = PreRegModel::where('status', 1)->get();
+
+        foreach ($preg_lists as $preg_list){
+            echo "Working on event - " .$preg_list->title;
+            echo "\n";
+            echo "Reminder Date: " . $preg_list->reminder;
+            echo "Current Date: " . Carbon::now()->format("Y-m-d");
+            echo "\n";
+
+            if($preg_list->reminder == Carbon::now()->format("Y-m-d")){
+                echo "I need to send reminder to users";
+                echo "\n";
+                $users = PreRegUserModel::where("prereg_id", $preg_list->id)->get();
+                $host = User::find($preg_list->user_id);
+
+                foreach ($users as $user){
+                    echo "Working on user - " .$user->name;
+                    echo "\n";
+                    $dat['pname']=explode(" ", $user->name)[0];
+                    $dat['event_name']=$preg_list->title;
+                    $dat['host']=$host->lastname . " ".$host->firstname;
+                    $dat['formatted_date']=Carbon::parse($preg_list->date)->toFormattedDateString();
+                    $dat['formatted_time']=Carbon::parse($preg_list->time)->toTimeString();
+                    $dat['date']=$preg_list->date;
+                    $dat['time']=$preg_list->time;
+                    $dat['timezone']=$preg_list->timezone;
+                    $dat['url']= url("/join/" . $preg_list->url);
+                    $dat['hphone']=$host->phone;
+                    $dat['hemail']=$host->email;
+
+                    echo "Sending event reminder to ".$user->email;
+                    Mail::to($user->email)->send(new EventReminderMail($dat));
+                }
+
+            }
+        }
     }
 
 }

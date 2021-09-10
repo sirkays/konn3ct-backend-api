@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\PreregistrationController;
+use App\Models\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +26,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $filePath=storage_path("taskslog\output.txt");
+
+        echo $filePath;
+
+//         $schedule->command('inspire')->everyMinute();
+        $schedule->exec('php artisan queue:work --stop-when-empty')->everyMinute()->emailOutputOnFailure('odejinmisa@newwavesecosystem.com');
+
+        $schedule->call(function () {
+            $er=new PreregistrationController();
+            $er->checkReminder();
+        })->dailyAt('06:00')->emailOutputOnFailure('odejinmisa@newwavesecosystem.com');
     }
 
     /**

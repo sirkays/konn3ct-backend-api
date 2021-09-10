@@ -1804,7 +1804,7 @@
                                                                 </button>
                                                             </div>
 
-                                                            <form method="post" action="{{route('prereg')}}">
+                                                            <form method="post" action="{{route('prereg')}}" enctype="multipart/form-data">
                                                                 <div class="modal-body">
                                                                     @csrf
                                                                     <div class="form-group">
@@ -2058,6 +2058,32 @@
                                                                                   class="form-control"
                                                                                   placeholder="e.g Meeting Agenda"> </textarea>
                                                                     </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Set Reminder:</label>
+                                                                        <select class="form-control" id="reminder" name="reminder">
+                                                                            <option value="1">A day before</option>
+                                                                            <option value="2">2 days before</option>
+                                                                            <option value="3">3 days before</option>
+                                                                            <option value="4">4 days before</option>
+                                                                            <option value="5">5 days before</option>
+                                                                            <option value="6">6 days before</option>
+                                                                            <option value="7">7 days before</option>
+                                                                            <option value="8">8 days before</option>
+                                                                        </select>
+                                                                    </div>
+
+
+
+                                                                    <label>Upload a Logo (Optional)</label> <br/>
+                                                                    Recommended: 80px by 80px; PNG format <br/><br/>
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-10">
+                                                                            <input type="file" class="form-control" name="logo" />
+                                                                        </div>
+                                                                    </div>
+
 
                                                                 </div>
                                                                 <div class="modal-footer">

@@ -25,7 +25,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="url"
                                        value="{{$url ?? session(['url'])}}"
-                                       placeholder="Paste invite link or Enter meeting room name"
+                                       placeholder="Enter meeting room name or Paste invite link in your browser"
                                        aria-label="First Name" aria-describedby="basic-addon1" required>
                             </div>
                         </div>

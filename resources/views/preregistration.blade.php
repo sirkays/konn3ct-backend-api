@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <title>{{$event ?? "Konn3ct"}} - Pre-registration</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="event, registration, konn3ct, event registration" name="keywords">
+    <meta content="Register for {{$event ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}" name="description">
 
     <!-- Favicons -->
     <link href=https://konn3ct.com/assets/images/konn3ctIcon.png" rel="icon">
@@ -42,8 +42,8 @@
         <div id="logo" class="pull-left">
             <!-- Uncomment below if you prefer to use a text logo -->
             <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
-            <a href="#intro" class="scrollto"><img src="https://konn3ct.com/assets/images/konn3ctIcon.png"
-                                                   alt="konn3ct logo" title=""></a>
+            <a href="#intro" class="scrollto"><img src="@if($preg->logo != "") {{route('show.prereg.image', $preg->logo)}} @else {{'https://konn3ct.com/assets/images/konn3ctIcon.png'}} @endif"
+                                                   alt="Event logo" title=""></a>
         </div>
 
         <nav id="nav-menu-container">

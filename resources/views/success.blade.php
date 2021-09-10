@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <title>{{session('roomname') ?? "Konn3ct"}} - Pre-registration</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="event, registration, konn3ct, event registration, successful" name="keywords">
+    <meta content="Registration successful for {{session('roomname') ?? "Konn3ct"}}" name="description">
 
     <!-- Favicons -->
-    <link href="/event/img/favicon.png" rel="icon">
-    <link href="/event/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href=https://konn3ct.com/assets/images/konn3ctIcon.png" rel="icon">
+    <link href="https://konn3ct.com/assets/images/konn3ctIcon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -28,13 +28,6 @@
 
     <!-- Main Stylesheet File -->
     <link href="/event/css/style.css" rel="stylesheet">
-
-    <!-- =======================================================
-      Theme Name: TheEvent
-      Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
-      Author: BootstrapMade.com
-      License: https://bootstrapmade.com/license/
-    ======================================================= -->
 </head>
 
 <body>
@@ -46,9 +39,8 @@
     <div class="container">
 
         <div id="logo" class="pull-left">
-            <!-- Uncomment below if you prefer to use a text logo -->
-            <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
-            <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a>
+            <h1><a href="/">E<span>Xi</span>t</a></h1>
+{{--            <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a>--}}
         </div>
     </div>
 </header><!-- #header -->
@@ -59,9 +51,9 @@
 <section id="intro">
     <div class="intro-container wow fadeIn">
         <h1 class="mb-4 pb-0">Registration Successful</h1>
-        {{session('roomurl')}}
+{{--        {{session('roomurl')}}--}}
         <p class="mb-4 pb-0">Meeting Room Link: {{url('/join/')}}/{{session('roomurl') ?? ""}} </p>
-        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"
            data-autoplay="true"></a>
         <a href="/register" class="about-btn scrollto">Do you want to have access to Pro version for 8 days?</a>
     </div>
@@ -154,11 +146,10 @@
                     </p>
 
                     <div class="social-links">
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-                        <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://twitter.com/konn3ctapp" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/konn3ctapp" class="facebook"><i
+                                class="fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/konn3ctng" class="instagram"><i class="fa fa-instagram"></i></a>
                     </div>
 
                 </div>
@@ -187,10 +178,8 @@
 <script src="/event/lib/venobox/venobox.min.js"></script>
 <script src="/event/lib/owlcarousel/owl.carousel.min.js"></script>
 
-<!-- Contact Form JavaScript File -->
 <script src="/event/contactform/contactform.js"></script>
 
-<!-- Template Main Javascript File -->
 <script src="/event/js/main.js"></script>
 </body>
 

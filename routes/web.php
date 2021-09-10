@@ -27,9 +27,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
-Route::get('/nlg', function () {
-    return view('new-login');
-})->name('new-login');
+//Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
 
 Route::get('/nsu', function () {
     return view('new-signup');
@@ -133,6 +131,21 @@ Route::get('/roombanner/{filename}', function ($filename)
     $response->header("Content-Type", $type);
     return $response;
 })->name('show.roombanner');
+
+Route::get('/prereg/{filename}', function ($filename)
+{
+    $path = storage_path('prereg/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('show.prereg.image');
 
 
 

@@ -166,7 +166,7 @@
 
 
                                 <div class="col-12 text-center mt-4" style="color: grey">
-                                    I have an account? <a href="{{route('new-login')}}" style="color: grey">Login</a>
+                                    I have an account? <a href="{{route('login')}}" style="color: grey">Login</a>
                                 </div>
 
                                 <div class="col-12 text-center mt-5" style="color: grey">

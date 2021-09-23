@@ -504,6 +504,14 @@
                 </div>
             </div>
 
+            <div class="row mt-5">
+                <div class="text-center">
+                    <img src="/assets/images/visa_mastercard.png" class="col-2" alt="pix"/>
+                    <br/>
+                    <span style="font-weight: bolder">Mastercard and Visa cards are accepted here</span>
+                </div>
+            </div>
+
         </div>
     </section>
 

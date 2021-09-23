@@ -49,7 +49,7 @@ class CreateBGAccountJob implements ShouldQueue
 
         $set = SettingsModel::first();
         $exp = Carbon::now()->addDays($set->freetrial_days);
-        $plan = 2;
+        $plan = 1;
 
         $u = User::create([
             'firstname' => $fname[1] ?? '',

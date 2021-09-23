@@ -54,16 +54,19 @@
                 </a>
             </div>
             <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top pl-10">
+            <nav class="navbar navbar-static-top pl-10 pull-right">
                 <!-- Sidebar toggle button-->
                 <div class="app-menu">
                     <ul class="header-megamenu nav">
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <a  href="/logouts" class="btn btn-danger waves-effect waves-light"><i class="fa fa-sign-out"> </i> Log Out</a>
-                        </li>
 
                         <li class="btn-group nav-item d-none d-xl-inline-block ml-5">
-                            <a  href="/room" class="btn btn-dark waves-effect waves-light"><i class="fa fa-home-lg"> </i> Goto Dashboard</a>
+                            <a href="/room" class="btn btn-dark waves-effect waves-light"><i class="fa fa-home-lg"> </i>
+                                Goto Dashboard</a>
+                        </li>
+
+                        <li class="btn-group nav-item d-none d-xl-inline-block">
+                            <a href="/logouts" class="btn btn-danger waves-effect waves-light"><i
+                                    class="fa fa-sign-out"> </i> Log Out</a>
                         </li>
 
                     </ul>
@@ -127,47 +130,86 @@
                     <div class="col-xl-8" style="align-content: center">
                         <div class="box">
                             <div class="box-body d-flex p-0">
-                                <div class="flex-grow-1 bg-warning-light p-30 flex-grow-1 bg-img" style="background-position: left bottom; background-size: auto 100%; background-image: url(https://www.multipurposethemes.com/admin/adminto-template/images/svg-icon/color-svg/custom-2.svg)">
+                                <div class="flex-grow-1 bg-warning-light p-30 flex-grow-1 bg-img"
+                                     style="background-position: left bottom; background-size: auto 100%; background-image: url(https://www.multipurposethemes.com/admin/adminto-template/images/svg-icon/color-svg/custom-2.svg)">
                                     <div class="row">
-                                        <div class="col-12 col-xl-5"></div>
-                                        <div class="col-12 col-xl-7">
-                                            <h4 class="text-warning font-weight-600">Join Us now</h4>
+                                        <div class="col-12 col-xl-6">
+                                            <h4 class="text-warning font-weight-600">Monthly</h4>
 
                                             <p class="text-dark my-10 font-size-16">
-                                                Kindly click on the button below to make payment and enjoy your plan in loyalty
+                                                Kindly click on the button below to make payment
                                             </p>
                                             <hr style="color: white">
+
+
                                             <div class="col-12 mb-10 mt-10">
                                                 <h3>Pay Now Monthly</h3>
                                                 @if($plan ?? false)
 
-                                            <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if($plan==2) 10.99
-                                                @elseif($plan==3) 15.99 @endif</button>
-                                            <button type="button" onClick='payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}})' class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
-                                                @elseif($plan==3)6000 @endif</button>
+                                                    <button style="margin-bottom: 10px; margin-top: 10px" type="button"
+                                                            onClick='makePayment("USD")' class="btn btn-success">US
+                                                        Dollars $ @if($plan==2) 10.99
+                                                        @elseif($plan==3) 15.99 @endif</button>
+
+                                                    <br/>
+
+                                                    <button style="margin-bottom: 10px" type="button"
+                                                            onClick='payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}})'
+                                                            class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
+                                                        @elseif($plan==3)6000 @endif</button>
+
+                                                    <br/>
+
+
+                                                    {{--                                                    <button style="margin-bottom: 10px" type="button" onClick='makePayment("USD")' class="btn btn-success">Pay with MasterCard $ @if($plan==2) 10.99--}}
+                                                    {{--                                                        @elseif($plan==3) 15.99 @endif</button>--}}
 
                                                 @else
 
-                                                    <button type="button" onClick='makePayment("USD")' class="btn btn-success">US Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) 16 @endif</button>
-                                                    <button type="button" onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})' class="btn btn-success">Naira &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)4000
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)6000 @endif</button>
+                                                    <button type="button" onClick='makePayment("USD")'
+                                                            class="btn btn-success">US Dollars
+                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            16 @endif</button>
+                                                    <button type="button"
+                                                            onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
+                                                            class="btn btn-success">Naira
+                                                        &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                                            4000
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            6000 @endif</button>
 
                                                 @endif
                                             </div>
+
+
+                                        </div>
+                                        <div class="col-12 col-xl-6">
+                                            <h4 class="text-warning font-weight-600">Yearly</h4>
+
+                                            <p class="text-dark my-10 font-size-16">
+                                                Kindly click on the button below to make payment and enjoy your plan in
+                                                loyalty
+                                            </p>
+                                            <hr style="color: white">
 
                                             <div class="col-12 mb-10 mt-10">
                                                 <h3>Pay Now Yearly</h3>
 
                                                 @if($plan ?? false)
 
-                                                    <button type="button" onClick='makePayment("USD2")'
+                                                    <button style="margin-bottom: 10px" type="button"
+                                                            onClick='makePayment("USD2")'
                                                             class="btn btn-success">US Dollars $ @if($plan==2)120
                                                         @elseif($plan==3)175 @endif</button>
+
+                                                    <br/>
+
                                                     <button type="button"
                                                             onClick='payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}})'
                                                             class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
                                                         @elseif($plan==3)67000 @endif</button>
+
 
                                                 @else
 
@@ -185,14 +227,6 @@
                                                             67000 @endif</button>
                                                 @endif
 
-                                                @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                                    <div class="col-12 mt-25">
-                                                        <button data-toggle="modal" data-target="#basicplan-modal"
-                                                                class="btn btn-danger btn-block">Can't Pay Now? Migrate
-                                                            to Basic Plan
-                                                        </button>
-                                                    </div>
-                                                @endif
 
                                                 {{--                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master--}}
                                                 {{--                                                    Card</a>--}}
@@ -202,6 +236,15 @@
 
                                             </div>
                                         </div>
+
+                                        @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                            <div class="col-12 mt-25">
+                                                <button data-toggle="modal" data-target="#basicplan-modal"
+                                                        class="btn btn-danger btn-block">Can't Pay Now? Migrate
+                                                    to Free forever
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +253,7 @@
 
                 </div>
             </section>
-        <!-- /.content -->
+            <!-- /.content -->
         </div>
     </div>
     <!-- /.content-wrapper -->

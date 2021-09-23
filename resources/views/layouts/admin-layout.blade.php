@@ -350,6 +350,11 @@
 <script src="/user_assets/js/pages/data-table.js"></script>
 <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 
+@if(Request::segment(2) === 'users')
+    <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
+@endif
+
+
 
 @stack('modals')
 

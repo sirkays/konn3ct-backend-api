@@ -85,7 +85,7 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border" id="complex_header" style="width:100%">
+                            <table id="example" class="table table-lg invoice-archive" style="width:100%">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest">
                                     <th><span class="text-fade">S/N</span></th>

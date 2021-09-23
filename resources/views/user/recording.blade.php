@@ -173,54 +173,69 @@
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
+                                            {{--                                            <span class="text-dark font-weight-600 d-block font-size-16">--}}
+                                            {{--													{{date('m/d/y H:i:s', $record['endTime'])}}--}}
+                                            {{--												</span>--}}
 
-{{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
-{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
-{{--												</span>--}}
-                                            </td>
-                                            <td style="min-width: 50px; max-width: 150px">
-                                                <span class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
-                                                <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
-                                            </td>
-                                            <td style="min-width: 50px; max-width: 100px">
+                                            {{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
+                                            {{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
+                                            {{--												</span>--}}
+                                        </td>
+                                        <td style="min-width: 50px; max-width: 150px; overflow-wrap: break-word">
+                                            <span
+                                                class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
+                                            <input type="hidden" id="c{{$i}}"
+                                                   value="{{$record['playback']['format']['url']}}"/>
+                                        </td>
+                                        <td style="min-width: 50px; max-width: 100px">
 
-                                                <div class="dropdown">
-                                                    <a class="waves-effect waves-light btn btn-success" href="{{$record['playback']['format']['url']}}" data-toggle="tooltip" data-placement="top" title="Play meeting recording">
-                                                        Play Video
-                                                    </a>
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placement="top" title="Do more with the recording">
-                                                        Manage
-                                                    </button>
-                                                    <a class="waves-effect waves-light btn btn-danger" href="#" data-toggle="tooltip" data-placement="top" title="Delete Meeting Recording">
-                                                        Delete
-                                                    </a>
+                                            <div class="dropdown">
+                                                <a class="waves-effect waves-light btn btn-success"
+                                                   href="{{$record['playback']['format']['url']}}" data-toggle="tooltip"
+                                                   data-placement="top" title="Play meeting recording">
+                                                    Play Video
+                                                </a>
+                                                <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" data-placement="top"
+                                                        title="Do more with the recording">
+                                                    Manage
+                                                </button>
+                                                {{--                                                    <a class="waves-effect waves-light btn btn-danger" href="#" data-toggle="tooltip" data-placement="top" title="Delete Meeting Recording">--}}
+                                                {{--                                                        Delete--}}
+                                                {{--                                                    </a>--}}
 
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button type="button" class="dropdown-item" class="waves-effect waves-light btn" onclick="myFunction('c{{$i++}}')">
-                                                            Copy
-                                                        </Button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <Button type="button" class="dropdown-item"
+                                                            class="waves-effect waves-light btn"
+                                                            onclick="myFunction('c{{$i++}}')">
+                                                        Copy
+                                                    </Button>
 
-                                                        <Button href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn">
-                                                            Email Recording
-                                                        </Button>
+                                                    <Button
+                                                        href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}"
+                                                        class="waves-effect waves-light btn">
+                                                        Email Recording
+                                                    </Button>
 
 
-{{--                                                        <form action="/deleteroom" method="POST">--}}
+                                                    {{--                                                        <form action="/deleteroom" method="POST">--}}
 {{--                                                            @csrf--}}
 {{--                                                            <input type="hidden" name="id" value="{{$i->id}}" />--}}
 {{--                                                            <Button type="submit" class="waves-effect waves-light btn">--}}
 {{--                                                                Delete--}}
 {{--                                                            </Button>--}}
 {{--                                                        </form>--}}
-                                                    </div>
                                                 </div>
-                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-content -->
                                             </form>
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
+                                        </td>
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
 
-                                @endforeach
+                    @endforeach
                                 </tbody>
                             </table>
                         </div>

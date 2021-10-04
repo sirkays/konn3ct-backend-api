@@ -116,21 +116,24 @@ class CreateNewUser implements CreatesNewUsers
             }else{
                 $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
             }
-            $input['welcome_message']="";
-            $input['logout_url']=url('/leftsession');
-            $input['max_participants']=$max_user;
-            $input['duration']=$duration;
-            $input['user_id']=$u->id;
-            $input['default_room']="yes";
+        $input['welcome_message'] = "";
+        $input['logout_url'] = url('/leftsession');
+        $input['max_participants'] = $max_user;
+        $input['duration'] = $duration;
+        $input['user_id'] = $u->id;
+        $input['default_room'] = "yes";
 
-            RoomModel::create($input);
+        RoomModel::create($input);
+
+//            Konn3ctChatCreateAccountJob::dispatch($input)->delay(now()->addSecond());
+
 
         try {
             Mail::to($u->email)->send(new UserWelcomeMail());
         } catch (Exception $e) {
-            echo $e;
+//            echo $e;
         }
 
-            return $u;
+        return $u;
     }
 }

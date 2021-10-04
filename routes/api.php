@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\DeployController;
 use App\Http\Controllers\PaystackHookController;
 use Illuminate\Http\Request;
@@ -23,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('deploy', [DeployController::class, 'deploy']);
 
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
+
+Route::post('start-a-room', [RoomController::class, 'startRoom']);

@@ -417,7 +417,7 @@ class RoomController extends Controller
             $password_attendee="moderator";
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;

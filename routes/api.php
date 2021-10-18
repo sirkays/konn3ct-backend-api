@@ -25,4 +25,4 @@ Route::post('deploy', [DeployController::class, 'deploy']);
 
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
 
-Route::post('start-a-room', [RoomController::class, 'startRoom']);
+Route::get('start-a-room', [RoomController::class, 'startRoom']);

@@ -7,13 +7,11 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function startRoom(Request $request)
+    public function startRoom($id)
     {
-        $id = 3;
 
         $i = RoomModel::find($id);
 
@@ -21,11 +19,11 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 
         if ($ms == 1) {
             return redirect()->to(
-                \Bigbluebutton::join([
+                Bigbluebutton::join([
                     'meetingID' => $i->id,
                     'userName' => "Samji test",
                     'password' => $i->password_moderator //which user role want to join set password here
@@ -98,7 +96,7 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            $url = \Bigbluebutton::start([
+            $url = Bigbluebutton::start([
                 'meetingID' => "0$i->id",
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here

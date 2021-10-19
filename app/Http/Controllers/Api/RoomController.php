@@ -7,6 +7,7 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use Bigbluebutton;
 use Carbon\Carbon;
 
 class RoomController extends Controller

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
+use App\Models\User;
 use Carbon\Carbon;
 
 class RoomController extends Controller
@@ -19,11 +20,11 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = Bigbluebutton::isMeetingRunning($i->id);
 
         if ($ms == 1) {
             return redirect()->to(
-                \Bigbluebutton::join([
+                Bigbluebutton::join([
                     'meetingID' => $i->id,
                     'userName' => "Samji test",
                     'password' => $i->password_moderator //which user role want to join set password here
@@ -96,7 +97,7 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            $url = \Bigbluebutton::start([
+            $url = Bigbluebutton::start([
                 'meetingID' => "0$i->id",
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
@@ -130,6 +131,18 @@ class RoomController extends Controller
             return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url]);
         }
 
+    }
+
+    public function fetchRooms($email)
+    {
+        $u = User::where("email", $email)->first();
+
+        if ($u == null) {
+            return response()->json(['success' => false, 'message' => 'User does not exist']);
+        }
+        $rooms = RoomModel::where("user_id", $u->id)->get();
+
+        return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => $rooms]);
     }
 
     /**

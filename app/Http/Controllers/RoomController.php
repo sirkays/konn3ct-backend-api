@@ -345,7 +345,7 @@ class RoomController extends Controller
 
         $u = User::find($i->user_id);
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=1;
 
         $mdata['meeting_id'] = $i->id;
@@ -372,7 +372,7 @@ class RoomController extends Controller
 //                ->with('error', 'Meeting has not started!');
         }else{
             $mds = \Bigbluebutton::getMeetingInfo([
-                'meetingID' => $i->id,
+                'meetingID' => "0$i->id",
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
 
@@ -427,7 +427,7 @@ class RoomController extends Controller
             $password_attendee="moderator";
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         $mdata['meeting_id']=$i->id;
         $mdata['name']=$name;
@@ -481,7 +481,7 @@ class RoomController extends Controller
 
         return redirect()->to(
             \Bigbluebutton::join([
-                'meetingID' => $i->id,
+                'meetingID' => "0$i->id",
                 'userName' => $name,
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => $dp,

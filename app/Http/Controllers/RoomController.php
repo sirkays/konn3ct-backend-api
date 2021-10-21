@@ -186,7 +186,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning($i->id);
+                $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
                 if ($ms) {
                     $datas['active']++;
                 }
@@ -210,12 +210,12 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         if($ms==1) {
             return redirect()->to(
                 \Bigbluebutton::join([
-                    'meetingID' => $i->id,
+                    'meetingID' => "0$i->id",
                     'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
@@ -279,7 +279,7 @@ class RoomController extends Controller
                 $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
             }
 
-            $mdata['meeting_id'] = $i->id;
+            $mdata['meeting_id'] = "$i->id";
             $mdata['name'] = Auth::user()->lastname . " " . Auth::user()->firstname;
             $mdata['email'] = Auth::user()->email;
             $mdata['password_attendee'] = $up;
@@ -471,13 +471,15 @@ class RoomController extends Controller
             $jobi['name'] = $name;
             $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
-
-            $jobi['email'] = session('room-owner');
-            $jobi['invitee'] = $email;
-
-            Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addMinutes(1));
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSeconds(1));
         }
+
+        $jobi['name'] = $i->name;
+        $jobi['email'] = session('room-owner');
+        $jobi['invitee'] = $email;
+        $jobi['inviteeName'] = $name;
+
+        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(15));
 
         return redirect()->to(
             \Bigbluebutton::join([
@@ -547,7 +549,7 @@ class RoomController extends Controller
 
     public function roomstatus($url){
         $i = RoomModel::where('url', $url)->first();
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);

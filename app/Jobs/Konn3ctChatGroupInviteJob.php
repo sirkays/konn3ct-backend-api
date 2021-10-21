@@ -33,12 +33,15 @@ class Konn3ctChatGroupInviteJob implements ShouldQueue
     {
         $data = $this->input;
 
+        $name = str_replace(" ", "-", $data['name']);
+
 
         $endpoint = "konn3ct.invite.group";
         $json = '{
-    "roomName": "' . $data['name'] . '",
+    "roomName": "' . $name . '",
     "email" : "' . $data['email'] . '",
-    "invitee" : "' . $data['invitee'] . '"
+    "invitee" : "' . $data['invitee'] . '",
+    "inviteeName" : "' . $data['inviteeName'] . '"
 }';
 
         echo $json;

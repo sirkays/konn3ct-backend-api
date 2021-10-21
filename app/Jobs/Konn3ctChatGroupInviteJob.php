@@ -36,9 +36,9 @@ class Konn3ctChatGroupInviteJob implements ShouldQueue
 
         $endpoint = "konn3ct.invite.group";
         $json = '{
-    "roomName": ' . $data['name'] . ',
-    "email" : ' . $data['email'] . ',
-    "invitee" : ' . $data['invitee'] . '
+    "roomName": "' . $data['name'] . '",
+    "email" : "' . $data['email'] . '",
+    "invitee" : "' . $data['invitee'] . '"
 }';
 
         echo $json;

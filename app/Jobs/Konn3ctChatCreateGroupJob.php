@@ -33,10 +33,12 @@ class Konn3ctChatCreateGroupJob implements ShouldQueue
     {
         $data = $this->input;
 
+        $name = str_replace(" ", "-", $data['name']);
+
 
         $json = '{
-    "name": ' . $data['name'] . ',
-    "email" : ' . $data['email'] . '
+    "name": "' . $name . '",
+    "email" : "' . $data['email'] . '"
 }';
 
         $curl = curl_init();
@@ -57,7 +59,6 @@ class Konn3ctChatCreateGroupJob implements ShouldQueue
                 'Content-Type: application/json'
             ),
         ));
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($curl);

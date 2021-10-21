@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
+use App\Jobs\Konn3ctChatCreateGroupJob;
+use App\Jobs\Konn3ctChatGroupInviteJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -315,6 +317,12 @@ class RoomController extends Controller
                     'userdata-bbb_skip_check_audio' => 'true'
                 ]
             ]);
+
+            $jobi['name'] = $i->name;
+            $jobi['email'] = Auth::user()->email;
+
+            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
+
             return redirect()->to($url);
         }
 
@@ -335,25 +343,27 @@ class RoomController extends Controller
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
-        $u=User::find($i->user_id);
+        $u = User::find($i->user_id);
 
         $ms = \Bigbluebutton::isMeetingRunning($i->id);
 //        $ms=1;
 
-        $mdata['meeting_id']=$i->id;
-        $mdata['name']=$name;
-        $mdata['email']=$email;
-        $mdata['password_attendee']=$i->password_attendee;
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $i->password_attendee;
 
-        if($ms!=1){
-            $mdata['status']="meeting not started";
+        session(['room-owner' => $u->email]);
+
+        if ($ms != 1) {
+            $mdata['status'] = "meeting not started";
 
             MeetingsModel::create($mdata);
 
-            $mns['name']=$name;
-            $mns['email']=$email;
-            $mns['url']=$url;
-            $mns['room']=$i;
+            $mns['name'] = $name;
+            $mns['email'] = $email;
+            $mns['url'] = $url;
+            $mns['room'] = $i;
             $mns['owner']=$u;
 
             return view('meeting_notstarted', $mns);
@@ -462,6 +472,11 @@ class RoomController extends Controller
             $jobi['email'] = $email;
 
             CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
+
+            $jobi['email'] = session('room-owner');
+            $jobi['invitee'] = $email;
+
+            Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addMinutes(1));
         }
 
         return redirect()->to(

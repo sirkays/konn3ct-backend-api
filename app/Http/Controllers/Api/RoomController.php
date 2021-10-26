@@ -8,10 +8,11 @@ use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function startRoom($id)
+    public function startaRoom($id)
     {
 
         $i = RoomModel::find($id);
@@ -130,6 +131,93 @@ class RoomController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url]);
         }
+
+    }
+
+    public function startRoom(Request $request)
+    {
+        $input=$request->all();
+
+        $roomid=$input['room'];
+        $room_name=$input['room_name'];
+        $email=$input['user_email'];
+        $name=$input['user_name'];
+
+        $u=User::where("email", $email)->first();
+        if(!$u){
+            return response()->json(['success' => false, 'message' => 'User does not exist']);
+        }
+
+        $ms = \Bigbluebutton::isMeetingRunning($roomid);
+
+        if ($ms == 1) {
+            $url=\Bigbluebutton::join([
+                    'meetingID' => $roomid,
+                    'userName' => $name,
+                    'password' => "attendee" //which user role want to join set password here
+                ]);
+        } else {
+            $plan = PlanModel::where("id", $u->plan)->first();
+            if ($plan->recording) {
+                $record = true; //overwrite default configuration
+            } else {
+                $record = false; //overwrite default configuration
+            }
+
+            $duration = $plan->duration;
+            $max_user = $plan->participant;
+
+
+            $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
+            $up = "attendee";
+            $dsn = false;
+            $dum = false;
+            $muj = false;
+            $dpuc = false;
+            $dprc = false;
+            $ewma = false;
+
+//            $mdata['meeting_id'] = $roomid;
+//            $mdata['name'] = "samji via api";
+//            $mdata['email'] = "samjiviaapi@gmail.com";
+//            $mdata['password_attendee'] = $up;
+//            $mdata['status'] = "start meeting";
+//            $mdata['identifier'] = $roomid . rand();
+//            MeetingsModel::create($mdata);
+
+            $url = \Bigbluebutton::start([
+                'meetingID' => $roomid,
+                'moderatorPW' => "moderator", //moderator password set here
+                'attendeePW' => $up, //attendee password here
+                'meetingName' => $room_name,
+                'userName' => $name,//for join meeting
+                'endCallbackUrl' => url('/leftsession'),
+                'logoutUrl' => url('/leftsession'),
+                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>',
+//                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
+                'allowStartStopRecording' => $record,
+                'record' => $record,
+                'duration' => $duration,
+                'maxParticipants' => $max_user,
+                'muteOnStart' => $muj,
+                'lockSettingsDisablePublicChat' => $dpuc,
+                'lockSettingsDisablePrivateChat' => $dprc,
+                'lockSettingsDisableCam' => $ewma,
+                'lockSettingsDisableMic' => $dum,
+                'lockSettingsDisableNote' => $dsn,
+                'logo' => $banner,
+                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true'
+                ]
+            ]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url]);
 
     }
 

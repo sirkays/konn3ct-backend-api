@@ -30,4 +30,6 @@ Route::post('register', [UserController::class, 'createUser']);
 
 Route::get('rooms/{email}', [RoomController::class, 'fetchRooms']);
 
-Route::get('start-a-room/{id}', [RoomController::class, 'startRoom']);
+Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
+
+Route::post('start-room', [RoomController::class, 'startRoom']);

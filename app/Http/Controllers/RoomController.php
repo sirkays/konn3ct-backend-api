@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
+use App\Jobs\Konn3ctChatCreateGroupJob;
+use App\Jobs\Konn3ctChatGroupInviteJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -184,7 +186,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning($i->id);
+                $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
                 if ($ms) {
                     $datas['active']++;
                 }
@@ -208,12 +210,12 @@ class RoomController extends Controller
                 ->with('error', 'Invalid Room!');
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         if($ms==1) {
             return redirect()->to(
                 \Bigbluebutton::join([
-                    'meetingID' => $i->id,
+                    'meetingID' => "0$i->id",
                     'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
@@ -277,7 +279,7 @@ class RoomController extends Controller
                 $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
             }
 
-            $mdata['meeting_id'] = $i->id;
+            $mdata['meeting_id'] = "$i->id";
             $mdata['name'] = Auth::user()->lastname . " " . Auth::user()->firstname;
             $mdata['email'] = Auth::user()->email;
             $mdata['password_attendee'] = $up;
@@ -315,6 +317,12 @@ class RoomController extends Controller
                     'userdata-bbb_skip_check_audio' => 'true'
                 ]
             ]);
+
+            $jobi['name'] = $i->name;
+            $jobi['email'] = Auth::user()->email;
+
+            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
+
             return redirect()->to($url);
         }
 
@@ -335,25 +343,27 @@ class RoomController extends Controller
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
-        $u=User::find($i->user_id);
+        $u = User::find($i->user_id);
 
         $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=1;
 
-        $mdata['meeting_id']=$i->id;
-        $mdata['name']=$name;
-        $mdata['email']=$email;
-        $mdata['password_attendee']=$i->password_attendee;
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $i->password_attendee;
 
-        if($ms!=1){
-            $mdata['status']="meeting not started";
+        session(['room-owner' => $u->email]);
+
+        if ($ms != 1) {
+            $mdata['status'] = "meeting not started";
 
             MeetingsModel::create($mdata);
 
-            $mns['name']=$name;
-            $mns['email']=$email;
-            $mns['url']=$url;
-            $mns['room']=$i;
+            $mns['name'] = $name;
+            $mns['email'] = $email;
+            $mns['url'] = $url;
+            $mns['room'] = $i;
             $mns['owner']=$u;
 
             return view('meeting_notstarted', $mns);
@@ -461,8 +471,15 @@ class RoomController extends Controller
             $jobi['name'] = $name;
             $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSeconds(1));
         }
+
+        $jobi['name'] = $i->name;
+        $jobi['email'] = session('room-owner');
+        $jobi['invitee'] = $email;
+        $jobi['inviteeName'] = $name;
+
+        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(15));
 
         return redirect()->to(
             \Bigbluebutton::join([
@@ -532,7 +549,7 @@ class RoomController extends Controller
 
     public function roomstatus($url){
         $i = RoomModel::where('url', $url)->first();
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);

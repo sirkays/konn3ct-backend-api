@@ -485,6 +485,7 @@ class RoomController extends Controller
             \Bigbluebutton::join([
                 'meetingID' => "0$i->id",
                 'userName' => $name,
+                'userId' => $email,
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => $dp,
                 'customParameters' => [

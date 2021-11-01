@@ -485,7 +485,6 @@ class RoomController extends Controller
             \Bigbluebutton::join([
                 'meetingID' => "0$i->id",
                 'userName' => $name,
-                'userId' => $email,
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => $dp,
                 'customParameters' => [
@@ -493,7 +492,8 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'userdata-bbb_user_email' => $email
                 ],
             ])
         );

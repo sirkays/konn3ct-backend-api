@@ -327,7 +327,7 @@ class RoomController extends Controller
             'meetingID' => $rm_id,
             'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
             'userId' => Auth::user()->email,
-            'password' => $i->password_attendee, //which user role want to join set password here
+            'password' => $i->password_moderator, //which user role want to join set password here
             'avatarUrl' => $dp,
             'customParameters' => [
                 'userdata-bbb_auto_join_audio' => 'true',

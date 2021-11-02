@@ -201,82 +201,76 @@ class RoomController extends Controller
     }
 
     public function mjoin(Request $request){
-        $id=$request->input('id');
+        $id = $request->input('id');
 
-        $i=RoomModel::find($id);
+        $i = RoomModel::find($id);
 
-        if(!$i){
-            return back()
-                ->with('error', 'Invalid Room!');
+        if (!$i) {
+            return back()->with('error', 'Invalid Room!');
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        $rm_id = "0$i->id";
 
-        if($ms==1) {
-            return redirect()->to(
-                \Bigbluebutton::join([
-                    'meetingID' => "0$i->id",
-                    'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
-                    'password' => $i->password_moderator //which user role want to join set password here
-                ])
-            );
-        }else{
-            $plan=PlanModel::where("id", Auth::user()->plan)->first();
-            if($plan->recording){
-                $record=true; //overwrite default configuration
-            }else{
-                $record=false; //overwrite default configuration
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms != 1) {
+            $plan = PlanModel::where("id", Auth::user()->plan)->first();
+
+            if ($plan->recording) {
+                $record = true;
+            } else {
+                $record = false;
             }
 
-            $duration=$plan->duration;
-            $max_user=$plan->participant;
+            $duration = $plan->duration;
+            $max_user = $plan->participant;
 
-            if($i->muj){
-                $muj=true;
-            }else{
-                $muj=false;
+            if ($i->muj) {
+                $muj = true;
+            } else {
+                $muj = false;
             }
 
-            if($i->dpuc){
-                $dpuc=true;
-            }else{
-                $dpuc=false;
+            if ($i->dpuc) {
+                $dpuc = true;
+            } else {
+                $dpuc = false;
             }
 
-            if($i->dprc){
-                $dprc=true;
-            }else{
-                $dprc=false;
+            if ($i->dprc) {
+                $dprc = true;
+            } else {
+                $dprc = false;
             }
 
-            if($i->ewma){
-                $ewma=true;
-            }else{
-                $ewma=false;
+            if ($i->ewma) {
+                $ewma = true;
+            } else {
+                $ewma = false;
             }
 
-            if($i->dum){
-                $dum=true;
-            }else{
-                $dum=false;
+            if ($i->dum) {
+                $dum = true;
+            } else {
+                $dum = false;
             }
 
-            if($i->dsn){
-                $dsn=true;
-            }else{
-                $dsn=false;
+            if ($i->dsn) {
+                $dsn = true;
+            } else {
+                $dsn = false;
             }
 
-            if($i->aujam){
-                $up="moderator";
-            }else{
-                $up=$i->password_attendee;
+            if ($i->aujam) {
+                $up = "moderator";
+            } else {
+                $up = $i->password_attendee;
             }
 
-            if($i->banner!=""){
-                $banner= url('/') . "/roombanner/".$i->banner;
-            }else{
-                $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
+            if ($i->banner != "") {
+                $banner = url('/') . "/roombanner/" . $i->banner;
+            } else {
+                $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
             }
 
             $mdata['meeting_id'] = "$i->id";
@@ -287,16 +281,14 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            $url = \Bigbluebutton::start([
-                'meetingID' => "0$i->id",
+            \Bigbluebutton::create([
+                'meetingID' => $rm_id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
-                'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,//for join meeting
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
-//                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording' => $record,
                 'record' => $record,
                 'duration' => $duration,
@@ -307,26 +299,47 @@ class RoomController extends Controller
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
-                'logo' => $banner,
-                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-                'customParameters' => [
-                    'userdata-bbb_auto_join_audio' => 'true',
-                    'userdata-bbb_enable_video' => 'true',
-                    'userdata-bbb_listen_only_mode' => 'false',
-                    'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true',
-                    'userdata-bbb_user_email' => $i->email
-                ]
+                'logo' => $banner
             ]);
 
             $jobi['name'] = $i->name;
             $jobi['email'] = Auth::user()->email;
 
             Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
-
-            return redirect()->to($url);
         }
 
+
+        $u = User::where('email', Auth::user()->email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+
+            $resul = $u->profile_photo_url;
+            $findme = 'ui-avatars.com';
+            $pos = strpos($resul, $findme);
+            // Note our use of ===.  Simply == would not work as expected
+            if ($pos === false) {
+                $dp = $u->profile_photo_url;
+            }
+        }
+
+        $url = \Bigbluebutton::join([
+            'meetingID' => $rm_id,
+            'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
+            'userId' => Auth::user()->email,
+            'password' => $i->password_moderator, //which user role want to join set password here
+            'avatarUrl' => $dp,
+            'customParameters' => [
+                'userdata-bbb_auto_join_audio' => 'true',
+                'userdata-bbb_enable_video' => 'true',
+                'userdata-bbb_listen_only_mode' => 'false',
+                'userdata-bbb_force_listen_only' => 'false',
+                'userdata-bbb_skip_check_audio' => 'true',
+                'userdata-bbb_user_email' => Auth::user()->email
+            ],
+        ]);
+
+            return redirect()->to($url);
     }
 
     public function ajoin(Request $request){

@@ -479,7 +479,7 @@ class RoomController extends Controller
         $jobi['invitee'] = $email;
         $jobi['inviteeName'] = $name;
 
-        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(15));
+        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(60));
 
         return redirect()->to(
             \Bigbluebutton::join([

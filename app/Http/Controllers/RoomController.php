@@ -314,7 +314,8 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'userdata-bbb_user_email' => $i->email
                 ]
             ]);
 
@@ -471,7 +472,7 @@ class RoomController extends Controller
             $jobi['name'] = $name;
             $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSeconds(1));
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
         }
 
         $jobi['name'] = $i->name;
@@ -479,7 +480,7 @@ class RoomController extends Controller
         $jobi['invitee'] = $email;
         $jobi['inviteeName'] = $name;
 
-        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(60));
+        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(35));
 
         return redirect()->to(
             \Bigbluebutton::join([

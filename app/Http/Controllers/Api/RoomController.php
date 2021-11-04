@@ -148,9 +148,9 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'User does not exist']);
         }
 
-        $name = str_replace("-", " ", $room_name);
+        $room_name = str_replace("-", " ", $room_name);
 
-        $rm = RoomModel::where('name', $name)->first();
+        $rm = RoomModel::where('name', $room_name)->first();
 
         if ($rm) {
             $roomid = "0$rm->id";

@@ -138,24 +138,33 @@ class RoomController extends Controller
     {
         $input=$request->all();
 
-        $roomid=$input['room'];
-        $room_name=$input['room_name'];
-        $email=$input['user_email'];
-        $name=$input['user_name'];
+        $roomid = $input['room'];
+        $room_name = $input['room_name'];
+        $email = $input['user_email'];
+        $name = $input['user_name'];
 
-        $u=User::where("email", $email)->first();
-        if(!$u){
+        $u = User::where("email", $email)->first();
+        if (!$u) {
             return response()->json(['success' => false, 'message' => 'User does not exist']);
+        }
+
+        $name = str_replace("-", " ", $room_name);
+
+        $rm = RoomModel::where('name', $name)->first();
+
+        if ($rm) {
+            $roomid = "0$rm->id";
+            $room_name = $rm->name;
         }
 
         $ms = \Bigbluebutton::isMeetingRunning($roomid);
 
         if ($ms == 1) {
-            $url=\Bigbluebutton::join([
-                    'meetingID' => $roomid,
-                    'userName' => $name,
-                    'password' => "attendee" //which user role want to join set password here
-                ]);
+            $url = \Bigbluebutton::join([
+                'meetingID' => $roomid,
+                'userName' => $name,
+                'password' => "attendee" //which user role want to join set password here
+            ]);
         } else {
             $plan = PlanModel::where("id", $u->plan)->first();
             if ($plan->recording) {

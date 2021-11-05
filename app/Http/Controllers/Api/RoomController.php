@@ -230,6 +230,27 @@ class RoomController extends Controller
 
     }
 
+    public function checkRoom(Request $request)
+    {
+        $input = $request->all();
+
+        $roomid = $input['room'];
+        $room_name = $input['room_name'];
+
+        $rm = RoomModel::where('name', $room_name)->first();
+
+        if ($rm) {
+            $roomid = "0$rm->id";
+        }
+
+        $ms = \Bigbluebutton::isMeetingRunning($roomid);
+
+        if ($ms == 1) {
+            return response()->json(['success' => true, 'message' => 'Meeting is active']);
+        }
+        return response()->json(['success' => false, 'message' => 'Meeting is inactive']);
+    }
+
     public function fetchRooms($email)
     {
         $u = User::where("email", $email)->first();

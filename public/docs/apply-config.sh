@@ -5,7 +5,7 @@ source /etc/bigbluebutton/bbb-conf/apply-lib.sh
 
 enableUFWRules
 
-echo "Warning: change external_rtp_ip and external_sip_ip to the public IP of your BBB server."
+#echo "Warning: change external_rtp_ip and external_sip_ip to the public IP of your BBB server."
 
 echo "Running three parallel Kurento media server"
 enableMultipleKurentos
@@ -27,8 +27,8 @@ yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==medium).bitrate' 100
 yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==high).bitrate' 200
 yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==hd).bitrate' 300
 
-yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==low).default' true
-yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==medium).default' false
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==low).default' false
+yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==medium).default' true
 yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==high).default' false
 yq w -i $HTML5_CONFIG 'public.kurento.cameraProfiles.(id==hd).default' false
 chown meteor:meteor $HTML5_CONFIG
@@ -46,8 +46,8 @@ echo "done customizing engine"
 echo "Set dial in number"
 sed -i 's/defaultDialAccessNumber=.*/defaultDialAccessNumber=+1 970-519-2253/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 
-#echo "Let Moderators unmute users"
-#sed -i 's/allowModsToUnmuteUsers=.*/allowModsToUnmuteUsers=true/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+echo "Let Moderators unmute users"
+sed -i 's/allowModsToUnmuteUsers=.*/allowModsToUnmuteUsers=true/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
 
 #echo "Enable - See other viewers webcams"
 #sed -i 's/webcamsOnlyForModerator=.*/webcamsOnlyForModerator=false/g' /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties

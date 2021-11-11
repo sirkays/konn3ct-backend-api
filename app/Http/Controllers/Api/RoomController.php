@@ -9,6 +9,7 @@ use App\Models\RoomModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -158,6 +159,68 @@ class RoomController extends Controller
         }
 
         $ms = \Bigbluebutton::isMeetingRunning($roomid);
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if ($ms != 1) {
+            $plan = PlanModel::where("id", $u->plan)->first();
+            if ($plan->recording) {
+                $record = true; //overwrite default configuration
+            } else {
+                $record = false; //overwrite default configuration
+            }
+
+            $duration = $plan->duration;
+            $max_user = $plan->participant;
+
+
+            $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
+            $up = "attendee";
+            $dsn = false;
+            $dum = false;
+            $muj = false;
+            $dpuc = false;
+            $dprc = false;
+            $ewma = false;
+            $link = url("/join/") . '/' . $rm->url;
+            $welcomeMSG = 'Welcome to  konn3ct!<br><br>Host: ' . $host_name . '<br>Meeting Link: <a href="' . $link . '" <span style="color: #008b8b;">' . $link . '</span></a><br/>Dial-In: %%DIALNUM%% PIN: %%CONFNUM%%';
+
+
+            \Bigbluebutton::create([
+                'meetingID' => $roomid,
+                'moderatorPW' => $rm->password_moderator, //moderator password set here
+                'attendeePW' => $rm->password_attendee, //attendee password here
+                'meetingName' => $rm->name,
+                'endCallbackUrl' => url('/leftsession'),
+                'logoutUrl' => url('/leftsession'),
+                'welcomeMessage' => $welcomeMSG,
+                'allowStartStopRecording' => $record,
+                'record' => $record,
+                'duration' => $duration,
+                'maxParticipants' => $max_user,
+                'muteOnStart' => $muj,
+                'lockSettingsDisablePublicChat' => $dpuc,
+                'lockSettingsDisablePrivateChat' => $dprc,
+                'lockSettingsDisableCam' => $ewma,
+                'lockSettingsDisableMic' => $dum,
+                'lockSettingsDisableNote' => $dsn,
+                'logo' => $banner
+            ]);
+        } else {
+            $url = \Bigbluebutton::join([
+                'meetingID' => $roomid,
+                'userName' => $name,
+                'password' => $rm->password_moderator, //which user role want to join set password here
+                'avatarUrl' => $dp,
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'userdata-bbb_user_email' => $email
+                ],
+            ]);
+        }
 
         if ($ms == 1) {
             $url = \Bigbluebutton::join([
@@ -221,7 +284,8 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'userdata-bbb_user_email' => Auth::user()->email
                 ]
             ]);
         }
@@ -236,8 +300,12 @@ class RoomController extends Controller
 
         $roomid = $input['room'];
         $room_name = $input['room_name'];
+        $email = $input['email'];
 
         $rm = RoomModel::where('name', $room_name)->first();
+
+        $u = User::where('email', $email)->first();
+        $owner = false;
 
         if ($rm) {
             $roomid = "0$rm->id";
@@ -245,10 +313,14 @@ class RoomController extends Controller
 
         $ms = \Bigbluebutton::isMeetingRunning($roomid);
 
-        if ($ms == 1) {
-            return response()->json(['success' => true, 'message' => 'Meeting is active']);
+        if ($u->id == $rm->user_id) {
+            $owner = true;
         }
-        return response()->json(['success' => false, 'message' => 'Meeting is inactive']);
+
+        if ($ms == 1) {
+            return response()->json(['success' => true, 'message' => 'Meeting is active', 'owner' => $owner]);
+        }
+        return response()->json(['success' => false, 'message' => 'Meeting is inactive', 'owner' => $owner]);
     }
 
     public function fetchRooms($email)

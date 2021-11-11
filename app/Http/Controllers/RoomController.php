@@ -77,7 +77,7 @@ class RoomController extends Controller
         $r=RoomModel::create($input);
 
         $createMeeting = \Bigbluebutton::initCreateMeeting([
-            'meetingID' => $r->id,
+            'meetingID' => "0$r->id",
             'meetingName' => $input['name'],
             'attendeePW' => $input['password_attendee'],
             'moderatorPW' => $input['password_moderator'],
@@ -155,15 +155,21 @@ class RoomController extends Controller
         $bba=json_decode($bbb, true);
         $rm=RoomModel::find($r->id);
 
-        if($bba["returncode"]=="SUCCESS"){
-            $rm->user_id=Auth::id();
-            $rm->bbb_returncode=$bba["returncode"];
-            $rm->internalMeetingID=$bba["internalMeetingID"];
-            $rm->parentMeetingID=$bba["parentMeetingID"];
-            $rm->voiceBridge=$bba["voiceBridge"];
-            $rm->createDate=$bba["createDate"];
-            $rm->createTime=$bba["createTime"];
+        if($bba["returncode"]=="SUCCESS") {
+            $rm->user_id = Auth::id();
+            $rm->bbb_returncode = $bba["returncode"];
+            $rm->internalMeetingID = $bba["internalMeetingID"];
+            $rm->parentMeetingID = $bba["parentMeetingID"];
+            $rm->voiceBridge = $bba["voiceBridge"];
+            $rm->createDate = $bba["createDate"];
+            $rm->createTime = $bba["createTime"];
             $rm->save();
+
+
+            $jobi['name'] = $input['name'];
+            $jobi['email'] = Auth::user()->email;
+
+            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
 
             return redirect('room')->with('success', 'Room Created Successfully!');
         }else{
@@ -301,11 +307,6 @@ class RoomController extends Controller
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner
             ]);
-
-            $jobi['name'] = $i->name;
-            $jobi['email'] = Auth::user()->email;
-
-            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
         }
 
 

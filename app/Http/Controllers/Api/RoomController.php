@@ -307,6 +307,10 @@ class RoomController extends Controller
         $u = User::where('email', $email)->first();
         $owner = false;
 
+        if (!$u) {
+            return response()->json(['success' => false, 'message' => 'User does not exist', 'owner' => $owner]);
+        }
+
         if ($rm) {
             $roomid = "0$rm->id";
         }

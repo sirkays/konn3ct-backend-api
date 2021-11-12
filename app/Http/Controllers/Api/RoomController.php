@@ -302,6 +302,8 @@ class RoomController extends Controller
         $room_name = $input['room_name'];
         $email = $input['email'];
 
+        $room_name = str_replace("-", " ", $room_name);
+
         $rm = RoomModel::where('name', $room_name)->first();
 
         $u = User::where('email', $email)->first();
@@ -309,6 +311,10 @@ class RoomController extends Controller
 
         if (!$u) {
             return response()->json(['success' => false, 'message' => 'User does not exist', 'owner' => $owner]);
+        }
+
+        if (!$rm) {
+            return response()->json(['success' => false, 'message' => 'Room does not exist', 'owner' => $owner]);
         }
 
         if ($rm) {

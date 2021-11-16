@@ -219,7 +219,7 @@ class RoomController extends Controller
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
-        if ($ms != 1) {
+        if (!$ms) {
             $plan = PlanModel::where("id", Auth::user()->plan)->first();
 
             if ($plan->recording) {

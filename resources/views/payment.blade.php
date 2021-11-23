@@ -60,7 +60,8 @@
                     <ul class="header-megamenu nav">
 
                         <li class="btn-group nav-item d-none d-xl-inline-block ml-5">
-                            <a href="/room" class="btn btn-dark waves-effect waves-light"><i class="fa fa-home-lg"> </i>
+                            <a href="{{route('rooms')}}" class="btn btn-dark waves-effect waves-light"><i
+                                    class="fa fa-home-lg"> </i>
                                 Goto Dashboard</a>
                         </li>
 
@@ -146,17 +147,26 @@
                                                 <h3>Pay Now Monthly</h3>
                                                 @if($plan ?? false)
 
+                                                    <a style="margin-bottom: 10px; margin-top: 10px" type="button"
+                                                       href='{{route("mastercard_payment",[$plan,1])}}'
+                                                       class="btn btn-success">US
+                                                        Dollars $ @if($plan==2) 10.99
+                                                        @elseif($plan==3) 15.99 @endif - Mastercard</a>
+                                                    <br/>
+
                                                     <button style="margin-bottom: 10px; margin-top: 10px" type="button"
                                                             onClick='makePayment("USD")' class="btn btn-success">US
                                                         Dollars $ @if($plan==2) 10.99
-                                                        @elseif($plan==3) 15.99 @endif</button>
+                                                        @elseif($plan==3) 15.99 @endif - Flutterwave
+                                                    </button>
 
                                                     <br/>
 
                                                     <button style="margin-bottom: 10px" type="button"
                                                             onClick='payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}})'
                                                             class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
-                                                        @elseif($plan==3)6000 @endif</button>
+                                                        @elseif($plan==3)6000 @endif - Paystack
+                                                    </button>
 
                                                     <br/>
 
@@ -165,6 +175,15 @@
                                                     {{--                                                        @elseif($plan==3) 15.99 @endif</button>--}}
 
                                                 @else
+
+                                                    <a style="margin-bottom: 10px; margin-top: 10px" type="button"
+                                                       href='{{route("mastercard_payment",[$plan,1])}}'
+                                                       class="btn btn-success">US
+                                                        Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                                            11
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            16 @endif - Mastercard</a>
+
 
                                                     <button type="button" onClick='makePayment("USD")'
                                                             class="btn btn-success">US Dollars
@@ -198,6 +217,14 @@
 
                                                 @if($plan ?? false)
 
+                                                    <a style="margin-bottom: 10px; margin-top: 10px" type="button"
+                                                       href='{{route("mastercard_payment",[$plan,2])}}'
+                                                       class="btn btn-success">US
+                                                        Dollars $ @if($plan==2) 120
+                                                        @elseif($plan==3)175 @endif</a>
+
+                                                    <br/>
+
                                                     <button style="margin-bottom: 10px" type="button"
                                                             onClick='makePayment("USD2")'
                                                             class="btn btn-success">US Dollars $ @if($plan==2)120
@@ -212,6 +239,16 @@
 
 
                                                 @else
+
+
+                                                    <a style="margin-bottom: 10px; margin-top: 10px" type="button"
+                                                       href='{{route("mastercard_payment",[$plan,2])}}'
+                                                       class="btn btn-success">US
+                                                        Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                                            120
+                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                            175 @endif - Mastercard</a>
+
 
                                                     <button type="button" onClick='makePayment("USD2")'
                                                             class="btn btn-success">US Dollars
@@ -228,10 +265,10 @@
                                                 @endif
 
 
-                                                {{--                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master--}}
-                                                {{--                                                    Card</a>--}}
-                                                {{--                                                <input type="button" value="Pay with Payment Page"--}}
-                                                {{--                                                       onclick="Checkout.showPaymentPage();"/>--}}
+                                                {{--                                                                                                <a href="/payment/mastercard/{id}" class="btn btn-danger">Use Master--}}
+                                                {{--                                                                                                    Card</a>--}}
+                                                {{--                                                                                                <input type="button" value="Pay with Payment Page"--}}
+                                                {{--                                                                                                       onclick="Checkout.showPaymentPage();"/>--}}
 
 
                                             </div>

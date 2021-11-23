@@ -157,7 +157,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
-    Route::get('/rooms', [RoomController::class, 'show'])->name('room');
+    Route::get('/rooms', [RoomController::class, 'show'])->name('rooms');
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
@@ -239,13 +239,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment');
 
-    Route::get('/payment/mastercardview', function () {
-        return view('mastercard');
-    })->name('CreateSession');
+    Route::get('/payment/mastercard/{plan}/{type}', [MasterCardGatewayController::class, 'launchView'])->name('mastercard_payment');
+    Route::post('/payment/mastercard', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment.Mastercard');
 
-    Route::get('/payment/mastercardstatus', function () {
-        return view('mastercardStatus');
-    })->name('CreateSession');
+    Route::get('/payment/mastercardstatus', [MasterCardGatewayController::class, 'paymentStatus'])->name('mastercard.status');
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 

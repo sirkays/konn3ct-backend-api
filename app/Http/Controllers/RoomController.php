@@ -44,7 +44,7 @@ class RoomController extends Controller
 //        echo intval(($plan->rooms * 1)) + intval((Auth::user()->room_bundles * 1));
 //        return;
         if($rc >= $r){
-            return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
+            return redirect()->route('rooms')->with('error', 'Maximum room(s) exceeded for your current plan!');
         }
 
         if ($input['url']==""){
@@ -171,10 +171,10 @@ class RoomController extends Controller
 
             Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
 
-            return redirect('room')->with('success', 'Room Created Successfully!');
+            return redirect()->route('rooms')->with('success', 'Room Created Successfully!');
         }else{
             $rm->delete();
-            return redirect('room')->with('error', 'Server Error while creating Meeting!');
+            return redirect()->route('rooms')->with('error', 'Server Error while creating Meeting!');
         }
     }
 
@@ -219,7 +219,7 @@ class RoomController extends Controller
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
-        if (!$ms) {
+        if ($ms != 1) {
             $plan = PlanModel::where("id", Auth::user()->plan)->first();
 
             if ($plan->recording) {
@@ -528,7 +528,7 @@ class RoomController extends Controller
 
         $i->delete();
 
-        return redirect('room')->with('success', 'Room Deleted Successfully!');
+        return redirect()->route('rooms')->with('success', 'Room Deleted Successfully!');
     }
 
     public function accesscode(Request $request)
@@ -550,7 +550,7 @@ class RoomController extends Controller
             $r->save();
         }
 
-        return redirect('room')->with('success', 'Access code changed Successfully!');
+        return redirect()->route('rooms')->with('success', 'Access code changed Successfully!');
     }
 
     public function limituser(Request $request){
@@ -561,7 +561,7 @@ class RoomController extends Controller
         $r->max_participants=$input['users'];
         $r->save();
 
-        return redirect('room')->with('success', 'User Limit changed Successfully!');
+        return redirect()->route('rooms')->with('success', 'User Limit changed Successfully!');
     }
 
     public function roomstatus($url){

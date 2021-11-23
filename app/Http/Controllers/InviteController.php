@@ -40,7 +40,7 @@ class InviteController extends Controller
 
         EmailInviteJob::dispatch($input)->delay(now()->addMinutes(1));
 
-        return redirect('room')->with('success', 'Invite Sent Successfully!');
+        return redirect()->route('rooms')->with('success', 'Invite Sent Successfully!');
     }
 
     public function invite_whatsapp(Request $request)
@@ -74,7 +74,7 @@ class InviteController extends Controller
             $user->save();
         }
 
-        return redirect('room')->with('success', 'Invite Sent Successfully!');
+        return redirect()->route('rooms')->with('success', 'Invite Sent Successfully!');
     }
 
     public function invites()

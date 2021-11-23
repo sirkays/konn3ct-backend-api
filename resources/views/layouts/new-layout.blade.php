@@ -674,7 +674,7 @@
                         </li>
                     </ul>
 
-                    <a href="@auth {{route('room')}} @else {{route('register')}} @endif" id="Group_btn"
+                    <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif" id="Group_btn"
                        class="btn text-center"
                        style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
                         <span id="Register_btn">@auth Meeting Room @else Register @endif</span>

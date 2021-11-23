@@ -25,12 +25,12 @@
 
                         <div class="d-grid gap-2" style="margin-left: 20%; margin-right: 20%">
                             @auth
-                                <a href="/room" class="btn px-3 py-3 mr-3 mt-2"
+                                <a href="{{route('rooms')}}" class="btn px-3 py-3 mr-3 mt-2"
                                    style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
                                     Goto Meeting Room
                                 </a>
                             @else
-                                <a href="/room" class="btn px-3 py-3 mr-3 mt-2"
+                                <a href="{{route('rooms')}}" class="btn px-3 py-3 mr-3 mt-2"
                                    style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
                                     Goto Meeting Room
                                 </a>

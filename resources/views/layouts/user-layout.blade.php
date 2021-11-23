@@ -203,16 +203,18 @@
     <nav class="main-nav" role="navigation">
 
         <!-- Mobile menu toggle button (hamburger/x icon) -->
-        <input id="main-menu-state" type="checkbox" />
+        <input id="main-menu-state" type="checkbox"/>
         <label class="main-menu-btn" for="main-menu-state">
             <span class="main-menu-btn-icon"></span> Toggle main menu visibility
         </label>
 
         <!-- Sample menu definition -->
         <ul id="main-menu" class="sm sm-blue">
-            <li><a href="/room"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Room(s)</a></li>
-            <li><a href="/joinsession"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Join a Meeting Room</a></li>
-{{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
+            <li><a href="{{route('rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Room(s)</a></li>
+            <li><a href="/joinsession"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Join a Meeting Room</a></li>
+            {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
             <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Recording(s)</a></li>
             <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a>

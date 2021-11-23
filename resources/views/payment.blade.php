@@ -151,21 +151,21 @@
                                                        href='{{route("mastercard_payment",[$plan,1])}}'
                                                        class="btn btn-success">US
                                                         Dollars $ @if($plan==2) 10.99
-                                                        @elseif($plan==3) 15.99 @endif - Mastercard</a>
+                                                        @elseif($plan==3) 15.99 @endif </a>
                                                     <br/>
 
-                                                    <button style="margin-bottom: 10px; margin-top: 10px" type="button"
-                                                            onClick='makePayment("USD")' class="btn btn-success">US
-                                                        Dollars $ @if($plan==2) 10.99
-                                                        @elseif($plan==3) 15.99 @endif - Flutterwave
-                                                    </button>
+                                                    {{--                                                    <button style="margin-bottom: 10px; margin-top: 10px" type="button"--}}
+                                                    {{--                                                            onClick='makePayment("USD")' class="btn btn-success">US--}}
+                                                    {{--                                                        Dollars $ @if($plan==2) 10.99--}}
+                                                    {{--                                                        @elseif($plan==3) 15.99 @endif - Flutterwave--}}
+                                                    {{--                                                    </button>--}}
 
-                                                    <br/>
+                                                    {{--                                                    <br/>--}}
 
                                                     <button style="margin-bottom: 10px" type="button"
                                                             onClick='payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}})'
                                                             class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
-                                                        @elseif($plan==3)6000 @endif - Paystack
+                                                        @elseif($plan==3)6000 @endif
                                                     </button>
 
                                                     <br/>
@@ -185,11 +185,12 @@
                                                             16 @endif - Mastercard</a>
 
 
-                                                    <button type="button" onClick='makePayment("USD")'
-                                                            class="btn btn-success">US Dollars
-                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            16 @endif</button>
+                                                    {{--                                                    <button type="button" onClick='makePayment("USD")'--}}
+                                                    {{--                                                            class="btn btn-success">US Dollars--}}
+                                                    {{--                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2) 11--}}
+                                                    {{--                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)--}}
+                                                    {{--                                                            16 @endif</button>--}}
+
                                                     <button type="button"
                                                             onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
                                                             class="btn btn-success">Naira
@@ -225,12 +226,12 @@
 
                                                     <br/>
 
-                                                    <button style="margin-bottom: 10px" type="button"
-                                                            onClick='makePayment("USD2")'
-                                                            class="btn btn-success">US Dollars $ @if($plan==2)120
-                                                        @elseif($plan==3)175 @endif</button>
+                                                    {{--                                                    <button style="margin-bottom: 10px" type="button"--}}
+                                                    {{--                                                            onClick='makePayment("USD2")'--}}
+                                                    {{--                                                            class="btn btn-success">US Dollars $ @if($plan==2)120--}}
+                                                    {{--                                                        @elseif($plan==3)175 @endif</button>--}}
 
-                                                    <br/>
+                                                    {{--                                                    <br/>--}}
 
                                                     <button type="button"
                                                             onClick='payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}})'
@@ -248,13 +249,15 @@
                                                             120
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
                                                             175 @endif - Mastercard</a>
+                                                    <br/>
 
 
-                                                    <button type="button" onClick='makePayment("USD2")'
-                                                            class="btn btn-success">US Dollars
-                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120
-                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            175 @endif</button>
+                                                    {{--                                                    <button type="button" onClick='makePayment("USD2")'--}}
+                                                    {{--                                                            class="btn btn-success">US Dollars--}}
+                                                    {{--                                                        $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)120--}}
+                                                    {{--                                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)--}}
+                                                    {{--                                                            175 @endif</button>--}}
+
                                                     <button type="button"
                                                             onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
                                                             class="btn btn-success">Naira

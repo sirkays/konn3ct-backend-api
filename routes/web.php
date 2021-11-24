@@ -157,7 +157,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 
-    Route::get('/rooms', [RoomController::class, 'show'])->name('rooms');
+    Route::get('/myrooms', [RoomController::class, 'show'])->name('rooms');
 
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 

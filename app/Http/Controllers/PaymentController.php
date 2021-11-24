@@ -109,7 +109,7 @@ class PaymentController extends Controller
 
                 PaymentModel::create($data);
 
-                return redirect('room')->with('success', 'Your payment is successfully!');
+                return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
 
@@ -226,7 +226,7 @@ class PaymentController extends Controller
 
                 PaymentModel::create($data);
 
-                return redirect('room')->with('success', 'Your payment is successfully!');
+                return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
 
@@ -278,7 +278,7 @@ class PaymentController extends Controller
         if($plan==1){
             User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1, 'status'=>'active']);
 
-            return redirect('room')->with('success', 'Plan Changed Successfully!');
+            return redirect()->route('rooms')->with('success', 'Plan Changed Successfully!');
         }
 
         $datas['plan']=$plan;
@@ -303,7 +303,7 @@ class PaymentController extends Controller
 
             return $pdf_doc->download('receipt.pdf');
         }else{
-            return redirect('room')->with('error', 'Error in exporting pdf!');
+            return redirect()->route('rooms')->with('error', 'Error in exporting pdf!');
         }
 
     }
@@ -311,7 +311,7 @@ class PaymentController extends Controller
     public function activatefree(){
         $u=User::find(Auth::id());
         if($u->freetrial){
-            return redirect('/room')->with('error', 'Free trial has been activated already');
+            return redirect()->route('rooms')->with('error', 'Free trial has been activated already');
         }else{
             $set=SettingsModel::first();
             $exp=Carbon::now()->addDays($set->freetrial_days);
@@ -320,7 +320,7 @@ class PaymentController extends Controller
             $u->status="free_trial";
             $u->freetrial=true;
             $u->save();
-            return redirect('/room')->with('success', 'Free trial has been activated successfully');
+            return redirect()->route('rooms')->with('success', 'Free trial has been activated successfully');
         }
     }
 

@@ -97,7 +97,8 @@
                 <div class="app-menu">
                     <ul class="header-megamenu nav">
                         <li class="btn-group nav-item d-none d-xl-inline-block">
-                                <a  href="/logouts" class="btn btn-danger waves-effect waves-light"><i class="fa fa-sign-out"> </i> Log Out</a>
+                            <a href="/logouts" class="btn btn-danger waves-effect waves-light"><i
+                                    class="fa fa-sign-out"> </i> Log Out</a>
                         </li>
 
                     </ul>
@@ -107,17 +108,18 @@
                     <ul class="nav navbar-nav">
                         <li class="btn-group nav-item d-none d-xl-inline-block">
                             <a href="/" class="btn btn-outline-primary">Home</a>
-                            <a href="/room" class="btn btn-success" style="margin-left: 20px">Switch to Client</a>
-{{--                            <Button class="btn btn-primary" data-toggle="modal" data-target="#modal-fill" style="margin-left: 20px">Change Plan</Button>--}}
-{{--                            <Button class="btn btn-success" data-toggle="modal" data-target="#bs-example-modal-sm" style="margin-left: 20px">Invite friends</Button>--}}
+                            <a href="{{route('rooms')}}" class="btn btn-success" style="margin-left: 20px">Switch to
+                                Client</a>
+                            {{--                            <Button class="btn btn-primary" data-toggle="modal" data-target="#modal-fill" style="margin-left: 20px">Change Plan</Button>--}}
+                            {{--                            <Button class="btn btn-success" data-toggle="modal" data-target="#bs-example-modal-sm" style="margin-left: 20px">Invite friends</Button>--}}
 
-{{--                            <span style="color: white; margin-left: 20px"> Current Plan:--}}
-{{--                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)--}}
-{{--                                Basic--}}
-{{--                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)--}}
-{{--                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
-{{--                            @else--}}
-{{--                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
+                            {{--                            <span style="color: white; margin-left: 20px"> Current Plan:--}}
+                            {{--                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)--}}
+                            {{--                                Basic--}}
+                            {{--                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)--}}
+                            {{--                                Lite - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
+                            {{--                            @else--}}
+                            {{--                                Pro - Expires in {{\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->subscription)->diffInDays(\Carbon\Carbon::now())}} days--}}
 {{--                            @endif--}}
 {{--                                </span>--}}
                         </li>

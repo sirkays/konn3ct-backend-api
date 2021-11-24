@@ -21,19 +21,19 @@
         {{ "Sign In" }}
     @endcomponent
 
-    @component('mail::button', ['url' => url('/room'), 'color' => "green"])
+    @component('mail::button', ['url' => url('/rooms'), 'color' => "green"])
         {{ "Invite friends & colleagues to join your meeting room" }}
     @endcomponent
 
-    @component('mail::button', ['url' => url('/room'), 'color' => "green"])
+    @component('mail::button', ['url' => url('/rooms'), 'color' => "green"])
         {{ 'Click "konn3ct now" to start a meeting' }}
     @endcomponent
 
-    @component('mail::button', ['url' => url('/room'), 'color' => "green"])
+    @component('mail::button', ['url' => url('/rooms'), 'color' => "green"])
         {{ "Share Webcam, Use Shared Notes, Share a Youtube video, and more" }}
     @endcomponent
 
-    @component('mail::button', ['url' => url('/room'), 'color' => "green"])
+    @component('mail::button', ['url' => url('/rooms'), 'color' => "green"])
         {{ "Go to settings to end meeting" }}
     @endcomponent
 

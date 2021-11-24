@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Jobs\Konn3ctChatCreateAccountJob;
 use App\Mail\UserWelcomeMail;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -63,9 +64,9 @@ class CreateNewUser implements CreatesNewUsers
         }
 
         if(isset($input['referral'])){
-                Validator::make($input, [
-                    'referral' => ['required', 'string', 'max:6', 'exists:users,referral_code'],
-                ])->validate();
+            Validator::make($input, [
+                'referral' => ['required', 'string', 'max:6', 'exists:users,referral_code'],
+            ])->validate();
 //            }
         }
 
@@ -99,23 +100,23 @@ class CreateNewUser implements CreatesNewUsers
             $u->save();
         }
 
-            $plan = PlanModel::where("id", $u->plan)->first();
-            $duration = $plan->duration;
-            $max_user = $plan->participant;
+        $plan = PlanModel::where("id", $u->plan)->first();
+        $duration = $plan->duration;
+        $max_user = $plan->participant;
 
-            $num = trim(date('siyh'));
-            $shuffled = str_shuffle($num);
-            $sfin = substr($shuffled, 0, 4);
-            $sfina = substr(strtolower($input['firstname']), 0, 2);
-            $sfinal = str_shuffle($sfin.$sfina);
-            $input['name'] = $input['firstname'] ." Room";
-            $input['password_attendee'] = "attendee";
-            $input['password_moderator'] = "moderator";
-            if(!isset($input['type'])) {
-                $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
-            }else{
-                $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
-            }
+        $num = trim(date('siyh'));
+        $shuffled = str_shuffle($num);
+        $sfin = substr($shuffled, 0, 4);
+        $sfina = substr(strtolower($input['firstname']), 0, 2);
+        $sfinal = str_shuffle($sfin.$sfina);
+        $input['name'] = $input['firstname'] ." Room";
+        $input['password_attendee'] = "attendee";
+        $input['password_moderator'] = "moderator";
+        if(!isset($input['type'])) {
+            $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
+        }else{
+            $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
+        }
         $input['welcome_message'] = "";
         $input['logout_url'] = url('/leftsession');
         $input['max_participants'] = $max_user;
@@ -125,7 +126,7 @@ class CreateNewUser implements CreatesNewUsers
 
         RoomModel::create($input);
 
-//            Konn3ctChatCreateAccountJob::dispatch($input)->delay(now()->addSecond());
+        Konn3ctChatCreateAccountJob::dispatch($input)->delay(now()->addSecond());
 
 
         try {

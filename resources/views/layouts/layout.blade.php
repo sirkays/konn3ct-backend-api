@@ -354,22 +354,31 @@
                         <div class="main-menu text-right text-xl-center">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li><a href="/features" aria-label="Navigate to Features"><span class="lih">Features</span></a></li>
-                                    <li><a href="/pricing" aria-label="Navigate to Plans & Pricing"><span class="lih">Plans & Pricing</span></a></li>
-                                    <li><a href="/contact" aria-label="Navigate to Contact Us"><span class="lih">Contact Us</span></a></li>
+                                    <li><a href="/features" aria-label="Navigate to Features"><span
+                                                class="lih">Features</span></a></li>
+                                    <li><a href="/pricing" aria-label="Navigate to Plans & Pricing"><span class="lih">Plans & Pricing</span></a>
+                                    </li>
+                                    <li><a href="/contact" aria-label="Navigate to Contact Us"><span class="lih">Contact Us</span></a>
+                                    </li>
 
                                     @auth
-                                        <li><a href="/room" aria-label="Navigate to Dashboard"><span class="lih">Dashboard</span></a></li>
+                                        <li><a href="{{route('rooms')}}" aria-label="Navigate to Dashboard"><span
+                                                    class="lih">Dashboard</span></a></li>
                                     @else
-                                        <li><a href="/register" aria-label="Navigate to Create Account" class="su"><strong>Register (It's free - Start Free Trial)</strong></a></li>
+                                        <li><a href="/register" aria-label="Navigate to Create Account"
+                                               class="su"><strong>Register (It's free - Start Free Trial)</strong></a>
+                                        </li>
                                     @endif
 
-                                    <li><a href="/joinsession" aria-label="Navigate to Join a room"><span class="lih">Join a Meeting Room</span></a></li>
+                                    <li><a href="/joinsession" aria-label="Navigate to Join a room"><span class="lih">Join a Meeting Room</span></a>
+                                    </li>
 
                                     @auth
-                                        <li><a href="/logouts" aria-label="Signout your account"><span class="lih">Signout</span></a></li>
+                                        <li><a href="/logouts" aria-label="Signout your account"><span class="lih">Signout</span></a>
+                                        </li>
                                     @else
-                                        <li><a href="{{ route('login') }}" aria-label="Navigate to login page"><span class="lih">Sign In</span></a></li>
+                                        <li><a href="{{ route('login') }}" aria-label="Navigate to login page"><span
+                                                    class="lih">Sign In</span></a></li>
                                     @endif
                                 </ul>
                             </nav>

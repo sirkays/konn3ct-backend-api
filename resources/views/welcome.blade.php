@@ -27,6 +27,12 @@
                                 Host a meeting
                             </a>
                         </div>
+                        <div class="col-12">
+                            <a href="{{route('joinmeeting')}}" type="button" class="btn px-3 py-3 mr-3 mt-2"
+                               style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width:320px">
+                                Join a Meeting
+                            </a>
+                        </div>
                     </div>
 
                     <div class="mt-5">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
+use App\Jobs\Konn3ctChatCreateGroupJob;
+use App\Jobs\Konn3ctChatGroupInviteJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -42,7 +44,7 @@ class RoomController extends Controller
 //        echo intval(($plan->rooms * 1)) + intval((Auth::user()->room_bundles * 1));
 //        return;
         if($rc >= $r){
-            return redirect('room')->with('error', 'Maximum room(s) exceeded for your current plan!');
+            return redirect()->route('rooms')->with('error', 'Maximum room(s) exceeded for your current plan!');
         }
 
         if ($input['url']==""){
@@ -75,7 +77,7 @@ class RoomController extends Controller
         $r=RoomModel::create($input);
 
         $createMeeting = \Bigbluebutton::initCreateMeeting([
-            'meetingID' => $r->id,
+            'meetingID' => "0$r->id",
             'meetingName' => $input['name'],
             'attendeePW' => $input['password_attendee'],
             'moderatorPW' => $input['password_moderator'],
@@ -153,20 +155,26 @@ class RoomController extends Controller
         $bba=json_decode($bbb, true);
         $rm=RoomModel::find($r->id);
 
-        if($bba["returncode"]=="SUCCESS"){
-            $rm->user_id=Auth::id();
-            $rm->bbb_returncode=$bba["returncode"];
-            $rm->internalMeetingID=$bba["internalMeetingID"];
-            $rm->parentMeetingID=$bba["parentMeetingID"];
-            $rm->voiceBridge=$bba["voiceBridge"];
-            $rm->createDate=$bba["createDate"];
-            $rm->createTime=$bba["createTime"];
+        if($bba["returncode"]=="SUCCESS") {
+            $rm->user_id = Auth::id();
+            $rm->bbb_returncode = $bba["returncode"];
+            $rm->internalMeetingID = $bba["internalMeetingID"];
+            $rm->parentMeetingID = $bba["parentMeetingID"];
+            $rm->voiceBridge = $bba["voiceBridge"];
+            $rm->createDate = $bba["createDate"];
+            $rm->createTime = $bba["createTime"];
             $rm->save();
 
-            return redirect('room')->with('success', 'Room Created Successfully!');
+
+            $jobi['name'] = $input['name'];
+            $jobi['email'] = Auth::user()->email;
+
+            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
+
+            return redirect()->route('rooms')->with('success', 'Room Created Successfully!');
         }else{
             $rm->delete();
-            return redirect('room')->with('error', 'Server Error while creating Meeting!');
+            return redirect()->route('rooms')->with('error', 'Server Error while creating Meeting!');
         }
     }
 
@@ -184,7 +192,7 @@ class RoomController extends Controller
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning($i->id);
+                $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
                 if ($ms) {
                     $datas['active']++;
                 }
@@ -199,85 +207,79 @@ class RoomController extends Controller
     }
 
     public function mjoin(Request $request){
-        $id=$request->input('id');
+        $id = $request->input('id');
 
-        $i=RoomModel::find($id);
+        $i = RoomModel::find($id);
 
-        if(!$i){
-            return back()
-                ->with('error', 'Invalid Room!');
+        if (!$i) {
+            return back()->with('error', 'Invalid Room!');
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $rm_id = "0$i->id";
 
-        if($ms==1) {
-            return redirect()->to(
-                \Bigbluebutton::join([
-                    'meetingID' => $i->id,
-                    'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
-                    'password' => $i->password_moderator //which user role want to join set password here
-                ])
-            );
-        }else{
-            $plan=PlanModel::where("id", Auth::user()->plan)->first();
-            if($plan->recording){
-                $record=true; //overwrite default configuration
-            }else{
-                $record=false; //overwrite default configuration
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms != 1) {
+            $plan = PlanModel::where("id", Auth::user()->plan)->first();
+
+            if ($plan->recording) {
+                $record = true;
+            } else {
+                $record = false;
             }
 
-            $duration=$plan->duration;
-            $max_user=$plan->participant;
+            $duration = $plan->duration;
+            $max_user = $plan->participant;
 
-            if($i->muj){
-                $muj=true;
-            }else{
-                $muj=false;
+            if ($i->muj) {
+                $muj = true;
+            } else {
+                $muj = false;
             }
 
-            if($i->dpuc){
-                $dpuc=true;
-            }else{
-                $dpuc=false;
+            if ($i->dpuc) {
+                $dpuc = true;
+            } else {
+                $dpuc = false;
             }
 
-            if($i->dprc){
-                $dprc=true;
-            }else{
-                $dprc=false;
+            if ($i->dprc) {
+                $dprc = true;
+            } else {
+                $dprc = false;
             }
 
-            if($i->ewma){
-                $ewma=true;
-            }else{
-                $ewma=false;
+            if ($i->ewma) {
+                $ewma = true;
+            } else {
+                $ewma = false;
             }
 
-            if($i->dum){
-                $dum=true;
-            }else{
-                $dum=false;
+            if ($i->dum) {
+                $dum = true;
+            } else {
+                $dum = false;
             }
 
-            if($i->dsn){
-                $dsn=true;
-            }else{
-                $dsn=false;
+            if ($i->dsn) {
+                $dsn = true;
+            } else {
+                $dsn = false;
             }
 
-            if($i->aujam){
-                $up="moderator";
-            }else{
-                $up=$i->password_attendee;
+            if ($i->aujam) {
+                $up = "moderator";
+            } else {
+                $up = $i->password_attendee;
             }
 
-            if($i->banner!=""){
-                $banner= url('/') . "/roombanner/".$i->banner;
-            }else{
-                $banner="https://konn3ct.com/assets/images/konn3ct_logo.png";
+            if ($i->banner != "") {
+                $banner = url('/') . "/roombanner/" . $i->banner;
+            } else {
+                $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
             }
 
-            $mdata['meeting_id'] = $i->id;
+            $mdata['meeting_id'] = "$i->id";
             $mdata['name'] = Auth::user()->lastname . " " . Auth::user()->firstname;
             $mdata['email'] = Auth::user()->email;
             $mdata['password_attendee'] = $up;
@@ -285,16 +287,14 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            $url = \Bigbluebutton::start([
-                'meetingID' => "0$i->id",
+            \Bigbluebutton::create([
+                'meetingID' => $rm_id,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
-                'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,//for join meeting
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
-//                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording' => $record,
                 'record' => $record,
                 'duration' => $duration,
@@ -305,19 +305,42 @@ class RoomController extends Controller
                 'lockSettingsDisableCam' => $ewma,
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
-                'logo' => $banner,
-                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
-                'customParameters' => [
-                    'userdata-bbb_auto_join_audio' => 'true',
-                    'userdata-bbb_enable_video' => 'true',
-                    'userdata-bbb_listen_only_mode' => 'false',
-                    'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
-                ]
+                'logo' => $banner
             ]);
-            return redirect()->to($url);
         }
 
+
+        $u = User::where('email', Auth::user()->email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+
+            $resul = $u->profile_photo_url;
+            $findme = 'ui-avatars.com';
+            $pos = strpos($resul, $findme);
+            // Note our use of ===.  Simply == would not work as expected
+            if ($pos === false) {
+                $dp = $u->profile_photo_url;
+            }
+        }
+
+        $url = \Bigbluebutton::join([
+            'meetingID' => $rm_id,
+            'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
+            'userId' => Auth::user()->email,
+            'password' => $i->password_moderator, //which user role want to join set password here
+            'avatarUrl' => $dp,
+            'customParameters' => [
+                'userdata-bbb_auto_join_audio' => 'true',
+                'userdata-bbb_enable_video' => 'true',
+                'userdata-bbb_listen_only_mode' => 'false',
+                'userdata-bbb_force_listen_only' => 'false',
+                'userdata-bbb_skip_check_audio' => 'true',
+                'userdata-bbb_user_email' => Auth::user()->email
+            ],
+        ]);
+
+            return redirect()->to($url);
     }
 
     public function ajoin(Request $request){
@@ -335,25 +358,27 @@ class RoomController extends Controller
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
-        $u=User::find($i->user_id);
+        $u = User::find($i->user_id);
 
         $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=1;
 
-        $mdata['meeting_id']=$i->id;
-        $mdata['name']=$name;
-        $mdata['email']=$email;
-        $mdata['password_attendee']=$i->password_attendee;
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $i->password_attendee;
 
-        if($ms!=1){
-            $mdata['status']="meeting not started";
+        session(['room-owner' => $u->email]);
+
+        if ($ms != 1) {
+            $mdata['status'] = "meeting not started";
 
             MeetingsModel::create($mdata);
 
-            $mns['name']=$name;
-            $mns['email']=$email;
-            $mns['url']=$url;
-            $mns['room']=$i;
+            $mns['name'] = $name;
+            $mns['email'] = $email;
+            $mns['url'] = $url;
+            $mns['room'] = $i;
             $mns['owner']=$u;
 
             return view('meeting_notstarted', $mns);
@@ -461,13 +486,21 @@ class RoomController extends Controller
             $jobi['name'] = $name;
             $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($jobi)->delay(now()->addMinutes(1));
+            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
         }
+
+        $jobi['name'] = $i->name;
+        $jobi['email'] = session('room-owner');
+        $jobi['invitee'] = $email;
+        $jobi['inviteeName'] = $name;
+
+        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(35));
 
         return redirect()->to(
             \Bigbluebutton::join([
                 'meetingID' => "0$i->id",
                 'userName' => $name,
+                'userId' => $email,
                 'password' => $password_attendee, //which user role want to join set password here
                 'avatarUrl' => $dp,
                 'customParameters' => [
@@ -475,7 +508,8 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'userdata-bbb_user_email' => $email
                 ],
             ])
         );
@@ -494,7 +528,7 @@ class RoomController extends Controller
 
         $i->delete();
 
-        return redirect('room')->with('success', 'Room Deleted Successfully!');
+        return redirect()->route('rooms')->with('success', 'Room Deleted Successfully!');
     }
 
     public function accesscode(Request $request)
@@ -516,7 +550,7 @@ class RoomController extends Controller
             $r->save();
         }
 
-        return redirect('room')->with('success', 'Access code changed Successfully!');
+        return redirect()->route('rooms')->with('success', 'Access code changed Successfully!');
     }
 
     public function limituser(Request $request){
@@ -527,12 +561,12 @@ class RoomController extends Controller
         $r->max_participants=$input['users'];
         $r->save();
 
-        return redirect('room')->with('success', 'User Limit changed Successfully!');
+        return redirect()->route('rooms')->with('success', 'User Limit changed Successfully!');
     }
 
     public function roomstatus($url){
         $i = RoomModel::where('url', $url)->first();
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=0;
         if($ms!=1){
             return response()->json(['status'=>0, 'message'=>'Meeting not started']);

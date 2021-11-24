@@ -249,7 +249,7 @@
                                             <div id="CaptchaDiv2"></div>
                                             <input type="hidden" id="txtCaptcha2">
                                         </span>
-                                        <input type="text" name="CaptchaInput2" class="form-control" id="CaptchaInput"
+                                        <input type="text" name="CaptchaInput2" class="form-control" id="CaptchaInput2"
                                                size="15" autocomplete="off"/>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                             @if($freetrial==1)
                                 <div class="row" style="color: grey">
                                     <div class="mb-3 form-check col-6">
-                                        <input type="checkbox" class="form-check-input" id="freetrial" name="freetrial"
+                                        <input type="checkbox" class="form-check-input" id="freetrial1" name="freetrial"
                                                value="true">
                                         <label class="form-check-label" for="exampleCheck1"> Activate Pro Plan Free
                                             Trial ({{$freetrial_days}} days)</label>
@@ -303,9 +303,7 @@
 
 
     <script type="text/javascript">
-
         // Captcha Script
-
         function checkform(theform) {
             var why = "";
 
@@ -358,9 +356,7 @@
 
 
     <script type="text/javascript">
-
         // Captcha Script
-
         function checkform2(theform) {
             var why = "";
 

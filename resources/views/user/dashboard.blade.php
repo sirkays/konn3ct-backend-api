@@ -2,24 +2,24 @@
 
 @section('content')
 
-            <!-- Main content -->
-            <section class="content">
+    <!-- Main content -->
+    <section class="content">
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {!! session('success') !!}
-                        </div>
-                    @endif
+        @if (session('success'))
+            <div class="alert alert-success">
+                {!! session('success') !!}
+            </div>
+        @endif
 
                     @if (session('error'))
                         <div class="alert alert-danger">
@@ -2118,13 +2118,11 @@
                                                         <span class="font-size-10">(Start Meeting Now)</span>
                                                     </Button>
 
-                                                    <Button style="font-size: 12px"
-                                                            class="waves-effect waves-light btn btn-info"
-                                                            onclick="copyToClipboard('#c{{$room->id}}')"
-                                                            data-toggle="tooltip" data-placement="top"
-                                                            title="Copy Meeting Link">
-                                                        <i class="fa fa-copy"></i> Copy
-                                                    </Button>
+                                                    <a style="font-size: 12px"
+                                                       class="waves-effect waves-light btn btn-info"
+                                                       onclick="copyToClipboard('#c{{$room->id}}')"
+                                                       data-toggle="tooltip" data-placement="top"
+                                                       title="Copy Meeting Link"> <i class="fa fa-copy"></i> Copy</a>
                                                 </form>
 
                                             </td>
@@ -2282,28 +2280,27 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal -->
+    <!-- /.modal -->
 
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
 
-            <script>
-                function copyToClipboard(element) {
-                    var $temp = $("<input>");
-                    $("body").append($temp);
-                    $temp.val($(element).text()).select();
-                    document.execCommand("copy");
-                    $temp.remove();
-                }
-            </script>
-
-            <script>
-                function getRandomString(length) {
-                    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                    var result = '';
-                    for (var i = 0; i < length; i++) {
-                        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-                    }
-                    return result;
-                }
-            </script>
+    <script>
+        function getRandomString(length) {
+            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var result = '';
+            for (var i = 0; i < length; i++) {
+                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return result;
+        }
+    </script>
 
 @endsection

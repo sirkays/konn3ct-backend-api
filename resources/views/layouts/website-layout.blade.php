@@ -391,7 +391,7 @@
                     </li>
                 </ul>
 
-                <a href="@auth {{route('room')}} @else {{route('register')}} @endif"
+                <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif"
                    class="btn text-center"
                    style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89; max-height: 50px">
                     <span>@auth Meeting Room @else Register @endif</span>

@@ -26,7 +26,8 @@
                                 <input type="text" class="form-control" name="url"
                                        value="{{$url ?? session(['url'])}}"
                                        placeholder="Enter meeting room name or Paste invite link in your browser"
-                                       aria-label="First Name" aria-describedby="basic-addon1" required>
+                                       aria-label="First Name" aria-describedby="basic-addon1" @if(isset($url)) readonly
+                                       @endif required>
                             </div>
                         </div>
                     </div>

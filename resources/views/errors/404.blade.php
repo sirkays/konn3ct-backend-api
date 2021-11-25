@@ -5,7 +5,7 @@
 @section('code', '404')
 
 @section('content')
-    <div class="hold-transition bg-img text-center" style="background-image: url(assets/images/pathgroup.png)"
+    <div class="hold-transition bg-img text-center" style="background-image: url(/assets/images/pathgroup.png)"
          data-overlay="5">
         <div class="container h-p100">
             <div class="row justify-content-md-center align-items-center h-p100">

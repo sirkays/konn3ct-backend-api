@@ -61,7 +61,7 @@ return [
             [
                 'name' => 'Rooms',
                 'description' => 'Manage your rooms',
-                'url' => '/room',
+                'url' => '/rooms',
                 'icons' => [
                     'src' => '/assets/manifest/k96.png',
                     'purpose' => 'any'

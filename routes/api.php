@@ -33,3 +33,5 @@ Route::get('rooms/{email}', [RoomController::class, 'fetchRooms']);
 Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
 
 Route::post('start-room', [RoomController::class, 'startRoom']);
+
+Route::post('check-room', [RoomController::class, 'checkRoom']);

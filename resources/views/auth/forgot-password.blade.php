@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.new-layout')
 
 @section('content')
 
@@ -23,23 +23,28 @@
             @csrf
 
             <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-jet-label for="email" value="{{ __('Email') }}"/>
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                             required autofocus/>
             </div>
 
             <div class="block mt-6 text-center">
                 <!-- START CAPTCHA -->
-                <div class="capbox">
-                    <div id="CaptchaDiv"></div>
-                    <div class="capbox-inner">
-                        Type the number:<br>
-                        <input type="hidden" id="txtCaptcha">
-                        <input type="text" name="CaptchaInput" id="CaptchaInput" size="15" autocomplete="off"><br>
-
+                <div>
+                    <label for="exampleInputEmail1" class="form-label" style="color: grey">reCAPTCHA: Type the
+                        number</label>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="font-weight: bolder">
+                                <div id="CaptchaDiv"></div>
+                                <input type="hidden" id="txtCaptcha">
+                            </span>
+                        <input type="text" name="CaptchaInput" class="form-control" id="CaptchaInput" size="15"
+                               autocomplete="off"/>
                     </div>
+
                 </div>
                 <!-- END CAPTCHA -->
-                <br/>
+                {{--                <br/>--}}
                 <span class="ml-2 text-sm"><sup><img src="/assets/images/konn3ct_logo.png" height="30px" width="100px" alt="logo"></sup>is protected by reCAPTCHA​</span>
             </div>
 

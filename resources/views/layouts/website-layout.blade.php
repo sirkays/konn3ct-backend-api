@@ -309,6 +309,21 @@
         }
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-196433825-2');
+    </script>
+
+
 </head>
 
 <body>
@@ -404,7 +419,7 @@
 @yield('content')
 
 <div class="row mt-5 mb-5">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center mb-4">
         <a href="{{route('joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"
            style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
             <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px" alt="joinmeetingIcon"/> &nbsp;
@@ -416,6 +431,10 @@
             <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
             Register
         </a>
+    </div>
+
+    <div class="col-12 text-center">
+        <div class="col-12 text-right" id="google_translate_element"></div>
     </div>
 </div>
 
@@ -461,18 +480,32 @@
             <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                 <!-- Links -->
-                <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Learn</span>
+                <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">How To</span>
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!" id="footer_link">About us</a>
+                        <a href="https://www.youtube.com/watch?v=jEV7vjngo4g" id="footer_link">Register on konn3ct</a>
                     </li>
                     <li>
-                        <a href="#!" id="footer_link">Blog</a>
+                        <a href="https://www.youtube.com/watch?v=Dn323U-br5Q" id="footer_link">Create Meeting Room</a>
                     </li>
                     <li>
-                        <a href="#!" id="footer_link">FAQ</a>
+                        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" id="footer_link">Join Meeting Room</a>
                     </li>
+
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=eCblbRoL4gs" id="footer_link">Manage Meeting Room</a>
+                    </li>
+
+                    {{--                    <li>--}}
+                    {{--                        <a href="#!" id="footer_link">About us</a>--}}
+                    {{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="#!" id="footer_link">Blog</a>--}}
+                    {{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="#!" id="footer_link">FAQ</a>--}}
+                    {{--                    </li>--}}
                 </ul>
 
             </div>
@@ -589,6 +622,19 @@
     </svg>
 </a>
 <!-- Back to top -->
+
+<!-- Google Translator -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+        }, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" rel="noopener"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- javascript -->
 <script src="/website/js/bootstrap.bundle.min.js.download"></script>

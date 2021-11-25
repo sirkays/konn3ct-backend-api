@@ -601,15 +601,30 @@
             text-decoration: none;
         }
     </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196433825-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-196433825-2');
+    </script>
+
 </head>
 <body>
 <div id="main" class="container">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-body">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{route('new-homepage')}}"><img class="img img-responsive"
-                                                                          src="/assets/images/konn3ct_logo@2x.png"
-                                                                          height="50" alt="Konn3ct logo"/></a>
+            <a class="navbar-brand" href="{{route('welcome')}}"><img class="img img-responsive"
+                                                                     src="/assets/images/konn3ct_logo@2x.png"
+                                                                     height="50" alt="Konn3ct logo"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -700,6 +715,10 @@
                 Register
             </a>
         </div>
+
+        <div class="col-12 text-center">
+            <div class="col-12 text-right" id="google_translate_element"></div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -744,18 +763,35 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 mx-auto">
 
                     <!-- Links -->
-                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">Learn</span>
+                    <span id="footer_link_header" class="font-weight-bold mt-3 mb-4">How To</span>
 
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!" id="footer_link">About us</a>
+                            <a href="https://www.youtube.com/watch?v=jEV7vjngo4g" id="footer_link">Register on
+                                konn3ct</a>
                         </li>
                         <li>
-                            <a href="#!" id="footer_link">Blog</a>
+                            <a href="https://www.youtube.com/watch?v=Dn323U-br5Q" id="footer_link">Create Meeting
+                                Room</a>
                         </li>
                         <li>
-                            <a href="#!" id="footer_link">FAQ</a>
+                            <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" id="footer_link">Join Meeting Room</a>
                         </li>
+
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=eCblbRoL4gs" id="footer_link">Manage Meeting
+                                Room</a>
+                        </li>
+
+                        {{--                    <li>--}}
+                        {{--                        <a href="#!" id="footer_link">About us</a>--}}
+                        {{--                    </li>--}}
+                        {{--                    <li>--}}
+                        {{--                        <a href="#!" id="footer_link">Blog</a>--}}
+                        {{--                    </li>--}}
+                        {{--                    <li>--}}
+                        {{--                        <a href="#!" id="footer_link">FAQ</a>--}}
+                        {{--                    </li>--}}
                     </ul>
 
                 </div>
@@ -869,6 +905,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+<!-- Google Translator -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+        }, 'google_translate_element');
+    }
+</script>
+
+<script type="text/javascript" rel="noopener"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
 

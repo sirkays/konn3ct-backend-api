@@ -9,7 +9,7 @@
             <h6 class="text-center" style="color: grey">Login back to Konn3ct</h6>
 
             @if (session('status'))
-                <div class="mb-1 font-medium text-sm text-green-600">
+                <div class="mb-1 font-medium alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="mb-3 form-check col-6 align-self-end">
-                        <a href="#" style="color: grey">Forgot your password?</a>
+                        <a href="{{route('password.request')}}" style="color: grey">Forgot your password?</a>
                     </div>
 
                 </div>

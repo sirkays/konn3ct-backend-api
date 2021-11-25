@@ -117,8 +117,7 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 
-Route::get('/roombanner/{filename}', function ($filename)
-{
+Route::get('/myroombanner/{filename}', function ($filename) {
     $path = storage_path('roombanner/' . $filename);
 
     if (!File::exists($path)) {

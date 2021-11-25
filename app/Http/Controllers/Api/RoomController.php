@@ -86,7 +86,7 @@ class RoomController extends Controller
             }
 
             if ($i->banner != "") {
-                $banner = url('/') . "/roombanner/" . $i->banner;
+                $banner = url('/') . "/myroombanner/" . $i->banner;
             } else {
                 $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
             }

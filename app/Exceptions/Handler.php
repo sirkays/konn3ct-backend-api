@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof \Illuminate\Session\TokenMismatchException) {
 
-            return redirect('/login');
+            return redirect('/myrooms');
 
         }
 

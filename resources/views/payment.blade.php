@@ -177,12 +177,14 @@
                                                 @else
 
                                                     <a style="margin-bottom: 10px; margin-top: 10px" type="button"
-                                                       href='{{route("mastercard_payment",[$plan,1])}}'
+                                                       href='{{route("mastercard_payment",[\Illuminate\Support\Facades\Auth::user()->plan,1])}}'
                                                        class="btn btn-success">US
                                                         Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
                                                             11
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
                                                             16 @endif - Mastercard</a>
+
+                                                    <br/>
 
 
                                                     {{--                                                    <button type="button" onClick='makePayment("USD")'--}}
@@ -243,7 +245,7 @@
 
 
                                                     <a style="margin-bottom: 10px; margin-top: 10px" type="button"
-                                                       href='{{route("mastercard_payment",[$plan,2])}}'
+                                                       href='{{route("mastercard_payment",[\Illuminate\Support\Facades\Auth::user()->plan,2])}}'
                                                        class="btn btn-success">US
                                                         Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
                                                             120

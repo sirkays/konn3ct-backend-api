@@ -56,13 +56,20 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 
 MAIL_MAILER=smtp
-MAIL_HOST=mail.konn3ct.com
-MAIL_PORT=587
-MAIL_USERNAME=info@konn3ct.com
-MAIL_PASSWORD=Nf5cHLCaO7sm
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=info@konn3ct.com
+#MAIL_HOST=mail.konn3ct.com
+#MAIL_PORT=587
+#MAIL_USERNAME=info@konn3ct.com
+#MAIL_PASSWORD=Nf5cHLCaO7sm
+#MAIL_ENCRYPTION=tls
+#MAIL_FROM_ADDRESS=info@konn3ct.com
 MAIL_FROM_NAME=Konn3ct
+
+MAIL_HOST=mail.newwavesecosystem.com
+MAIL_USERNAME=konn3ct@newwavesecosystem.com
+MAIL_PASSWORD=rPhvMTmN5-tX
+MAIL_ENCRYPTION=ssl
+MAIL_PORT=465
+MAIL_FROM_ADDRESS=konn3ct@newwavesecosystem.com
 
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
@@ -77,6 +84,17 @@ PUSHER_APP_CLUSTER=mt1
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
+
+MASTERCARD_URL=https://eu-gateway.mastercard.com/api/rest/version/61/
+MASTERCARD_MERCHANTID=GTB687298C44
+MASTERCARD_AUTH=bWVyY2hhbnQuR1RCNjg3Mjk4QzQ0OmYyOWNjZDg2ZTE2OGIxYmNmOWRlYmJiZmUzNmMxMTc3
+
+
+WHATSAPP_API="l86hTGC0M78zJRhEHsssNBHuQQEcC2rO"
+
+CHAT_API_TOKEN=4zzmkl3taa0ckp7m
+CHAT_API_INSTANCE=instance303742
+
 EOF
 
 sudo composer install
@@ -89,15 +107,15 @@ cp /etc/nginx/sites-available/bigbluebutton /etc/nginx/sites-available/bigbluebu
 sudo sed -i 's/index  index.html index.htm;/index index.php index.html index.htm;\ntry_files $uri $uri\/ \/index.php?$query_string;/' /etc/nginx/sites-available/bigbluebutton
 
 ## Add php fpm to nginx
-<!-- sudo sed -i 's/#error_page  404  \/404.html;/location ~ \.php$ { \nroot   \/var\/www\/bigbluebutton-default; \nfastcgi_pass unix:\/var\/run\/php\/php7.4-fpm.sock; \nfastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \ninclude fastcgi_params; }/' /etc/nginx/sites-available/bigbluebutton -->
+# sudo sed -i 's/#error_page  404  \/404.html;/location ~ \.php$ { \nroot   \/var\/www\/bigbluebutton-default; \nfastcgi_pass unix:\/var\/run\/php\/php7.4-fpm.sock; \nfastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \ninclude fastcgi_params; }/' /etc/nginx/sites-available/bigbluebutton
 
 cat <<EOF >> /etc/bigbluebutton/nginx/php.nginx
 # support php
 location ~ .php$ {
-  root   /var/www/bigbluebutton-default;
-  fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
-  fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-  include fastcgi_params;
+    root   /var/www/bigbluebutton-default;
+    fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+    include fastcgi_params;
 }
 EOF
 
@@ -139,4 +157,13 @@ sudo systemctl restart nginx
 
 # install MySQL
 sudo apt -y install mysql-server mysql-client libmysqlclient-dev;
+
+
+## Setup database
+mysql;
+create database `konn3ct`;
+CREATE USER 'toor'@'localhost' IDENTIFIED BY 'passiword';
+GRANT All Privileges ON konn3ct.* TO 'toor'@'localhost';
+exit;
+
 

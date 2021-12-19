@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="/user_assets/css/style.css">
     <link rel="stylesheet" href="/user_assets/css/skin_color.css">
 
+    <link rel="stylesheet" href="/user_assets/assets/icons/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+
     <style>
         /* Style all font awesome icons */
         .myfa {
@@ -48,8 +51,6 @@
             color: white;
         }
     </style>
-
-
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -164,6 +165,8 @@
                             class="path2"></span></i>Invite History</a></li>
             <li><a href="{{route('admin.faqs')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Faqs</a></li>
+            <li><a href="{{route('admin.coupon')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Coupon Codes</a></li>
         </ul>
     </nav>
 

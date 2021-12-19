@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\admin\CouponController;
 use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\SettingsModel;
@@ -100,14 +101,19 @@ class PaymentController extends Controller
 
                     if($plan==1){
                         $data['duration'] = "a month";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'status'=>'active']);
-                    }else{
+                        User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addMonth(), 'status' => 'active']);
+                    } else {
                         $data['duration'] = "a year";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'status'=>'active']);
+                        User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addYear(), 'status' => 'active']);
                     }
                 }
 
                 PaymentModel::create($data);
+
+
+                $c = new CouponController();
+                $c->markCouponCode();
+
 
                 return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
             }else{
@@ -135,17 +141,18 @@ class PaymentController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$id,
+            CURLOPT_URL => "https://api.paystack.co/transaction/verify/" . $id,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "Authorization: Bearer ".env("PAYSTACK_PRV_KEY")
+                "Authorization: Bearer " . env("PAYSTACK_PRV_KEY")
             ),
         ));
 
@@ -217,14 +224,18 @@ class PaymentController extends Controller
 
                     if($plan==1){
                         $data['duration'] = "a month";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addMonth(), 'status'=>'active']);
-                    }else{
+                        User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addMonth(), 'status' => 'active']);
+                    } else {
                         $data['duration'] = "a year";
-                        User::where('id',Auth::id())->update(['subscription'=>Carbon::now()->addYear(), 'status'=>'active']);
+                        User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addYear(), 'status' => 'active']);
                     }
                 }
 
                 PaymentModel::create($data);
+
+
+                $c = new CouponController();
+                $c->markCouponCode();
 
                 return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
             }else{

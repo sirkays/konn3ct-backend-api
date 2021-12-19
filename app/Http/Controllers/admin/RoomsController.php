@@ -8,14 +8,29 @@ use App\Models\RoomModel;
 
 class RoomsController extends Controller
 {
-    public function show(){
+    public function dashboard()
+    {
 
-        $datas['roomys']=RoomModel::orderBy('id', 'desc')
-            ->join('users', 'users.id','room.user_id')
+        $datas['roomstc'] = RoomModel::orderBy('id', 'desc')
+            ->join('users', 'users.id', 'room.user_id')
+            ->count();
+
+        $datas['active'] = 0;
+
+        $datas['i'] = 1;
+
+        return view('admin.dashboard', $datas);
+    }
+
+    public function show()
+    {
+
+        $datas['roomys'] = RoomModel::orderBy('id', 'desc')
+            ->join('users', 'users.id', 'room.user_id')
             ->select('room.*', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();
-        $datas['rooms']=RoomModel::orderBy('id', 'desc')
-            ->join('users', 'users.id','room.user_id')
+        $datas['rooms'] = RoomModel::orderBy('id', 'desc')
+            ->join('users', 'users.id', 'room.user_id')
             ->select('room.*', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();
         $datas['roomstc']=RoomModel::orderBy('id', 'desc')

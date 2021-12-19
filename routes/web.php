@@ -239,9 +239,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment');
 
     Route::get('/payment/mastercard/{plan}/{type}', [MasterCardGatewayController::class, 'launchView'])->name('mastercard_payment');
+
     Route::post('/payment/mastercard', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment.Mastercard');
 
     Route::get('/payment/mastercardstatus', [MasterCardGatewayController::class, 'paymentStatus'])->name('mastercard.status');
+
+
+    Route::post('/apply-coupon', [\App\Http\Controllers\admin\CouponController::class, 'apply'])->name('apply.coupon');
+
 
     Route::get('/payment/{plan}/transid/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 

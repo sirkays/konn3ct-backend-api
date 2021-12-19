@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\admin\CouponController;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -13,13 +14,13 @@ class MasterCardGatewayController extends Controller
     public function launchView($plan, $type)
     {
         if ($plan == 2 && $type == 1) {
-            $data['amount'] = 10.99;
+            $data['amount'] = CheckForDiscount(10.99, "monthly");
         } elseif ($plan == 2 && $type == 2) {
-            $data['amount'] = 120;
+            $data['amount'] = CheckForDiscount(120, "yearly");
         } elseif ($plan == 3 && $type == 1) {
-            $data['amount'] = 15.99;
+            $data['amount'] = CheckForDiscount(15.99, "monthly");
         } elseif ($plan == 3 && $type == 2) {
-            $data['amount'] = 175;
+            $data['amount'] = CheckForDiscount(175, "yearly");
         } else {
             abort(404);
         }
@@ -129,6 +130,9 @@ class MasterCardGatewayController extends Controller
 
                     User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => $plan, 'status' => 'active']);
                 }
+
+                $c = new CouponController();
+                $c->markCouponCode();
 
                 $data['message'] = $rep['response']['acquirerMessage'];
                 $data['amount'] = $amount;

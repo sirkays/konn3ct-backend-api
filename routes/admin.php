@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\OtherController;
 use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
@@ -26,6 +27,13 @@ Route::prefix('admin')->group(function () {
         Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
         Route::post('/joinroom', [RoomController::class, 'mjoin'])->name('moderator_join');
         Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
+
+        Route::get('/dashboard', [RoomsController::class, 'dashboard'])->name('admin.dashboard');
+
+        Route::get('/coupon-codes', [CouponController::class, 'fetch'])->name('admin.coupon');
+        Route::post('/coupon-codes', [CouponController::class, 'create'])->name('admin.coupon.create');
+        Route::get('/disable-coupon-code/{id}', [CouponController::class, 'disable'])->name('admin.coupon.disable');
+        Route::get('/enable-coupon-code/{id}', [CouponController::class, 'enable'])->name('admin.coupon.enable');
 
         Route::get('/rooms', [RoomsController::class, 'show'])->name('admin.rooms');
 

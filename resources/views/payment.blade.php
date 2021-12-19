@@ -122,7 +122,24 @@
                                             </li>
                                         </ul>
                                     </div>
-{{--                                    <button type="button" onClick="makePayment()" class="btn btn-info-light">Pay Now</button>--}}
+
+
+                                    <div class="mt-4">
+                                        <form method="POST" action="{{route('apply.coupon')}}">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <input class="form-control" name="code"
+                                                           placeholder="Enter coupon code (optional)" required/>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    {{--                                    <button type="button" onClick="makePayment()" class="btn btn-info-light">Pay Now</button>--}}
                                 </div>
                             </div>
                         </div>
@@ -130,6 +147,29 @@
 
                     <div class="col-xl-8" style="align-content: center">
                         <div class="box">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
                             <div class="box-body d-flex p-0">
                                 <div class="flex-grow-1 bg-warning-light p-30 flex-grow-1 bg-img"
                                      style="background-position: left bottom; background-size: auto 100%; background-image: url(https://www.multipurposethemes.com/admin/adminto-template/images/svg-icon/color-svg/custom-2.svg)">
@@ -145,13 +185,14 @@
 
                                             <div class="col-12 mb-10 mt-10">
                                                 <h3>Pay Now Monthly</h3>
+
                                                 @if($plan ?? false)
 
                                                     <a style="margin-bottom: 10px; margin-top: 10px" type="button"
                                                        href='{{route("mastercard_payment",[$plan,1])}}'
                                                        class="btn btn-success">US
-                                                        Dollars $ @if($plan==2) 10.99
-                                                        @elseif($plan==3) 15.99 @endif </a>
+                                                        Dollars $ @if($plan==2) {{CheckForDiscount(10.99, "monthly")}}
+                                                        @elseif($plan==3) {{CheckForDiscount(15.99, "monthly")}} @endif </a>
                                                     <br/>
 
                                                     {{--                                                    <button style="margin-bottom: 10px; margin-top: 10px" type="button"--}}
@@ -163,9 +204,10 @@
                                                     {{--                                                    <br/>--}}
 
                                                     <button style="margin-bottom: 10px" type="button"
-                                                            onClick='payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}})'
-                                                            class="btn btn-success">Naira &#x20A6; @if($plan==2)4000
-                                                        @elseif($plan==3)6000 @endif
+                                                            onClick='@if(!DiscountActive("monthly")) payWithPaystack("{{$plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{$plan}}) @else payWithPaystackAmount("{{$plan == 2 ? CheckForDiscount(4000, "monthly") : CheckForDiscount(6000, "monthly") }}", {{$plan}}) @endif'
+                                                            class="btn btn-success">Naira
+                                                        &#x20A6; @if($plan==2){{CheckForDiscount(4000, "monthly")}}
+                                                        @elseif($plan==3){{CheckForDiscount(6000, "monthly")}} @endif
                                                     </button>
 
                                                     <br/>
@@ -180,9 +222,9 @@
                                                        href='{{route("mastercard_payment",[\Illuminate\Support\Facades\Auth::user()->plan,1])}}'
                                                        class="btn btn-success">US
                                                         Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                                            11
+                                                            {{CheckForDiscount(11, "monthly")}}
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            16 @endif - Mastercard</a>
+                                                            {{CheckForDiscount(16, "monthly")}} @endif - Mastercard</a>
 
                                                     <br/>
 
@@ -194,12 +236,12 @@
                                                     {{--                                                            16 @endif</button>--}}
 
                                                     <button type="button"
-                                                            onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
+                                                            onClick='@if(!DiscountActive("monthly")) payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_x58swqn5jxgq177" : "PLN_xm38uwc4kro01f2" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}}) @else payWithPaystackAmount("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? CheckForDiscount(4000, "monthly") : CheckForDiscount(6000, "monthly") }}", {{\Illuminate\Support\Facades\Auth::user()->plan}}) @endif'
                                                             class="btn btn-success">Naira
                                                         &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                                            4000
+                                                            {{CheckForDiscount(4000, "monthly")}}
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            6000 @endif</button>
+                                                            {{CheckForDiscount(6000, "monthly")}} @endif</button>
 
                                                 @endif
                                             </div>
@@ -223,8 +265,8 @@
                                                     <a style="margin-bottom: 10px; margin-top: 10px" type="button"
                                                        href='{{route("mastercard_payment",[$plan,2])}}'
                                                        class="btn btn-success">US
-                                                        Dollars $ @if($plan==2) 120
-                                                        @elseif($plan==3)175 @endif</a>
+                                                        Dollars $ @if($plan==2) {{CheckForDiscount(120, "yearly")}}
+                                                        @elseif($plan==3) {{CheckForDiscount(175, "yearly")}} @endif</a>
 
                                                     <br/>
 
@@ -236,10 +278,10 @@
                                                     {{--                                                    <br/>--}}
 
                                                     <button type="button"
-                                                            onClick='payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}})'
-                                                            class="btn btn-success">Naira &#x20A6; @if($plan==2)46000
-                                                        @elseif($plan==3)67000 @endif</button>
-
+                                                            onClick='@if(!DiscountActive("monthly")) payWithPaystack("{{$plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{$plan}}) @else payWithPaystackAmount("@if($plan==2){{CheckForDiscount(46000, "yearly")}} @elseif($plan==3){{CheckForDiscount(67000, "yearly")}} @endif", {{$plan}}) @endif'
+                                                            class="btn btn-success">Naira
+                                                        &#x20A6; @if($plan==2){{CheckForDiscount(46000, "yearly")}}
+                                                        @elseif($plan==3){{CheckForDiscount(67000, "yearly")}} @endif</button>
 
                                                 @else
 
@@ -248,9 +290,9 @@
                                                        href='{{route("mastercard_payment",[\Illuminate\Support\Facades\Auth::user()->plan,2])}}'
                                                        class="btn btn-success">US
                                                         Dollars $ @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                                            120
+                                                            {{CheckForDiscount(120, "yearly")}}
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            175 @endif - Mastercard</a>
+                                                            {{CheckForDiscount(175, "yearly")}} @endif - Mastercard</a>
                                                     <br/>
 
 
@@ -261,12 +303,13 @@
                                                     {{--                                                            175 @endif</button>--}}
 
                                                     <button type="button"
-                                                            onClick='payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}})'
+                                                            onClick='@if(!DiscountActive("monthly")) payWithPaystack("{{\Illuminate\Support\Facades\Auth::user()->plan == 2 ? "PLN_fpuwwuny2geygb8" : "PLN_s52vv9rmavi9vgb" }}", {{\Illuminate\Support\Facades\Auth::user()->plan}}) @else payWithPaystackAmount("@if(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                                            {{CheckForDiscount(46000, "yearly")}} @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3) {{CheckForDiscount(67000, "yearly")}} @endif", {{$plan}}) @endif '
                                                             class="btn btn-success">Naira
                                                         &#x20A6; @if(\Illuminate\Support\Facades\Auth::user()->plan==2)
-                                                            46000
+                                                            {{CheckForDiscount(46000, "yearly")}}
                                                         @elseif(\Illuminate\Support\Facades\Auth::user()->plan==3)
-                                                            67000 @endif</button>
+                                                            {{CheckForDiscount(67000, "yearly")}} @endif</button>
                                                 @endif
 
 
@@ -596,15 +639,40 @@
             email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
             plan: plan, // the amount value is multiplied by 100 to convert to the lowest currency unit
             currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
-            callback: function(response) {
+            callback: function (response) {
                 //this happens after the payment is completed successfully
                 var reference = response.reference;
                 // alert('Payment complete! Reference: ' + reference);
                 // Make an AJAX call to your server with the reference to verify the transaction
                 console.log(response);
-                window.location.href = "/paystackpayment/"+planid+"/transid/" + reference;
+                window.location.href = "/paystackpayment/" + planid + "/transid/" + reference;
             },
-            onClose: function() {
+            onClose: function () {
+                alert('Transaction was not completed, window closed.');
+                // close modal
+                // window.location.href = "/payment/2/transid/3456789";
+            },
+        });
+        handler.openIframe();
+    }
+</script>
+
+<script>
+    function payWithPaystackAmount(amount, planid) {
+        var handler = PaystackPop.setup({
+            key: "{{env('PAYSTACK_PUB_KEY')}}", // Replace with your public key
+            email: "{{\Illuminate\Support\Facades\Auth::user()->email}}",
+            amount: amount * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+            currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+            callback: function (response) {
+                //this happens after the payment is completed successfully
+                var reference = response.reference;
+                // alert('Payment complete! Reference: ' + reference);
+                // Make an AJAX call to your server with the reference to verify the transaction
+                console.log(response);
+                window.location.href = "/paystackpayment/" + planid + "/transid/" + reference;
+            },
+            onClose: function () {
                 alert('Transaction was not completed, window closed.');
                 // close modal
                 // window.location.href = "/payment/2/transid/3456789";

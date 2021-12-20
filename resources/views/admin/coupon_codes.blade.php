@@ -164,7 +164,7 @@
                                     <th style="min-width: 10px"><span class="text-fade">S/N</span></th>
                                     <th style="min-width: 50px"><span class="text-fade">Name</span></th>
                                     <th style="min-width: 70px"><span class="text-fade">Code</span></th>
-                                    <th style="min-width: 70px"><span class="text-fade">Value</span></th>
+                                    <th style="min-width: 70px"><span class="text-fade">Discount</span></th>
                                     <th style="min-width: 70px"><span class="text-fade">Type</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Status</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
@@ -182,7 +182,7 @@
                                             <span>{{$coupon->code}}</span>
                                         </td>
                                         <td>
-                                            <span>{{$coupon->discount}}</span>
+                                            <span>{{$coupon->discount}}%</span>
                                         </td>
                                         <td>
                                             <span>

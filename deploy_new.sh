@@ -107,50 +107,55 @@ cp /etc/nginx/sites-available/bigbluebutton /etc/nginx/sites-available/bigbluebu
 sudo sed -i 's/index  index.html index.htm;/index index.php index.html index.htm;\ntry_files $uri $uri\/ \/index.php?$query_string;/' /etc/nginx/sites-available/bigbluebutton
 
 ## Add php fpm to nginx
-# sudo sed -i 's/#error_page  404  \/404.html;/location ~ \.php$ { \nroot   \/var\/www\/bigbluebutton-default; \nfastcgi_pass unix:\/var\/run\/php\/php7.4-fpm.sock; \nfastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \ninclude fastcgi_params; }/' /etc/nginx/sites-available/bigbluebutton
+# sudo sed -i 's/#error_page  404  \/404.html;/location ~ \.php$ { \nroot   \/var\/www\/public-site; \nfastcgi_pass unix:\/var\/run\/php\/php7.4-fpm.sock; \nfastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; \ninclude fastcgi_params; }/' /etc/nginx/sites-available/bigbluebutton
 
 cat <<EOF >> /etc/bigbluebutton/nginx/php.nginx
 # support php
 location ~ .php$ {
-    root   /var/www/bigbluebutton-default;
+    root   /var/www/public-site;
     fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
     fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
     include fastcgi_params;
 }
 EOF
 
+## remove default folder
+rm -R /var/www/bigbluebutton-default
 
-## copy public files from laravel
-rm -R /var/www/bigbluebutton-default/*
-cp -R /var/www/laravel/public/* /var/www/bigbluebutton-default/
+## create public site
+cd /var/www/
+mkdir public-site
+cp -R /var/www/laravel/public/* /var/www/public-site/
 
-cd /var/www/bigbluebutton-default/assets/images
-rm -R /var/www/bigbluebutton-default/favicon.ico
-cp konn3cticon.ico /var/www/bigbluebutton-default/favicon.ico
-echo "copying logo.png for player"
+cd /var/www/public-site/docs
+
+echo "copying favicon & whiteboard for site"
+cp konn3cticon.ico /var/www/public-site/favicon.ico
+cp Whiteboard.pdf /var/www/public-site/default.pdf
+
+echo "copying logo and manifest for playback"
 cp konn3ctIcon.png /var/bigbluebutton/playback/presentation/2.3/logo.png
+cp manifest.json /var/bigbluebutton/playback/presentation/2.3/manifest.json
 
-cd /var/www/bigbluebutton-default/docs
-rm -R /var/www/bigbluebutton-default/default.pdf
-cp Whiteboard.pdf /var/www/bigbluebutton-default/default.pdf
+echo "copying config for engine"
 rm /etc/bigbluebutton/bbb-conf/apply-config.sh
 cp apply-config.sh /etc/bigbluebutton/bbb-conf/apply-config.sh
 chmod +x /etc/bigbluebutton/bbb-conf/apply-config.sh
 
 ## Create folder for profile pix
-cd /var/www/bigbluebutton-default
+cd /var/www/public-site
 mkdir profile-photos
 
 ## give public permission to photos folder
 chmod -R 777 profile-photos
 
 ## rewrite filesystem to public folder
-sudo sed -i 's/app\/public/..\/..\/bigbluebutton-default\//' /var/www/laravel/config/filesystems.php
+sudo sed -i 's/app\/public/..\/..\/public-site\//' /var/www/laravel/config/filesystems.php
 
 sudo sed -i 's/\/storage/\//' /var/www/laravel/config/filesystems.php
 
 ## Pointing to laravel folder
-sudo sed -i 's/\/..\//\/..\/laravel\//' /var/www/bigbluebutton-default/index.php
+sudo sed -i 's/\/..\//\/..\/laravel\//' /var/www/public-site/index.php
 
 # restart servers
 sudo systemctl restart nginx

@@ -123,23 +123,6 @@
                                         </ul>
                                     </div>
 
-
-                                    <div class="mt-4">
-                                        <form method="POST" action="{{route('apply.coupon')}}">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-8">
-                                                    <input class="form-control" name="code"
-                                                           placeholder="Enter coupon code (optional)" required/>
-                                                </div>
-                                                <div class="col-4">
-                                                    <button type="submit" class="btn btn-primary btn-sm">Apply</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                    {{--                                    <button type="button" onClick="makePayment()" class="btn btn-info-light">Pay Now</button>--}}
                                 </div>
                             </div>
                         </div>
@@ -322,14 +305,61 @@
                                             </div>
                                         </div>
 
-                                        @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
-                                            <div class="col-12 mt-25">
-                                                <button data-toggle="modal" data-target="#basicplan-modal"
-                                                        class="btn btn-danger btn-block">Can't Pay Now? Migrate
-                                                    to Free forever
-                                                </button>
+                                        {{--                                        @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)--}}
+                                        {{--                                            <div class="col-12 mt-25">--}}
+                                        {{--                                                <button data-toggle="modal" data-target="#basicplan-modal"--}}
+                                        {{--                                                        class="btn btn-danger btn-block">Can't Pay Now? Migrate--}}
+                                        {{--                                                    to Free forever--}}
+                                        {{--                                                </button>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        @endif--}}
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mt-4">
+                                                <h3>Do you have any coupon code?</h3>
+                                                <form method="POST" action="{{route('apply.coupon')}}">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <input class="form-control" name="code"
+                                                                   placeholder="Enter coupon code (optional)" required/>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <button type="submit" class="btn btn-primary btn-sm">Apply
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        @endif
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="mt-4">
+                                                <h3>Who refer you?</h3>
+                                                @if(\Illuminate\Support\Facades\Auth::user()->referral != null)
+                                                    <span
+                                                        style="font-weight: bolder; color: black">You are referred by {{\App\Models\User::where('referral_code', \Illuminate\Support\Facades\Auth::user()->referral)->first()->lastname}}</span>
+                                                @else
+                                                    <form method="POST" action="{{route('addReferral')}}">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <input class="form-control" name="code"
+                                                                       placeholder="Enter referral code (optional)"
+                                                                       required/>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                                    Apply
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

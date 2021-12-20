@@ -28,52 +28,6 @@
         @endif
 
         <div class="row">
-            {{--            <div class="col-4">--}}
-            {{--                <div class="box box-body pull-up">--}}
-            {{--                    <div class="flexbox align-items-end pt-30">--}}
-            {{--                        <div>--}}
-            {{--                            <span class="font-size-30 countnm">{{$userstc}}</span>--}}
-            {{--                            <h6 class="text-uppercase text-dark-50 mb-0">Total Users</h6>--}}
-            {{--                        </div>--}}
-            {{--                        <span class="icon-User font-size-80 text-info"><span class="path1"></span><span class="path2"></span></span>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-            {{--            <div class="col-4">--}}
-            {{--                <div class="box box-body pull-up">--}}
-            {{--                    <div class="flexbox align-items-end pt-30">--}}
-            {{--                        <div>--}}
-            {{--                            <span class="font-size-30 countnm">{{$userstc}}</span>--}}
-            {{--                            <h6 class="text-uppercase text-dark-50 mb-0">Active Users</h6>--}}
-            {{--                        </div>--}}
-            {{--                        <span class="icon-User font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-            {{--            <div class="col-4">--}}
-            {{--                <div class="box box-body pull-up">--}}
-            {{--                    <div class="flexbox align-items-end pt-30">--}}
-            {{--                        <div>--}}
-            {{--                            <span class="font-size-30 countnm">0</span>--}}
-            {{--                            <h6 class="text-uppercase text-dark-50 mb-0">Inactive Users</h6>--}}
-            {{--                        </div>--}}
-            {{--                        <span class="icon-User font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-
-            <div class="col-xl-3 col-12">
-                <div class="box box-body pull-up">
-                    <Button class="waves-effect waves-light btn btn-app btn-info" data-toggle="modal"
-                            data-target="#modal-left">
-                        <i class="fa fa-edit"></i> Generate Coupon
-                    </Button>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
             <div class="col-md-12 col-lg-4">
                 <form action="{{route('admin.coupon.create')}}" id="form_id" method="POST">
                     @csrf
@@ -125,7 +79,7 @@
 
                                             <!-- select -->
                                             <div class="form-group">
-                                                <label>Re-Occurring:</label>
+                                                <label>For many users:</label>
                                                 <select class="form-control" name="reoccuring">
                                                     <option value="1">Yes</option>
                                                     <option value="0">No</option>

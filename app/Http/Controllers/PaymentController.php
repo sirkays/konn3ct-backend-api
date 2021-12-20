@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\admin\CouponController;
 use App\Models\AddonModel;
 use App\Models\PaymentModel;
+use App\Models\PlanModel;
 use App\Models\SettingsModel;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
@@ -412,21 +413,29 @@ class PaymentController extends Controller
             }else{
                 $data['status'] = 'Suspicious';
 
-                if(session('job')=="change_plan") {
+                if (session('job') == "change_plan") {
                     $data['plan'] = session('plan');
-                }else{
-                    $data['plan']=Auth::user()->plan;
+                } else {
+                    $data['plan'] = Auth::user()->plan;
                 }
 
                 PaymentModel::create($data);
                 return back()
-                    ->with('error', 'Kindly contact our support with reference -> '. $data['reference']);
+                    ->with('error', 'Kindly contact our support with reference -> ' . $data['reference']);
             }
-        }else{
+        } else {
             return back()
                 ->with('error', 'Invalid Payment!');
         }
 
+    }
+
+    // make payment
+    public function makePayment()
+    {
+
+        $datas['plans'] = PlanModel::where('id', '!=', Auth::user()->plan)->get();
+        return view('user.make_payment', $datas);
     }
 
 }

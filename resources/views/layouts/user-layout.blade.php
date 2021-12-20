@@ -140,13 +140,16 @@
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Home">
+                            <a href="/" class="waves-effect waves-light dropdown-toggle btn-primary"
+                               style="min-width: 45px" title="Home">
                                 <span style="font-size: 11px">Home</span>
                             </a>
                         </li>
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#modal-fill" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Change Plan">
+                            <a href="#" data-toggle="modal" data-target="#modal-fill"
+                               class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px"
+                               title="Change Plan">
 {{--                                <i class="fa fa-link"></i>--}}
                                 <span style="font-size: 11px">Plan</span>
                             </a>

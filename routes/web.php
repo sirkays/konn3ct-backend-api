@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
@@ -149,6 +150,8 @@ Route::get('/prereg/{filename}', function ($filename)
 
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
+
+    Route::post('/addReferral', [OtherController::class, 'addReferral'])->name('addReferral');
 
     Route::post('/createroom', [RoomController::class, 'create'])->name('create_room');
 

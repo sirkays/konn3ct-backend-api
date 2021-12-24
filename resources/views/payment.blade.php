@@ -325,7 +325,7 @@
                                                         <div class="col-8">
                                                             <input class="form-control" name="code"
                                                                    placeholder="Enter coupon code (optional)"
-                                                                   autocomplete="false" required/>
+                                                                   autocomplete="off" required>
                                                         </div>
                                                         <div class="col-4">
                                                             <button type="submit" class="btn btn-primary btn-sm">Apply
@@ -349,7 +349,7 @@
                                                             <div class="col-8">
                                                                 <input class="form-control" name="code"
                                                                        placeholder="Enter referral code (optional)"
-                                                                       required autocomplete="false"/>
+                                                                       required autocomplete="off"/>
                                                             </div>
                                                             <div class="col-4">
                                                                 <button type="submit" class="btn btn-primary btn-sm">

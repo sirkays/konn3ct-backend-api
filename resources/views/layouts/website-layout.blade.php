@@ -655,5 +655,19 @@
 <script src="/website/js/app.js.download"></script>
 <!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
 
+<!-- Start of Qontak Webchat Script -->
+<script>
+    const qchatInit = document.createElement('script');
+    qchatInit.src = "https://webchat.qontak.com/qchatInitialize.js";
+    const qchatWidget = document.createElement('script');
+    qchatWidget.src = "https://webchat.qontak.com/js/app.js";
+    document.head.prepend(qchatInit);
+    document.head.prepend(qchatWidget);
+    qchatInit.onload = function () {
+        qchatInitialize({id: '9e6325f3-5554-4a44-a64e-31d177c9ef6e', code: '2nFxcEWaXxoZDDNcXoh_wQ'})
+    };
+</script>
+<!-- End of Qontak Webchat Script -->
+
 </body>
 </html>

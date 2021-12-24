@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
 use App\Jobs\Konn3ctChatCreateGroupJob;
-use App\Jobs\Konn3ctChatGroupInviteJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -494,7 +493,7 @@ class RoomController extends Controller
         $jobi['invitee'] = $email;
         $jobi['inviteeName'] = $name;
 
-        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(35));
+//        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(35));
 
         return redirect()->to(
             \Bigbluebutton::join([

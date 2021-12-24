@@ -8,11 +8,12 @@
                 <div class="content-header">
                     <div class="d-flex align-items-center">
                         <div class="w-p100 d-md-flex align-items-center justify-content-between">
-                            <h3 class="page-title">Payment List</h3>
+                            <h3 class="page-title">Payment</h3>
                             <div class="d-inline-block align-items-center">
                                 <nav>
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a>
+                                        </li>
                                         <li class="breadcrumb-item" aria-current="page">Payment</li>
                                         <li class="breadcrumb-item active" aria-current="page">Payment List</li>
                                     </ol>
@@ -24,7 +25,62 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xl-2 col-lg-3 col-12">
+                        <div class="box box-inverse box-success">
+                            <div class="box-body">
+                                <div class="flexbox">
+                                    <h5>Current Plan</h5>
+                                </div>
+
+                                <div class="text-center my-2">
+                                    <div class="font-size-60">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                                            Basic
+                                        @elseif(\Illuminate\Support\Facades\Auth::user()->plan==2)
+                                            Lite
+                                        @else
+                                            Pro
+                                        @endif
+                                    </div>
+                                    {{--                                    <span>Total Payments</span>--}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-5">
+                            @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                                <a href="#" class="btn btn-success btn-rounded" data-toggle="modal"
+                                   data-target="#modal-fill">Change Plan</a>
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->plan!=2)
+                                <a class="btn btn-success btn-rounded" href="/changeplan/2">Topup Subscription</a>
+                            @else
+                                <a class="btn btn-success btn-rounded" href="/changeplan/3">Topup Subscription</a>
+                            @endif
+                        </div>
+
+                    </div>
+
+                    {{--                    <div class="col-4">--}}
+                    {{--                        <h2 style="font-weight: bolder">--}}
+                    {{--                            Current Plan : Pro--}}
+                    {{--                        </h2>--}}
+
+                    {{--                        <h3>--}}
+                    {{--                            Days Remaining : 400days--}}
+                    {{--                        </h3>--}}
+
+                    {{--                        <div class="mt-5">--}}
+                    {{--                            <button class="btn btn-primary">Topup 30days Subscription</button>--}}
+                    {{--                        </div>--}}
+
+                    {{--                        <div class="mt-5">--}}
+                    {{--                            <button class="btn btn-primary">Topup 365days Subscription</button>--}}
+                    {{--                        </div>--}}
+
+                    {{--                    </div>--}}
+
+                    <div class="col-xl-10 col-lg-9 col-12">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h4 class="box-title">Payment List</h4>
@@ -83,33 +139,7 @@
                             </div>
                         </div>
                     </div>
-{{--                    <div class="col-xl-2 col-lg-3 col-12">--}}
-{{--                        <div class="box box-inverse box-success">--}}
-{{--                            <div class="box-body">--}}
-{{--                                <div class="flexbox">--}}
-{{--                                    <h5>Payments</h5>--}}
-{{--                                </div>--}}
 
-{{--                                <div class="text-center my-2">--}}
-{{--                                    <div class="font-size-60">{{$tp}}</div>--}}
-{{--                                    <span>Total Payments</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="box box-inverse box-primary">--}}
-{{--                            <div class="box-body">--}}
-{{--                                <div class="flexbox">--}}
-{{--                                    <h5>Payments</h5>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="text-center my-2">--}}
-{{--                                    <div class="font-size-60">{{$sp}}</div>--}}
-{{--                                    <span>Sum Payment</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                    </div>--}}
                 </div>
             </section>
             <!-- /.content -->

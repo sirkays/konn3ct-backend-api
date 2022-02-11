@@ -45,7 +45,35 @@ class SubscriptionReminderCommand extends Command
 
         foreach ($users as $user) {
             //getting 14 days reminder subscription
-            if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) == 13) {
+            if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) == 14) {
+                print($user->email);
+                print("-");
+                print(Carbon::now()->diffInDays(Carbon::parse($user->subscription), false));
+                $jobi['days'] = Carbon::now()->diffInDays(Carbon::parse($user->subscription), false);
+                $jobi['user'] = $user;
+
+                try {
+                    Mail::to($user->email)->queue(new SubscriptionReminderMail($jobi));
+                } catch (\Exception $e) {
+                    echo $e;
+                }
+            }
+
+            if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) == 3) {
+                print($user->email);
+                print("-");
+                print(Carbon::now()->diffInDays(Carbon::parse($user->subscription), false));
+                $jobi['days'] = Carbon::now()->diffInDays(Carbon::parse($user->subscription), false);
+                $jobi['user'] = $user;
+
+                try {
+                    Mail::to($user->email)->queue(new SubscriptionReminderMail($jobi));
+                } catch (\Exception $e) {
+                    echo $e;
+                }
+            }
+
+            if (Carbon::now()->diffInDays(Carbon::parse($user->subscription), false) == 1) {
                 print($user->email);
                 print("-");
                 print(Carbon::now()->diffInDays(Carbon::parse($user->subscription), false));

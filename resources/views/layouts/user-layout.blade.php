@@ -228,16 +228,19 @@
             <li><a href="/invites"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Konn3ct
                     Invite
                     History</a></li>
-{{--            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>--}}
-{{--            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>--}}
+            <li><a href="{{route('apitokens')}}"><i class="icon-User"><span class="path1"></span><span
+                            class="path2"></span></i>API Tokens</a></li>
+            {{--            <li><a data-toggle="modal" data-target="#modal-fill"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Change Plan</a></li>--}}
+            {{--            <li><a data-toggle="modal" data-target="#bs-example-modal-sm"><i class="icon-Plus"><span class="path1"></span><span class="path2"></span></i>Invite friends</a></li>--}}
             @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")
-                <li><a href="{{route('admin.users')}}"><i class="fa fa-user-circle"><span class="path1"></span><span class="path2"></span></i>Admin</a></li>
+                <li><a href="{{route('admin.users')}}"><i class="fa fa-user-circle"><span class="path1"></span><span
+                                class="path2"></span></i>Admin</a></li>
 
-{{--                <li style="margin-left: 5px">--}}
-{{--                    <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">--}}
-{{--                        <i class="fa fa-user-circle"></i> Admin--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li style="margin-left: 5px">--}}
+                {{--                    <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">--}}
+                {{--                        <i class="fa fa-user-circle"></i> Admin--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
             @endif
         </ul>
     </nav>

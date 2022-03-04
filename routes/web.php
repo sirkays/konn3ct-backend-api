@@ -30,6 +30,22 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
 
+Route::get('/pmailable', function () {
+    $jobi['days'] = 14;
+    $jobi['user'] = \App\Models\User::find(1);
+
+    return new \App\Mail\SubscriptionReminderMail($jobi);
+});
+
+Route::get('/welcomemail', function () {
+    return (new UserWelcomeMail())->render();
+})->name('mailtest');
+
+
+Route::get('/userjoin/{params}', function ($params) {
+    return redirect()->away('https://konn3ct.com/bigbluebutton/api/join?' . decrypt($params));
+});
+
 Route::get('/nsu', function () {
     return view('new-signup');
 })->name('new-signup');
@@ -207,18 +223,19 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');
 
-    Route::get('/welcomemail', function () {
-        return (new UserWelcomeMail())->render();
-    })->name('mailtest');
+    Route::get('/apitokens', function () {
+        return view('user.api');
+    })->name('apitokens');
 
-Route::get('/invitemail', function (){
-        $data['ihost']="Samji";
 
-    $data['ilink'] = url('/join/') . "login";
+    Route::get('/invitemail', function () {
+        $data['ihost'] = "Samji";
 
-    $data['idate'] = "2020-12";
+        $data['ilink'] = url('/join/') . "login";
 
-    $data['iaccesscode'] = "hello";
+        $data['idate'] = "2020-12";
+
+        $data['iaccesscode'] = "hello";
 
     $data['itime'] = "12:40";
 

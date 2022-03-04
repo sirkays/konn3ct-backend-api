@@ -22,54 +22,57 @@
                     @endif
 
                     @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div class="row">
-                        <div class="col-4">
-                            <div class="box box-body pull-up">
-                                <div class="flexbox align-items-end pt-30">
-                                    <div>
-                                        <span class="font-size-30 countnm">{{$meetingstc}}</span>
-                                        <h6 class="text-uppercase text-dark-50 mb-0">Meetings</h6>
-                                    </div>
-                                    <span class="icon-Angle-Grinder font-size-80 text-info"><span class="path1"></span><span class="path2"></span></span>
+                    <div class="col-4">
+                        <div class="box box-body pull-up">
+                            <div class="flexbox align-items-end pt-30">
+                                <div>
+                                    <span class="font-size-30 countnm">{{$meetings_today}}</span>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Meetings Today</h6>
                                 </div>
+                                <span class="icon-Angle-Grinder font-size-80 text-info"><span class="path1"></span><span
+                                        class="path2"></span></span>
                             </div>
                         </div>
-{{--                        <div class="col-4">--}}
-{{--                            <div class="box box-body pull-up">--}}
-{{--                                <div class="flexbox align-items-end pt-30">--}}
-{{--                                    <div>--}}
-{{--                                        <span class="font-size-30 countnm">{{$meetingsdc}}</span>--}}
-{{--                                        <h6 class="text-uppercase text-dark-50 mb-0">Discount Plan</h6>--}}
-{{--                                    </div>--}}
-{{--                                    <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span class="path2"></span></span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-4">--}}
-{{--                            <div class="box box-body pull-up">--}}
-{{--                                <div class="flexbox align-items-end pt-30">--}}
-{{--                                    <div>--}}
-{{--                                        <span class="font-size-30 countnm">0</span>--}}
-{{--                                        <h6 class="text-uppercase text-dark-50 mb-0">Inactive Rooms</h6>--}}
-{{--                                    </div>--}}
-{{--                                    <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span class="path1"></span><span class="path2"></span></span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                    </div>
+                    <div class="col-4">
+                        <div class="box box-body pull-up">
+                            <div class="flexbox align-items-end pt-30">
+                                <div>
+                                    <span class="font-size-30 countnm">{{$meetings_yesterday}}</span>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Meetings Yesterday</h6>
+                                </div>
+                                <span class="iconsmind-Eye font-size-80 text-primary"><span class="path1"></span><span
+                                        class="path2"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box box-body pull-up">
+                            <div class="flexbox align-items-end pt-30">
+                                <div>
+                                    <span class="font-size-30 countnm">{{$meetings_month}}</span>
+                                    <h6 class="text-uppercase text-dark-50 mb-0">Meetings This Month</h6>
+                                </div>
+                                <span class="iconsmind-Eye-Blind font-size-80 text-danger"><span
+                                        class="path1"></span><span class="path2"></span></span>
+                            </div>
+                        </div>
+                    </div>
 
-{{--                    <div class="col-xl-3 col-12">--}}
-{{--                        <div class="box box-body pull-up">--}}
-{{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
-{{--                            <Button class="waves-effect waves-light btn btn-app btn-info btn-" data-toggle="modal" data-target="#modal-left">--}}
-{{--                                <i class="fa fa-edit"></i> Create a Room--}}
-{{--                            </Button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-xl-3 col-12">--}}
+                    {{--                        <div class="box box-body pull-up">--}}
+                    {{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
+                    {{--                            <Button class="waves-effect waves-light btn btn-app btn-info btn-" data-toggle="modal" data-target="#modal-left">--}}
+                    {{--                                <i class="fa fa-edit"></i> Create a Room--}}
+                    {{--                            </Button>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
                 </div>
 

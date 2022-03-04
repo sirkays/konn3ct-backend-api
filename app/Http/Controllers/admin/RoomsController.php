@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\MeetingsModel;
 use App\Models\RoomModel;
+use Carbon\Carbon;
 
 class RoomsController extends Controller
 {
@@ -57,17 +58,22 @@ class RoomsController extends Controller
         return view('admin.rooms', $datas);
     }
 
-    public function meetings(){
-        $datas['meetings']=MeetingsModel::orderBy('id', 'desc')
-            ->join('room','room.id','=','meetings.meeting_id')
-            ->where('meetings.status','=','start meeting')
+    public function meetings()
+    {
+        $datas['meetings'] = MeetingsModel::orderBy('id', 'desc')
+            ->join('room', 'room.id', '=', 'meetings.meeting_id')
+            ->where('meetings.status', '=', 'start meeting')
             ->select('meetings.*', 'room.url as room_url', 'room.name as room_name')
             ->get();
-        $datas['meetingstc']=MeetingsModel::join('room','room.id','=','meetings.meeting_id')
-            ->where('meetings.status','=','start meeting')
+        $datas['meetingstc'] = MeetingsModel::join('room', 'room.id', '=', 'meetings.meeting_id')
+            ->where('meetings.status', '=', 'start meeting')
+            ->where('meetings.created_at', 'LIKE', '%' . Carbon::now()->format('Y-m-d') . '%')
             ->count();
-        $datas['meetingsdc']=MeetingsModel::distinct('email')->count();
-        $datas['i']=1;
+        $datas['meetingstc'] = MeetingsModel::join('room', 'room.id', '=', 'meetings.meeting_id')
+            ->where('meetings.status', '=', 'start meeting')
+            ->count();
+        $datas['meetingsdc'] = MeetingsModel::distinct('email')->count();
+        $datas['i'] = 1;
         return view('admin.meetings', $datas);
     }
 

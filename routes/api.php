@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DeployController;
@@ -48,4 +49,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('start-room', [RoomController::class, 'startRoom']);
     Route::post('join-room', [RoomController::class, 'joinRoom']);
     Route::post('create-room', [RoomController::class, 'createRoom']);
+});
+
+Route::group(['prefix' => 'app'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('forgot-password-request', [AuthController::class, 'reset_password_request']);
+    Route::post('forgot-password', [AuthController::class, 'reset_password_submit']);
+    Route::post('verify-code', [AuthController::class, 'verifyCode']);
 });

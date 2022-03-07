@@ -1,7 +1,7 @@
 @extends('layouts.new-layout')
 @section('content')
     <div class="row mt-5">
-        <div class="col-md-12 col-lg-6 ml-4 text-center">
+        <div class="col-md-12 col-lg-6 ml-4 text-center hidden-md-down">
             <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="520px" width="auto" alt="pix"/>
         </div>
 

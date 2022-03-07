@@ -408,8 +408,8 @@
 
                 <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif"
                    class="btn text-center"
-                   style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89; max-height: 50px">
-                    <span>@auth Meeting Room @else Register @endif</span>
+                   style="border-radius: 30px; background-color: #012E89; color: white; border-color: #012E89; max-height: 50px">
+                    <span>@auth Meeting Room @else Sign Up, It’s FREE @endif</span>
                 </a>
             </div>
         </div>
@@ -427,9 +427,9 @@
         </a>
         &nbsp;
         <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
-           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 220px">
             <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
-            Register
+            Sign Up For FREE
         </a>
     </div>
 

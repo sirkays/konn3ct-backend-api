@@ -1,11 +1,11 @@
-@extends('layouts.new-layout')
+@extends('layouts.website-layout')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-12 col-lg-6 ml-4 text-center hidden-md-down">
             <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="520px" width="auto" alt="pix"/>
         </div>
 
-        <div class="col-md-12 col-lg-6 justify-content-right">
+        <div class="col-md-12 col-lg-6 justify-content-right px-5 py-5">
 
             <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -160,7 +160,7 @@
                                 <div class="d-grid gap-2 mt-5" style="margin-left: 20%; margin-right: 20%">
                                     <button type="submit" class="btn px-3 py-3 mr-3 mt-2"
                                             style="border-radius: 10px; background-color: #012E89; color: white; font-weight: bolder">
-                                        Register
+                                        Sign Up
                                     </button>
                                 </div>
 

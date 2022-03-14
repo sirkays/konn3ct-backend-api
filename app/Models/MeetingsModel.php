@@ -24,4 +24,9 @@ class MeetingsModel extends Model
     protected $fillable = [
         'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier'
     ];
+
+    function room()
+    {
+        return $this->hasOne(RoomModel::class, 'meeting_id');
+    }
 }

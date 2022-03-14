@@ -25,7 +25,9 @@
     <meta property="og:url" content="https://konn3ct.com"/>
     <meta property="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg"/>
 
-    <!-- Bootstrap -->
+@include('facebook-pixel::head')
+
+<!-- Bootstrap -->
     <link href="/website/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Icons -->
     <link href="/website/css/materialdesignicons.css" rel="stylesheet" type="text/css">
@@ -35,6 +37,8 @@
     <!-- Main Css -->
     <link href="/website/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt">
     <link href="/website/css/default.css" rel="stylesheet" id="color-opt">
+
+    <meta name="facebook-domain-verification" content="vc0h3gs5jtphygh7xftaydys9d3jjo"/>
 
     <style>
 
@@ -327,6 +331,7 @@
 </head>
 
 <body>
+@include('facebook-pixel::body')
 <!-- Loader -->
 <!-- <div id="preloader">
     <div id="status">

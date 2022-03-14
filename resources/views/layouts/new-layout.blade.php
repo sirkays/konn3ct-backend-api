@@ -19,6 +19,8 @@
     <meta property="og:url" content="https://konn3ct.com"/>
     <meta property="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg"/>
 
+    <meta name="facebook-domain-verification" content="vc0h3gs5jtphygh7xftaydys9d3jjo"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct.ico">
     <!-- Place favicon.ico in the root directory -->

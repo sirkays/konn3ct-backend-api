@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('room-recordings/{id}', [RoomController::class, 'roomRecordings']);
     Route::get('rooms-recordings', [RoomController::class, 'allRecordings']);
     Route::get('room-details/{id}', [RoomController::class, 'roomInfo']);
+    Route::post('meeting-info', [RoomController::class, 'meetingInfo']);
+    Route::get('meeting-history', [RoomController::class, 'meetingHistory']);
     Route::get('list-attendance/{id}', [RoomController::class, 'listAttendance']);
     Route::get('attendance-details/{id}/{identifier}', [RoomController::class, 'attendanceDetails']);
 

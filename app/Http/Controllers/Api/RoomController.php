@@ -849,4 +849,35 @@ class RoomController extends Controller
         return response()->json(['success' => true, 'message' => 'Attendance fetched successfully', 'data' => $attendance->makeHidden(['password_attendee', 'updated_at'])]);
     }
 
+    public function meetingInfo(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Name not found in your request', 'error' => $validator->errors()]);
+        }
+
+        $name = $input['name'];
+
+        $room = RoomModel::where([['name', $name], ['user_id', Auth::id()]])->orwhere([['user_id', Auth::id()], ["url", $name]])->first();
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'data' => $room]);
+    }
+
+    public function meetingHistory()
+    {
+        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->get();
+        $meeting->room;
+
+        return response()->json(['success' => true, 'message' => 'Meeting history fetched successfully', 'data' => $meeting]);
+    }
+
 }

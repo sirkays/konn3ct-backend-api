@@ -23,7 +23,8 @@
         "livewire/livewire": "^2.0",
         "silviolleite/laravelpwa": "^2.0",
         "symfony/process": "^5.2",
-        "tightenco/ziggy": "^0.9.4"
+        "tightenco/ziggy": "^0.9.4",
+        "weblagence/laravel-facebook-pixel": "1.0.x-dev"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

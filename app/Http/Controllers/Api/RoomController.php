@@ -7,6 +7,7 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use BigBlueButton\Parameters\JoinMeetingParameters;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -217,8 +218,7 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true',
-                    'userdata-bbb_user_email' => $email
+                    'userdata-bbb_skip_check_audio' => 'true'
                 ],
             ]);
         }
@@ -285,8 +285,7 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true',
-                    'userdata-bbb_user_email' => Auth::user()->email
+                    'userdata-bbb_skip_check_audio' => 'true'
                 ]
             ]);
         }
@@ -611,11 +610,11 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-//
-//        if ($ms != 1){
-//            return response()->json(['success' => true, 'message' => 'The room is open. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
-//        }
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms == 1) {
+            return response()->json(['success' => true, 'message' => 'The room is opened already. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
+        }
 
         $plan = PlanModel::where("id", Auth::user()->plan)->first();
 
@@ -739,11 +738,11 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-//
-//        if ($ms != 1) {
-//            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
-//        }
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms != 1) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
 
         $u = User::where('email', $email)->first();
         $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
@@ -769,21 +768,15 @@ class RoomController extends Controller
         $mdata['password_attendee'] = $i->password_attendee;
         MeetingsModel::create($mdata);
 
-        $url = \Bigbluebutton::join([
-            'meetingID' => $rm_id,
-            'userName' => $name,
-            'userId' => $email,
-            'password' => $i->password_moderator, //which user role want to join set password here
-            'avatarUrl' => $dp,
-            'customParameters' => [
-                'userdata-bbb_auto_join_audio' => 'true',
-                'userdata-bbb_enable_video' => 'true',
-                'userdata-bbb_listen_only_mode' => 'false',
-                'userdata-bbb_force_listen_only' => 'false',
-                'userdata-bbb_skip_check_audio' => 'true',
-                'userdata-bbb_user_email' => $email
-            ],
-        ]);
+
+        $meetingParams = new JoinMeetingParameters($rm_id, $name, $i->password_moderator);
+        $meetingParams->setAvatarURL($dp);
+        $meetingParams->setRedirect(true);
+//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
+//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
+        $url = $this->meeting->join($meetingParams);
 
         $murl = explode("?", $url);
 
@@ -847,6 +840,37 @@ class RoomController extends Controller
             ->get();
 
         return response()->json(['success' => true, 'message' => 'Attendance fetched successfully', 'data' => $attendance->makeHidden(['password_attendee', 'updated_at'])]);
+    }
+
+    public function meetingInfo(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Name not found in your request', 'error' => $validator->errors()]);
+        }
+
+        $name = $input['name'];
+
+        $room = RoomModel::where([['name', $name], ['user_id', Auth::id()]])->orwhere([['user_id', Auth::id()], ["url", $name]])->first();
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'data' => $room]);
+    }
+
+    public function meetingHistory()
+    {
+        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->get();
+        $meeting->room;
+
+        return response()->json(['success' => true, 'message' => 'Meeting history fetched successfully', 'data' => $meeting]);
     }
 
 }

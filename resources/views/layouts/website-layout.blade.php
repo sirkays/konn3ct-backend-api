@@ -25,7 +25,9 @@
     <meta property="og:url" content="https://konn3ct.com"/>
     <meta property="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg"/>
 
-    <!-- Bootstrap -->
+@include('facebook-pixel::head')
+
+<!-- Bootstrap -->
     <link href="/website/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Icons -->
     <link href="/website/css/materialdesignicons.css" rel="stylesheet" type="text/css">
@@ -35,6 +37,8 @@
     <!-- Main Css -->
     <link href="/website/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt">
     <link href="/website/css/default.css" rel="stylesheet" id="color-opt">
+
+    <meta name="facebook-domain-verification" content="vc0h3gs5jtphygh7xftaydys9d3jjo"/>
 
     <style>
 
@@ -327,6 +331,7 @@
 </head>
 
 <body>
+@include('facebook-pixel::body')
 <!-- Loader -->
 <!-- <div id="preloader">
     <div id="status">
@@ -408,8 +413,8 @@
 
                 <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif"
                    class="btn text-center"
-                   style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89; max-height: 50px">
-                    <span>@auth Meeting Room @else Register @endif</span>
+                   style="border-radius: 30px; background-color: #012E89; color: white; border-color: #012E89; max-height: 50px">
+                    <span>@auth Meeting Room @else Sign Up, It’s FREE @endif</span>
                 </a>
             </div>
         </div>
@@ -427,9 +432,9 @@
         </a>
         &nbsp;
         <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
-           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
+           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 220px">
             <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
-            Register
+            Sign Up For FREE
         </a>
     </div>
 
@@ -654,6 +659,20 @@
 <!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
 <script src="/website/js/app.js.download"></script>
 <!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+
+<!-- Start of Qontak Webchat Script -->
+<script>
+    const qchatInit = document.createElement('script');
+    qchatInit.src = "https://webchat.qontak.com/qchatInitialize.js";
+    const qchatWidget = document.createElement('script');
+    qchatWidget.src = "https://webchat.qontak.com/js/app.js";
+    document.head.prepend(qchatInit);
+    document.head.prepend(qchatWidget);
+    qchatInit.onload = function () {
+        qchatInitialize({id: '9e6325f3-5554-4a44-a64e-31d177c9ef6e', code: '2nFxcEWaXxoZDDNcXoh_wQ'})
+    };
+</script>
+<!-- End of Qontak Webchat Script -->
 
 </body>
 </html>

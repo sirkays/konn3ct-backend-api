@@ -8,14 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^8.0",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "bepsvpt/secure-headers": "^7.1",
+        "djoudi/bbb-laravel5.5": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.2.15",
-        "joisarjignesh/bigbluebutton": "^1.1",
+        "joisarjignesh/bigbluebutton": "^2.3",
         "laravel/framework": "^8.0",
         "laravel/jetstream": "^1.4",
         "laravel/sanctum": "^2.6",
@@ -23,7 +24,8 @@
         "livewire/livewire": "^2.0",
         "silviolleite/laravelpwa": "^2.0",
         "symfony/process": "^5.2",
-        "tightenco/ziggy": "^0.9.4"
+        "tightenco/ziggy": "^0.9.4",
+        "weblagence/laravel-facebook-pixel": "1.0.x-dev"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

@@ -19,6 +19,8 @@
     <meta property="og:url" content="https://konn3ct.com"/>
     <meta property="og:image" content="{{url('/')}}/assets/images/whiteboard.jpg"/>
 
+    <meta name="facebook-domain-verification" content="vc0h3gs5jtphygh7xftaydys9d3jjo"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/konn3ct.ico">
     <!-- Place favicon.ico in the root directory -->
@@ -79,7 +81,7 @@
             font-style: normal;
             font-weight: normal;
             font-size: 20px;
-            color: rgba(1, 46, 137, 1);
+            color: white;
         }
 
         #Group_btn {
@@ -600,6 +602,65 @@
             color: rgba(1, 46, 136, 1);
             text-decoration: none;
         }
+
+
+        /*hidden*/
+        .hidden-xs-up {
+            display: none !important;
+        }
+
+        @media (max-width: 575px) {
+            .hidden-xs-down {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 576px) {
+            .hidden-sm-up {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hidden-sm-down {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hidden-md-up {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .hidden-md-down {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hidden-lg-up {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .hidden-lg-down {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hidden-xl-up {
+                display: none !important;
+            }
+        }
+
+        .hidden-xl-down {
+            display: none !important;
+        }
+
     </style>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -691,8 +752,8 @@
 
                     <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif" id="Group_btn"
                        class="btn text-center"
-                       style="border-radius: 30px; background-color: white; color: #012E89; border-color: #012E89;">
-                        <span id="Register_btn">@auth Meeting Room @else Register @endif</span>
+                       style="border-radius: 30px; background-color: #012E89; color: white; border-color: #012E89;">
+                        <span id="Register_btn">@auth Meeting Room @else Sign Up For FREE @endif</span>
                     </a>
                 </div>
             </div>
@@ -712,7 +773,7 @@
             <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
                 <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
-                Register
+                Sign Up For FREE
             </a>
         </div>
 

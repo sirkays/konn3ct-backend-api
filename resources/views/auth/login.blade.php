@@ -1,10 +1,10 @@
-@extends('layouts.new-layout')
+@extends('layouts.website-layout')
 @section('content')
     <div class="row mt-5">
-        <div class="col-md-12 col-lg-6 ml-4 text-center">
+        <div class="col-md-12 col-lg-6 ml-4 text-center hidden-md-down">
             <img src="/assets/images/leftkonn3ctdiagram@2x.png" height="520px" alt="pix"/>
         </div>
-        <div class="col-md-12 col-lg-6 mt-1">
+        <div class="col-md-12 col-lg-6 px-5 py-5">
             <h2 class="text-center" style="color: #012E89">Welcome back</h2>
             <h6 class="text-center" style="color: grey">Login back to Konn3ct</h6>
 
@@ -93,7 +93,7 @@
 
 
                 <div class="col-12 text-center mt-4" style="color: grey">
-                    Don't have an account? <a href="{{route('register')}}" style="color: grey">Register</a>
+                    Don't have an account? <a href="{{route('register')}}" style="color: grey">Sign Up, It’s FREE</a>
                 </div>
 
                 {{--                <div class="col-12 text-center mt-5">--}}

@@ -80,12 +80,14 @@ Route::get('/offline', function () {
 });
 
 Route::get('/', function () {
+    \LaravelFacebookPixel::createEvent('Home Page Visit', $parameters = []);
     return view('welcome');
 })->name('welcome');
 
 Route::get('/register/{id}', [MyAuthController::class, 'register']);
 
 Route::get('/pricing', function () {
+    \LaravelFacebookPixel::createEvent('Pricing', $parameters = []);
     return view('pricing');
 })->name('pricing');
 
@@ -251,6 +253,7 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/pay', function () {
+        \LaravelFacebookPixel::createEvent('Payment Page Visit', $parameters = []);
         return view('payment');
     })->name('payment');
 

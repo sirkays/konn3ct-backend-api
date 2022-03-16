@@ -8,6 +8,9 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\JoinMeetingParameters;
+use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +18,19 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
-    public function create(Request $request){
-        $input=$request->all();
+    /**
+     * @var \Djoudi\Bigbluebutton\Contracts\Meeting
+     */
+    protected $meeting;
+
+    public function __construct(Meeting $meeting)
+    {
+        $this->meeting = $meeting;
+    }
+
+    public function create(Request $request)
+    {
+        $input = $request->all();
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -286,26 +300,29 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            \Bigbluebutton::create([
-                'meetingID' => $rm_id,
-                'moderatorPW' => $i->password_moderator, //moderator password set here
-                'attendeePW' => $up, //attendee password here
-                'meetingName' => $i->name,
-                'endCallbackUrl' => url('/leftsession'),
-                'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
-                'allowStartStopRecording' => $record,
-                'record' => $record,
-                'duration' => $duration,
-                'maxParticipants' => $max_user,
-                'muteOnStart' => $muj,
-                'lockSettingsDisablePublicChat' => $dpuc,
-                'lockSettingsDisablePrivateChat' => $dprc,
-                'lockSettingsDisableCam' => $ewma,
-                'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote' => $dsn,
-                'logo' => $banner
-            ]);
+            $meetingParams = new CreateMeetingParameters($rm_id, $i->name);
+            $meetingParams->setDuration($duration);
+            $meetingParams->setModeratorPassword($i->password_moderator);
+            $meetingParams->setAttendeePassword($up);
+            $meetingParams->setEndCallbackUrl(url('/leftsession'));
+            $meetingParams->setLogoutUrl(url('/leftsession'));
+            $meetingParams->setAllowStartStopRecording($record);
+            $meetingParams->setRecord($record);
+            $meetingParams->setMaxParticipants($max_user);
+            $meetingParams->setMuteOnStart($muj);
+            $meetingParams->setLockSettingsDisablePublicChat($dpuc);
+            $meetingParams->setLockSettingsDisablePrivateChat($dprc);
+            $meetingParams->setLockSettingsDisableCam($ewma);
+            $meetingParams->setLockSettingsDisableMic($dum);
+            $meetingParams->setLockSettingsDisableNote($dsn);
+            $meetingParams->setLogo($banner);
+            $meetingParams->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>');
+
+
+            if (!$this->meeting->create($meetingParams)) {
+                // Meeting was not created
+                return back()->with("error", "Unable to start meeting. Kindly contact us");
+            }
         }
 
 
@@ -323,23 +340,17 @@ class RoomController extends Controller
             }
         }
 
-        $url = \Bigbluebutton::join([
-            'meetingID' => $rm_id,
-            'userName' => Auth::user()->lastname . " " . Auth::user()->firstname,
-            'userId' => Auth::user()->email,
-            'password' => $i->password_moderator, //which user role want to join set password here
-            'avatarUrl' => $dp,
-            'customParameters' => [
-                'userdata-bbb_auto_join_audio' => 'true',
-                'userdata-bbb_enable_video' => 'true',
-                'userdata-bbb_listen_only_mode' => 'false',
-                'userdata-bbb_force_listen_only' => 'false',
-                'userdata-bbb_skip_check_audio' => 'true',
-                'userdata-bbb_user_email' => Auth::user()->email
-            ],
-        ]);
 
-            return redirect()->to($url);
+        $meetingParams = new JoinMeetingParameters($rm_id, Auth::user()->lastname . " " . Auth::user()->firstname, $i->password_moderator);
+        $meetingParams->setAvatarURL($dp);
+        $meetingParams->setRedirect(true);
+//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
+//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
+        $meetingUrl = $this->meeting->join($meetingParams);
+
+        return redirect()->to($meetingUrl);
     }
 
     public function ajoin(Request $request){
@@ -495,23 +506,29 @@ class RoomController extends Controller
 
 //        Konn3ctChatGroupInviteJob::dispatch($jobi)->delay(now()->addSeconds(35));
 
-        return redirect()->to(
-            \Bigbluebutton::join([
-                'meetingID' => "0$i->id",
-                'userName' => $name,
-                'userId' => $email,
-                'password' => $password_attendee, //which user role want to join set password here
-                'avatarUrl' => $dp,
-                'customParameters' => [
-                    'userdata-bbb_auto_join_audio' => 'true',
-                    'userdata-bbb_enable_video' => 'true',
-                    'userdata-bbb_listen_only_mode' => 'false',
-                    'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true',
-                    'userdata-bbb_user_email' => $email
-                ],
-            ])
-        );
+        $meetingParams = new JoinMeetingParameters("0$i->id", $name, $password_attendee);
+        $meetingParams->setAvatarURL($dp);
+        $meetingParams->setRedirect(true);
+        $meetingUrl = $this->meeting->join($meetingParams);
+
+        return redirect()->to($meetingUrl);
+
+//        return redirect()->to(
+//            \Bigbluebutton::join([
+//                'meetingID' => "0$i->id",
+//                'userName' => $name,
+//                'userId' => $email,
+//                'password' => $password_attendee, //which user role want to join set password here
+//                'avatarUrl' => $dp,
+//                'customParameters' => [
+//                    'userdata-bbb_auto_join_audio' => 'true',
+//                    'userdata-bbb_enable_video' => 'true',
+//                    'userdata-bbb_listen_only_mode' => 'false',
+//                    'userdata-bbb_force_listen_only' => 'false',
+//                    'userdata-bbb_skip_check_audio' => 'true'
+//                ],
+//            ])
+//        );
 
     }
 

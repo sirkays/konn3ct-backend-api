@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "^7.3",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "bepsvpt/secure-headers": "^7.1",
         "djoudi/bbb-laravel5.5": "^1.2",

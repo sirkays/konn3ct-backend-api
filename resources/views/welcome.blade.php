@@ -128,7 +128,7 @@
     <div class="row mt-5">
         <div class="col-12">
             <h2 class="text-center">
-                Press and Reviews
+                Featured In
             </h2>
 
             <div class="scrollmenu">

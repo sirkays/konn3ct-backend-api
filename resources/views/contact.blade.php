@@ -35,7 +35,7 @@
             <div class="mx-3 my-3 px-3 py-3  row" style="background-color: white; border-radius: 15px">
 
                 <div class="col-md-12 col-lg-6 ml-4">
-                    <div class="mb-3">
+                    <div class="mb-3 mt-5">
 
                         <div class="row justify-content-start">
                             <div class="px-3 py-2 col-12 mr-2">
@@ -70,7 +70,28 @@
                                 </div>
                             </div>
 
+                            <div class="px-3 py-2 col-12 mr-2">
+                                <div class="input-group mb-3">
+                                    <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <textarea class="form-control ml-3" name="content" style="border-radius: 10px"
+                                              rows="10" required></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
+
+
                         </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-lg-6 justify-content-right">
+
+                    <div class="m-lg-4">
 
                         <div class="mt-5">
                             <i class="fa fa-phone-alt"></i> Support Phone number
@@ -81,25 +102,7 @@
                             +234 807 335 1737
                         </div>
 
-                    </div>
 
-                </div>
-
-                <div class="col-md-12 col-lg-6 justify-content-right">
-
-                    <div class="px-3 py-2 col-12 mr-2">
-                        <div class="input-group mb-3">
-                            <span class="mr-4">Message<span class="text-danger">*</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <textarea class="form-control ml-3" name="content" style="border-radius: 10px"
-                                      rows="10" required></textarea>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Submit</button>
-                        </div>
-                    </div>
-
-                    <div class="m-lg-4">
                         <div class="mt-5">
                             <i class="fa fa-envelope"></i> Message Us
                         </div>

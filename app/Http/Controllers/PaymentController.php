@@ -20,17 +20,18 @@ class PaymentController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.flutterwave.com/v3/transactions/".$id."/verify",
+            CURLOPT_URL => "https://api.flutterwave.com/v3/transactions/" . $id . "/verify",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "Authorization: Bearer ".env("RAVE_SEC_KEY")
+                "Authorization: Bearer " . env("RAVE_SEC_KEY")
             ),
         ));
 
@@ -116,7 +117,7 @@ class PaymentController extends Controller
                 $c->markCouponCode();
 
 
-                return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
+                return redirect()->route('paymentreceipt')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
 
@@ -238,7 +239,7 @@ class PaymentController extends Controller
                 $c = new CouponController();
                 $c->markCouponCode();
 
-                return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
+                return redirect()->route('paymentreceipt')->with('success', 'Your payment is successfully!');
             }else{
                 $data['status'] = 'Suspicious';
 

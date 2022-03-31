@@ -40,7 +40,16 @@
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1543717222676161');
+
+        @if(Request::segment(1) === 'dashboard')
+        fbq('track', 'Lead');
+        @elseif(Request::segment(1) === 'payment' || Request::segment(1) === 'changeplan')
+        fbq('track', 'addtocart');
+        @elseif(Request::segment(1) === 'paymentreceipt')
+        fbq('track', 'purchase');
+        @else
         fbq('track', 'PageView');
+        @endif
     </script>
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"

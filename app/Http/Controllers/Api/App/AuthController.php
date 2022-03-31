@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerificationMail;
 use App\Models\CodeRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -85,6 +87,8 @@ class AuthController extends Controller
             'status' => 0,
             'type' => "register"
         ]);
+
+        Mail::to($input['email'])->send(new EmailVerificationMail($code));
 
         return response()->json(['success' => true, 'message' => 'Your Registration is Successful']);
     }

@@ -867,8 +867,8 @@ class RoomController extends Controller
 
     public function meetingHistory()
     {
-        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->get();
-        $meeting->room;
+        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->with('room')->get();
+
 
         return response()->json(['success' => true, 'message' => 'Meeting history fetched successfully', 'data' => $meeting]);
     }

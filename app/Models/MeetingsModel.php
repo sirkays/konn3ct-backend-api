@@ -27,6 +27,6 @@ class MeetingsModel extends Model
 
     function room()
     {
-        return $this->hasOne(RoomModel::class, 'meeting_id');
+        return $this->belongsTo(RoomModel::class, 'meeting_id');
     }
 }

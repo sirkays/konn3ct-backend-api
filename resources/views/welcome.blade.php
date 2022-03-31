@@ -19,12 +19,12 @@
                         <div class="col-12">
                             <a href="{{route('joinmeeting')}}" type="button" class="btn px-3 py-3 mr-3 mt-2"
                                style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder">
-                                Join a Meeting
+                                Sign Up for Free
                             </a>
                             &nbsp;
                             <a href="{{route('login')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
                                style="border-radius: 30px; background-color: white; color: black; font-weight: bolder">
-                                Host a meeting
+                                Join a Meeting
                             </a>
                         </div>
                     </div>

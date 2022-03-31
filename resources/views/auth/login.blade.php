@@ -93,7 +93,9 @@
 
 
                 <div class="col-12 text-center mt-4" style="color: grey">
-                    Don't have an account? <a href="{{route('register')}}" style="color: grey">Sign Up, It’s FREE</a>
+                    Don't have an account? <a href="{{route('register')}}"
+                                              style="color: #012E89; font-weight: bolder; text-decoration: underline">Sign
+                        Up, It’s FREE</a>
                 </div>
 
                 {{--                <div class="col-12 text-center mt-5">--}}

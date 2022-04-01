@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CreateBGAccountJob;
-use App\Jobs\Konn3ctChatCreateGroupJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -182,7 +180,7 @@ class RoomController extends Controller
             $jobi['name'] = $input['name'];
             $jobi['email'] = Auth::user()->email;
 
-            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
+//            Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSeconds(1));
 
             return redirect()->route('rooms')->with('success', 'Room Created Successfully!');
         }else{
@@ -496,7 +494,7 @@ class RoomController extends Controller
             $jobi['name'] = $name;
             $jobi['email'] = $email;
 
-            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
+//            CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
         }
 
         $jobi['name'] = $i->name;

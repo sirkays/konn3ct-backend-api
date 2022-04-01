@@ -24,16 +24,24 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
+        if (Auth::id() != $i->id) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!!']);
+        }
+
+        $name = Auth::user()->firstname . " " . Auth::user()->lastname;
+
         $ms = \Bigbluebutton::isMeetingRunning($i->id);
 
         if ($ms == 1) {
-            return redirect()->to(
+            $url = redirect()->to(
                 \Bigbluebutton::join([
                     'meetingID' => $i->id,
-                    'userName' => "Samji test",
+                    'userName' => $name,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
+
+            return response()->json(['success' => true, 'message' => 'Meeting is still opened.', 'url' => $url]);
         } else {
             $plan = PlanModel::where("id", 2)->first();
             if ($plan->recording) {
@@ -94,8 +102,8 @@ class RoomController extends Controller
             }
 
             $mdata['meeting_id'] = $i->id;
-            $mdata['name'] = "samji via api";
-            $mdata['email'] = "samjiviaapi@gmail.com";
+            $mdata['name'] = $name;
+            $mdata['email'] = Auth::user()->email;
             $mdata['password_attendee'] = $up;
             $mdata['status'] = "start meeting";
             $mdata['identifier'] = $i->id . rand();
@@ -106,7 +114,7 @@ class RoomController extends Controller
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
-                'userName' => "samji api",//for join meeting
+                'userName' => $name,//for join meeting
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br> API Test',
@@ -122,7 +130,7 @@ class RoomController extends Controller
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner,
-                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'avatarUrl' => 'https://konn3ct.com/assets/images/konn3ctIcon.png',
                 'customParameters' => [
                     'userdata-bbb_auto_join_audio' => 'true',
                     'userdata-bbb_enable_video' => 'true',

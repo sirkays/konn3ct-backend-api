@@ -17,7 +17,44 @@
 
     <title>Konn3ct - Home</title>
 
-    <!-- Vendors Style-->
+@include('facebook-pixel::head')
+
+<!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1543717222676161');
+
+        @if(Request::segment(1) === 'dashboard')
+        fbq('track', 'Lead');
+        @elseif(Request::segment(1) === 'payment' || Request::segment(1) === 'changeplan')
+        fbq('track', 'addtocart');
+        @elseif(Request::segment(1) === 'paymentreceipt')
+        fbq('track', 'purchase');
+        @else
+        fbq('track', 'PageView');
+        @endif
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
+        /></noscript>
+
     <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
 
     @laravelPWA

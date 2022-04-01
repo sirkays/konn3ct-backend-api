@@ -24,7 +24,7 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        if (Auth::id() != $i->id) {
+        if (Auth::id() != $i->user_id) {
             return response()->json(['success' => false, 'message' => 'Invalid Room!!']);
         }
 

@@ -30,12 +30,12 @@ class RoomController extends Controller
 
         $name = Auth::user()->firstname . " " . Auth::user()->lastname;
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         if ($ms == 1) {
             $url = redirect()->to(
                 \Bigbluebutton::join([
-                    'meetingID' => $i->id,
+                    'meetingID' => "0$i->id",
                     'userName' => $name,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])

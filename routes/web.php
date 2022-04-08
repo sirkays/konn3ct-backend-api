@@ -43,7 +43,7 @@ Route::get('/welcomemail', function () {
 
 
 Route::get('/userjoin/{params}', function ($params) {
-    return redirect()->away('https://konn3ct.com/bigbluebutton/api/join?' . decrypt($params));
+    return redirect()->away(env('BBB_SERVER_BASE_URL') . 'api/join?' . decrypt($params));
 });
 
 Route::get('/nsu', function () {

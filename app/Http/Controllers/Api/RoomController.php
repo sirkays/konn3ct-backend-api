@@ -9,12 +9,23 @@ use App\Models\RoomModel;
 use App\Models\User;
 use BigBlueButton\Parameters\JoinMeetingParameters;
 use Carbon\Carbon;
+use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
+    /**
+     * @var \Djoudi\Bigbluebutton\Contracts\Meeting
+     */
+    protected $meeting;
+
+    public function __construct(Meeting $meeting)
+    {
+        $this->meeting = $meeting;
+    }
+
     public function startaRoom($id)
     {
 
@@ -819,9 +830,8 @@ class RoomController extends Controller
         $datas['participants'] = $details['participantCount'];
         $datas['participantsHasVideoOn'] = $details['videoCount'];
         $datas['admins'] = $details['moderatorCount'];
-        $datas['participantLists'] = $details['moderatorCount'];
 
-        return response()->json(['success' => true, 'message' => 'Rooms details', 'datal' => $datas, 'data' => $details]);
+        return response()->json(['success' => true, 'message' => 'Rooms details', 'data' => $datas]);
     }
 
     public function listAttendance($id)

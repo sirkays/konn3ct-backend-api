@@ -59,4 +59,5 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('forgot-password-request', [AuthController::class, 'reset_password_request']);
     Route::post('forgot-password', [AuthController::class, 'reset_password_submit']);
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
+    Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
 });

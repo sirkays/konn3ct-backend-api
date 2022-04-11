@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\App;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerificationMail;
 use App\Models\CodeRequest;
+use App\Models\RoomModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -327,5 +329,28 @@ class AuthController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Incomplete request', 'error' => $validator->errors()]);
         }
+    }
+
+    public function validateMeeting(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Name not found in your request', 'error' => $validator->errors()]);
+        }
+
+        $name = $input['name'];
+
+        $room = RoomModel::where('name', $name)->orwhere("url", $name)->first();
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'data' => $room]);
     }
 }

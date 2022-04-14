@@ -843,14 +843,16 @@ class RoomController extends Controller
         $u = User::where('email', $email)->first();
         $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
 
-        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+        if ($u) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
 
-            $resul = $u->profile_photo_url;
-            $findme = 'ui-avatars.com';
-            $pos = strpos($resul, $findme);
-            // Note our use of ===.  Simply == would not work as expected
-            if ($pos === false) {
-                $dp = $u->profile_photo_url;
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
             }
         }
 

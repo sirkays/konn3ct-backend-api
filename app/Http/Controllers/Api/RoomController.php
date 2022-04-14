@@ -805,6 +805,83 @@ class RoomController extends Controller
 
     }
 
+    public function joinAppRoom(Request $request)
+    {
+        $input = $request->all();
+        $rules = array(
+            'id' => 'required|numeric|min:1',
+            'name' => 'required|string|min:3|max:20',
+            'email' => 'required|email|min:3'
+        );
+
+        $validator = Validator::make($input, $rules);
+
+        if (!$validator->passes()) {
+
+            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+        }
+
+        $id = $input['id'];
+        $name = $input['name'];
+        $email = $input['email'];
+
+        $room = RoomModel::where('id', $id)->first();
+        $i = $room;
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        $rm_id = "0$i->id";
+
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms != 1) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
+
+        $u = User::where('email', $email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+
+            $resul = $u->profile_photo_url;
+            $findme = 'ui-avatars.com';
+            $pos = strpos($resul, $findme);
+            // Note our use of ===.  Simply == would not work as expected
+            if ($pos === false) {
+                $dp = $u->profile_photo_url;
+            }
+        }
+
+        $fm = MeetingsModel::where('meeting_id', '=', $i->id)->orderBy('id', 'desc')->first();
+
+        $mdata['identifier'] = $fm->identifier;
+        $mdata['status'] = "attempt_to_join_app";
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $i->password_attendee;
+        MeetingsModel::create($mdata);
+
+
+        $meetingParams = new JoinMeetingParameters($rm_id, $name, $i->password_moderator);
+        $meetingParams->setAvatarURL($dp);
+        $meetingParams->setRedirect(true);
+//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
+//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
+        $url = $this->meeting->join($meetingParams);
+
+        $murl = explode("?", $url);
+
+        $end = encrypt($murl[1]);
+
+        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => url('/userjoin') . '/' . $end]);
+
+    }
+
     public function roomInfo($id)
     {
         $room = RoomModel::where([['id', $id], ["user_id", Auth::id()]])->first();

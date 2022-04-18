@@ -630,7 +630,8 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+        $ms = 1;
 
         if ($ms == 1) {
             return response()->json(['success' => true, 'message' => 'The room is opened already. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
@@ -739,19 +740,28 @@ class RoomController extends Controller
             'id' => 'required|numeric|min:1',
             'name' => 'required|string|min:3|max:20',
             'email' => 'required|email|min:3',
-//            'role' => 'required|string|min:3',
+            'role' => 'nullable|string|min:3',
         );
 
         $validator = Validator::make($input, $rules);
 
         if (!$validator->passes()) {
-
             return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
         }
+
+        $roles = ['moderator', 'viewer'];
+        $role = 'viewer';
 
         $id = $input['id'];
         $name = $input['name'];
         $email = $input['email'];
+
+        if (isset($input['role'])) {
+            if (!in_array($input['role'], $roles)) {
+                return response()->json(['success' => false, 'message' => 'Role does not exist', '_available' => $roles]);
+            }
+            $role = $input['role'];
+        }
 
         $room = RoomModel::where([['id', $id], ["user_id", Auth::id()]])->first();
         $i = $room;
@@ -762,7 +772,8 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+        $ms = 1;
 
         if ($ms != 1) {
             return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
@@ -782,6 +793,12 @@ class RoomController extends Controller
             }
         }
 
+        if ($role == $roles[0]) {
+            $password = $i->password_moderator;
+        } else {
+            $password = $i->password_attendee;
+        }
+
         $fm = MeetingsModel::where('meeting_id', '=', $i->id)->orderBy('id', 'desc')->first();
 
         $mdata['identifier'] = $fm->identifier;
@@ -789,22 +806,26 @@ class RoomController extends Controller
         $mdata['meeting_id'] = $i->id;
         $mdata['name'] = $name;
         $mdata['email'] = $email;
-        $mdata['password_attendee'] = $i->password_attendee;
+        $mdata['password_attendee'] = $password;
         MeetingsModel::create($mdata);
 
 
-        $meetingParams = new JoinMeetingParameters($rm_id, $name, $i->password_moderator);
-        $meetingParams->setAvatarURL($dp);
-        $meetingParams->setRedirect(true);
+        try {
+            $meetingParams = new JoinMeetingParameters($rm_id, $name, $password);
+            $meetingParams->setAvatarURL($dp);
+            $meetingParams->setRedirect(true);
 //        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
 //        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
 //        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
 //        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
-        $url = $this->meeting->join($meetingParams);
+            $url = $this->meeting->join($meetingParams);
 
-        $murl = explode("?", $url);
+            $murl = explode("?", $url);
 
-        $end = encrypt($murl[1]);
+            $end = encrypt($murl[1]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Maybe Room not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
 
         return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => url('/userjoin') . '/' . $end]);
 

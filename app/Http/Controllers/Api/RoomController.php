@@ -876,10 +876,6 @@ class RoomController extends Controller
 //        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
         $url = $this->meeting->join($meetingParams);
 
-        $murl = explode("?", $url);
-
-        $end = encrypt($murl[1]);
-
         return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => url('/userjoin') . '/' . $end]);
 
     }
@@ -893,6 +889,14 @@ class RoomController extends Controller
         }
 
         $rm_id = "0$room->id";
+
+
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if ($ms != 1) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
+
 
         $details = \Bigbluebutton::getMeetingInfo([
             'meetingID' => $rm_id,

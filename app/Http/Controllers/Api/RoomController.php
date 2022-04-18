@@ -442,7 +442,7 @@ class RoomController extends Controller
         }
 
         $recordings = \Bigbluebutton::getRecordings([
-            'meetingID' => $room->id,
+            'meetingID' => "0$room->id",
         ]);
 
         return response()->json(['success' => true, 'message' => 'Rooms recording fetched successfully', 'data' => $recordings]);

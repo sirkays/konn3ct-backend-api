@@ -605,7 +605,8 @@ class RoomController extends Controller
             'name' => 'required|string|min:3|max:30',
             'started_by' => 'required|string|min:3|max:50',
             'logout_url' => 'required|string',
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'keyword' => 'nullable|string'
         );
 
         $validator = Validator::make($input, $rules);
@@ -699,7 +700,11 @@ class RoomController extends Controller
         $mdata['email'] = Auth::user()->email;
         $mdata['password_attendee'] = $up;
         $mdata['status'] = "start meeting";
-        $mdata['identifier'] = $i->id . rand();
+        if (isset($input['keyword'])) {
+            $mdata['identifier'] = $input['keyword'];
+        } else {
+            $mdata['identifier'] = $i->id . rand();
+        }
         MeetingsModel::create($mdata);
 
         \Bigbluebutton::create([

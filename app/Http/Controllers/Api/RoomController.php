@@ -630,8 +630,8 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-        $ms = 1;
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = 1;
 
         if ($ms == 1) {
             return response()->json(['success' => true, 'message' => 'The room is opened already. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
@@ -917,28 +917,32 @@ class RoomController extends Controller
         $rm_id = "0$room->id";
 
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//
+//        if ($ms != 1) {
+//            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+//        }
 
-        if ($ms != 1) {
+        try {
+
+            $details = \Bigbluebutton::getMeetingInfo([
+                'meetingID' => $rm_id,
+                'moderatorPW' => $room->password_moderator
+            ]);
+
+            $datas['meetingName'] = $details['meetingName'];
+            $datas['startTime'] = $details['createDate'];
+            $datas['opened'] = $details['running'];
+            $datas['duration'] = $details['duration'];
+            $datas['hasParticipantJoined'] = $details['hasUserJoined'];
+            $datas['recordingEnabled'] = $details['recording'];
+            $datas['recordingEnabled'] = $details['recording'];
+            $datas['participants'] = $details['participantCount'];
+            $datas['participantsHasVideoOn'] = $details['videoCount'];
+            $datas['admins'] = $details['moderatorCount'];
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
         }
-
-
-        $details = \Bigbluebutton::getMeetingInfo([
-            'meetingID' => $rm_id,
-            'moderatorPW' => $room->password_moderator
-        ]);
-
-        $datas['meetingName'] = $details['meetingName'];
-        $datas['startTime'] = $details['createDate'];
-        $datas['opened'] = $details['running'];
-        $datas['duration'] = $details['duration'];
-        $datas['hasParticipantJoined'] = $details['hasUserJoined'];
-        $datas['recordingEnabled'] = $details['recording'];
-        $datas['recordingEnabled'] = $details['recording'];
-        $datas['participants'] = $details['participantCount'];
-        $datas['participantsHasVideoOn'] = $details['videoCount'];
-        $datas['admins'] = $details['moderatorCount'];
 
         return response()->json(['success' => true, 'message' => 'Rooms details', 'data' => $datas]);
     }

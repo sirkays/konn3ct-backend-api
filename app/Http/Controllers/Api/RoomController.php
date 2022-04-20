@@ -606,7 +606,8 @@ class RoomController extends Controller
             'started_by' => 'required|string|min:3|max:50',
             'logout_url' => 'required|string',
             'message' => 'required|string',
-            'keyword' => 'nullable|string'
+            'keyword' => 'nullable|string',
+            'access_code' => 'nullable|string|min:6'
         );
 
         $validator = Validator::make($input, $rules);
@@ -684,6 +685,14 @@ class RoomController extends Controller
             $dsn = false;
         }
 
+        if (isset($input['access_code'])) {
+            $i->password_attendee = $input['access_code'];
+            $i->save();
+        } else {
+            $i->password_attendee = "password";
+            $i->save();
+        }
+
         if ($i->aujam) {
             $up = "moderator";
         } else {
@@ -741,6 +750,7 @@ class RoomController extends Controller
             'name' => 'required|string|min:3|max:20',
             'email' => 'required|email|min:3',
             'role' => 'nullable|string|min:3',
+            'access_code' => 'nullable|string|min:6',
         );
 
         $validator = Validator::make($input, $rules);
@@ -782,19 +792,32 @@ class RoomController extends Controller
         $u = User::where('email', $email)->first();
         $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
 
-        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
-
-            $resul = $u->profile_photo_url;
-            $findme = 'ui-avatars.com';
-            $pos = strpos($resul, $findme);
-            // Note our use of ===.  Simply == would not work as expected
-            if ($pos === false) {
-                $dp = $u->profile_photo_url;
+        if ($u) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
             }
         }
 
-        if ($role == $roles[0]) {
-            $password = $i->password_moderator;
+        if ($i->password_attendee != "password") {
+            if (isset($input['access_code'])) {
+                if ($input['access_code'] == $i->password_attendee) {
+                    if ($role == $roles[0]) {
+                        $password = $i->password_moderator;
+                    } else {
+                        $password = $i->password_attendee;
+                    }
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Incorrect access code supplied']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'Access code is required']);
+            }
         } else {
             $password = $i->password_attendee;
         }

@@ -33,8 +33,12 @@ class HealthEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-//        return new PrivateChannel('channel-name');
         return new Channel('HealthEvent');
+    }
+
+    public function broadcastAs()
+    {
+        return 'health-event';
     }
 
     public function broadcastWith()

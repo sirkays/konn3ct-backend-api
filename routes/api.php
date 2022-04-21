@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\App\AuthController;
+use App\Http\Controllers\Api\App\ChatController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DeployController;
@@ -61,4 +62,10 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
     Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
     Route::post('join-room', [RoomController::class, 'joinAppRoom']);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('chats', [ChatController::class, 'fetchChats']);
+        Route::get('chats/participants/{id}', [ChatController::class, 'fetchParticipants']);
+        Route::get('chats/messages/{id}', [ChatController::class, 'fetchMessages']);
+    });
 });

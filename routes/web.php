@@ -30,6 +30,11 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
 
+Route::get('/trigger/{data}', function ($data) {
+    echo "<p>You have sent $data.</p>";
+    \App\Events\HealthEvent::dispatch($data);
+});
+
 Route::get('/pmailable', function () {
     $jobi['days'] = 14;
     $jobi['user'] = \App\Models\User::find(1);

@@ -23,7 +23,7 @@ class HealthEvent implements ShouldBroadcast
     public function __construct($data)
     {
         $this->message = $data;
-        echo "<p>Health Event('$data') object has been created.</p>";
+//        echo "<p>Health Event('$data') object has been created.</p>";
     }
 
     /**

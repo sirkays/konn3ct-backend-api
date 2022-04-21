@@ -51,6 +51,7 @@ class ChatController extends Controller
         ]);
 
         \App\Events\HealthEvent::dispatch($data);
+//        broadcast(new ShippingStatusUpdated($update))->toOthers();
 
         return response()->json(['success' => true, 'message' => 'Message sent successfully', 'data' => $data]);
     }

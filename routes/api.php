@@ -67,6 +67,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('chats', [ChatController::class, 'fetchChats']);
         Route::get('chats/participants/{id}', [ChatController::class, 'fetchParticipants']);
         Route::get('chats/messages/{id}', [ChatController::class, 'fetchMessages']);
+        Route::delete('chats/message/delete/{id}', [ChatController::class, 'deleteMessage']);
         Route::post('chat', [ChatController::class, 'sendMessage']);
         Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
     });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\App;
 
+use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
@@ -29,6 +30,21 @@ class ChatController extends Controller
         return response()->json(['success' => true, 'message' => 'Messages fetched successfully', 'data' => $datas]);
     }
 
+    function deleteMessage($id)
+    {
+        $data = ChatMessage::find($id);
+
+        if (!$data) {
+            return response()->json(['success' => false, 'message' => 'Message does not exist']);
+        }
+
+        if ($data->sender != Auth::id() && $data->room->user_id != Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'You dont have access to delete this message']);
+        }
+        $data->delete();
+        return response()->json(['success' => true, 'message' => 'Message deleted']);
+    }
+
     function sendMessage(Request $request)
     {
         $input = $request->all();
@@ -36,10 +52,18 @@ class ChatController extends Controller
             'id' => 'required',
             'message' => 'required',
             'type' => 'required',
+            'reply' => 'nullable',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+        }
+
+        if (isset($input['reply'])) {
+            $replyChat = ChatMessage::where(['id' => $input['reply'], 'room_id' => $input['id']])->first();
+            if (!$replyChat) {
+                return response()->json(['success' => false, 'message' => 'Message does not exist']);
+            }
         }
 
         $data = ChatMessage::create([
@@ -50,8 +74,7 @@ class ChatController extends Controller
         ]);
 
 
-        \App\Events\HealthEvent::dispatch($data);
-        \App\Events\NewMessageEvent::dispatch($data);
+        NewMessageEvent::dispatch($data);
 //        broadcast(new ShippingStatusUpdated($update))->toOthers();
 
         return response()->json(['success' => true, 'message' => 'Message sent successfully', 'data' => $data]);

@@ -21,4 +21,9 @@ class ChatMessage extends Model
         return $this->belongsTo(User::class, 'sender');
     }
 
+    public function room()
+    {
+        return $this->belongsTo(RoomModel::class, 'room_id');
+    }
+
 }

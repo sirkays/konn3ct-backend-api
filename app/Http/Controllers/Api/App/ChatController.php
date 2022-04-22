@@ -6,6 +6,7 @@ use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
+use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -121,5 +122,26 @@ class ChatController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Enrolled successfully', 'data' => $data]);
+    }
+
+    function autoProcessEnrolment(Request $request)
+    {
+        $allRooms = RoomModel::get();
+
+        foreach ($allRooms as $room) {
+            if ($room->user_id != NULL) {
+                $check = EnrolledChat::where(['user_id' => $room->user_id, 'room_id' => $room->id])->exists();
+
+                if (!$check) {
+                    EnrolledChat::create([
+                        'user_id' => $room->user_id,
+                        'room_id' => $room->id,
+                        'owner' => 1
+                    ]);
+                }
+            }
+        }
+
+        return response()->json(['success' => true, 'message' => 'Enrolled successfully']);
     }
 }

@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('deploy', [DeployController::class, 'deploy']);
 
+Route::get('enrolAll', [ChatController::class, 'autoProcessEnrolment']);
+
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
 
 Route::post('register', [UserController::class, 'createUser']);

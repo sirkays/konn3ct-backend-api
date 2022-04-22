@@ -42,7 +42,7 @@ class NewMessageEvent implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        $msg = ChatMessage::where('room_id', $this->data->room_id)->get();
+        $msg = ChatMessage::where('room_id', $this->data->room_id)->with('user')->get();
         return ['message' => $this->data, 'all_message' => $msg, 'status' => true];
     }
 }

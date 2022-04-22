@@ -26,5 +26,5 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 //}, ['middleware' => 'websocket']);
 
 Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
-    return false;
-});
+    return true;
+}, ['middleware' => 'auth:sanctum']);

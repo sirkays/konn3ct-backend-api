@@ -14,7 +14,6 @@ class ChatController extends Controller
     function fetchChats()
     {
         $chats = EnrolledChat::where('user_id', Auth::id())->with('room')->get();
-        \App\Events\HealthEvent::dispatch($chats);
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $chats]);
     }
 
@@ -50,7 +49,9 @@ class ChatController extends Controller
             'message' => $input['message']
         ]);
 
+
         \App\Events\HealthEvent::dispatch($data);
+        \App\Events\NewMessageEvent::dispatch($data);
 //        broadcast(new ShippingStatusUpdated($update))->toOthers();
 
         return response()->json(['success' => true, 'message' => 'Message sent successfully', 'data' => $data]);

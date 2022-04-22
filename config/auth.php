@@ -45,10 +45,6 @@ return [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
-        ],
-        'client' => [
-            'driver' => 'broadcast-auth',
-            'provider' => 'users'
         ]
     ],
 

@@ -5,10 +5,11 @@ namespace App\Events;
 use App\Models\ChatMessage;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewMessageEvent
+class NewMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -41,6 +42,7 @@ class NewMessageEvent
 
     public function broadcastWith()
     {
-        return ['message' => $this->data, 'status' => true];
+        $msg = ChatMessage::where('room_id', $this->data->room_id)->get();
+        return ['message' => $this->data, 'all_message' => $msg, 'status' => true];
     }
 }

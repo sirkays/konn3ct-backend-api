@@ -36,7 +36,7 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken("app")->plainTextToken;
-        return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["id"])], 200);
+        return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["type"])], 200);
     }
 
     //Registration

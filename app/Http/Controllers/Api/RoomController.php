@@ -508,9 +508,9 @@ class RoomController extends Controller
         if (isset($input['welcome_message'])) {
             if ($input['welcome_message'] == "") {
                 $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
-            } else {
-                $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
             }
+        } else {
+            $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
         }
 
         if (isset($input['logout_url'])) {

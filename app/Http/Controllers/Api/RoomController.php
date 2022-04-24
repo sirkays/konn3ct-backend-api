@@ -525,79 +525,13 @@ class RoomController extends Controller
             $input['password_moderator'] = "moderator";
         }
 
+        $input['user_id'] = Auth::id();
+
         $r = RoomModel::create($input);
-
-        $createMeeting = \Bigbluebutton::initCreateMeeting([
-            'meetingID' => "0$r->id",
-            'meetingName' => $input['name'],
-            'attendeePW' => $input['password_attendee'],
-            'moderatorPW' => $input['password_moderator'],
-            'endCallbackUrl' => url('/leftsession'),
-            'logoutUrl' => $input['logout_url'],
-        ]);
-
-        $createMeeting->setDuration($duration); //overwrite default configuration
-        if ($plan->dialin) {
-            $createMeeting->setDialNumber("111222"); //overwrite default configuration
-        }
-        if ($plan->recording) {
-            $createMeeting->setRecord(true); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
-        } else {
-            $createMeeting->setRecord(false); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
-        }
-        $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage($input['welcome_message']); //overwrite default configuration
-
-        if (isset($input['muj'])) {
-            $createMeeting->setMuteOnStart(true); //overwrite default configuration
-        }
-
-        if (isset($input['dpuc'])) {
-            $createMeeting->setLockSettingsDisablePublicChat(true); //overwrite default configuration
-        }
-
-        if (isset($input['dprc'])) {
-            $createMeeting->setLockSettingsDisablePrivateChat(true); //overwrite default configuration
-        }
-
-        if (isset($input['ewma'])) {
-            $createMeeting->setLockSettingsDisableCam(true); //overwrite default configuration
-        }
-
-        if (isset($input['dum'])) {
-            $createMeeting->setLockSettingsDisableMic(true); //overwrite default configuration
-        }
-
-        if (isset($input['dsn'])) {
-            $createMeeting->setLockSettingsDisableNote(true); //overwrite default configuration
-        }
-
-        $bbb = \Bigbluebutton::create($createMeeting);
-//       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
-
-        $bba = json_decode($bbb, true);
-        $rm = RoomModel::find($r->id);
 
         KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
 
-        if ($bba["returncode"] == "SUCCESS") {
-            $rm->user_id = Auth::id();
-            $rm->bbb_returncode = $bba["returncode"];
-            $rm->internalMeetingID = $bba["internalMeetingID"];
-            $rm->parentMeetingID = $bba["parentMeetingID"];
-            $rm->voiceBridge = $bba["voiceBridge"];
-            $rm->createDate = $bba["createDate"];
-            $rm->createTime = $bba["createTime"];
-            $rm->save();
-
-            return response()->json(['success' => true, 'message' => 'Room Created Successfully!', 'data' => ['name' => $input['name'], 'id' => $r->id]]);
-
-        } else {
-            $rm->delete();
-            return response()->json(['success' => false, 'message' => 'Server Error while creating Meeting!']);
-        }
+        return response()->json(['success' => true, 'message' => 'Room Created Successfully!', 'data' => ['name' => $input['name'], 'id' => $r->id]]);
     }
 
     public function startRoom(Request $request)

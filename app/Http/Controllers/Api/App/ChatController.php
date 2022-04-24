@@ -27,6 +27,13 @@ class ChatController extends Controller
 
     function fetchMessages($id)
     {
+
+        $check = EnrolledChat::where(['user_id' => Auth::id(), 'room_id' => $id])->first();
+
+        if (!$check) {
+            return response()->json(['success' => false, 'message' => 'You are not a participant']);
+        }
+
         $datas = EnrolledChat::where('room_id', $id)->with('messages', 'messages.user')->first();
         return response()->json(['success' => true, 'message' => 'Messages fetched successfully', 'data' => $datas]);
     }
@@ -59,6 +66,13 @@ class ChatController extends Controller
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
         }
+
+        $check = EnrolledChat::where(['user_id' => Auth::id(), 'room_id' => $input['id']])->first();
+
+        if (!$check) {
+            return response()->json(['success' => false, 'message' => 'You are not a participant']);
+        }
+
 
         if (isset($input['reply'])) {
             $replyChat = ChatMessage::where(['id' => $input['reply'], 'room_id' => $input['id']])->first();
@@ -121,7 +135,7 @@ class ChatController extends Controller
             ]);
         }
 
-        return response()->json(['success' => true, 'message' => 'Enrolled successfully', 'data' => $data]);
+        return response()->json(['success' => true, 'message' => 'Enrolled successfully', 'data' => $data, 'room' => $data->room]);
     }
 
     function autoProcessEnrolment(Request $request)

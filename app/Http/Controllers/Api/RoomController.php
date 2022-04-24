@@ -505,11 +505,19 @@ class RoomController extends Controller
             $input['url'] = trim(substr(Auth::user()->lastname, 0, 3) . $sfinal);
         }
 
-        if ($input['welcome_message'] == "") {
-            $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+        if (isset($input['welcome_message'])) {
+            if ($input['welcome_message'] == "") {
+                $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+            } else {
+                $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+            }
         }
 
-        if ($input['logout_url'] == "") {
+        if (isset($input['logout_url'])) {
+            if ($input['logout_url'] == "") {
+                $input['logout_url'] = url('/leftsession');
+            }
+        } else {
             $input['logout_url'] = url('/leftsession');
         }
 
@@ -517,11 +525,16 @@ class RoomController extends Controller
         $input['duration'] = $duration;
         $input['url'] = preg_replace('/\s+/', '', $input['url']);
 
-        if ($input['access_code'] == "") {
-            $input['password_attendee'] = "attendee";
-            $input['password_moderator'] = "moderator";
+        if (isset($input['access_code'])) {
+            if ($input['access_code'] == "") {
+                $input['password_attendee'] = "attendee";
+                $input['password_moderator'] = "moderator";
+            } else {
+                $input['password_attendee'] = $input['access_code'];
+                $input['password_moderator'] = "moderator";
+            }
         } else {
-            $input['password_attendee'] = $input['access_code'];
+            $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\KCEnrollOwnerJob;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -578,6 +579,8 @@ class RoomController extends Controller
 
         $bba = json_decode($bbb, true);
         $rm = RoomModel::find($r->id);
+
+        KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
 
         if ($bba["returncode"] == "SUCCESS") {
             $rm->user_id = Auth::id();

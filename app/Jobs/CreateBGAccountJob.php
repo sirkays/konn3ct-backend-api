@@ -91,7 +91,6 @@ class CreateBGAccountJob implements ShouldQueue
         $jobi['email'] = $email;
         $jobi['password'] = $password;
 
-//        Konn3ctChatCreateGroupJob::dispatch($jobi)->delay(now()->addSecond());
 
         try {
             Mail::to($u->email)->send(new WelcomeMailViaJoin($data));

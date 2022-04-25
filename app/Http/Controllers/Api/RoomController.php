@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\KCEnrollOwnerJob;
+use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -542,7 +542,11 @@ class RoomController extends Controller
 
         $r = RoomModel::create($input);
 
-        KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
+        EnrolledChat::create([
+            'user_id' => $this->user_id,
+            'room_id' => Auth::id(),
+            'owner' => 1
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Room Created Successfully!', 'data' => ['name' => $input['name'], 'id' => $r->id]]);
     }
@@ -875,7 +879,7 @@ class RoomController extends Controller
 //        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
         $url = $this->meeting->join($meetingParams);
 
-        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => url('/userjoin') . '/' . $end]);
+        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => $url]);
 
     }
 

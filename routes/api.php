@@ -72,5 +72,6 @@ Route::group(['prefix' => 'app'], function () {
         Route::delete('chats/message/delete/{id}', [ChatController::class, 'deleteMessage']);
         Route::post('chat', [ChatController::class, 'sendMessage']);
         Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
+        Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
     });
 });

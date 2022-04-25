@@ -138,6 +138,29 @@ class ChatController extends Controller
         return response()->json(['success' => true, 'message' => 'Enrolled successfully', 'data' => $data, 'room' => $data->room]);
     }
 
+    function unenrol2Chat(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'user_id' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+        }
+
+        $check = EnrolledChat::where(['user_id' => $input['user_id'] ?? Auth::id(), 'room_id' => $input['id']])->first();
+
+        if (!$check) {
+            return response()->json(['success' => false, 'message' => 'You are not a participant']);
+        }
+
+        $check->delete();
+
+        return response()->json(['success' => true, 'message' => 'Room left successfully']);
+    }
+
     function autoProcessEnrolment(Request $request)
     {
         $allRooms = RoomModel::get();

@@ -81,12 +81,30 @@ class ChatController extends Controller
             }
         }
 
-        $data = ChatMessage::create([
-            'sender' => Auth::id(),
-            'room_id' => $input['id'],
-            'type' => "text",
-            'message' => $input['message']
-        ]);
+        if ($input['type'] == "image") {
+
+            $image = $input["message"];
+            $photo = $input['id'] . Auth::id() . "_" . rand() . ".jpg";
+
+            $decodedImage = base64_decode("$image");
+            file_put_contents(storage_path("chat_images/" . $photo), $decodedImage);
+
+            $message = "chat_images/" . $photo;
+
+            $data = ChatMessage::create([
+                'sender' => Auth::id(),
+                'room_id' => $input['id'],
+                'type' => "image",
+                'message' => $message
+            ]);
+        } else {
+            $data = ChatMessage::create([
+                'sender' => Auth::id(),
+                'room_id' => $input['id'],
+                'type' => "text",
+                'message' => $input['message']
+            ]);
+        }
 
 
         NewMessageEvent::dispatch($data);

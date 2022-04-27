@@ -15,7 +15,7 @@ class ChatController extends Controller
 {
     function fetchChats()
     {
-        $chats = EnrolledChat::where('user_id', Auth::id())->with('room')->get();
+        $chats = EnrolledChat::where('user_id', Auth::id())->with('room', 'lastMessage.user')->get();
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $chats]);
     }
 
@@ -86,10 +86,10 @@ class ChatController extends Controller
             $image = $input["message"];
             $photo = $input['id'] . Auth::id() . "_" . rand() . ".jpg";
 
-            $decodedImage = base64_decode("$image");
-            file_put_contents(storage_path("chat_images/" . $photo), $decodedImage);
-
             $message = "chat_images/" . $photo;
+
+            $decodedImage = base64_decode("$image");
+            file_put_contents(storage_path($message), $decodedImage);
 
             $data = ChatMessage::create([
                 'sender' => Auth::id(),

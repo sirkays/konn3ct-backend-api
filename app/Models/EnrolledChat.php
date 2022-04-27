@@ -26,5 +26,9 @@ class EnrolledChat extends Model
         return $this->hasMany(ChatMessage::class, 'room_id', 'room_id');
     }
 
+    public function lastMessage()
+    {
+        return $this->hasOne(ChatMessage::class, 'room_id', 'room_id')->latest();
+    }
 
 }

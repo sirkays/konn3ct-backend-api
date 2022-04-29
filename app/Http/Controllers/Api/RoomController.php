@@ -664,11 +664,9 @@ class RoomController extends Controller
         $mdata['email'] = Auth::user()->email;
         $mdata['password_attendee'] = $up;
         $mdata['status'] = "start meeting";
-        if (isset($input['keyword'])) {
-            $mdata['identifier'] = $input['keyword'];
-        } else {
-            $mdata['identifier'] = $i->id . rand();
-        }
+        $mdata['identifier'] = $i->id . rand();
+        $mdata['keyword'] = $input['keyword'] ?? '';
+
         MeetingsModel::create($mdata);
 
         \Bigbluebutton::create([
@@ -773,7 +771,11 @@ class RoomController extends Controller
                 return response()->json(['success' => false, 'message' => 'Access code is required']);
             }
         } else {
-            $password = $i->password_attendee;
+            if ($role == $roles[0]) {
+                $password = $i->password_moderator;
+            } else {
+                $password = $i->password_attendee;
+            }
         }
 
         $fm = MeetingsModel::where('meeting_id', '=', $i->id)->orderBy('id', 'desc')->first();

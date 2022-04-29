@@ -22,7 +22,7 @@ class MeetingsModel extends Model
      * @var array
      */
     protected $fillable = [
-        'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier'
+        'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier', 'keyword'
     ];
 
     function room()

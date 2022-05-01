@@ -184,6 +184,20 @@ Route::get('/chat_images/{filename}', function ($filename) {
     return $response;
 })->name('show.chatImages');
 
+Route::get('/chat_audio/{filename}', function ($filename) {
+    $path = storage_path('chat_audio/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('show.chatAudio');
+
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
     Route::post('/addReferral', [OtherController::class, 'addReferral'])->name('addReferral');

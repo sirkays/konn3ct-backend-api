@@ -110,7 +110,7 @@ class ChatController extends Controller
             $data = ChatMessage::create([
                 'sender' => Auth::id(),
                 'room_id' => $input['id'],
-                'type' => "image",
+                'type' => "audio",
                 'message' => $message
             ]);
         } else {

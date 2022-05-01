@@ -97,6 +97,22 @@ class ChatController extends Controller
                 'type' => "image",
                 'message' => $message
             ]);
+        }else if ($input['type'] == "audio") {
+
+            $image = $input["message"];
+            $photo = $input['id'] . Auth::id() . "_" . rand() . ".mp4";
+
+            $message = "chat_audio/" . $photo;
+
+            $decodedImage = base64_decode("$image");
+            file_put_contents(storage_path($message), $decodedImage);
+
+            $data = ChatMessage::create([
+                'sender' => Auth::id(),
+                'room_id' => $input['id'],
+                'type' => "image",
+                'message' => $message
+            ]);
         } else {
             $data = ChatMessage::create([
                 'sender' => Auth::id(),

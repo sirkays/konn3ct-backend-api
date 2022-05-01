@@ -81,7 +81,14 @@ class ChatController extends Controller
             }
         }
 
-        if ($input['type'] == "image") {
+        if ($input['type'] == "text") {
+            $data = ChatMessage::create([
+                'sender' => Auth::id(),
+                'room_id' => $input['id'],
+                'type' => "text",
+                'message' => $input['message']
+            ]);
+        } else if ($input['type'] == "image") {
 
             $image = $input["message"];
             $photo = $input['id'] . Auth::id() . "_" . rand() . ".jpg";
@@ -114,11 +121,19 @@ class ChatController extends Controller
                 'message' => $message
             ]);
         } else {
+            $image = $input["message"];
+            $photo = $input['id'] . Auth::id() . "_" . rand() . "." . $input['type'];
+
+            $message = "chat_files/" . $photo;
+
+            $decodedImage = base64_decode("$image");
+            file_put_contents(storage_path($message), $decodedImage);
+
             $data = ChatMessage::create([
                 'sender' => Auth::id(),
                 'room_id' => $input['id'],
-                'type' => "text",
-                'message' => $input['message']
+                'type' => $input['type'],
+                'message' => $message
             ]);
         }
 

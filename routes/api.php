@@ -39,6 +39,11 @@ Route::post('start-room0', [RoomController::class, 'startRoom']);
 Route::post('check-room', [RoomController::class, 'checkRoom']);
 
 
+Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {
+    Route::get('pricing/{currency}', [\App\Http\Controllers\Api\PricingController::class, 'getPlans']);
+    Route::post('user/register', [\App\Http\Controllers\Api\PricingController::class, 'register']);
+});
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('list-rooms', [RoomController::class, 'listRooms']);
     Route::get('room-recordings/{id}', [RoomController::class, 'roomRecordings']);

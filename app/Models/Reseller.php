@@ -5,14 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlanModel extends Model
+class Reseller extends Model
 {
     use HasFactory;
-
-    protected $table = 'plans';
-
-    function pricing()
-    {
-        $this->hasMany(PlanPricing::class);
-    }
 }

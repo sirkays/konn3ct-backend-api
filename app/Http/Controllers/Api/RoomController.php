@@ -816,7 +816,8 @@ class RoomController extends Controller
         $rules = array(
             'id' => 'required|numeric|min:1',
             'name' => 'required|string|min:3|max:20',
-            'email' => 'required|email|min:3'
+            'email' => 'required|email|min:3',
+            'access_code' => 'nullable|string|min:1',
         );
 
         $validator = Validator::make($input, $rules);
@@ -835,6 +836,21 @@ class RoomController extends Controller
 
         if (!$room) {
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+
+        if ($i->password_attendee != "attendee") {
+            if (isset($input['access_code'])) {
+                if ($input['access_code'] == $i->password_attendee) {
+                    $password = $i->password_attendee;
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Incorrect access code supplied']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'Access code is required']);
+            }
+        } else {
+            $password = $i->password_attendee;
         }
 
         $rm_id = "0$i->id";
@@ -868,7 +884,7 @@ class RoomController extends Controller
         $mdata['meeting_id'] = $i->id;
         $mdata['name'] = $name;
         $mdata['email'] = $email;
-        $mdata['password_attendee'] = $i->password_attendee;
+        $mdata['password_attendee'] = $password;
         MeetingsModel::create($mdata);
 
 

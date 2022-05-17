@@ -14,6 +14,7 @@ use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
@@ -582,7 +583,13 @@ class RoomController extends Controller
         return response()->json(['status'=>1, 'message'=>'Meeting not started']);
     }
 
-    public function bannerupload(Request $request){
+    public function bannerupload(Request $request)
+    {
+        $input = $request->all();
+
+        $request->validate([
+            'banner' => 'required|mimes:jpeg,jpg,png|max:5000'
+        ]);
 
         if (!$request->hasFile('banner')) {
             return back()->with('error', 'Upload file not found');
@@ -597,18 +604,21 @@ class RoomController extends Controller
             return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
         }
 
-        $fName = rand().".jpg";
 
-        $path = storage_path('roombanner/');
-        $file->move($path, $fName);
+        $path = Storage::put('roombanner', $input['banner']);
+        $fName = explode("/", $path);
 
-        echo "Uploaded successfully";
+
+//        $fName = rand().".jpg";
+//        $path = storage_path('roombanner/');
+//        $file->move($path, $fName);
+
 
         $i = RoomModel::find($request->id);
-        $i->banner = $fName;
+        $i->banner = $fName[1];
         $i->save();
 
-        return back()->with('success', 'Banner has been uploaded successfully');
+        return redirect()->route('rooms')->with('success', 'Banner has been uploaded successfully');
     }
 
     public function attendance($id)

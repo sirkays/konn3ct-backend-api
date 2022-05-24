@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-lg-3">
                     <h3>Where</h3>
-                    <p>{{url('/join/')}}/{{$room->url}}</p>
+                    <p>Konn3ct</p>
                 </div>
                 <div class="col-lg-3">
                     <h3>When</h3>

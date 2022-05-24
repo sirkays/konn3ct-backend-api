@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailReset;
 use App\Mail\EmailVerificationMail;
 use App\Models\CodeRequest;
 use App\Models\RoomModel;
@@ -126,7 +127,7 @@ class AuthController extends Controller
         ]);
 
         if ($input['type'] == "email") {
-//            Mail::to($input['emailphone'])->send(new EmailReset($code));
+            Mail::to($input['emailphone'])->send(new EmailReset($code));
         } else {
             $message = "Your " . env("APP_NAME") . " password reset code is " . $code . ". Valid for 1hour, One-time use only.";
 

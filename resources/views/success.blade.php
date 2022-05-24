@@ -55,7 +55,8 @@
         <p class="mb-4 pb-0">Meeting Room Link: {{url('/join/')}}/{{session('roomurl') ?? ""}} </p>
         <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"
            data-autoplay="true"></a>
-        <a href="/register" class="about-btn scrollto">Do you want to have access to Pro version for 8 days?</a>
+        <a href="/register" class="about-btn scrollto">Do you have a Konn3ct account? If no, click here to register for
+            FREE</a>
     </div>
 </section>
 

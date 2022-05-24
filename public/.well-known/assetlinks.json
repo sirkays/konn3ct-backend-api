@@ -1,5 +1,26 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target" : { "namespace": "android_app", "package_name": "com.konn3ct.twa",
-                   "sha256_cert_fingerprints": ["04:C6:10:CC:AA:01:C0:BD:87:45:4A:B4:00:91:17:A8:34:57:C7:1E:A6:10:28:F3:04:A6:0D:CE:09:91:33:7A"] }
-    }]
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.konn3ct.konn3ct",
+            "sha256_cert_fingerprints": [
+                "0E:1B:F0:99:D5:7A:2C:1E:BE:CB:23:12:DB:E1:D9:AA:58:AE:A7:F9:1F:11:23:A0:DD:7A:9B:2D:46:B0:DE:4C"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.konn3ct.twa",
+            "sha256_cert_fingerprints": [
+                "04:C6:10:CC:AA:01:C0:BD:87:45:4A:B4:00:91:17:A8:34:57:C7:1E:A6:10:28:F3:04:A6:0D:CE:09:91:33:7A"
+            ]
+        }
+    }
+]

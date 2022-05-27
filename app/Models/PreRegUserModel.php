@@ -10,5 +10,5 @@ class PreRegUserModel extends Model
     use HasFactory;
 
     protected $table = "prereg_users";
-    protected $fillable = ["prereg_id", "name", "email", "phone", "hasjoin"];
+    protected $guarded = [];
 }

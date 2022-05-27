@@ -11,5 +11,5 @@ class PreRegModel extends Model
 
     protected $table = 'prereg';
 
-    protected $fillable = ['user_id', 'room_id', 'reference', 'title', 'host_name', 'date', 'time', 'timezone', 'about', 'status', 'logo', 'reminder'];
+    protected $guarded = [];
 }

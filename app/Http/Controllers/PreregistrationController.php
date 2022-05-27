@@ -171,6 +171,13 @@ class PreregistrationController extends Controller
                 ->with('error', 'An error occured. Kindly contact support.');
         }
 
+        $check = PreRegUserModel::where(["prereg_id" => $data['preg']->id, "email" => $request->email])->first();
+
+        if ($check) {
+            return redirect()->route("preregshow", $request->ref)
+                ->with('error', 'You have register for this event already.');
+        }
+
         PreRegUserModel::create([
             "prereg_id" => $data['preg']->id,
             "name" => $request->name,

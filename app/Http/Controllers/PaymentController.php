@@ -439,4 +439,74 @@ class PaymentController extends Controller
         return view('user.make_payment', $datas);
     }
 
+    public function creditSub($p, $resp, $plan)
+    {
+        if (!$p) {
+            $data['status'] = $resp['status'];
+
+            if (session('job') == "change_plan") {
+                $data['plan'] = session('plan');
+
+                if ($plan == 1) {
+                    $data['duration'] = "a month";
+                    if ($data['plan'] == Auth::user()->plan) {
+                        if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                            $subd = Carbon::now()->addMonth();
+                        } else {
+                            $subd = Carbon::parse(Auth::user()->subscription)->addMonth();
+                        }
+                    } else {
+                        $subd = Carbon::now()->addMonth();
+                    }
+                    User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => session('plan'), 'status' => 'active']);
+                } else {
+                    $data['duration'] = "a year";
+
+                    if ($data['plan'] == Auth::user()->plan) {
+                        if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
+                            $subd = Carbon::now()->addYear();
+                        } else {
+                            $subd = Carbon::parse(Auth::user()->subscription)->addYear();
+                        }
+                    } else {
+                        $subd = Carbon::now()->addYear();
+                    }
+
+                    User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => session('plan'), 'status' => 'active']);
+                }
+            } else {
+                $data['plan'] = Auth::user()->plan;
+
+                if ($plan == 1) {
+                    $data['duration'] = "a month";
+                    User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addMonth(), 'status' => 'active']);
+                } else {
+                    $data['duration'] = "a year";
+                    User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addYear(), 'status' => 'active']);
+                }
+            }
+
+            PaymentModel::create($data);
+
+
+            $c = new CouponController();
+            $c->markCouponCode();
+
+
+            return redirect()->route('rooms')->with('success', 'Your payment is successfully!');
+        } else {
+            $data['status'] = 'Suspicious';
+
+            if (session('job') == "change_plan") {
+                $data['plan'] = session('plan');
+            } else {
+                $data['plan'] = Auth::user()->plan;
+            }
+
+            PaymentModel::create($data);
+            return back()
+                ->with('error', 'Kindly contact our support with reference -> ' . $data['reference']);
+        }
+    }
+
 }

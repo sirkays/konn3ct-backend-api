@@ -39,8 +39,8 @@
     <div class="container">
 
         <div id="logo" class="pull-left">
-            <h1><a href="/">E<span>Xi</span>t</a></h1>
-{{--            <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a>--}}
+            <a href="#intro" class="scrollto"><img src="https://konn3ct.com/assets/images/konn3ctIcon.png"
+                                                   alt="Event logo" title=""></a>
         </div>
     </div>
 </header><!-- #header -->
@@ -52,10 +52,11 @@
     <div class="intro-container wow fadeIn">
         <h1 class="mb-4 pb-0">Registration Successful</h1>
 {{--        {{session('roomurl')}}--}}
-        <p class="mb-4 pb-0">Meeting Room Link: {{url('/join/')}}/{{session('roomurl') ?? ""}} </p>
+        <p class="mb-4 pb-0">Kindly check your mailbox for details</p>
         <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"
            data-autoplay="true"></a>
-        <a href="/register" class="about-btn scrollto">Do you want to have access to Pro version for 8 days?</a>
+        <a href="/register" class="about-btn scrollto">Do you have a Konn3ct account? If no, click here to register for
+            FREE</a>
     </div>
 </section>
 

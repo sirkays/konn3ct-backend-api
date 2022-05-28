@@ -22,11 +22,11 @@ class MeetingsModel extends Model
      * @var array
      */
     protected $fillable = [
-        'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier'
+        'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier', 'keyword'
     ];
 
     function room()
     {
-        return $this->hasOne(RoomModel::class, 'meeting_id');
+        return $this->belongsTo(RoomModel::class, 'meeting_id');
     }
 }

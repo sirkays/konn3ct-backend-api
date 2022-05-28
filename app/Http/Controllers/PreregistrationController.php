@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateBGAccountJob;
+use App\Jobs\KCEnrollParticipantJob;
 use App\Mail\EventReminderMail;
 use App\Mail\PreregParticipantMail;
 use App\Models\Faq;
@@ -169,6 +171,13 @@ class PreregistrationController extends Controller
                 ->with('error', 'An error occured. Kindly contact support.');
         }
 
+        $check = PreRegUserModel::where(["prereg_id" => $data['preg']->id, "email" => $request->email])->first();
+
+        if ($check) {
+            return redirect()->route("preregshow", $request->ref)
+                ->with('error', 'You have register for this event already.');
+        }
+
         PreRegUserModel::create([
             "prereg_id" => $data['preg']->id,
             "name" => $request->name,
@@ -182,15 +191,21 @@ class PreregistrationController extends Controller
         session(['roomurl' => $data['room']->url]);
         session(['roomname' => $data['room']->name]);
 
-        $dat['pname']= explode(" ", $request->name)[0];
-        $dat['meeting_name']=$data['room']->name;
-        $dat['host']=$host->lastname . " ".$host->firstname;
-        $dat['date']=$data['preg']->date;
-        $dat['time']=$data['preg']->time;
-        $dat['timezone']=$data['preg']->timezone;
-        $dat['url']= url("/join/" . $data['room']->url);
-        $dat['hphone']=$host->phone;
-        $dat['hemail']=$host->email;
+        $dat['pname'] = explode(" ", $request->name)[0];
+        $dat['meeting_name'] = $data['room']->name;
+        $dat['host'] = $host->lastname . " " . $host->firstname;
+        $dat['date'] = $data['preg']->date;
+        $dat['time'] = $data['preg']->time;
+        $dat['timezone'] = $data['preg']->timezone;
+        $dat['url'] = url("/join/" . $data['room']->url);
+        $dat['hphone'] = $host->phone;
+        $dat['hemail'] = $host->email;
+
+        $jobi['name'] = $request->name;
+        $jobi['email'] = $request->email;
+
+        CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
+        KCEnrollParticipantJob::dispatch($data['preg']->room_id, $request->email)->delay(now()->addMinutes(2));
 
         Mail::to($request->email)->queue(new PreregParticipantMail($dat));
 

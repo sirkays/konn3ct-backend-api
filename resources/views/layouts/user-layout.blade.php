@@ -54,9 +54,7 @@
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
         /></noscript>
-    <!-- End
 
-        <!-- Vendors Style-->
     <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
 
     @laravelPWA

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\App\AuthController;
+use App\Http\Controllers\Api\App\ChatController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DeployController;
@@ -25,18 +26,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('deploy', [DeployController::class, 'deploy']);
 
+Route::get('enrolAll', [ChatController::class, 'autoProcessEnrolment']);
+
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
 
 Route::post('register', [UserController::class, 'createUser']);
 
 Route::get('rooms/{email}', [RoomController::class, 'fetchRooms']);
 
-Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
-
 Route::post('start-room0', [RoomController::class, 'startRoom']);
 
 Route::post('check-room', [RoomController::class, 'checkRoom']);
 
+
+Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {
+    Route::get('pricing/{currency}', [\App\Http\Controllers\Api\PricingController::class, 'getPlans']);
+    Route::post('user/register', [\App\Http\Controllers\Api\PricingController::class, 'register']);
+    Route::post('business/register', [\App\Http\Controllers\Api\PricingController::class, 'business']);
+});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('list-rooms', [RoomController::class, 'listRooms']);
@@ -51,6 +58,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('start-room', [RoomController::class, 'startRoom']);
     Route::post('join-room', [RoomController::class, 'joinRoom']);
     Route::post('create-room', [RoomController::class, 'createRoom']);
+
+    Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
 });
 
 Route::group(['prefix' => 'app'], function () {
@@ -59,4 +68,16 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('forgot-password-request', [AuthController::class, 'reset_password_request']);
     Route::post('forgot-password', [AuthController::class, 'reset_password_submit']);
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
+    Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
+    Route::post('join-room', [RoomController::class, 'joinAppRoom']);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('chats', [ChatController::class, 'fetchChats']);
+        Route::get('chats/participants/{id}', [ChatController::class, 'fetchParticipants']);
+        Route::get('chats/messages/{id}', [ChatController::class, 'fetchMessages']);
+        Route::delete('chats/message/delete/{id}', [ChatController::class, 'deleteMessage']);
+        Route::post('chat', [ChatController::class, 'sendMessage']);
+        Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
+        Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
+    });
 });

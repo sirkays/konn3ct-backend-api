@@ -3,18 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use BigBlueButton\Parameters\JoinMeetingParameters;
 use Carbon\Carbon;
+use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
+    /**
+     * @var \Djoudi\Bigbluebutton\Contracts\Meeting
+     */
+    protected $meeting;
+
+    public function __construct(Meeting $meeting)
+    {
+        $this->meeting = $meeting;
+    }
+
     public function startaRoom($id)
     {
 
@@ -24,16 +36,24 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning($i->id);
+        if (Auth::id() != $i->user_id) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!!']);
+        }
+
+        $name = Auth::user()->firstname . " " . Auth::user()->lastname;
+
+        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 
         if ($ms == 1) {
-            return redirect()->to(
+            $url = redirect()->to(
                 \Bigbluebutton::join([
-                    'meetingID' => $i->id,
-                    'userName' => "Samji test",
+                    'meetingID' => "0$i->id",
+                    'userName' => $name,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
             );
+
+            return response()->json(['success' => true, 'message' => 'Meeting is still opened.', 'url' => $url]);
         } else {
             $plan = PlanModel::where("id", 2)->first();
             if ($plan->recording) {
@@ -94,8 +114,8 @@ class RoomController extends Controller
             }
 
             $mdata['meeting_id'] = $i->id;
-            $mdata['name'] = "samji via api";
-            $mdata['email'] = "samjiviaapi@gmail.com";
+            $mdata['name'] = $name;
+            $mdata['email'] = Auth::user()->email;
             $mdata['password_attendee'] = $up;
             $mdata['status'] = "start meeting";
             $mdata['identifier'] = $i->id . rand();
@@ -106,7 +126,7 @@ class RoomController extends Controller
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
-                'userName' => "samji api",//for join meeting
+                'userName' => $name,//for join meeting
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
                 'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br> API Test',
@@ -122,7 +142,7 @@ class RoomController extends Controller
                 'lockSettingsDisableMic' => $dum,
                 'lockSettingsDisableNote' => $dsn,
                 'logo' => $banner,
-                'avatarUrl' => 'https://dev.konn3ct.net/assets/images/konn3ctIcon.png',
+                'avatarUrl' => 'https://konn3ct.com/assets/images/konn3ctIcon.png',
                 'customParameters' => [
                     'userdata-bbb_auto_join_audio' => 'true',
                     'userdata-bbb_enable_video' => 'true',
@@ -423,7 +443,7 @@ class RoomController extends Controller
         }
 
         $recordings = \Bigbluebutton::getRecordings([
-            'meetingID' => $room->id,
+            'meetingID' => "0$room->id",
         ]);
 
         return response()->json(['success' => true, 'message' => 'Rooms recording fetched successfully', 'data' => $recordings]);
@@ -485,11 +505,19 @@ class RoomController extends Controller
             $input['url'] = trim(substr(Auth::user()->lastname, 0, 3) . $sfinal);
         }
 
-        if ($input['welcome_message'] == "") {
+        if (isset($input['welcome_message'])) {
+            if ($input['welcome_message'] == "") {
+                $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+            }
+        } else {
             $input['welcome_message'] = 'Welcome to Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $input["url"] . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $input["url"] . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
         }
 
-        if ($input['logout_url'] == "") {
+        if (isset($input['logout_url'])) {
+            if ($input['logout_url'] == "") {
+                $input['logout_url'] = url('/leftsession');
+            }
+        } else {
             $input['logout_url'] = url('/leftsession');
         }
 
@@ -497,85 +525,30 @@ class RoomController extends Controller
         $input['duration'] = $duration;
         $input['url'] = preg_replace('/\s+/', '', $input['url']);
 
-        if ($input['access_code'] == "") {
+        if (isset($input['access_code'])) {
+            if ($input['access_code'] == "") {
+                $input['password_attendee'] = "attendee";
+                $input['password_moderator'] = "moderator";
+            } else {
+                $input['password_attendee'] = $input['access_code'];
+                $input['password_moderator'] = "moderator";
+            }
+        } else {
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-        } else {
-            $input['password_attendee'] = $input['access_code'];
-            $input['password_moderator'] = "moderator";
         }
+
+        $input['user_id'] = Auth::id();
 
         $r = RoomModel::create($input);
 
-        $createMeeting = \Bigbluebutton::initCreateMeeting([
-            'meetingID' => "0$r->id",
-            'meetingName' => $input['name'],
-            'attendeePW' => $input['password_attendee'],
-            'moderatorPW' => $input['password_moderator'],
-            'endCallbackUrl' => url('/leftsession'),
-            'logoutUrl' => $input['logout_url'],
+        EnrolledChat::create([
+            'user_id' => $this->user_id,
+            'room_id' => Auth::id(),
+            'owner' => 1
         ]);
 
-        $createMeeting->setDuration($duration); //overwrite default configuration
-        if ($plan->dialin) {
-            $createMeeting->setDialNumber("111222"); //overwrite default configuration
-        }
-        if ($plan->recording) {
-            $createMeeting->setRecord(true); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
-        } else {
-            $createMeeting->setRecord(false); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
-        }
-        $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage($input['welcome_message']); //overwrite default configuration
-
-        if (isset($input['muj'])) {
-            $createMeeting->setMuteOnStart(true); //overwrite default configuration
-        }
-
-        if (isset($input['dpuc'])) {
-            $createMeeting->setLockSettingsDisablePublicChat(true); //overwrite default configuration
-        }
-
-        if (isset($input['dprc'])) {
-            $createMeeting->setLockSettingsDisablePrivateChat(true); //overwrite default configuration
-        }
-
-        if (isset($input['ewma'])) {
-            $createMeeting->setLockSettingsDisableCam(true); //overwrite default configuration
-        }
-
-        if (isset($input['dum'])) {
-            $createMeeting->setLockSettingsDisableMic(true); //overwrite default configuration
-        }
-
-        if (isset($input['dsn'])) {
-            $createMeeting->setLockSettingsDisableNote(true); //overwrite default configuration
-        }
-
-        $bbb = \Bigbluebutton::create($createMeeting);
-//       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
-
-        $bba = json_decode($bbb, true);
-        $rm = RoomModel::find($r->id);
-
-        if ($bba["returncode"] == "SUCCESS") {
-            $rm->user_id = Auth::id();
-            $rm->bbb_returncode = $bba["returncode"];
-            $rm->internalMeetingID = $bba["internalMeetingID"];
-            $rm->parentMeetingID = $bba["parentMeetingID"];
-            $rm->voiceBridge = $bba["voiceBridge"];
-            $rm->createDate = $bba["createDate"];
-            $rm->createTime = $bba["createTime"];
-            $rm->save();
-
-            return response()->json(['success' => true, 'message' => 'Room Created Successfully!', 'data' => ['name' => $input['name'], 'id' => $r->id]]);
-
-        } else {
-            $rm->delete();
-            return response()->json(['success' => false, 'message' => 'Server Error while creating Meeting!']);
-        }
+        return response()->json(['success' => true, 'message' => 'Room Created Successfully!', 'data' => ['name' => $input['name'], 'id' => $r->id]]);
     }
 
     public function startRoom(Request $request)
@@ -586,7 +559,9 @@ class RoomController extends Controller
             'name' => 'required|string|min:3|max:30',
             'started_by' => 'required|string|min:3|max:50',
             'logout_url' => 'required|string',
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'keyword' => 'nullable|string',
+            'access_code' => 'nullable|string|min:6'
         );
 
         $validator = Validator::make($input, $rules);
@@ -611,6 +586,7 @@ class RoomController extends Controller
         $rm_id = "0$i->id";
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = 1;
 
         if ($ms == 1) {
             return response()->json(['success' => true, 'message' => 'The room is opened already. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
@@ -663,6 +639,14 @@ class RoomController extends Controller
             $dsn = false;
         }
 
+        if (isset($input['access_code'])) {
+            $i->password_attendee = $input['access_code'];
+            $i->save();
+        } else {
+            $i->password_attendee = "password";
+            $i->save();
+        }
+
         if ($i->aujam) {
             $up = "moderator";
         } else {
@@ -681,6 +665,8 @@ class RoomController extends Controller
         $mdata['password_attendee'] = $up;
         $mdata['status'] = "start meeting";
         $mdata['identifier'] = $i->id . rand();
+        $mdata['keyword'] = $input['keyword'] ?? '';
+
         MeetingsModel::create($mdata);
 
         \Bigbluebutton::create([
@@ -715,7 +701,123 @@ class RoomController extends Controller
             'id' => 'required|numeric|min:1',
             'name' => 'required|string|min:3|max:20',
             'email' => 'required|email|min:3',
-//            'role' => 'required|string|min:3',
+            'role' => 'nullable|string|min:3',
+            'access_code' => 'nullable|string|min:6',
+        );
+
+        $validator = Validator::make($input, $rules);
+
+        if (!$validator->passes()) {
+            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+        }
+
+        $roles = ['moderator', 'viewer'];
+        $role = 'viewer';
+
+        $id = $input['id'];
+        $name = $input['name'];
+        $email = $input['email'];
+
+        if (isset($input['role'])) {
+            if (!in_array($input['role'], $roles)) {
+                return response()->json(['success' => false, 'message' => 'Role does not exist', '_available' => $roles]);
+            }
+            $role = $input['role'];
+        }
+
+        $room = RoomModel::where([['id', $id], ["user_id", Auth::id()]])->first();
+        $i = $room;
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        $rm_id = "0$i->id";
+
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+        $ms = 1;
+
+        if ($ms != 1) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
+
+        $u = User::where('email', $email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if ($u) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
+            }
+        }
+
+        if ($i->password_attendee != "password") {
+            if (isset($input['access_code'])) {
+                if ($input['access_code'] == $i->password_attendee) {
+                    if ($role == $roles[0]) {
+                        $password = $i->password_moderator;
+                    } else {
+                        $password = $i->password_attendee;
+                    }
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Incorrect access code supplied']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'Access code is required']);
+            }
+        } else {
+            if ($role == $roles[0]) {
+                $password = $i->password_moderator;
+            } else {
+                $password = $i->password_attendee;
+            }
+        }
+
+        $fm = MeetingsModel::where('meeting_id', '=', $i->id)->orderBy('id', 'desc')->first();
+
+        $mdata['identifier'] = $fm->identifier;
+        $mdata['status'] = "attempt_to_join";
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $password;
+        MeetingsModel::create($mdata);
+
+
+        try {
+            $meetingParams = new JoinMeetingParameters($rm_id, $name, $password);
+            $meetingParams->setAvatarURL($dp);
+            $meetingParams->setRedirect(true);
+//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
+//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
+//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
+            $url = $this->meeting->join($meetingParams);
+
+            $murl = explode("?", $url);
+
+            $end = encrypt($murl[1]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Maybe Room not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => url('/userjoin') . '/' . $end]);
+
+    }
+
+    public function joinAppRoom(Request $request)
+    {
+        $input = $request->all();
+        $rules = array(
+            'id' => 'required|numeric|min:1',
+            'name' => 'required|string|min:3|max:20',
+            'email' => 'required|email|min:3',
+            'access_code' => 'nullable|string|min:1',
         );
 
         $validator = Validator::make($input, $rules);
@@ -729,11 +831,26 @@ class RoomController extends Controller
         $name = $input['name'];
         $email = $input['email'];
 
-        $room = RoomModel::where([['id', $id], ["user_id", Auth::id()]])->first();
+        $room = RoomModel::where('id', $id)->first();
         $i = $room;
 
         if (!$room) {
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+
+        if ($i->password_attendee != "attendee") {
+            if (isset($input['access_code'])) {
+                if ($input['access_code'] == $i->password_attendee) {
+                    $password = $i->password_attendee;
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Incorrect access code supplied']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'Access code is required']);
+            }
+        } else {
+            $password = $i->password_attendee;
         }
 
         $rm_id = "0$i->id";
@@ -747,25 +864,27 @@ class RoomController extends Controller
         $u = User::where('email', $email)->first();
         $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
 
-        if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+        if ($u) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
 
-            $resul = $u->profile_photo_url;
-            $findme = 'ui-avatars.com';
-            $pos = strpos($resul, $findme);
-            // Note our use of ===.  Simply == would not work as expected
-            if ($pos === false) {
-                $dp = $u->profile_photo_url;
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
             }
         }
 
         $fm = MeetingsModel::where('meeting_id', '=', $i->id)->orderBy('id', 'desc')->first();
 
         $mdata['identifier'] = $fm->identifier;
-        $mdata['status'] = "attempt_to_join";
+        $mdata['status'] = "attempt_to_join_app";
         $mdata['meeting_id'] = $i->id;
         $mdata['name'] = $name;
         $mdata['email'] = $email;
-        $mdata['password_attendee'] = $i->password_attendee;
+        $mdata['password_attendee'] = $password;
         MeetingsModel::create($mdata);
 
 
@@ -778,11 +897,7 @@ class RoomController extends Controller
 //        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
         $url = $this->meeting->join($meetingParams);
 
-        $murl = explode("?", $url);
-
-        $end = encrypt($murl[1]);
-
-        return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => url('/userjoin') . '/' . $end]);
+        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => $url]);
 
     }
 
@@ -796,24 +911,35 @@ class RoomController extends Controller
 
         $rm_id = "0$room->id";
 
-        $details = \Bigbluebutton::getMeetingInfo([
-            'meetingID' => $rm_id,
-            'moderatorPW' => $room->password_moderator
-        ]);
 
-        $datas['meetingName'] = $details['meetingName'];
-        $datas['startTime'] = $details['createDate'];
-        $datas['opened'] = $details['running'];
-        $datas['duration'] = $details['duration'];
-        $datas['hasParticipantJoined'] = $details['hasUserJoined'];
-        $datas['recordingEnabled'] = $details['recording'];
-        $datas['recordingEnabled'] = $details['recording'];
-        $datas['participants'] = $details['participantCount'];
-        $datas['participantsHasVideoOn'] = $details['videoCount'];
-        $datas['admins'] = $details['moderatorCount'];
-        $datas['participantLists'] = $details['moderatorCount'];
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//
+//        if ($ms != 1) {
+//            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+//        }
 
-        return response()->json(['success' => true, 'message' => 'Rooms details', 'datal' => $datas, 'data' => $details]);
+        try {
+
+            $details = \Bigbluebutton::getMeetingInfo([
+                'meetingID' => $rm_id,
+                'moderatorPW' => $room->password_moderator
+            ]);
+
+            $datas['meetingName'] = $details['meetingName'];
+            $datas['startTime'] = $details['createDate'];
+            $datas['opened'] = $details['running'];
+            $datas['duration'] = $details['duration'];
+            $datas['hasParticipantJoined'] = $details['hasUserJoined'];
+            $datas['recordingEnabled'] = $details['recording'];
+            $datas['recordingEnabled'] = $details['recording'];
+            $datas['participants'] = $details['participantCount'];
+            $datas['participantsHasVideoOn'] = $details['videoCount'];
+            $datas['admins'] = $details['moderatorCount'];
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Rooms details', 'data' => $datas]);
     }
 
     public function listAttendance($id)
@@ -867,8 +993,8 @@ class RoomController extends Controller
 
     public function meetingHistory()
     {
-        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->get();
-        $meeting->room;
+        $meeting = MeetingsModel::where('email', Auth::user()->email)->latest()->limit(10)->with('room')->get();
+
 
         return response()->json(['success' => true, 'message' => 'Meeting history fetched successfully', 'data' => $meeting]);
     }

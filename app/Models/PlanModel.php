@@ -10,4 +10,9 @@ class PlanModel extends Model
     use HasFactory;
 
     protected $table = 'plans';
+
+    function pricing()
+    {
+        $this->hasMany(PlanPricing::class);
+    }
 }

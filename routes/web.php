@@ -30,6 +30,11 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
 
+Route::get('/trigger/{data}', function ($data) {
+    echo "<p>You have sent $data.</p>";
+    \App\Events\HealthEvent::dispatch($data);
+});
+
 Route::get('/pmailable', function () {
     $jobi['days'] = 14;
     $jobi['user'] = \App\Models\User::find(1);
@@ -43,7 +48,7 @@ Route::get('/welcomemail', function () {
 
 
 Route::get('/userjoin/{params}', function ($params) {
-    return redirect()->away('https://konn3ct.com/bigbluebutton/api/join?' . decrypt($params));
+    return redirect()->away(env('BBB_SERVER_BASE_URL') . 'api/join?' . decrypt($params));
 });
 
 Route::get('/nsu', function () {
@@ -165,7 +170,33 @@ Route::get('/prereg/{filename}', function ($filename)
     return $response;
 })->name('show.prereg.image');
 
+Route::get('/chat_images/{filename}', function ($filename) {
+    $path = storage_path('chat_images/' . $filename);
 
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('show.chatImages');
+
+Route::get('/chat_audio/{filename}', function ($filename) {
+    $path = storage_path('chat_audio/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('show.chatAudio');
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 

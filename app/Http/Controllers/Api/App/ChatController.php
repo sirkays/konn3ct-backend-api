@@ -15,7 +15,7 @@ class ChatController extends Controller
 {
     function fetchChats()
     {
-        $chats = EnrolledChat::where('user_id', Auth::id())->with('room', 'lastMessage.user')->get();
+        $chats = EnrolledChat::where(['user_id' => Auth::id(), 'status' => 1])->with('room', 'lastMessage.user')->get();
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $chats]);
     }
 

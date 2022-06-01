@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
 use App\Jobs\KCEnrollOwnerJob;
+use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -508,9 +509,9 @@ class RoomController extends Controller
     }
 
     public function delete(Request $request){
-        $id=$request->get('id');
+        $id = $request->get('id');
 
-        $i=RoomModel::find($id);
+        $i = RoomModel::find($id);
 
         if (!$i) {
             return back()
@@ -518,6 +519,8 @@ class RoomController extends Controller
         }
 
         $i->delete();
+
+        EnrolledChat::where("room_id", $i->id)->update(['status' => '0']);
 
         return redirect()->route('rooms')->with('success', 'Room Deleted Successfully!');
     }

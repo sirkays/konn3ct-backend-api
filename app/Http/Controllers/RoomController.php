@@ -10,7 +10,6 @@ use App\Models\RoomModel;
 use App\Models\User;
 use BigBlueButton\Parameters\CreateMeetingParameters;
 use BigBlueButton\Parameters\JoinMeetingParameters;
-use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -19,15 +18,6 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
-    /**
-     * @var \Djoudi\Bigbluebutton\Contracts\Meeting
-     */
-    protected $meeting;
-
-    public function __construct(Meeting $meeting)
-    {
-        $this->meeting = $meeting;
-    }
 
     public function create(Request $request)
     {

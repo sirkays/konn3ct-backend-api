@@ -8,24 +8,13 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
-use BigBlueButton\Parameters\JoinMeetingParameters;
 use Carbon\Carbon;
-use Djoudi\Bigbluebutton\Contracts\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
-    /**
-     * @var \Djoudi\Bigbluebutton\Contracts\Meeting
-     */
-    protected $meeting;
-
-    public function __construct(Meeting $meeting)
-    {
-        $this->meeting = $meeting;
-    }
 
     public function startaRoom($id)
     {
@@ -543,8 +532,8 @@ class RoomController extends Controller
         $r = RoomModel::create($input);
 
         EnrolledChat::create([
-            'user_id' => $this->user_id,
-            'room_id' => Auth::id(),
+            'user_id' => $input['user_id'],
+            'room_id' => $r->id,
             'owner' => 1
         ]);
 
@@ -734,8 +723,8 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-        $ms = 1;
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms = 1;
 
         if ($ms != 1) {
             return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
@@ -790,17 +779,22 @@ class RoomController extends Controller
 
 
         try {
-            $meetingParams = new JoinMeetingParameters($rm_id, $name, $password);
-            $meetingParams->setAvatarURL($dp);
-            $meetingParams->setRedirect(true);
-//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
-//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
-//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
-//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
-            $url = $this->meeting->join($meetingParams);
+            $url = \Bigbluebutton::join([
+                'meetingID' => $rm_id,
+                'userName' => $name,
+                'userId' => $email,
+                'password' => $password, //which user role want to join set password here
+                'avatarUrl' => $dp,
+                'customParameters' => [
+                    'userdata-bbb_auto_join_audio' => 'true',
+                    'userdata-bbb_enable_video' => 'true',
+                    'userdata-bbb_listen_only_mode' => 'false',
+                    'userdata-bbb_force_listen_only' => 'false',
+                    'userdata-bbb_skip_check_audio' => 'true'
+                ],
+            ]);
 
             $murl = explode("?", $url);
-
             $end = encrypt($murl[1]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Maybe Room not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
@@ -887,15 +881,20 @@ class RoomController extends Controller
         $mdata['password_attendee'] = $password;
         MeetingsModel::create($mdata);
 
-
-        $meetingParams = new JoinMeetingParameters($rm_id, $name, $i->password_moderator);
-        $meetingParams->setAvatarURL($dp);
-        $meetingParams->setRedirect(true);
-//        $meetingParams->setCustomParameter('bbb_auto_join_audio', 'true');
-//        $meetingParams->setCustomParameter('bbb_skip_check_audio', 'true');
-//        $meetingParams->setCustomParameter('bbb_force_listen_only', 'false');
-//        $meetingParams->setCustomParameter('bbb_listen_only_mode', 'false');
-        $url = $this->meeting->join($meetingParams);
+        $url = \Bigbluebutton::join([
+            'meetingID' => $rm_id,
+            'userName' => $name,
+            'userId' => $email,
+            'password' => $password, //which user role want to join set password here
+            'avatarUrl' => $dp,
+            'customParameters' => [
+                'userdata-bbb_auto_join_audio' => 'true',
+                'userdata-bbb_enable_video' => 'true',
+                'userdata-bbb_listen_only_mode' => 'false',
+                'userdata-bbb_force_listen_only' => 'false',
+                'userdata-bbb_skip_check_audio' => 'true'
+            ],
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' => $url]);
 

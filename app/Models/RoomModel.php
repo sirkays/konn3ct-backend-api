@@ -25,6 +25,11 @@ class RoomModel extends Model
         'user_id', 'name', 'url', 'password_attendee', 'password_moderator', 'welcome_message', 'dial_number', 'logout_url', 'max_participants', 'duration', 'muj', 'dpuc', 'dprc', 'ewma', 'dum', 'dsn', 'default_room', 'prereg'
     ];
 
+    function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

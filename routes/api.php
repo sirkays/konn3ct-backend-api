@@ -30,6 +30,8 @@ Route::get('enrolAll', [ChatController::class, 'autoProcessEnrolment']);
 
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
 
+Route::post('create-token', [UserController::class, 'createToken']);
+
 Route::post('register', [UserController::class, 'createUser']);
 
 Route::get('rooms/{email}', [RoomController::class, 'fetchRooms']);

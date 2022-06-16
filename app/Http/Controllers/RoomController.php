@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
 use App\Jobs\KCEnrollOwnerJob;
+use App\Jobs\NotifyParticipantMeetingJob;
 use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
@@ -332,6 +333,8 @@ class RoomController extends Controller
                 'userdata-bbb_skip_check_audio' => 'true'
             ],
         ]);
+
+        NotifyParticipantMeetingJob::dispatch($i->id);
 
         return redirect()->to($url);
     }

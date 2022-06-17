@@ -693,7 +693,7 @@ class RoomController extends Controller
         $input = $request->all();
         $rules = array(
             'id' => 'required|numeric|min:1',
-            'name' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
             'role' => 'nullable|string|min:3',
             'access_code' => 'nullable|string|min:6',
@@ -814,7 +814,7 @@ class RoomController extends Controller
         $input = $request->all();
         $rules = array(
             'id' => 'required|numeric|min:1',
-            'name' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
             'access_code' => 'nullable|string|min:1',
         );

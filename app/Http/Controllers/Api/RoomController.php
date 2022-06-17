@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\NotifyParticipantMeetingJob;
 use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
 use App\Models\PlanModel;
@@ -110,6 +111,8 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
+            $message = 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+
             $url = \Bigbluebutton::start([
                 'meetingID' => "0$i->id",
                 'moderatorPW' => $i->password_moderator, //moderator password set here
@@ -118,7 +121,7 @@ class RoomController extends Controller
                 'userName' => $name,//for join meeting
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br> API Test',
+                'welcomeMessage' => $message,
 //                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
                 'allowStartStopRecording' => $record,
                 'record' => $record,
@@ -140,6 +143,8 @@ class RoomController extends Controller
                     'userdata-bbb_skip_check_audio' => 'true'
                 ]
             ]);
+
+            NotifyParticipantMeetingJob::dispatch($i->id);
 
             return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url]);
         }
@@ -688,7 +693,7 @@ class RoomController extends Controller
         $input = $request->all();
         $rules = array(
             'id' => 'required|numeric|min:1',
-            'name' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
             'role' => 'nullable|string|min:3',
             'access_code' => 'nullable|string|min:6',
@@ -809,7 +814,7 @@ class RoomController extends Controller
         $input = $request->all();
         $rules = array(
             'id' => 'required|numeric|min:1',
-            'name' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
             'access_code' => 'nullable|string|min:1',
         );

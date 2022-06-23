@@ -144,7 +144,7 @@
                                             class="text-fade">Parameters</span></th>
                                     <th style="min-width: 20px; max-width: 50px; overflow-wrap: break-word;"><span
                                             class="text-fade">Date</span></th>
-                                    <th style="min-width: 70px"><span class="text-fade">Options</span></th>
+                                    <th style="min-width: 100px"><span class="text-fade">Options</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>

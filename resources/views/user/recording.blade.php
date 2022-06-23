@@ -17,7 +17,7 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border">
+                            <table class="table no-border" id="complex_header">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest font-size-10">
                                     <th><span class="text-fade">Name</span></th>
@@ -39,8 +39,14 @@
                                                         No Image Preview
                                                     @endif
                                                     <br/>
-                                                    <a href="#"
-                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-10">{{$record['name']}}</a>
+                                                    <div
+                                                        class="text-dark font-weight-600 hover-primary mb-1 font-size-10">
+                                                        <a href="{{$record['playback']['format']['url']}}">{{$record['name']}}</a>
+                                                        <br/><br/>
+                                                        Date: {{\Carbon\Carbon::parseFromLocale($record['startTime']/1000)->format('Y/m/d')}}
+                                                        <br/>
+                                                        Time: {{\Carbon\Carbon::parseFromLocale($record['startTime']/1000)->format('H:i:s')}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -68,28 +74,30 @@
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
 
-{{--                                                <span class="text-dark font-weight-600 d-block font-size-10">--}}
-{{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
-{{--												</span>--}}
-                                            </td>
+                                            <span class="text-dark font-weight-600 d-block font-size-10">
+													{{ number_format((($record['playback']['format']['size'] ?? 1)/1000000))."MB"}}
+												</span>
+                                        </td>
 
-                                            <td>
-                                                <a class="waves-effect waves-light btn btn-success font-size-10" href="{{$record['playback']['format']['url']}}">
-                                                    Play
-                                                </a>
+                                        <td>
+                                            <a class="waves-effect waves-light btn btn-success font-size-10 mb-2"
+                                               href="{{$record['playback']['format']['url']}}">
+                                                Play
+                                            </a>
 
-                                                <br/>
-                                                <br/>
+                                            <input type="hidden" id="c{{$i}}"
+                                                   value="{{$record['playback']['format']['url']}}"/>
 
-
-                                                <input type="hidden" id="c{{$i}}" value="{{$record['playback']['format']['url']}}"/>
-
-                                                <div class="dropdown">
-                                                    <button class="btn btn-outline-primary dropdown-toggle font-size-10" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        Manage
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <Button class="dropdown-item" class="waves-effect waves-light btn font-size-10" onclick="myFunction('c{{$i++}}')">
+                                            <div class="dropdown mb-2">
+                                                <button class="btn btn-outline-primary dropdown-toggle font-size-10"
+                                                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                    Manage
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <Button class="dropdown-item"
+                                                            class="waves-effect waves-light btn font-size-10"
+                                                            onclick="myFunction('c{{$i++}}')">
                                                             Copy
                                                         </Button>
 
@@ -99,7 +107,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br/>
 
                                             <a class="waves-effect waves-light btn btn-danger font-size-10" href="#">
                                                 Delete
@@ -127,7 +134,7 @@
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-border table-responsive">
+                            <table class="table no-border table-responsive" id="complex_header">
                                 <thead>
                                 <tr class="text-uppercase bg-lightest">
                                     <th style="min-width: 20px; max-width: 50px"><span
@@ -135,7 +142,7 @@
                                     <th style="min-width: 20px; max-width: 50px"><span
                                             class="text-fade">Parameters</span></th>
                                     <th style="min-width: 20px; max-width: 50px; overflow-wrap: break-word;"><span
-                                            class="text-fade">Link</span></th>
+                                            class="text-fade">Date</span></th>
                                     <th style="min-width: 100px"><span class="text-fade">Options</span></th>
                                 </tr>
                                 </thead>
@@ -173,17 +180,13 @@
                                             <span class="text-dark font-weight-600 d-block font-size-16">
 													{{$record['playback']['format']['length']}} Minutes
 												</span>
-                                            {{--                                            <span class="text-dark font-weight-600 d-block font-size-16">--}}
-                                            {{--													{{date('m/d/y H:i:s', $record['endTime'])}}--}}
-                                            {{--												</span>--}}
-
-                                            {{--                                                <span class="text-dark font-weight-600 d-block font-size-16">--}}
-                                            {{--													{{ number_format(($record['size']/1000000))."MB"}}--}}
-                                            {{--												</span>--}}
+                                            <span class="text-dark font-weight-600 d-block font-size-16">
+													{{ number_format((($record['playback']['format']['size']??1)/1000000))."MB"}}
+												</span>
                                         </td>
                                         <td style="min-width: 50px; max-width: 150px; overflow-wrap: break-word">
                                             <span
-                                                class="text-dark font-weight-600 d-block font-size-16">{{$record['playback']['format']['url']}}</span>
+                                                class="text-dark font-weight-600 d-block font-size-16">{{\Carbon\Carbon::parseFromLocale($record['startTime']/1000)->format('Y/m/d H:i:s')}}</span>
                                             <input type="hidden" id="c{{$i}}"
                                                    value="{{$record['playback']['format']['url']}}"/>
                                         </td>

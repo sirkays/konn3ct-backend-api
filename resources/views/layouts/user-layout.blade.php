@@ -569,7 +569,7 @@
 
 <script src="/user_assets/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
 
-@if(Request::segment(1) === 'payment' || Request::segment(1) === 'participants' || Request::segment(1) === 'referee' || Request::segment(1) === 'preregistration_participants')
+@if(Request::segment(1) === 'payment' || Request::segment(1) === 'participants' || Request::segment(1) === 'referee' || Request::segment(1) === 'preregistration_participants' || Request::segment(1) === 'recording')
 <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 @endif
 

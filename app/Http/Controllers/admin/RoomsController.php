@@ -72,9 +72,9 @@ class RoomsController extends Controller
         $datas['meetingstc'] = MeetingsModel::join('room', 'room.id', '=', 'meetings.meeting_id')
             ->where('meetings.status', '=', 'start meeting')
             ->count();
-        $datas['meetings_today'] = MeetingsModel::where([['status', '=', 'start meeting'], ['date', 'LIKE', Carbon::now()->format('Y-m-d') . '%']])->count();
-        $datas['meetings_yesterday'] = MeetingsModel::where([['status', '=', 'start meeting'], ['date', 'LIKE', Carbon::now()->subDay()->format('Y-m-d') . '%']])->count();
-        $datas['meetings_month'] = MeetingsModel::where([['status', '=', 'start meeting'], ['date', 'LIKE', Carbon::now()->format('Y-m') . '%']])->count();
+        $datas['meetings_today'] = MeetingsModel::where([['status', '=', 'start meeting'], ['created_at', 'LIKE', Carbon::now()->format('Y-m-d') . '%']])->count();
+        $datas['meetings_yesterday'] = MeetingsModel::where([['status', '=', 'start meeting'], ['created_at', 'LIKE', Carbon::now()->subDay()->format('Y-m-d') . '%']])->count();
+        $datas['meetings_month'] = MeetingsModel::where([['status', '=', 'start meeting'], ['created_at', 'LIKE', Carbon::now()->format('Y-m') . '%']])->count();
 
         $datas['meetingsdc'] = MeetingsModel::distinct('email')->count();
         $datas['i'] = 1;

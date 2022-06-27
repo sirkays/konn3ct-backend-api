@@ -13,7 +13,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
@@ -594,17 +593,17 @@ class RoomController extends Controller
         }
 
 
-        $path = Storage::put('roombanner', $input['banner']);
-        $fName = explode("/", $path);
+//        $path = Storage::put('roombanner', $input['banner']);
+//        $fName = explode("/", $path);
 
 
-//        $fName = rand().".jpg";
-//        $path = storage_path('roombanner/');
-//        $file->move($path, $fName);
+        $fName = rand() . ".jpg";
+        $path = storage_path('roombanner/');
+        $file->move($path, $fName);
 
 
         $i = RoomModel::find($request->id);
-        $i->banner = $fName[1];
+        $i->banner = $fName;
         $i->save();
 
         return redirect()->route('rooms')->with('success', 'Banner has been uploaded successfully');

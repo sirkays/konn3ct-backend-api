@@ -12,4 +12,10 @@ class PreRegModel extends Model
     protected $table = 'prereg';
 
     protected $guarded = [];
+
+    function room()
+    {
+        return $this->belongsTo(RoomModel::class, 'id', 'room_id');
+    }
+
 }

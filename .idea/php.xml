@@ -158,6 +158,10 @@
       <path value="$PROJECT_DIR$/vendor/ratchet/rfc6455" />
       <path value="$PROJECT_DIR$/vendor/fig/http-message-util" />
       <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/vendor/djoudi/bbb-laravel5.5" />
+      <path value="$PROJECT_DIR$/vendor/bigbluebutton/bigbluebutton-api-php" />
+      <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/vendor/matscode/paystack-php-sdk" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

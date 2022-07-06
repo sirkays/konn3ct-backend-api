@@ -493,7 +493,7 @@ src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
 
                     <img src="/assets/images/group2002.png" height="35px"/>
 
-                    <a href="https://www.youtube.com/channel/UCt8nu6M8VBWonkFOuUTuHUg"><img
+                    <a href="https://www.youtube.com/channel/UC6R90Zju7mJ0_pEZ5pBMA5w"><img
                             src="/assets/images/group2001.png" height="35px"></a>
 
                 </div>
@@ -511,18 +511,29 @@ src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="https://www.youtube.com/watch?v=jEV7vjngo4g" id="footer_link">Register on konn3ct</a>
+                        <a href="https://www.youtube.com/watch?v=iCVI_rYrbMA" id="footer_link">How to use konn3ct</a>
                     </li>
                     <li>
-                        <a href="https://www.youtube.com/watch?v=Dn323U-br5Q" id="footer_link">Create Meeting Room</a>
+                        <a href="https://www.youtube.com/watch?v=UPmvSse8fVQ" id="footer_link">How to join Breakout
+                            Room</a>
                     </li>
                     <li>
-                        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" id="footer_link">Join Meeting Room</a>
+                        <a href="https://www.youtube.com/watch?v=ZDAV5okZIjk" id="footer_link">How to Create Breakout
+                            Room</a>
                     </li>
+                    {{--                    <li>--}}
+                    {{--                        <a href="https://www.youtube.com/watch?v=jEV7vjngo4g" id="footer_link">Register on konn3ct</a>--}}
+                    {{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="https://www.youtube.com/watch?v=Dn323U-br5Q" id="footer_link">Create Meeting Room</a>--}}
+                    {{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" id="footer_link">Join Meeting Room</a>--}}
+                    {{--                    </li>--}}
 
-                    <li>
-                        <a href="https://www.youtube.com/watch?v=eCblbRoL4gs" id="footer_link">Manage Meeting Room</a>
-                    </li>
+                    {{--                    <li>--}}
+                    {{--                        <a href="https://www.youtube.com/watch?v=eCblbRoL4gs" id="footer_link">Manage Meeting Room</a>--}}
+                    {{--                    </li>--}}
 
                     {{--                    <li>--}}
                     {{--                        <a href="#!" id="footer_link">About us</a>--}}

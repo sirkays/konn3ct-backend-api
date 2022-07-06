@@ -30,6 +30,9 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
 
+Route::get('/teststripe', [\App\Http\Controllers\Payments\StripePayment::class, 'process']);
+Route::get('/testpaystack', [\App\Http\Controllers\Payments\PaystackPayment::class, 'process']);
+
 Route::get('/trigger/{data}', function ($data) {
     echo "<p>You have sent $data.</p>";
     \App\Events\HealthEvent::dispatch($data);
@@ -227,6 +230,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
     Route::post('/preregistration', [PreregistrationController::class, 'prereg'])->name('prereg');
+
+    Route::post('/modify-preregistration', [PreregistrationController::class, 'preregModify'])->name('preregModify');
 
     Route::get('/preregistration_participants/{reference}', [PreregistrationController::class, 'prereParticipants'])->name('prereParticipants');
 

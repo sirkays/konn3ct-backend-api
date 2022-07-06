@@ -176,8 +176,8 @@ class RoomController extends Controller
         $plan = PlanModel::where("id", Auth::user()->plan)->first();
         $r = $plan->rooms + Auth::user()->room_bundles;
 
-        $datas['rooms']=RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->limit($r)->get();
-        $datas['roomstc']=RoomModel::where("user_id", Auth::id())->count();
+        $datas['rooms'] = RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->with('prereg_model')->limit($r)->get();
+        $datas['roomstc'] = RoomModel::where("user_id", Auth::id())->count();
         if($datas['roomstc']>$r){
             $datas['roomstc']=$r;
         }

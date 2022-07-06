@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
 use App\Jobs\KCEnrollParticipantJob;
+use App\Jobs\WhatsappInviteJob;
 use App\Mail\EventReminderMail;
 use App\Mail\PreregParticipantMail;
 use App\Models\Faq;
@@ -93,7 +94,76 @@ class PreregistrationController extends Controller
         $r->save();
 
 
-        return back()->with('success', 'Processed successfully. Your Pre-registration link is <a href="' . url("/preregistration/") . "/" . $reglink . '">' . url("/preregistration/" . $reglink). '</a>');
+        return back()->with('success', 'Processed successfully. Your Pre-registration link is <a href="' . url("/preregistration/") . "/" . $reglink . '">' . url("/preregistration/" . $reglink) . '</a>');
+    }
+
+    public function preregModify(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|max:255',
+            'title' => 'required|max:255',
+            'hostname' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'timezone' => 'required',
+            'about' => 'required',
+            'reminder' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $pd = date_parse($input['date']);
+        print_r($pd);
+
+        $rd = $pd['year'] . "-" . $pd['month'] . "-" . $pd['day'];
+
+        echo $rd;
+
+        $date = date_create($rd);
+        date_sub($date, date_interval_create_from_date_string($input['reminder'] . " days"));
+        $reminder = date_format($date, "Y-m-d");
+
+        $prereg = PreRegModel::find($input['id']);
+
+        $fName = $prereg->logo;
+
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            if (!$file->isValid()) {
+                return back()->with('error', 'Invalid file upload');
+            }
+
+            if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
+                return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+            }
+
+            $fName = rand() . ".png";
+
+            $path = storage_path('prereg/');
+            $file->move($path, $fName);
+
+            echo "Uploaded successfully";
+        }
+
+        $prereg->title = $input['title'];
+        $prereg->host_name = $input['hostname'];
+        $prereg->date = $input['date'];
+        $prereg->time = $input['time'];
+        $prereg->timezone = $input['timezone'];
+        $prereg->about = $input['about'];
+        $prereg->logo = $fName;
+        $prereg->reminder = $reminder;
+        $prereg->save();
+
+        $reglink = $prereg->reference;
+
+        return back()->with('success', 'Modified successfully. Your Pre-registration link is <a href="' . url("/preregistration/") . "/" . $reglink . '">' . url("/preregistration/" . $reglink) . '</a>');
     }
 
     public function dprereg($reference)
@@ -245,23 +315,45 @@ class PreregistrationController extends Controller
                 echo "\n";
                 $users = PreRegUserModel::where("prereg_id", $preg_list->id)->get();
                 $host = User::find($preg_list->user_id);
+                $room = RoomModel::find($preg_list->room_id);
 
                 foreach ($users as $user){
                     echo "Working on user - " .$user->name;
                     echo "\n";
                     $dat['pname']=explode(" ", $user->name)[0];
-                    $dat['event_name']=$preg_list->title;
-                    $dat['host']=$host->lastname . " ".$host->firstname;
-                    $dat['formatted_date']=Carbon::parse($preg_list->date)->toFormattedDateString();
-                    $dat['formatted_time']=Carbon::parse($preg_list->time)->toTimeString();
-                    $dat['date']=$preg_list->date;
-                    $dat['time']=$preg_list->time;
-                    $dat['timezone']=$preg_list->timezone;
-                    $dat['url']= url("/join/" . $preg_list->url);
-                    $dat['hphone']=$host->phone;
-                    $dat['hemail']=$host->email;
+                    $dat['event_name'] = $preg_list->title;
+                    $dat['host'] = $host->lastname . " " . $host->firstname;
+                    $dat['formatted_date'] = Carbon::parse($preg_list->date)->toFormattedDateString();
+                    $dat['formatted_time'] = Carbon::parse($preg_list->time)->toTimeString();
+                    $dat['date'] = $preg_list->date;
+                    $dat['time'] = $preg_list->time;
+                    $dat['timezone'] = $preg_list->timezone;
+                    $dat['url'] = url("/join/" . $preg_list->url);
+                    $dat['hphone'] = $host->phone;
+                    $dat['hemail'] = $host->email;
 
-                    echo "Sending event reminder to ".$user->email;
+
+                    $input['hostname'] = $dat['host'];
+
+                    $input['roomlink'] = $dat['url'];
+
+                    $input['accesscode'] = "<<hidden";
+
+                    $input['title'] = $dat['event_name'];
+
+                    $input['date'] = $dat['date'];
+
+                    $input['time'] = $dat['time'];
+
+                    $input['roomname'] = $room->name;
+
+                    $input['timezone'] = $dat['timezone'];
+
+                    $input['guest'] = $user->phone;
+
+                    WhatsappInviteJob::dispatch($input)->delay(now()->addSeconds(5));
+
+                    echo "Sending event reminder to " . $user->email;
                     Mail::to($user->email)->send(new EventReminderMail($dat));
                 }
 

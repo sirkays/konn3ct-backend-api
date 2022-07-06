@@ -83,6 +83,7 @@ class MasterCardGatewayController extends Controller
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CUSTOMREQUEST => "PUT",
             CURLOPT_POSTFIELDS => '{"apiOperation":"PAY","sourceOfFunds":{"type":"CARD","provided":{"card":{"number":"' . $card . '","expiry":{"month":"' . $eMonth . '","year":"' . $eYear . '"},"securityCode":"' . $sCode . '"}}},"order":{"amount":"' . $amount . '","currency":"USD"}}',
             CURLOPT_HTTPHEADER => array(

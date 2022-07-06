@@ -30,6 +30,11 @@ class RoomModel extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    function prereg_model()
+    {
+        return $this->hasOne(PreRegModel::class, 'reference', 'prereg');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -185,9 +185,9 @@ class WhatsappInviteJob implements ShouldQueue
         ],
         "buttons": [
             {
-                "index": "1",
-                "type": "link",
-                "value": "' . str_replace("https://konn3ct.com/", "", $data['ilink']) . '"
+                "index": "0",
+                "type": "url",
+                "value": "' . urlencode(str_replace(url("/") . "/", "", $data['ilink'])) . '"
             }
         ]
     }

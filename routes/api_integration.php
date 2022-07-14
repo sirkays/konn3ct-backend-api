@@ -22,6 +22,7 @@ Route::group(['prefix' => 'integration'], function () {
     Route::get('getUsers', [UserController::class, 'userList']);
     Route::get('getUsersPlan/{plan}', [UserController::class, 'userListByPlan']);
     Route::get('getRooms', [RoomController::class, 'roomList']);
+    Route::get('getUserRooms/{id}', [RoomController::class, 'userRooms']);
     Route::get('getMeetings', [MeetingController::class, 'meetingList']);
     Route::get('getPlans', [PlansController::class, 'planList']);
 });

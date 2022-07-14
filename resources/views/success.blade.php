@@ -51,10 +51,10 @@
 <section id="intro">
     <div class="intro-container wow fadeIn">
         <h1 class="mb-4 pb-0">Registration Successful</h1>
-{{--        {{session('roomurl')}}--}}
+        {{--        {{session('roomurl')}}--}}
         <p class="mb-4 pb-0">Kindly check your mailbox for details</p>
-        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"
-           data-autoplay="true"></a>
+        {{--        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"--}}
+        {{--           data-autoplay="true"></a>--}}
         <a href="/register" class="about-btn scrollto">Do you have a Konn3ct account? If no, click here to register for
             FREE</a>
     </div>

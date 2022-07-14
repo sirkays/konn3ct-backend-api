@@ -11,7 +11,6 @@ use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
-use App\Mail\UserWelcomeMail;
 use App\Mail\WelcomeMailViaJoin;
 use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
@@ -28,60 +27,9 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
-//Route::get('/aa', [PreregistrationController::class, 'checkReminder']);
-
-Route::get('/teststripe', [\App\Http\Controllers\Payments\StripePayment::class, 'process']);
-Route::get('/testpaystack', [\App\Http\Controllers\Payments\PaystackPayment::class, 'process']);
-
-Route::get('/trigger/{data}', function ($data) {
-    echo "<p>You have sent $data.</p>";
-    \App\Events\HealthEvent::dispatch($data);
-});
-
-Route::get('/pmailable', function () {
-    $jobi['days'] = 14;
-    $jobi['user'] = \App\Models\User::find(1);
-
-    return new \App\Mail\SubscriptionReminderMail($jobi);
-});
-
-Route::get('/welcomemail', function () {
-    return (new UserWelcomeMail())->render();
-})->name('mailtest');
-
-
 Route::get('/userjoin/{params}', function ($params) {
     return redirect()->away(env('BBB_SERVER_BASE_URL') . 'api/join?' . decrypt($params));
 });
-
-Route::get('/nsu', function () {
-    return view('new-signup');
-})->name('new-signup');
-
-Route::get('/njm', function () {
-    return view('new-joinmeeting');
-})->name('new-joinmeeting');
-
-Route::get('/nrs', function () {
-    return view('new-roompreview');
-});
-
-Route::get('/nrpa', function () {
-    return view('new-roompreviewavailable');
-});
-
-Route::get('/nps', function () {
-    return view('new-pricing');
-});
-
-Route::get('/ncs', function () {
-    return view('new-contactsales');
-})->name("contactsales");
-
-Route::get('/nhp', function () {
-    return view('new-homepage');
-})->name('new-homepage');
-
 
 Route::get('/offline', function () {
     return view('vendor/laravelpwa/offline');
@@ -143,77 +91,6 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
-
-Route::get('/myroombanner/{filename}', function ($filename) {
-    $path = storage_path('roombanner/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('show.roombanner');
-
-Route::get('/prereg/{filename}', function ($filename)
-{
-    $path = storage_path('prereg/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('show.prereg.image');
-
-Route::get('/chat_images/{filename}', function ($filename) {
-    $path = storage_path('chat_images/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('show.chatImages');
-
-Route::get('/chat_audio/{filename}', function ($filename) {
-    $path = storage_path('chat_audio/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('show.chatAudio');
-
-Route::get('/chat_files/{filename}', function ($filename) {
-    $path = storage_path('chat_files/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('show.chatFiles');
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 
@@ -336,3 +213,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 });
 
 require __DIR__ . '/admin.php';
+require __DIR__ . '/storage.php';
+require __DIR__ . '/test.php';

@@ -37,6 +37,8 @@ class PushNotificationJob implements ShouldQueue
         $message = $this->message;
         $title = $this->title;
 
+        echo "sending push notification to $user_name";
+
         $user_name_tr = str_replace(" ", "", $user_name);
 
         $curl = curl_init();
@@ -58,6 +60,8 @@ class PushNotificationJob implements ShouldQueue
             ),
         ));
         $uresponse = curl_exec($curl);
+
+        echo $uresponse;
 
         $json = json_decode($uresponse, true);
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\OtherController;
 use App\Http\Controllers\admin\PaymentsController;
 use App\Http\Controllers\admin\RecordingsController;
+use App\Http\Controllers\admin\ResellerController;
 use App\Http\Controllers\admin\RoomsController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\ProfileController;
@@ -64,6 +65,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
         Route::get('/faqs', [OtherController::class, 'faqs'])->name('admin.faqs');
+
+        Route::get('/resellers', [ResellerController::class, 'list'])->name('admin.resellers');
+        Route::get('/resellers-users/{id}', [ResellerController::class, 'listUsers'])->name('admin.resellers-users');
 
 
     });

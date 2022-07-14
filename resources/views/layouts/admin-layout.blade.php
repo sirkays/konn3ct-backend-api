@@ -167,6 +167,8 @@
                             class="path2"></span></i>Faqs</a></li>
             <li><a href="{{route('admin.coupon')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Coupon Codes</a></li>
+            <li><a href="{{route('admin.resellers')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Resellers</a></li>
         </ul>
     </nav>
 

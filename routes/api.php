@@ -83,3 +83,6 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
     });
 });
+
+
+require __DIR__ . '/api_integration.php';

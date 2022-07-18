@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\admin\CouponController;
+use App\Models\PlanPricing;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -11,21 +12,25 @@ use Illuminate\Support\Facades\Validator;
 
 class MasterCardGatewayController extends Controller
 {
-    public function launchView($plan, $type)
+    public function launchView($id)
     {
-        if ($plan == 2 && $type == 1) {
-            $data['amount'] = CheckForDiscount(10.99, "monthly");
-        } elseif ($plan == 2 && $type == 2) {
-            $data['amount'] = CheckForDiscount(120, "yearly");
-        } elseif ($plan == 3 && $type == 1) {
-            $data['amount'] = CheckForDiscount(15.99, "monthly");
-        } elseif ($plan == 3 && $type == 2) {
-            $data['amount'] = CheckForDiscount(175, "yearly");
-        } else {
-            abort(404);
+        $plan = PlanPricing::find($id);
+
+        if (!$plan) {
+            redirect()->route('dashboard')->with("error", "Invalid");
         }
-        $data['plan'] = $plan;
-        $data['type'] = $type;
+
+        if ($plan->payment_gateway != "mastercard") {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        if ($plan->plan_id == 1) {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        $data['amount'] = CheckForDiscount($plan->price, $plan->type);
+        $data['plan'] = $id;
+        $data['type'] = $plan->type;
         $data['ref'] = rand();
         return view('mastercard', $data);
     }
@@ -50,23 +55,26 @@ class MasterCardGatewayController extends Controller
                 ->withInput();
         }
 
-
         $order = $input['ref'];
         $transactionid = $input['ref'];
         $plan = $input['plan'];
         $type = $input['type'];
 
-        if ($plan == 2 && $type == 1) {
-            $amount = 10.99;
-        } elseif ($plan == 2 && $type == 2) {
-            $amount = 120;
-        } elseif ($plan == 3 && $type == 1) {
-            $amount = 15.99;
-        } elseif ($plan == 3 && $type == 2) {
-            $amount = 175;
-        } else {
-            abort(404);
+        $plan = PlanPricing::find($plan);
+
+        if (!$plan) {
+            redirect()->route('dashboard')->with("error", "Invalid");
         }
+
+        if ($plan->payment_gateway != "mastercard") {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        if ($plan->plan_id == 1) {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        $amount = CheckForDiscount($plan->price, $plan->type);
 
         $card = $input['cardnumber'];
         $eMonth = $input['expiryMonth'];
@@ -97,6 +105,8 @@ class MasterCardGatewayController extends Controller
         curl_close($curl);
 
 //        echo $response;
+
+//        dd($response);
 
         $rep = json_decode($response, true);
 

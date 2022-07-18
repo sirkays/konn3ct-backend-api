@@ -7,6 +7,7 @@ use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Payments\PaystackPayment;
 use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
@@ -186,15 +187,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('payment');
     })->name('payment');
 
-//    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
+    Route::get('/payment/stripe/{id}', [\App\Http\Controllers\Payments\StripePayment::class, 'process'])->name('payment_stripe');
 
+    Route::get('/payment/paystack/{id}', [PaystackPayment::class, 'process'])->name('payment_paystack');
+    Route::get('/payment/verify/paystack/{reference}', [PaystackPayment::class, 'verify'])->name('payment_verify_paystack');
+
+    Route::get('/payment/mastercard-view/{id}', [MasterCardGatewayController::class, 'launchView'])->name('payment_mastercard');
+    Route::post('/payment/mastercard', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment.Mastercard');
+    Route::get('/payment/mastercardstatus', [MasterCardGatewayController::class, 'paymentStatus'])->name('mastercard.status');
     Route::get('/payment/mastercard/{id}', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment');
 
-    Route::get('/payment/mastercard/{plan}/{type}', [MasterCardGatewayController::class, 'launchView'])->name('mastercard_payment');
 
-    Route::post('/payment/mastercard', [MasterCardGatewayController::class, 'makePayment'])->name('makePayment.Mastercard');
-
-    Route::get('/payment/mastercardstatus', [MasterCardGatewayController::class, 'paymentStatus'])->name('mastercard.status');
+//    Route::get('/payment/{id}', [PaymentController::class, 'verify'])->name('verifypayment');
 
 
     Route::post('/apply-coupon', [\App\Http\Controllers\admin\CouponController::class, 'apply'])->name('apply.coupon');

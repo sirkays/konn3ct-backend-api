@@ -36,6 +36,12 @@ class User extends Authenticatable
         'reseller_id'
     ];
 
+    function reseller()
+    {
+        return $this->belongsTo(Reseller::class, 'reseller_id', 'id');
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *

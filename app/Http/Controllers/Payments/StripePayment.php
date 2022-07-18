@@ -3,24 +3,46 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlanPricing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StripePayment extends Controller
 {
-    public function process()
+    public function process($id)
     {
-        $key = env('STRIPE_SECRET_KEY');
+        $plan = PlanPricing::find($id);
+
+        if (!$plan) {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        if ($plan->payment_gateway != "mastercard") {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        if ($plan->plan_id == 1) {
+            redirect()->route('dashboard')->with("error", "Invalid");
+        }
+
+        $amount = CheckForDiscount($plan->price, $plan->type);
+
+        if (env('APP_ENV') != "local") {
+            $key = env('STRIPE_SECRET_KEY');
+        } else {
+            $key = env('STRIPE_SECRET_KEY_TEST');
+        }
 
         \Stripe\Stripe::setApiKey($key);
 
         $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
+            'customer_email' => Auth::user()->email,
             'line_items' => [[
                 'name' => "konn3ct",
                 'description' => 'Pay with Stripe',
-                'images' => [asset('assets/images/logoIcon/logo.png')],
-                'amount' => round(10, 2) * 100,
-                'currency' => "USD",
+                'images' => ["https://konn3ct.com/assets/images/group99@2x.png"],
+                'amount' => round($amount, 2) * 100,
+                'currency' => $plan->currency,
                 'quantity' => 1,
             ]],
             'cancel_url' => route('dashboard'),

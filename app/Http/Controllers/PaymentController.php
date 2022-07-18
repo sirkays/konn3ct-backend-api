@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CouponController;
 use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\PlanModel;
+use App\Models\PlanPricing;
 use App\Models\SettingsModel;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
@@ -286,17 +287,20 @@ class PaymentController extends Controller
     }
 
 
-    public function changeplan($plan){
+    public function changeplan($plan)
+    {
 
-        if($plan==1){
-            User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1, 'status'=>'active']);
+        if ($plan == 1) {
+            User::where('id', Auth::id())->update(['subscription' => Carbon::now(), 'plan' => 1, 'status' => 'active']);
 
             return redirect()->route('rooms')->with('success', 'Plan Changed Successfully!');
         }
 
-        $datas['plan']=$plan;
+        $datas['plan'] = $plan;
 
-        session(['plan' => $plan, 'job' =>'change_plan']);
+        $datas['pricing'] = PlanPricing::where("plan_id", $plan)->get();
+
+        session(['plan' => $plan, 'job' => 'change_plan']);
 
         return view('payment', $datas);
     }

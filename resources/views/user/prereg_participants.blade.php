@@ -45,7 +45,7 @@
                                     <th><span class="text-fade">S/N</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Name</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Email</span></th>
-                                    {{--                                    <th style="min-width: 10px"><span class="text-fade">Phone</span></th>--}}
+                                    <th style="min-width: 10px"><span class="text-fade">Phone</span></th>
                                     {{--                                            <th style="min-width: 10px"><span class="text-fade">Status</span></th>--}}
                                     <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
                                 </tr>
@@ -65,9 +65,9 @@
                                         <td>
                                             <span>{{$user->email}}</span>
                                         </td>
-                                        {{--                                        <td>--}}
-                                        {{--                                            <span>{{$user->phone}}</span>--}}
-                                        {{--                                        </td>--}}
+                                        <td>
+                                            <span>{{$user->phone}}</span>
+                                        </td>
                                         <td>
                                             <span>{{$user->created_at}}</span>
                                         </td>

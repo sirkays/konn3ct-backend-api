@@ -183,24 +183,26 @@
                             </a>
                         </li>
 
-                        <li style="margin-left: 2px">
-                            <a href="#" data-toggle="modal" data-target="#modal-fill"
-                               class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px"
-                               title="Change Plan">
-{{--                                <i class="fa fa-link"></i>--}}
-                                <span style="font-size: 11px">Plan</span>
-                            </a>
-                        </li>
+                        {{--                        <li style="margin-left: 2px">--}}
+                        {{--                            <a href="#" data-toggle="modal" data-target="#modal-fill"--}}
+                        {{--                               class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px"--}}
+                        {{--                               title="Change Plan">--}}
+                        {{--                                <i class="fa fa-link"></i>--}}
+                        {{--                                <span style="font-size: 11px">Plan</span>--}}
+                        {{--                            </a>--}}
+                        {{--                        </li>--}}
 
                         <li style="margin-left: 2px">
-                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm" class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px" title="Share">
-{{--                                <i class="fa fa-plus-circle"></i>--}}
+                            <a href="/" data-toggle="modal" data-target="#bs-example-modal-sm"
+                               class="waves-effect waves-light dropdown-toggle btn-primary" style="min-width: 45px"
+                               title="Share">
+                                {{--                                <i class="fa fa-plus-circle"></i>--}}
                                 <span style="font-size: 11px">Share</span>
                             </a>
                         </li>
 
-{{--                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
-{{--                        <li style="margin-left: 5px">--}}
+                        {{--                        @if(\Illuminate\Support\Facades\Auth::user()->type=="admin")--}}
+                        {{--                        <li style="margin-left: 5px">--}}
 {{--                            <a href="/admin/rooms" class="waves-effect waves-light dropdown-toggle btn-success" title="Admin">--}}
 {{--                                <i class="fa fa-user-circle"></i>--}}
 {{--                            </a>--}}

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\Controller;
 use App\Models\PlanPricing;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;

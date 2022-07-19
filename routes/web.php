@@ -188,6 +188,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('payment');
 
     Route::get('/payment/stripe/{id}', [\App\Http\Controllers\Payments\StripePayment::class, 'process'])->name('payment_stripe');
+    Route::get('/payment/verify/stripe', [\App\Http\Controllers\Payments\StripePayment::class, 'verify'])->name('payment_verify_stripe');
 
     Route::get('/payment/paystack/{id}', [PaystackPayment::class, 'process'])->name('payment_paystack');
     Route::get('/payment/verify/paystack/{reference}', [PaystackPayment::class, 'verify'])->name('payment_verify_paystack');

@@ -49,10 +49,10 @@
 
 
                         <div class="mt-5">
-                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=2)
-                                <a class="btn btn-success btn-rounded" href="/changeplan/2">Topup Subscription</a>
-                            @else
-                                <a class="btn btn-success btn-rounded" href="/changeplan/3">Topup Subscription</a>
+                            @if(\Illuminate\Support\Facades\Auth::user()->plan!=1)
+                                <a class="btn btn-success btn-rounded"
+                                   href="/changeplan/{{\Illuminate\Support\Facades\Auth::user()->plan}}">Topup
+                                    Subscription</a>
                             @endif
 
                             <a href="#" class="btn btn-secondary btn-rounded mt-3" data-toggle="modal"
@@ -122,7 +122,7 @@
                                                 {{$data->date}}
                                             </td>
                                             <td>
-                                                {{$data->plan}}
+                                                {{$data->planDetails->name}}
                                             </td>
                                             <td>
                                                 <h6 class="mb-0 font-weight-bold">{{$data->amount}}</h6>

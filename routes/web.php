@@ -216,7 +216,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/logouts', [AuthenticatedSessionController::class, 'destroy'])->name('logouts');
 
     Route::domain('{username}.video.konn3ct.ng')->group(function () {
-        Route::get('/', function ($username) {
+        Route::any('/', function ($username) {
             return 'A user  is trying to read video address ';
         });
     });

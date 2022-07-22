@@ -30,6 +30,8 @@ class PaystackPayment extends Controller
             redirect()->route('dashboard')->with("error", "Invalid");
         }
 
+        session(['plan_type' => $plan->type]);
+
         $ref = rand() . uniqid();
 
         if (env('APP_ENV') != "local") {
@@ -90,7 +92,7 @@ class PaystackPayment extends Controller
 
     public function creditSubscription($data)
     {
-        $plan = session('plan');
+        $plan_type = session('plan_type');
 
         $p = PaymentModel::where('gateway_reference', $data['gateway_reference'])->first();
 
@@ -101,7 +103,7 @@ class PaystackPayment extends Controller
         if (session('job') == "change_plan") {
             $data['plan'] = session('plan');
 
-            if ($plan == 2) {
+            if ($plan_type == "monthly") {
                 $data['duration'] = "a month";
                 if ($data['plan'] == Auth::user()->plan) {
                     if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
@@ -112,7 +114,7 @@ class PaystackPayment extends Controller
                 } else {
                     $subd = Carbon::now()->addMonth();
                 }
-                User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => session('plan'), 'status' => 'active']);
+                User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => $data['plan'], 'status' => 'active']);
             } else {
                 $data['duration'] = "a year";
 
@@ -126,12 +128,12 @@ class PaystackPayment extends Controller
                     $subd = Carbon::now()->addYear();
                 }
 
-                User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => session('plan'), 'status' => 'active']);
+                User::where('id', Auth::id())->update(['subscription' => $subd, 'plan' => $data['plan'], 'status' => 'active']);
             }
         } else {
             $data['plan'] = Auth::user()->plan;
 
-            if ($plan == 2) {
+            if ($plan_type == "monthly") {
                 $data['duration'] = "a month";
                 User::where('id', Auth::id())->update(['subscription' => Carbon::now()->addMonth(), 'status' => 'active']);
             } else {

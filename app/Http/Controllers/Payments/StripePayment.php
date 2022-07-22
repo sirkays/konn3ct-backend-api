@@ -28,6 +28,8 @@ class StripePayment extends Controller
 
         $amount = CheckForDiscount($plan->price, $plan->type);
 
+        session(['plan_type' => $plan->type]);
+
         if (env('APP_ENV') != "local") {
             $key = env('STRIPE_SECRET_KEY');
         } else {

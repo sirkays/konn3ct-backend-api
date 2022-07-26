@@ -16,6 +16,11 @@ class PaymentModel extends Model
      */
     protected $table = 'payment';
 
+    function planDetails()
+    {
+        return $this->belongsTo(PlanModel::class, "plan", "id");
+    }
+
     /**
      * The attributes that are mass assignable.
      *

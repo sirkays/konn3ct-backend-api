@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CouponController;
 use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\PlanModel;
+use App\Models\PlanPricing;
 use App\Models\SettingsModel;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
@@ -261,10 +262,46 @@ class PaymentController extends Controller
     }
 
     public function list(){
-        $datas['payments']=PaymentModel::join('plans','plans.id','=','payment.plan')->where('payment.user_id', Auth::id())->select('payment.*', 'plans.name as plan')->OrderBy('id', 'desc')->limit(1)->get();
-        $datas['sp']=PaymentModel::where('user_id', Auth::id())->sum('amount');
-        $datas['tp']=PaymentModel::where('user_id', Auth::id())->count();
-        $datas['pp']=PaymentModel::distinct('plan')->count();
+        $datas['payments'] = PaymentModel::where('user_id', Auth::id())->with('planDetails')->OrderBy('id', 'desc')->get();
+        $datas['sp'] = PaymentModel::where('user_id', Auth::id())->sum('amount');
+        $datas['tp'] = PaymentModel::where('user_id', Auth::id())->count();
+        $datas['pp'] = PaymentModel::distinct('plan')->count();
+
+
+        if (Auth::user()->reseller == null) {
+            $lite_monthly1 = PlanPricing::where([["type", "monthly"], ["currency", "NGN"], ["plan_id", 2]])->first();
+            $lite_monthly2 = PlanPricing::where([["type", "monthly"], ["currency", "USD"], ["plan_id", 2]])->first();
+
+            $lite_yearly1 = PlanPricing::where([["type", "yearly"], ["currency", "NGN"], ["plan_id", 2]])->first();
+            $lite_yearly2 = PlanPricing::where([["type", "yearly"], ["currency", "USD"], ["plan_id", 2]])->first();
+
+            $pro_monthly1 = PlanPricing::where([["type", "monthly"], ["currency", "NGN"], ["plan_id", 3]])->first();
+            $pro_monthly2 = PlanPricing::where([["type", "monthly"], ["currency", "USD"], ["plan_id", 3]])->first();
+
+            $pro_yearly1 = PlanPricing::where([["type", "yearly"], ["currency", "NGN"], ["plan_id", 3]])->first();
+            $pro_yearly2 = PlanPricing::where([["type", "yearly"], ["currency", "USD"], ["plan_id", 3]])->first();
+
+            $datas['lite_monthly'] = "$$lite_monthly2->price / #$lite_monthly1->price";
+            $datas['lite_yearly'] = "$$lite_yearly2->price / #$lite_yearly1->price";
+            $datas['pro_monthly'] = "$$pro_monthly2->price / #$pro_monthly1->price";
+            $datas['pro_yearly'] = "$$pro_yearly2->price / #$pro_yearly1->price";
+
+        } else {
+            $lite_monthly1 = PlanPricing::where([["type", "monthly"], ["currency", "INR"], ["plan_id", 2]])->first();
+
+            $lite_yearly1 = PlanPricing::where([["type", "yearly"], ["currency", "INR"], ["plan_id", 2]])->first();
+
+            $pro_monthly1 = PlanPricing::where([["type", "monthly"], ["currency", "INR"], ["plan_id", 3]])->first();
+
+            $pro_yearly1 = PlanPricing::where([["type", "yearly"], ["currency", "INR"], ["plan_id", 3]])->first();
+
+
+            $datas['lite_monthly'] = "INR $lite_monthly1->price";
+            $datas['lite_yearly'] = "INR $lite_yearly1->price";
+            $datas['pro_monthly'] = "INR $pro_monthly1->price";
+            $datas['pro_yearly'] = "INR $pro_yearly1->price";
+        }
+
 
         return view('user.payments', $datas);
 
@@ -286,17 +323,26 @@ class PaymentController extends Controller
     }
 
 
-    public function changeplan($plan){
+    public function changeplan($plan)
+    {
 
-        if($plan==1){
-            User::where('id',Auth::id())->update(['subscription'=>Carbon::now(), 'plan'=>1, 'status'=>'active']);
+        if ($plan == 1) {
+            User::where('id', Auth::id())->update(['subscription' => Carbon::now(), 'plan' => 1, 'status' => 'active']);
 
             return redirect()->route('rooms')->with('success', 'Plan Changed Successfully!');
         }
 
-        $datas['plan']=$plan;
+        $datas['plan'] = $plan;
 
-        session(['plan' => $plan, 'job' =>'change_plan']);
+        if (Auth::user()->reseller == null) {
+            $datas['pricing_monthly'] = PlanPricing::where([["plan_id", $plan], ["type", "monthly"], ["currency", "NGN"]])->orWhere([["plan_id", $plan], ["type", "monthly"], ["currency", "USD"]])->get();
+            $datas['pricing_yearly'] = PlanPricing::where([["plan_id", $plan], ["type", "yearly"], ["currency", "NGN"]])->orWhere([["plan_id", $plan], ["type", "yearly"], ["currency", "USD"]])->get();
+        } else {
+            $datas['pricing_monthly'] = PlanPricing::where([["plan_id", $plan], ["type", "monthly"], ["currency", Auth::user()->reseller->currency_mode]])->get();
+            $datas['pricing_yearly'] = PlanPricing::where([["plan_id", $plan], ["type", "yearly"], ["currency", Auth::user()->reseller->currency_mode]])->get();
+        }
+
+        session(['plan' => $plan, 'job' => 'change_plan']);
 
         return view('payment', $datas);
     }

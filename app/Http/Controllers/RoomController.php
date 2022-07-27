@@ -288,7 +288,7 @@ class RoomController extends Controller
                 'meetingName' => $i->name,
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>',
+                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span> <br/>Video Address: ' . $i->id,
                 'allowStartStopRecording' => $record,
                 'record' => $record,
                 'duration' => $duration,
@@ -346,7 +346,7 @@ class RoomController extends Controller
         session(['name' => $name]);
         session(['email' => $email]);
 
-        $i=RoomModel::where('url',$url)->orWhere('name',$url)->first();
+        $i = RoomModel::where('url', $url)->orWhere('name', $url)->orWhere('id', $url)->first();
 
         if(!$i){
             return back()
@@ -416,7 +416,7 @@ class RoomController extends Controller
         $name=session('name');
         $email=session('email');
 
-        $i=RoomModel::where('url',$url)->orWhere('name',$url)->first();
+        $i = RoomModel::where('url', $url)->orWhere('name', $url)->orWhere('id', $url)->first();
 
         if(!$i){
             return redirect('joinsession')

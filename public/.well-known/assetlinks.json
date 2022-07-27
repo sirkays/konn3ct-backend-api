@@ -5,6 +5,19 @@
         ],
         "target": {
             "namespace": "android_app",
+            "package_name": "com.konn3ct",
+            "sha256_cert_fingerprints": [
+                "41:B6:55:09:FA:C1:33:D5:D0:B2:12:55:95:47:1C:6E:92:30:AB:61:9B:03:8F:D4:93:C8:82:F1:EB:42:B0:69",
+                "B0:60:37:10:97:87:3B:DD:7F:3C:00:33:6F:C2:A2:8D:89:ED:2C:7F:34:AD:36:24:D7:81:66:58:8D:B5:27:E3"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
             "package_name": "com.konn3ct.konn3ct",
             "sha256_cert_fingerprints": [
                 "0E:1B:F0:99:D5:7A:2C:1E:BE:CB:23:12:DB:E1:D9:AA:58:AE:A7:F9:1F:11:23:A0:DD:7A:9B:2D:46:B0:DE:4C",

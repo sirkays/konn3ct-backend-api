@@ -176,13 +176,15 @@ class RoomController extends Controller
         $plan = PlanModel::where("id", Auth::user()->plan)->first();
         $r = $plan->rooms + Auth::user()->room_bundles;
 
+        $datas['r'] = $r;
+
         $datas['rooms'] = RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->with('prereg_model')->limit($r)->get();
         $datas['roomstc'] = RoomModel::where("user_id", Auth::id())->count();
-        if($datas['roomstc']>$r){
-            $datas['roomstc']=$r;
+        if ($datas['roomstc'] > $r) {
+            $datas['roomstc'] = $r;
         }
-        $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
-        $datas['active']=0;
+        $datas['plan'] = PlanModel::where("id", Auth::user()->plan)->first();
+        $datas['active'] = 0;
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
@@ -531,19 +533,25 @@ class RoomController extends Controller
     {
         $input = $request->all();
 
-        $r=RoomModel::find($input['id']);
+        $r = RoomModel::find($input['id']);
 
-        if ($input['type']=="manual" && $input['accesscode']==""){
-            return back()->with('error', 'Access code can not be empty');
-        }else{
-            $r->password_attendee=$input['accesscode'];
+        if (isset($input['remove_accesscode'])) {
+            $r->password_attendee = "attendee";
             $r->save();
-        }
+        } else {
 
-        if($input['type']!="manual"){
-            $code=rand(11111,9999999999);
-            $r->password_attendee=$code;
-            $r->save();
+            if ($input['type'] == "manual" && $input['accesscode'] == "") {
+                return back()->with('error', 'Access code can not be empty');
+            } else {
+                $r->password_attendee = $input['accesscode'];
+                $r->save();
+            }
+
+            if ($input['type'] != "manual") {
+                $code = rand(11111, 9999999999);
+                $r->password_attendee = $code;
+                $r->save();
+            }
         }
 
         return redirect()->route('rooms')->with('success', 'Access code changed Successfully!');

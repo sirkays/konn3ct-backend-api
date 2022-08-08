@@ -268,23 +268,52 @@
                                                             @csrf
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h4 class="modal-title" id="mySmallModalLabel">Manage Access Code</h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                    <h4 class="modal-title" id="mySmallModalLabel">
+                                                                        Manage Access Code</h4>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-hidden="true">×
+                                                                    </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    You are about to change your current access code to new. <br/>
-                                                                    Enter your new access code below or click on "Auto Generate"<br/><br/>
+                                                                    You are about to change your current access code to
+                                                                    new. <br/>
+                                                                    Enter your new access code below or click on "Auto
+                                                                    Generate"<br/><br/>
 
                                                                     <div class="form-group">
                                                                         <label>New Access Code:</label>
-                                                                        <input type="text" id="accesscode{{$room->id}}" name="accesscode" class="form-control" placeholder="Enter new access code" required />
-                                                                        <input type="hidden" id="type{{$room->id}}" name="type" class="form-control" value="manual"/>
-                                                                        <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
+                                                                        <input type="text" id="accesscode{{$room->id}}"
+                                                                               name="accesscode" class="form-control"
+                                                                               placeholder="Enter new access code"
+                                                                               value=" " required/>
+                                                                        <input type="hidden" id="type{{$room->id}}"
+                                                                               name="type" class="form-control"
+                                                                               value="manual"/>
+                                                                        <input type="hidden" name="id"
+                                                                               class="form-control"
+                                                                               value="{{$room->id}}"/>
+
+                                                                        <div class="mt-3">
+                                                                            <input name="remove_accesscode" value="1"
+                                                                                   type="checkbox"
+                                                                                   onclick="document.getElementById('accesscode{{$room->id}}').value='noaccesscode'"
+                                                                                   id="basic_checkbox_{{$room->id}}"
+                                                                                   class="filled-in">
+                                                                            <label for="basic_checkbox_{{$room->id}}"
+                                                                                   class="mb-0 h-15">Remove access
+                                                                                Code</label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer modal-footer-uniform">
-                                                                    <button type="submit" class="btn bg-success float-left">Save</button>
-                                                                    <button type="button" class="btn bg-dark float-right" onclick="document.getElementById('dkaccesscode{{$room->id}}').value=getRandomString(10);">Auto Generate</button>
+                                                                    <button type="submit"
+                                                                            class="btn bg-success float-left">Save
+                                                                    </button>
+                                                                    <button type="button"
+                                                                            class="btn bg-dark float-right"
+                                                                            onclick="document.getElementById('accesscode{{$room->id}}').value=getRandomString(10);">
+                                                                        Auto Generate
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                             <!-- /.modal-content -->
@@ -292,9 +321,11 @@
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
-                                                <!-- /.modal -->
+                                <!-- /.modal -->
 
-                                                <div class="modal limituser-modal fade" id="limituser{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal limituser-modal fade" id="limituser{{$room->id}}-modal" tabindex="-1"
+                                     role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                                     style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('limituser')}}">
                                                             @csrf
@@ -1079,33 +1110,66 @@
                                                             @csrf
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                <h4 class="modal-title" id="mySmallModalLabel">Manage Access Code</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                You are about to change your current access code to new. <br/>
-                                                                Enter your new access code below or click on "Auto Generate"<br/><br/>
+                                                                    <h4 class="modal-title" id="mySmallModalLabel">
+                                                                        Manage Access Code</h4>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-hidden="true">×
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    You are about to change your current access code to
+                                                                    new. <br/>
+                                                                    Enter your new access code below or click on "Auto
+                                                                    Generate"<br/><br/>
 
-                                                                <div class="form-group">
-                                                                    <label>New Access Code:</label>
-                                                                    <input type="text" id="dkaccesscode{{$room->id}}" name="accesscode" class="form-control" placeholder="Enter new access code" required />
-                                                                    <input type="hidden" id="type{{$room->id}}" name="type" class="form-control" value="manual"/>
-                                                                    <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
+                                                                    <div class="form-group">
+                                                                        <label>New Access Code:</label>
+                                                                        <input type="text"
+                                                                               id="dkaccesscode{{$room->id}}"
+                                                                               name="accesscode" class="form-control"
+                                                                               placeholder="Enter new access code"
+                                                                               value=" " required/>
+                                                                        <input type="hidden" id="type{{$room->id}}"
+                                                                               name="type" class="form-control"
+                                                                               value="manual"/>
+                                                                        <input type="hidden" name="id"
+                                                                               class="form-control"
+                                                                               value="{{$room->id}}"/>
+
+                                                                        <div class="mt-3">
+                                                                            <input name="remove_accesscode" value="1"
+                                                                                   type="checkbox"
+                                                                                   id="dkbasic_checkbox_{{$room->id}}"
+                                                                                   onclick="document.getElementById('dkaccesscode{{$room->id}}').value='noaccesscode'"
+                                                                                   class="filled-in">
+                                                                            <label for="dkbasic_checkbox_{{$room->id}}"
+                                                                                   class="mb-0 h-15">Remove access
+                                                                                Code</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer modal-footer-uniform">
+                                                                    <button type="submit"
+                                                                            class="btn bg-success float-left">Save
+                                                                    </button>
+                                                                    <button type="button"
+                                                                            class="btn bg-dark float-right"
+                                                                            onclick="document.getElementById('dkaccesscode{{$room->id}}').value=getRandomString(10);">
+                                                                        Auto Generate
+                                                                    </button>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer modal-footer-uniform">
-                                                                <button type="submit" class="btn bg-success float-left">Save</button>
-                                                                <button type="button" class="btn bg-dark float-right" onclick="document.getElementById('dkaccesscode{{$room->id}}').value=getRandomString(10);">Auto Generate</button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
+                                                            <!-- /.modal-content -->
                                                         </form>
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
                                                 <!-- /.modal -->
 
-                                                <div class="modal limituser-modal fade" id="dk-limituser{{$room->id}}-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                                <div class="modal limituser-modal fade"
+                                                     id="dk-limituser{{$room->id}}-modal" tabindex="-1" role="dialog"
+                                                     aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                                                     style="display: none;">
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('limituser')}}">
                                                             @csrf
@@ -2564,7 +2628,7 @@
                             </button>
                         </div>
 
-                        @if($plan->id!=1)
+                        @if($roomstc < $r)
                             <div class="modal-body">
                                 <div class="col-12">
                                     <!-- Basic Forms -->
@@ -2656,7 +2720,10 @@
                                     <!-- Basic Forms -->
                                     <div class="box text-center">
                                         <!-- /.box-header -->
-                                        Only available to Lite, Pro & Enterprise Plans. <br> <a class="btn btn-success" href="{{route('changeplan',3)}}">Upgrade Now</a>.
+                                        It seems you need more room. <br><br> <a class="btn btn-success"
+                                                                                 href="{{route('changeplan',3)}}">Upgrade
+                                            Now</a> <br> <a class="btn btn-outline-success"
+                                                            href="{{route('addonsubscription')}}">Buy Room Bundles</a>
                                     </div>
                                     <!-- /.box -->
                                 </div>
@@ -2666,7 +2733,7 @@
                 </div>
                 </form>
             </div>
-            <!-- /.modal -->
+    <!-- /.modal -->
 
             <div class="modal activatepro-modal fade" id="activatepro-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-md">
@@ -2707,6 +2774,13 @@
                 result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
             }
             return result;
+        }
+    </script>
+
+    <script>
+        function removeAccessCode(id) {
+            document.getElementById('accesscode' + id).style = 'display:hidden';
+            document.getElementById('type' + id).style = 'display:hidden';
         }
     </script>
 

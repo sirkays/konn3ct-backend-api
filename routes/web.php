@@ -113,6 +113,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/preregistration_participants/{reference}', [PreregistrationController::class, 'prereParticipants'])->name('prereParticipants');
 
+    Route::get('/sendPreregReminder/{reference}', [PreregistrationController::class, 'sendReminder'])->name('preregSendReminder');
+
     Route::get('/disbalepreregistration/{reference}', [PreregistrationController::class, 'dprereg'])->name('dprereg');
 
     Route::get('/addonsubscription', [AddonController::class, 'show'])->name('addonsubscription');

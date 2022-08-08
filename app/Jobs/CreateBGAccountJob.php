@@ -61,6 +61,7 @@ class CreateBGAccountJob implements ShouldQueue
                 'plan' => $plan,
                 'password' => Hash::make($password),
                 'subscription' => $exp,
+                'referral_code' => trim(substr(date('iym') . rand(), 0, 6)),
                 'status' => 'free_trial',
             ]);
 

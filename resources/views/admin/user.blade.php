@@ -56,17 +56,11 @@
                         <li><a href="#bs" data-toggle="tab">Recording(s)</a></li>
                         <li><a href="#ms" data-toggle="tab">Meeting(s) Joined</a></li>
                         <li><a href="#up" data-toggle="tab">Upgrade Plan</a></li>
+                        <li><a href="#ot" data-toggle="tab">Others</a></li>
                     </ul>
 
                     <div class="tab-content">
 
-                    {{--                                <div class="active tab-pane" id="usertimeline">--}}
-                    {{--                                    @livewire('profile.update-profile-information-form')--}}
-                    {{--                                </div>--}}
-                    <!-- /.tab-pane -->
-
-
-                        <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="up">
 
@@ -170,6 +164,20 @@
 
                                 <div class="col-2">
 
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="ot">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    @if($user->referral_code == null)
+                                        <a href="{{route('admin.generateReferralCode', $user->id)}}"
+                                           class="btn bg-gradient-primary">Generate Referral Code</a>
+                                    @endif
                                 </div>
                             </div>
 

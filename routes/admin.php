@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/user/{id}', [UsersController::class, 'showUser'])->name('admin.user');
 
+        Route::get('/generatereferralcode/{id}', [UsersController::class, 'generateReferralCode'])->name('admin.generateReferralCode');
+
         Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
 
         Route::get('/referrals', [UsersController::class, 'referrals'])->name('admin.referrals');
@@ -67,6 +69,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/faqs', [OtherController::class, 'faqs'])->name('admin.faqs');
 
         Route::get('/resellers', [ResellerController::class, 'list'])->name('admin.resellers');
+
         Route::get('/resellers-users/{id}', [ResellerController::class, 'listUsers'])->name('admin.resellers-users');
 
 

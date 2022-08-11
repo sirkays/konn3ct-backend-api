@@ -30,7 +30,7 @@ class UserController extends Controller
             'email' => $input['email'],
             'phone' => 0,
             'plan' => 1,
-            'referral_code' => trim(substr(date('iym') . rand(), 0, 6)),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'password' => Hash::make($input['password']),
         ]);
         return response()->json(['success' => true, 'message' => 'Account created successfully']);

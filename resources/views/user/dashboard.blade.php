@@ -21,31 +21,45 @@
             </div>
         @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
-                    <div class="row mb-6">
-                        <div class="col-6">
-                    <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code<br/> {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
-                        </div>
-                        <div class="col-6 text-right">
-                    @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
-                        @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
-                                <Button class="waves-effect waves-light btn btn-danger btn-sm" data-toggle="modal" data-target="#activatepro-modal">
-                                    Activate Pro (Free Trial)
-                                </Button>
-                        @endif
-                    @endif
-                            </div>
-                    </div>
 
-                <div class="row hidden-xs-down">
-                    <div class="col-3">
-                        <div class="box box-body pull-up">
-{{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="row mb-6">
+            <div class="col-6">
+                <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code<br/> {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>
+            </div>
+            <div class="col-6 text-right">
+                @if(\Illuminate\Support\Facades\Auth::user()->plan==1)
+                    @if(!\Illuminate\Support\Facades\Auth::user()->freetrial)
+                        <Button class="waves-effect waves-light btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#activatepro-modal">
+                            Activate Pro (Free Trial)
+                        </Button>
+                    @endif
+                @endif
+            </div>
+        </div>
+
+        <div class="row hidden-xs-down">
+            <div class="col-3">
+                <div class="box box-body pull-up">
+                    {{--                            <button type="button" class="waves-effect waves-light btn mb-5 bg-gradient-success"><i class="fa fa-edit"></i> Add</button>--}}
                             <Button class="waves-effect waves-light btn btn-app btn-info" data-toggle="modal" data-target="#modal-left">
                                 <i class="fa fa-edit"></i> Create a Room
                             </Button>
@@ -1078,6 +1092,14 @@
                                                                 </a>
                                                             @endif
 
+                                                            <Button type="button" class="dropdown-item"
+                                                                    data-toggle="modal"
+                                                                    data-target="#dk-transferroom-{{$room->id}}"
+                                                                    data-placement="top"
+                                                                    title="Transfer Room to Another User">
+                                                                Transfer Room
+                                                            </Button>
+
                                                         </div>
 
                                                     </div>
@@ -1166,6 +1188,51 @@
                                                 </div>
                                                 <!-- /.modal -->
 
+                                                <div class="modal transferroom-modal fade"
+                                                     id="dk-transferroom-{{$room->id}}" tabindex="-1" role="dialog"
+                                                     aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                                                     style="display: none;">
+                                                    <div class="modal-dialog modal-md">
+                                                        <form method="post" action="{{route('transferRoom')}}">
+                                                            @csrf
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="mySmallModalLabel">
+                                                                        Transfer Room</h4>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-hidden="true">×
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    You are about to transfer this room to another
+                                                                    user<br/>
+                                                                    <span class="text-danger">This action can not be undone</span><br/><br/>
+
+                                                                    <div class="form-group">
+                                                                        <label>User Email</label>
+                                                                        <input type="email"
+                                                                               id="dkemail{{$room->id}}"
+                                                                               name="email" class="form-control"
+                                                                               placeholder="user@email.com"
+                                                                               value="" required/>
+                                                                        <input type="hidden" name="id"
+                                                                               class="form-control"
+                                                                               value="{{$room->id}}"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer modal-footer-uniform">
+                                                                    <button type="submit"
+                                                                            class="btn bg-success float-left">Transfer
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.modal-content -->
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+
                                                 <div class="modal limituser-modal fade"
                                                      id="dk-limituser{{$room->id}}-modal" tabindex="-1" role="dialog"
                                                      aria-labelledby="mySmallModalLabel" aria-hidden="true"
@@ -1173,18 +1240,30 @@
                                                     <div class="modal-dialog modal-md">
                                                         <form method="post" action="{{route('limituser')}}">
                                                             @csrf
-                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title" id="mySmallModalLabel">Manage User Limit</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                You are about to change your current user limit. <br/>
-                                                                Choose your need carefully<br/><br/>
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="mySmallModalLabel">
+                                                                        Manage User Limit</h4>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-hidden="true">×
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    You are about to change your current user limit.
+                                                                    <br/>
+                                                                    Choose your need carefully<br/><br/>
 
-                                                                <div class="form-group">
-                                                                    <label>User Limit:</label>
-                                                                    <input type="number" id="users" name="users" aria-valuemin="2" min="2" max="{{$plan->participant}}" aria-valuemax="{{$plan->participant}}" max="{{$plan->participant}}" value="{{$room->max_participants}}" class="form-control" placeholder="Enter new access code" required />
+                                                                    <div class="form-group">
+                                                                        <label>User Limit:</label>
+                                                                        <input type="number" id="users" name="users"
+                                                                               aria-valuemin="2" min="2"
+                                                                               max="{{$plan->participant}}"
+                                                                               aria-valuemax="{{$plan->participant}}"
+                                                                               max="{{$plan->participant}}"
+                                                                               value="{{$room->max_participants}}"
+                                                                               class="form-control"
+                                                                               placeholder="Enter new access code"
+                                                                               required/>
                                                                     <input type="hidden" name="id" class="form-control" value="{{$room->id}}"/>
                                                                 </div>
                                                             </div>

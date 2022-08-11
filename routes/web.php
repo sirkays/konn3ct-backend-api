@@ -153,6 +153,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
 
+    Route::post('/transfer-room', [RoomController::class, 'transferRoom'])->name('transferRoom');
+
     Route::post('/limituser', [RoomController::class, 'limituser'])->name('limituser');
 
     Route::post('/bannerupload', [RoomController::class, 'bannerupload'])->name('bannerupload');

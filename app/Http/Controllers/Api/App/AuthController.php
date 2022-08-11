@@ -78,7 +78,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'referral_code' => trim(substr(date('iym') . rand(), 0, 6)),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'plan' => 1,
         ]);
 

@@ -75,7 +75,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'phone' => $input['phone'],
             'plan' => session('plan'),
-            'referral_code' => trim(substr(date('iym').rand(), 0, 6)),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'password' => Hash::make($input['password']),
         ]);
 

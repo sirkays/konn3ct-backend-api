@@ -541,7 +541,7 @@ class RoomController extends Controller
         } else {
 
             if ($input['type'] == "manual" && $input['accesscode'] == "") {
-                return back()->with('error', 'Access code can not be empty');
+                return redirect()->route('rooms')->with('error', 'Access code can not be empty');
             } else {
                 $r->password_attendee = $input['accesscode'];
                 $r->save();
@@ -557,18 +557,46 @@ class RoomController extends Controller
         return redirect()->route('rooms')->with('success', 'Access code changed Successfully!');
     }
 
-    public function limituser(Request $request){
-        $input=$request->all();
+    public function transferRoom(Request $request)
+    {
+        $input = $request->all();
 
-        $r=RoomModel::find($input['id']);
+        $r = RoomModel::find($input['id']);
 
-        $r->max_participants=$input['users'];
+        if (!$r) {
+            return redirect()->route('rooms')->with('error', 'Room does not exist');
+        }
+
+        if ($r->user_id != Auth::id()) {
+            return redirect()->route('rooms')->with('error', 'Room does not belongs to you');
+        }
+
+        $tu = User::where('email', $input['email'])->first();
+
+        if (!$tu) {
+            return redirect()->route('rooms')->with('error', 'User does not exist');
+        }
+
+        $r->user_id = $tu->id;
+        $r->save();
+
+        return redirect()->route('rooms')->with('success', 'Room has been transferred Successfully!');
+    }
+
+    public function limituser(Request $request)
+    {
+        $input = $request->all();
+
+        $r = RoomModel::find($input['id']);
+
+        $r->max_participants = $input['users'];
         $r->save();
 
         return redirect()->route('rooms')->with('success', 'User Limit changed Successfully!');
     }
 
-    public function roomstatus($url){
+    public function roomstatus($url)
+    {
         $i = RoomModel::where('url', $url)->first();
         $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=0;
@@ -588,16 +616,16 @@ class RoomController extends Controller
         ]);
 
         if (!$request->hasFile('banner')) {
-            return back()->with('error', 'Upload file not found');
+            return redirect()->route('rooms')->with('error', 'Upload file not found');
         }
 
         $file = $request->file('banner');
         if (!$file->isValid()) {
-            return back()->with('error', 'Invalid file upload');
+            return redirect()->route('rooms')->with('error', 'Invalid file upload');
         }
 
         if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
-            return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+            return redirect()->route('rooms')->with('error', 'Kindly upload a png/jpg/jpeg file');
         }
 
 

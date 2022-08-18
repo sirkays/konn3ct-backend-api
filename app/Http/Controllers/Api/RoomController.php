@@ -111,7 +111,7 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            $message = 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>';
+            $message = 'Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%';
 
             $url = \Bigbluebutton::start([
                 'meetingID' => "0$i->id",

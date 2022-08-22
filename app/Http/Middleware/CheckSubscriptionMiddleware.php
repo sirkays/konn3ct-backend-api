@@ -21,7 +21,7 @@ class CheckSubscriptionMiddleware
     {
         if(Auth::user()->plan!=1 && Auth::user()->subsciption!='new') {
             if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->subscription), false) < 0) {
-                $user = User::where("user_name", Auth::id())->first();
+                $user = User::find(Auth::id());
                 $user->plan = 1;
                 $user->save();
                 session(["error" => "Your subscription has expired, some of your rooms will no longer be visible. Kindly visit payment page to make payment."]);

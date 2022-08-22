@@ -27,19 +27,6 @@
             </div>
         @endif
 
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <div class="row mb-6">
             <div class="col-6">
                 <span class="badge badge-info" style="margin-bottom: 10px; font-weight: bolder">Your Referral Code<br/> {{\Illuminate\Support\Facades\Auth::user()->referral_code}}</span>

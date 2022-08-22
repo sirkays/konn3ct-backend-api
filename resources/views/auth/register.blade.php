@@ -140,7 +140,8 @@
                                             (Optional)</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Referral Code"
-                                                   name="referral" value="{{old('referral')}}" maxlength="6"
+                                                   name="referral" value="{{app('request')->input('referral')??''}}"
+                                                   maxlength="6"
                                                    aria-label="Referral Code" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -260,7 +261,8 @@
                                         (Optional)</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder="Referral Code"
-                                               name="referral" value="{{old('referral')}}" maxlength="6"
+                                               name="referral" value="{{app('request')->input('referral')??''}}"
+                                               maxlength="6"
                                                aria-label="Referral Code" aria-describedby="basic-addon1">
                                     </div>
                                 </div>

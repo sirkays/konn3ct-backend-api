@@ -47,24 +47,26 @@ class RoomController extends Controller
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
-            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).substr(str_shuffle($num),0, 4));
-            $sfinal=substr($shuffled, 0, 6);
+            $shuffled = str_shuffle(substr(Auth::user()->firstname, 0, 2) . substr(str_shuffle($num), 0, 4));
+            $sfinal = substr($shuffled, 0, 6);
 
-            if (Auth::user()->lastname==""){
-                $input['url']=trim(substr(Auth::user()->firstname,0, 3).$sfinal);
-            }else{
-                $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            if (Auth::user()->lastname == "") {
+                $input['url'] = trim(substr(Auth::user()->firstname, 0, 3) . $sfinal);
+            } else {
+                $input['url'] = trim(substr(Auth::user()->lastname, 0, 3) . $sfinal);
             }
 
         }
 
-        $input['welcome_message']="";
-        $input['logout_url']=url('/leftsession');
-        $input['max_participants']=$max_user;
-        $input['duration']=$duration;
-        $input['url']=preg_replace('/\s+/', '', $input['url']);
+        $input['url'] = str_replace(' ', '', $input['url']);
 
-        if($input['access_code']=="") {
+        $input['welcome_message'] = "";
+        $input['logout_url'] = url('/leftsession');
+        $input['max_participants'] = $max_user;
+        $input['duration'] = $duration;
+        $input['url'] = preg_replace('/\s+/', '', $input['url']);
+
+        if ($input['access_code'] == "") {
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
         }else{

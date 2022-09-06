@@ -147,7 +147,9 @@
                                             @foreach($rooms as $room)
                                                 <tr>
                                                     <td>
-                                                        <a href="#" class="text-dark hover-primary mb-1"><strong>Name:</strong> {{$room->name}}</a>
+                                                        <a href="#"
+                                                           class="text-dark hover-primary mb-1"><strong>Name:</strong> {{$room->name}}
+                                                        </a>
                                                         <span class="badge badge-info">Access Code:
                                                             @if($room->password_attendee=="attendee")
                                                                 Unrestricted
@@ -157,7 +159,8 @@
 
                                                         </span>
                                                         <span class="text-dark d-block">
-                                                          <strong>Link:</strong> <span id="c{{$room->id}}">{{url('/join/')}}/{{$room->url}} </span>
+                                                          <strong>Link:</strong> <span
+                                                                id="c{{$room->id}}">{{url('/join/'.str_replace(' ', '%20',$room->url))}} </span>
                                                             <br/>
                                                             @if($room->prereg!=NULL)
                                                                 <a href="{{url('/preregistration/')}}/{{$room->prereg}}"
@@ -953,7 +956,7 @@
                                             <td>
                                                 <span id="c{{$room->id}}"
                                                       class="text-dark font-weight-600 d-block font-size-16">
-                                                    {{url('/join/')}}/{{$room->url}}
+                                                    {{url('/join/'.str_replace(' ', '%20',$room->url))}}
 
                                                     <span class="badge badge-info">Access Code:
                                                         @if($room->password_attendee=="attendee")

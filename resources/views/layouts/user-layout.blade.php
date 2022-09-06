@@ -57,7 +57,7 @@
 
     <link rel="stylesheet" href="/user_assets/css/vendors_css.css">
 
-    @laravelPWA
+{{--    @laravelPWA--}}
 
     <!-- Style-->
     <link rel="stylesheet" href="/user_assets/css/horizontal-menu.css">

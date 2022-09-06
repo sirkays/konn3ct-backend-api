@@ -122,4 +122,11 @@ class PricingController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Your Registration is Successful']);
     }
+
+    function getUsers($id)
+    {
+        $users = User::where("reseller_id", 1)->with('plan')->get();
+        return response()->json(['success' => true, 'message' => 'Users fetched successfully', 'data' => $users]);
+    }
+
 }

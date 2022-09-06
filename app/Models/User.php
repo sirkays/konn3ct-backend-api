@@ -42,6 +42,12 @@ class User extends Authenticatable
     }
 
 
+    function plan()
+    {
+        return $this->belongsTo(PlanModel::class, 'plan', 'id');
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *

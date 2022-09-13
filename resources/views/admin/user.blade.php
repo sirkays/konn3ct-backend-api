@@ -178,6 +178,27 @@
                                         <a href="{{route('admin.generateReferralCode', $user->id)}}"
                                            class="btn bg-gradient-primary">Generate Referral Code</a>
                                     @endif
+
+                                    <form action="{{route('admin.applyRoomBundle')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user" value="{{$user->id}}">
+
+                                        <div class="form-group">
+                                            <label>Select Room Bundle:</label>
+                                            <select class="form-control" name="bundle">
+                                                <option>5</option>
+                                                <option>10</option>
+                                                <option>15</option>
+                                                <option>20</option>
+                                                <option>25</option>
+                                                <option>30</option>
+                                                <option>0</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn bg-gradient-success">Apply Now</button>
+
+                                    </form>
                                 </div>
                             </div>
 

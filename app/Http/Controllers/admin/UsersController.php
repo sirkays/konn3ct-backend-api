@@ -149,6 +149,18 @@ class UsersController extends Controller
 
     }
 
+    public function applyRoomBundle(Request $request)
+    {
+        $input = $request->all();
+        $user = User::find($input['user']);
+
+        $user->room_bundles = $input['bundle'];
+        $user->save();
+
+        return back()->with("success", "User room bundles modified successfully");
+
+    }
+
     public function referrals()
     {
         $datas['referee'] = User::where('users.referral', '!=', NULL)->get();

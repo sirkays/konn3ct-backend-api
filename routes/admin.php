@@ -52,6 +52,8 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/userupgrade', [UsersController::class, 'upgradeplan'])->name('admin.upgradeplan');
 
+        Route::post('/apply-room-bundle', [UsersController::class, 'applyRoomBundle'])->name('admin.applyRoomBundle');
+
         Route::get('/referrals', [UsersController::class, 'referrals'])->name('admin.referrals');
 
         Route::get('/recording', [RecordingsController::class, 'show'])->name('admin.recordings');

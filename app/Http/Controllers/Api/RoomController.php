@@ -474,7 +474,7 @@ class RoomController extends Controller
         $validator = Validator::make($input, $rules);
 
         if (!$validator->passes()) {
-            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
 
@@ -562,7 +562,7 @@ class RoomController extends Controller
 
         if (!$validator->passes()) {
 
-            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $id = $input['id'];
@@ -702,7 +702,7 @@ class RoomController extends Controller
         $validator = Validator::make($input, $rules);
 
         if (!$validator->passes()) {
-            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $roles = ['moderator', 'viewer'];
@@ -823,7 +823,7 @@ class RoomController extends Controller
 
         if (!$validator->passes()) {
 
-            return response()->json(['success' => false, 'message' => 'Error in your request', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $id = $input['id'];

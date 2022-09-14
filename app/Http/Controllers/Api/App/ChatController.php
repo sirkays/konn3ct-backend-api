@@ -64,7 +64,7 @@ class ChatController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $check = EnrolledChat::where(['user_id' => Auth::id(), 'room_id' => $input['id']])->first();
@@ -153,7 +153,7 @@ class ChatController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $check = EnrolledChat::where(['user_id' => $input['user_id'] ?? Auth::id(), 'room_id' => $input['id']])->first();
@@ -196,7 +196,7 @@ class ChatController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $check = EnrolledChat::where(['user_id' => $input['user_id'] ?? Auth::id(), 'room_id' => $input['id']])->first();

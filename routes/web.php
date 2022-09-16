@@ -113,6 +113,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
 
     Route::get('/preregistration_participants/{reference}', [PreregistrationController::class, 'prereParticipants'])->name('prereParticipants');
 
+    Route::get('/sendPreregReminder/{reference}', [PreregistrationController::class, 'sendReminder'])->name('preregSendReminder');
+
     Route::get('/disbalepreregistration/{reference}', [PreregistrationController::class, 'dprereg'])->name('dprereg');
 
     Route::get('/addonsubscription', [AddonController::class, 'show'])->name('addonsubscription');
@@ -150,6 +152,8 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::get('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
 
     Route::post('/accesscode', [RoomController::class, 'accesscode'])->name('accesscode');
+
+    Route::post('/transfer-room', [RoomController::class, 'transferRoom'])->name('transferRoom');
 
     Route::post('/limituser', [RoomController::class, 'limituser'])->name('limituser');
 

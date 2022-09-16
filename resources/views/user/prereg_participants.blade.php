@@ -27,24 +27,27 @@
             </div>
         @endif
 
-        <div class="row">
-            <div class="col-12">
-                <div class="box">
-                    <div class="box-header">
-                        <h4 class="box-title align-items-start flex-column">
-                            Pre-Registered Users
-                            {{--                                    <small class="subtitle">This table show the list of meetings joined </small>--}}
-                        </h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h4 class="box-title align-items-start flex-column">
+                                Pre-Registered Users
+                                {{--                                    <small class="subtitle">This table show the list of meetings joined </small>--}}
+                            </h4>
 
-                    </div>
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table id="example" class="table table-lg invoice-archive">
-                                <thead>
-                                <tr class="text-uppercase bg-lightest">
-                                    <th><span class="text-fade">S/N</span></th>
-                                    <th style="min-width: 10px"><span class="text-fade">Name</span></th>
-                                    <th style="min-width: 10px"><span class="text-fade">Email</span></th>
+                            <a href="{{route('preregSendReminder', $prereg->reference)}}"
+                               class="btn btn-primary pull-right">Send Reminder Now</a>
+
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-lg invoice-archive">
+                                    <thead>
+                                    <tr class="text-uppercase bg-lightest">
+                                        <th><span class="text-fade">S/N</span></th>
+                                        <th style="min-width: 10px"><span class="text-fade">Name</span></th>
+                                        <th style="min-width: 10px"><span class="text-fade">Email</span></th>
                                     <th style="min-width: 10px"><span class="text-fade">Phone</span></th>
                                     {{--                                            <th style="min-width: 10px"><span class="text-fade">Status</span></th>--}}
                                     <th style="min-width: 10px"><span class="text-fade">Date & Time</span></th>
@@ -86,3 +89,10 @@
     <!-- /.content -->
 
 @endsection
+<script>
+    import Button from "../../js/Jetstream/Button";
+
+    export default {
+        components: {Button}
+    }
+</script>

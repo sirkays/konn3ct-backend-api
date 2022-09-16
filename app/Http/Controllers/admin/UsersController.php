@@ -105,10 +105,29 @@ class UsersController extends Controller
         return view('admin.user', $datas);
     }
 
-    public function upgradeplan(Request $request){
-        $input=$request->all();
-        $user=User::find($input['user']);
-        if($input['plan']!=1) {
+    public function generateReferralCode($id)
+    {
+
+        $datas['user'] = User::find($id);
+        if (!$datas['user']) {
+            return back()->with("error", "User does not exist");
+        }
+
+        if ($datas['user']->referral_code != null) {
+            return back()->with("error", "Referral Code already exist");
+        }
+
+        $datas['user']->referral_code = trim(substr(date('iym') . rand(), 0, 6));
+        $datas['user']->save();
+
+        return redirect()->route('admin.user', $id)->with('success', 'Referral code generated successfully');
+    }
+
+    public function upgradeplan(Request $request)
+    {
+        $input = $request->all();
+        $user = User::find($input['user']);
+        if ($input['plan'] != 1) {
 
             if ($user->subscription == "new") {
                 $subd = Carbon::now()->addMonths($input['duration']);
@@ -127,6 +146,18 @@ class UsersController extends Controller
         }
 
         return back()->with("success", "User subscription modified successfully");
+
+    }
+
+    public function applyRoomBundle(Request $request)
+    {
+        $input = $request->all();
+        $user = User::find($input['user']);
+
+        $user->room_bundles = $input['bundle'];
+        $user->save();
+
+        return back()->with("success", "User room bundles modified successfully");
 
     }
 

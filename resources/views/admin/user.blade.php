@@ -56,17 +56,11 @@
                         <li><a href="#bs" data-toggle="tab">Recording(s)</a></li>
                         <li><a href="#ms" data-toggle="tab">Meeting(s) Joined</a></li>
                         <li><a href="#up" data-toggle="tab">Upgrade Plan</a></li>
+                        <li><a href="#ot" data-toggle="tab">Others</a></li>
                     </ul>
 
                     <div class="tab-content">
 
-                    {{--                                <div class="active tab-pane" id="usertimeline">--}}
-                    {{--                                    @livewire('profile.update-profile-information-form')--}}
-                    {{--                                </div>--}}
-                    <!-- /.tab-pane -->
-
-
-                        <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="up">
 
@@ -170,6 +164,41 @@
 
                                 <div class="col-2">
 
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="ot">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    @if($user->referral_code == null)
+                                        <a href="{{route('admin.generateReferralCode', $user->id)}}"
+                                           class="btn bg-gradient-primary">Generate Referral Code</a>
+                                    @endif
+
+                                    <form action="{{route('admin.applyRoomBundle')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user" value="{{$user->id}}">
+
+                                        <div class="form-group">
+                                            <label>Select Room Bundle:</label>
+                                            <select class="form-control" name="bundle">
+                                                <option>5</option>
+                                                <option>10</option>
+                                                <option>15</option>
+                                                <option>20</option>
+                                                <option>25</option>
+                                                <option>30</option>
+                                                <option>0</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn bg-gradient-success">Apply Now</button>
+
+                                    </form>
                                 </div>
                             </div>
 

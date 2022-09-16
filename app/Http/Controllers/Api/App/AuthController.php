@@ -27,7 +27,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $user = User::where('email', $request->username)->orWhere('phone', $request->username)->first();
@@ -53,7 +53,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         if (isset($input['email'])) {
@@ -78,7 +78,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'referral_code' => trim(substr(date('iym') . rand(), 0, 6)),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'plan' => 1,
         ]);
 
@@ -107,7 +107,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $user = User::Where('phone', $request['emailphone'])->orWhere('email', $request['emailphone'])->first();
@@ -148,7 +148,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again']);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all())]);
         }
 
         $type = "recover";
@@ -183,7 +183,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'errors' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
         }
 
         $type = "register";

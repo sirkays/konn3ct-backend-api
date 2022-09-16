@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateBGAccountJob;
 use App\Jobs\KCEnrollParticipantJob;
+use App\Jobs\SendEventReminderJob;
 use App\Jobs\WhatsappInviteJob;
 use App\Mail\EventReminderMail;
 use App\Mail\PreregParticipantMail;
@@ -359,6 +360,23 @@ class PreregistrationController extends Controller
 
             }
         }
+    }
+
+    public function sendReminder($reference)
+    {
+
+        $datas['prereg'] = PreRegModel::where("reference", $reference)->first();
+        if ($datas['prereg'] == null) {
+            return redirect()->route('dashboard')->with('error', 'Invalid request');
+        }
+
+        if ($datas['prereg']->user_id != Auth::id()) {
+            return redirect()->route('dashboard')->with('error', 'Invalid request');
+        }
+
+        SendEventReminderJob::dispatch($datas['prereg']);
+
+        return redirect()->route('prereParticipants', $reference)->with('success', 'Reminder will be sent out in some minutes time');
     }
 
 }

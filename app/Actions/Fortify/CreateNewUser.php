@@ -75,7 +75,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'phone' => $input['phone'],
             'plan' => session('plan'),
-            'referral_code' => trim(substr(date('iym').rand(), 0, 6)),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'password' => Hash::make($input['password']),
         ]);
 
@@ -108,15 +108,17 @@ class CreateNewUser implements CreatesNewUsers
         $shuffled = str_shuffle($num);
         $sfin = substr($shuffled, 0, 4);
         $sfina = substr(strtolower($input['firstname']), 0, 2);
-        $sfinal = str_shuffle($sfin.$sfina);
-        $input['name'] = $input['firstname'] ." Room";
+        $sfinal = str_shuffle($sfin . $sfina);
+        $input['name'] = $input['firstname'] . " Room";
         $input['password_attendee'] = "attendee";
         $input['password_moderator'] = "moderator";
-        if(!isset($input['type'])) {
+        if (!isset($input['type'])) {
             $input['url'] = trim(substr($input['lastname'], 0, 3) . $sfinal);
-        }else{
+        } else {
             $input['url'] = trim(substr($input['firstname'], 0, 3) . $sfinal);
         }
+
+        $input['url'] = str_replace(' ', '', $input['url']);
         $input['welcome_message'] = "";
         $input['logout_url'] = url('/leftsession');
         $input['max_participants'] = $max_user;

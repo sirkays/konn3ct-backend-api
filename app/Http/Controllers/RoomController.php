@@ -47,24 +47,26 @@ class RoomController extends Controller
 
         if ($input['url']==""){
             $num=trim(date('siyh'));
-            $shuffled = str_shuffle(substr(Auth::user()->firstname,0, 2).substr(str_shuffle($num),0, 4));
-            $sfinal=substr($shuffled, 0, 6);
+            $shuffled = str_shuffle(substr(Auth::user()->firstname, 0, 2) . substr(str_shuffle($num), 0, 4));
+            $sfinal = substr($shuffled, 0, 6);
 
-            if (Auth::user()->lastname==""){
-                $input['url']=trim(substr(Auth::user()->firstname,0, 3).$sfinal);
-            }else{
-                $input['url']=trim(substr(Auth::user()->lastname,0, 3).$sfinal);
+            if (Auth::user()->lastname == "") {
+                $input['url'] = trim(substr(Auth::user()->firstname, 0, 3) . $sfinal);
+            } else {
+                $input['url'] = trim(substr(Auth::user()->lastname, 0, 3) . $sfinal);
             }
 
         }
 
-        $input['welcome_message']="";
-        $input['logout_url']=url('/leftsession');
-        $input['max_participants']=$max_user;
-        $input['duration']=$duration;
-        $input['url']=preg_replace('/\s+/', '', $input['url']);
+        $input['url'] = str_replace(' ', '', $input['url']);
 
-        if($input['access_code']=="") {
+        $input['welcome_message'] = "";
+        $input['logout_url'] = url('/leftsession');
+        $input['max_participants'] = $max_user;
+        $input['duration'] = $duration;
+        $input['url'] = preg_replace('/\s+/', '', $input['url']);
+
+        if ($input['access_code'] == "") {
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
         }else{
@@ -176,13 +178,15 @@ class RoomController extends Controller
         $plan = PlanModel::where("id", Auth::user()->plan)->first();
         $r = $plan->rooms + Auth::user()->room_bundles;
 
+        $datas['r'] = $r;
+
         $datas['rooms'] = RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->with('prereg_model')->limit($r)->get();
         $datas['roomstc'] = RoomModel::where("user_id", Auth::id())->count();
-        if($datas['roomstc']>$r){
-            $datas['roomstc']=$r;
+        if ($datas['roomstc'] > $r) {
+            $datas['roomstc'] = $r;
         }
-        $datas['plan']=PlanModel::where("id", Auth::user()->plan)->first();
-        $datas['active']=0;
+        $datas['plan'] = PlanModel::where("id", Auth::user()->plan)->first();
+        $datas['active'] = 0;
 
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
@@ -288,7 +292,7 @@ class RoomController extends Controller
                 'meetingName' => $i->name,
                 'endCallbackUrl' => url('/leftsession'),
                 'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => 'Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: ' . Auth::user()->firstname . '<br>Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '" <span style="color: #008b8b;">' . url("/join/") . '/' . $i->url . '</span></a><br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span> <br/>Video Address: ' . $i->id,
+                'welcomeMessage' => 'Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%',
                 'allowStartStopRecording' => $record,
                 'record' => $record,
                 'duration' => $duration,
@@ -531,36 +535,70 @@ class RoomController extends Controller
     {
         $input = $request->all();
 
-        $r=RoomModel::find($input['id']);
+        $r = RoomModel::find($input['id']);
 
-        if ($input['type']=="manual" && $input['accesscode']==""){
-            return back()->with('error', 'Access code can not be empty');
-        }else{
-            $r->password_attendee=$input['accesscode'];
+        if (isset($input['remove_accesscode'])) {
+            $r->password_attendee = "attendee";
             $r->save();
-        }
+        } else {
 
-        if($input['type']!="manual"){
-            $code=rand(11111,9999999999);
-            $r->password_attendee=$code;
-            $r->save();
+            if ($input['type'] == "manual" && $input['accesscode'] == "") {
+                return redirect()->route('rooms')->with('error', 'Access code can not be empty');
+            } else {
+                $r->password_attendee = $input['accesscode'];
+                $r->save();
+            }
+
+            if ($input['type'] != "manual") {
+                $code = rand(11111, 9999999999);
+                $r->password_attendee = $code;
+                $r->save();
+            }
         }
 
         return redirect()->route('rooms')->with('success', 'Access code changed Successfully!');
     }
 
-    public function limituser(Request $request){
-        $input=$request->all();
+    public function transferRoom(Request $request)
+    {
+        $input = $request->all();
 
-        $r=RoomModel::find($input['id']);
+        $r = RoomModel::find($input['id']);
 
-        $r->max_participants=$input['users'];
+        if (!$r) {
+            return redirect()->route('rooms')->with('error', 'Room does not exist');
+        }
+
+        if ($r->user_id != Auth::id()) {
+            return redirect()->route('rooms')->with('error', 'Room does not belongs to you');
+        }
+
+        $tu = User::where('email', $input['email'])->first();
+
+        if (!$tu) {
+            return redirect()->route('rooms')->with('error', 'User does not exist');
+        }
+
+        $r->user_id = $tu->id;
+        $r->save();
+
+        return redirect()->route('rooms')->with('success', 'Room has been transferred Successfully!');
+    }
+
+    public function limituser(Request $request)
+    {
+        $input = $request->all();
+
+        $r = RoomModel::find($input['id']);
+
+        $r->max_participants = $input['users'];
         $r->save();
 
         return redirect()->route('rooms')->with('success', 'User Limit changed Successfully!');
     }
 
-    public function roomstatus($url){
+    public function roomstatus($url)
+    {
         $i = RoomModel::where('url', $url)->first();
         $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
 //        $ms=0;
@@ -580,16 +618,16 @@ class RoomController extends Controller
         ]);
 
         if (!$request->hasFile('banner')) {
-            return back()->with('error', 'Upload file not found');
+            return redirect()->route('rooms')->with('error', 'Upload file not found');
         }
 
         $file = $request->file('banner');
         if (!$file->isValid()) {
-            return back()->with('error', 'Invalid file upload');
+            return redirect()->route('rooms')->with('error', 'Invalid file upload');
         }
 
         if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
-            return back()->with('error', 'Kindly upload a png/jpg/jpeg file');
+            return redirect()->route('rooms')->with('error', 'Kindly upload a png/jpg/jpeg file');
         }
 
 

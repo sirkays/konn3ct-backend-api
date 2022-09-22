@@ -73,6 +73,7 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
     Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
     Route::post('join-room', [RoomController::class, 'joinAppRoom']);
+    Route::post('validate-user', [ChatController::class, 'validateUser']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('chats', [ChatController::class, 'fetchChats']);

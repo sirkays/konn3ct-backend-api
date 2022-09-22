@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
 use App\Models\RoomModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -229,5 +230,25 @@ class ChatController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Enrolled successfully']);
+    }
+
+    function validateUser(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($request->all(), [
+            'user' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
+        }
+
+        $check = User::where('id', $input['user'])->orwhere('email', $input['user'])->orwhere('phone', $input['user'])->select('id', 'firstname', 'lastname', 'phone', 'email')->first();
+
+        if (!$check) {
+            return response()->json(['success' => false, 'message' => 'User does not exist']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'User fetched successfully', 'data' => $check]);
     }
 }

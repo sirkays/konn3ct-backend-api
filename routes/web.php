@@ -3,10 +3,11 @@
 use App\Http\Controllers\AddonController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InviteController;
-use App\Http\Controllers\MasterCardGatewayController;
 use App\Http\Controllers\MyAuthController;
+use App\Http\Controllers\MyCustomWebSocketHandler;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Payments\MasterCardGatewayController;
 use App\Http\Controllers\Payments\PaystackPayment;
 use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
 use App\Mail\WelcomeMailViaJoin;
 use App\Models\Faq;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -224,6 +226,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             return 'A user  is trying to read video address ';
         });
     });
+
+    WebSocketsRouter::webSocket('/ws', MyCustomWebSocketHandler::class);
 
 });
 

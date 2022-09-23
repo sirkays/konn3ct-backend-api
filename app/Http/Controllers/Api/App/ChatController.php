@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\App;
 
 use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
+use App\Jobs\PushNotificationCallJob;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
 use App\Models\RoomModel;
@@ -248,6 +249,8 @@ class ChatController extends Controller
         if (!$check) {
             return response()->json(['success' => false, 'message' => 'User does not exist']);
         }
+
+        PushNotificationCallJob::dispatch($check->id, Auth::user());
 
         return response()->json(['success' => true, 'message' => 'User fetched successfully', 'data' => $check]);
     }

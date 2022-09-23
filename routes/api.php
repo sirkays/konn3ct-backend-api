@@ -73,7 +73,6 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
     Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
     Route::post('join-room', [RoomController::class, 'joinAppRoom']);
-    Route::post('validate-user', [ChatController::class, 'validateUser']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('chats', [ChatController::class, 'fetchChats']);
@@ -83,6 +82,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('chat', [ChatController::class, 'sendMessage']);
         Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
         Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
+        Route::post('validate-user', [ChatController::class, 'validateUser']);
     });
 });
 

@@ -47,7 +47,7 @@ class PushNotificationCallJob implements ShouldQueue
         $name = $caller->firstname . $caller->lastname;
 
         $payload = '{
-    "to": "/topics/1",
+    "to": "/topics/' . $user_name_tr . '",
     "data": {
         "extra_information": "call",
         "call_type":"voice_call",

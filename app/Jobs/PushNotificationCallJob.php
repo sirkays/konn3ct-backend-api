@@ -49,6 +49,7 @@ class PushNotificationCallJob implements ShouldQueue
         $payload = '{
     "to": "/topics/' . $user_name_tr . '",
     "data": {
+        "priority":"high"
         "extra_information": "call",
         "call_type":"voice_call",
         "caller_name":"' . $name . '",
@@ -59,7 +60,8 @@ class PushNotificationCallJob implements ShouldQueue
     "notification": {
         "title": "Call from ' . $name . '",
         "body": "Click here to continue call"
-    }
+    },
+    "priority":"high"
 }';
 
         Log::info("Push notification call");

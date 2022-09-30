@@ -83,6 +83,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
         Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
         Route::post('validate-user', [ChatController::class, 'validateUser']);
+        Route::post('validate-phones', [ChatController::class, 'validatePhones']);
     });
 });
 

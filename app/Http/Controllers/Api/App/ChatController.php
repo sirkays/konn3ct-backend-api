@@ -254,4 +254,33 @@ class ChatController extends Controller
 
         return response()->json(['success' => true, 'message' => 'User fetched successfully', 'data' => $check]);
     }
+
+    public function validatePhones(Request $request)
+    {
+
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'phones' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        foreach ($input['phones'] as $phone) {
+            $user = User::where("phone", $phone)->first();
+
+            if ($user) {
+                $datam["email"] = $user->email;
+                $datam["phone"] = $phone;
+                $datam["name"] = $user->lastname . " " . $user->firstname;
+                $data[] = $datam;
+            }
+        }
+
+
+        return response()->json(['status' => true, 'message' => 'Validated Successfully', 'data' => !empty($data) ? $data : []]);
+    }
+
 }

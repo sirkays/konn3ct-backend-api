@@ -265,7 +265,7 @@ class ChatController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
         }
 
         $pha = explode(",", $input['phones']);

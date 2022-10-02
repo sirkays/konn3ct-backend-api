@@ -261,15 +261,17 @@ class ChatController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'phones' => 'required|array',
+            'phones' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
         }
 
-        foreach ($input['phones'] as $phone) {
-            $user = User::where("phone", $phone)->first();
+        $pha = explode(",", $input['phones']);
+
+        foreach ($pha as $phone) {
+            $user = User::where("phone", trim($phone))->first();
 
             if ($user) {
                 $datam["email"] = $user->email;

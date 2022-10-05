@@ -91,9 +91,5 @@ class PushNotificationCallJob implements ShouldQueue
 
         $json = json_decode($uresponse, true);
 
-//        DB::table('tbl_pushnotiflog')->insert(
-//            ['user_name' => $user_name, 'message' => $message, 'response' => $json['message_id']]
-//        );
-
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\App;
 use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Jobs\PushNotificationCallJob;
+use App\Jobs\PushNotificationChatJob;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
 use App\Models\RoomModel;
@@ -90,6 +91,7 @@ class ChatController extends Controller
                 'type' => "text",
                 'message' => $input['message']
             ]);
+            $msg = Auth::user()->lastname . ": " . $input['message'];
         } else if ($input['type'] == "image") {
 
             $image = $input["message"];
@@ -106,6 +108,7 @@ class ChatController extends Controller
                 'type' => "image",
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent an Image";
         }else if ($input['type'] == "audio") {
 
             $image = $input["message"];
@@ -122,6 +125,7 @@ class ChatController extends Controller
                 'type' => "audio",
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent an Audio";
         } else {
             $image = $input["message"];
             $photo = $input['id'] . Auth::id() . "_" . rand() . "." . $input['type'];
@@ -137,12 +141,15 @@ class ChatController extends Controller
                 'type' => $input['type'],
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent a file";
         }
 
         EnrolledChat::where(['room_id' => $input['id']])->update(["status" => 1]);
 
         NewMessageEvent::dispatch($data);
 //        broadcast(new ShippingStatusUpdated($update))->toOthers();
+
+        PushNotificationChatJob::dispatch($msg, $check->room->name, $check);
 
         return response()->json(['success' => true, 'message' => 'Message sent successfully', 'data' => $data]);
     }

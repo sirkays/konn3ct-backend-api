@@ -17,7 +17,7 @@ class ChatController extends Controller
 {
     function fetchChats()
     {
-        $chats = EnrolledChat::where(['user_id' => Auth::id(), 'status' => 1])->with('room', 'lastMessage.user')->get();
+        $chats = EnrolledChat::where(['user_id' => Auth::id(), 'status' => 1])->with('room', 'lastMessage.user')->latest('updated_at')->get();
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $chats]);
     }
 
@@ -139,6 +139,7 @@ class ChatController extends Controller
             ]);
         }
 
+        EnrolledChat::where(['room_id' => $input['id']])->update(["status" => 1]);
 
         NewMessageEvent::dispatch($data);
 //        broadcast(new ShippingStatusUpdated($update))->toOthers();

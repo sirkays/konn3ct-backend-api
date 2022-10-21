@@ -15,7 +15,7 @@ class PreRegModel extends Model
 
     function room()
     {
-        return $this->belongsTo(RoomModel::class, 'id', 'room_id');
+        return $this->belongsTo(RoomModel::class, 'room_id', 'id');
     }
 
 }

@@ -57,7 +57,7 @@ class SendEventReminderJob implements ShouldQueue
             $dat['date'] = $preg_list->date;
             $dat['time'] = $preg_list->time;
             $dat['timezone'] = $preg_list->timezone;
-            $dat['url'] = url("/join/" . $preg_list->url);
+            $dat['url'] = url("/join/" . $preg_list->room->url);
             $dat['hphone'] = $host->phone;
             $dat['hemail'] = $host->email;
 

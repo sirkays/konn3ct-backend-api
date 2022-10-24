@@ -94,7 +94,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div>
                                                     <a href="#"
-                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$data->room->name}}</a>
+                                                       class="text-dark font-weight-600 hover-primary mb-1 font-size-16">{{$data->room->name ?? ''}}</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -109,7 +109,7 @@
                                             <span class="badge badge-success badge-lg">Active</span>
                                         </td>
                                         <td>
-                                            <span>{{$data->owner->firstname}} {{$data->owner->lastname}}</span>
+                                            <span>{{$data->owner->firstname ?? ''}} {{$data->owner->lastname ?? ''}}</span>
                                         </td>
                                         <td>
                                             <span>{{$data->created_at}}</span>

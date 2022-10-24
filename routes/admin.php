@@ -38,6 +38,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/rooms', [RoomsController::class, 'show'])->name('admin.rooms');
 
+        Route::get('/preregs', [RoomsController::class, 'prereg'])->name('admin.preregs');
+        Route::get('/preregs/{id}', [RoomsController::class, 'preregsDetails'])->name('admin.preregsDetails');
+
         Route::get('/meetings', [RoomsController::class, 'meetings'])->name('admin.meetings');
 
         Route::get('/meetings/{id}', [RoomsController::class, 'meetingsd'])->name('admin.meetingsd');

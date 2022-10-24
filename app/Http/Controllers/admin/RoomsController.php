@@ -119,7 +119,7 @@ class RoomsController extends Controller
     {
         $datas['preregs'] = PreRegModel::with('room', 'owner')->find($id);
 
-        $datas['users'] = PreRegUserModel::where("prereg_id", $id)->paginate(20);
+        $datas['users'] = PreRegUserModel::where("prereg_id", $id)->get();
 
         $datas['users_count'] = PreRegUserModel::where("prereg_id", $id)->count();
 

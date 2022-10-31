@@ -21,6 +21,9 @@
 Click this link <a href='{{$ilink}}'>{{$ilink}}</a> to join or copy and paste in your preferred browser.
 
 
+For a better user experience for Mobile Users. Kindly download konn3ct Mobile App from Google Playstore https://bit.ly/konn3ctapp
+You can also see this short video for your education athttps://www.youtube.com/watch?v=iCVI_rYrbMA
+
 {{-- Action Button --}}
 {{--@component('mail::button', ['url' => $ilink, 'color' => "green"])--}}
 {{--{{ "Konn3ct Now" }}--}}

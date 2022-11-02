@@ -252,7 +252,7 @@ src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
         }</style>
 
     <!-- Web Application Manifest -->
-    <link rel="manifest" href="/manifest.json">
+{{--    <link rel="manifest" href="/manifest.json">--}}
     <!-- Chrome for Android theme color -->
     <meta name="theme-color" content="#042c69">
 

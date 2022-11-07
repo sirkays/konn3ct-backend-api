@@ -109,9 +109,10 @@ class WhatsappAppInviteAllJob implements ShouldQueue
                 "value": "invitee",
                 "value_text": "' . $invitee . '"
             }
-        ],
+        ]
     }
 }';
+
 
                     Log::info("WhatsappAppInviteAllJob Payload : $payload");
 

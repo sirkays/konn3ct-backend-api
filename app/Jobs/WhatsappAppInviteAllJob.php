@@ -140,6 +140,7 @@ class WhatsappAppInviteAllJob implements ShouldQueue
                         echo "cURL Error #:" . $err;
                     } else {
                         echo $response;
+                        Log::alert("$response");
                     }
 
                     Log::alert("WhatsappAppInviteAllJob sent to : $arr");

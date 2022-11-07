@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class WhatsappAppInviteAllJob implements ShouldQueue
 {
@@ -36,7 +37,7 @@ class WhatsappAppInviteAllJob implements ShouldQueue
     public function handle()
     {
         // use of explode
-        $str_arr = explode(",", $this->input['guest']);
+        $str_arr = explode(",", $this->numbers);
 
 
         $curl = curl_init();
@@ -83,6 +84,7 @@ class WhatsappAppInviteAllJob implements ShouldQueue
             $GLOBALS['recipient'] = trim($arr);
 
             if (str_contains($arr, "*") || str_contains($arr, "#")) {
+                Log::alert("Number contain special character : $arr");
                 $GLOBALS['recipient'] = "";
             }
 
@@ -140,10 +142,13 @@ class WhatsappAppInviteAllJob implements ShouldQueue
                         echo $response;
                     }
 
+                    Log::alert("WhatsappAppInviteAllJob sent to : $arr");
+
                 }
 
             } catch (Exception $e) {
                 echo "error when sending whatsapp";
+                Log::alert("WhatsappAppInviteAllJob failed : $arr");
             }
         }
 

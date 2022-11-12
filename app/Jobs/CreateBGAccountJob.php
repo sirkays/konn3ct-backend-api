@@ -43,7 +43,7 @@ class CreateBGAccountJob implements ShouldQueue
     {
         $name = $this->jobi['name'];
         $email = $this->jobi['email'];
-        $phone = $this->jobi['phone'];
+        $phone = $this->jobi['phone'] ?? "";
         $password = Str::random(8);
 
         $fname = explode(" ", $name);

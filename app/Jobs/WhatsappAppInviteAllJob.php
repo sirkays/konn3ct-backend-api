@@ -113,7 +113,6 @@ class WhatsappAppInviteAllJob implements ShouldQueue
     }
 }';
 
-
                     Log::info("WhatsappAppInviteAllJob Payload : $payload");
 
                     $curl = curl_init();

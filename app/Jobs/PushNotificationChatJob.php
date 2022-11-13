@@ -45,7 +45,7 @@ class PushNotificationChatJob implements ShouldQueue
         $payload = '{
     "to": "/topics/' . $user_name_tr . '",
     "data": {
-        "priority":"high"
+        "priority":"high",
         "extra_information": "chat",
         "id":"' . $user_name_tr . '",
         "sender_id":"' . $enrolledChat->user_id . '"

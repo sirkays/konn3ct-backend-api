@@ -382,10 +382,10 @@
                         <div class="plan-headerRecomended text-center">
                             <h3 class="mt-4" style="font-weight: bolder">LITE PLAN</h3>
                             <p></p>
-                            <h4 id="yearly" class="plan-priceRecomended">$120 <sup>Yearly</sup> / ₦46,000
+                            <h4 id="yearly" class="plan-priceRecomended">$120 <sup>Yearly</sup> / ₦66,000
                                 <sup>Yearly</sup></h4>
                             <h4 id="monthly" class="plan-priceRecomended" style="display: none">$10.99 <sup>Month</sup>
-                                / ₦4,000 <sup>Month</sup></h4>
+                                / ₦6,000 <sup>Month</sup></h4>
                         </div>
 
                         <div class="pb-4" style="background-color: #628F41; color: #FFFFFF">
@@ -435,8 +435,8 @@
                         <div class="plan-header mb-3 text-center">
                             <h3 class="mt-4" style="font-weight: bolder">PRO PLAN</h3>
                             <p></p>
-                            <h4 id="yearly1" class="plan-price">$175 <sup>Yearly</sup> / ₦67,000 <sup>Yearly</sup></h4>
-                            <h4 id="monthly1" class="plan-price" style="display: none">$15.99 <sup>Month</sup> / ₦6,000
+                            <h4 id="yearly1" class="plan-price">$175 <sup>Yearly</sup> / ₦88,000 <sup>Yearly</sup></h4>
+                            <h4 id="monthly1" class="plan-price" style="display: none">$15.99 <sup>Month</sup> / ₦8,000
                                 <sup>Month</sup></h4>
                         </div>
 

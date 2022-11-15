@@ -255,8 +255,8 @@
                                 <br>
                                 <p>
                                     <strong>
-                                    $10.99/&#x20A6;4000<sup>Monthly</sup> <br/>
-                                    $120/&#x20A6;46,000<sup>Yearly</sup>
+                                        $10.99/&#x20A6;6,000<sup>Monthly</sup> <br/>
+                                        $120/&#x20A6;66,000<sup>Yearly</sup>
                                     </strong>
                                 </p>
                                 <p></p>
@@ -286,8 +286,8 @@
                                 <br>
                                 <p>
                                     <strong>
-                                        $15.99/&#x20A6;6000<sup>Monthly</sup> <br/>
-                                        $175/&#x20A6;67,000<sup>Yearly</sup>
+                                        $15.99/&#x20A6;8,000<sup>Monthly</sup> <br/>
+                                        $175/&#x20A6;88,000<sup>Yearly</sup>
                                     </strong>
                                 </p>
                                 <p></p>

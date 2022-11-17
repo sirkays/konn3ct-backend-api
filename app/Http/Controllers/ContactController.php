@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -24,6 +25,9 @@ class ContactController extends Controller
         }
 
 //        Mail::to("support@newwavesecosystem.odoo.com")->send(new ContactMail($input));
+
+        Log::info("=====Support Ticket====");
+        Log::info($input);
 
         return redirect('contact')->with('success', 'Ticket submitted successfully!');
 

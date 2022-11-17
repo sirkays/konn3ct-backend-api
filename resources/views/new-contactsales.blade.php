@@ -86,9 +86,9 @@
                             your problem mail us :
                         </div>
 
-                        <div class="mt-3" style="color: #012E89">
-                            support@konn3ct.com
-                        </div>
+                        <a href="mailto:support@newwavesecosystem.com" class="mt-3" style="color: #012E89">
+                            support@newwavesecosystem.com
+                        </a>
                     </div>
                 </div>
 

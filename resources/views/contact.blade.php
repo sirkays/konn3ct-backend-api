@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="mt-3" style="color: #012E89">
-                            support@konn3ct.com
+                            support@newwavesecosystem.com
                         </div>
                     </div>
                 </div>

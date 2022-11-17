@@ -134,14 +134,14 @@ return [
          *
          * var @string
          */
-        'logo'                               => "https://konn3ct.com/assets/images/konn3ct_logo.png",
+        'logo' => "https://konn3ct.com/assets/images/konn3ct_logo.png",
 
         /**
          * Will set the banner text in the client. (added 2.0).
          *
          * var @string
          */
-         'bannerText'                         => "Contact us at support@konn3ct.com for help, in case you experience any issue.",
+        'bannerText' => "Contact us at support@newwavesecosystem.com for help, in case you experience any issue.",
 
         /**
          * Will set the banner background color in the client.
@@ -149,7 +149,7 @@ return [
          *
          * var @string
          */
-        'bannerColor'                        => "#28a745",
+        'bannerColor' => "#28a745",
 
         /**
          * Setting copyright=My custom copyright will replace

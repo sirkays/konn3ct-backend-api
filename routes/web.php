@@ -227,9 +227,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
     });
 
-    WebSocketsRouter::webSocket('/ws', MyCustomWebSocketHandler::class);
-
 });
+
+WebSocketsRouter::webSocket('/pws', MyCustomWebSocketHandler::class);
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/storage.php';

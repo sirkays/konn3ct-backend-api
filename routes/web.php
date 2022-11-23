@@ -230,6 +230,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 });
 
 WebSocketsRouter::webSocket('/pws', MyCustomWebSocketHandler::class);
+WebSocketsRouter::webSocket('/pws/{appKey}', MyCustomWebSocketHandler::class);
+WebSocketsRouter::webSocket('/my-websocket', MyCustomWebSocketHandler::class);
+WebSocketsRouter::webSocket('/my-websocket/{appKey}', MyCustomWebSocketHandler::class);
 
 require __DIR__ . '/admin.php';
 require __DIR__ . '/storage.php';

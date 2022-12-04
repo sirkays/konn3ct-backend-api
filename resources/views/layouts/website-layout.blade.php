@@ -444,21 +444,21 @@ src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
 <div class="row mt-5 mb-5">
 
 
-    @if(!(Request::segment(1) === 'joinsession')){
-    <div class="col-12 text-center mb-4">
-        <a href="{{route('joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"
-           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">
-            <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px" alt="joinmeetingIcon"/> &nbsp;
-            Join a meeting
-        </a>
-        &nbsp;
-        <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"
-           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 220px">
-            <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;
-            Sign Up For FREE
-        </a>
-    </div>
-    @endif
+{{--    @if(!(Request::segment(1) === 'joinsession')){--}}
+{{--    <div class="col-12 text-center mb-4">--}}
+{{--        <a href="{{route('joinmeeting')}}" class="btn px-3 py-3 mr-3 mt-2"--}}
+{{--           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 200px">--}}
+{{--            <img src="/assets/images/joinMeetingIcon.png" width="25px" height="30px" alt="joinmeetingIcon"/> &nbsp;--}}
+{{--            Join a meeting--}}
+{{--        </a>--}}
+{{--        &nbsp;--}}
+{{--        <a href="{{route('register')}}" type="button" class="btn px-3 py-3 ml-3 mt-2"--}}
+{{--           style="border-radius: 30px; background-color: #012E89; color: white; font-weight: bolder; width: 220px">--}}
+{{--            <img src="/assets/images/registerIcon.png" width="25px" height="30px" alt="regIcon"/> &nbsp;--}}
+{{--            Sign Up For FREE--}}
+{{--        </a>--}}
+{{--    </div>--}}
+{{--    @endif--}}
 
     <div class="col-12 text-center">
         <div class="col-12 text-right" id="google_translate_element"></div>

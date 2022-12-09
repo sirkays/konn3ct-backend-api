@@ -95,6 +95,9 @@ Route::get('/recording/{filename}/{type}', function ($filename, $type) {
     } elseif ($type == "screenshare") {
         $filenam = "Recording-screenshare-$filename.mp4";
         $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.mp4";
+    } elseif ($type == "screensharewebm") {
+        $filenam = "Recording-screenshare-$filename.webm";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.webm";
     } elseif ($type == "chats") {
         $filenam = "Recording-chats-$filename.txt";
         $path = "https://meet3.konn3ct.com/presentation/$filename/slides_new.xml";

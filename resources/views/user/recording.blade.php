@@ -76,7 +76,7 @@
                                                         data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false"
                                                         data-placement="top" title="Do more with meeting room">
-                                                    Download(3 Files)
+                                                    Download(5 Files)
                                                 </button>
                                                 <div class="dropdown-menu"
                                                      aria-labelledby="dropdownMenuButton22">
@@ -96,17 +96,24 @@
                                                     </a>
 
                                                     <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screensharewebm'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download screen share">
+                                                        Screenshare (WEBM)
+                                                    </a>
+
+                                                    <a class="button dropdown-item"
                                                        href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screenshare'])}}"
                                                        data-placement="top"
                                                        title="Click here to download screen share">
-                                                        Screenshare
+                                                        Screenshare (MP4)
                                                     </a>
 
                                                     <a class="button dropdown-item"
                                                        href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'chats'])}}"
                                                        data-placement="top"
                                                        title="Click here to download chat">
-                                                        Chat(s)
+                                                        Chat(s) (TXT)
                                                     </a>
                                                 </div>
                                             </div>
@@ -211,7 +218,7 @@
                                                         data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false"
                                                         data-placement="top" title="Do more with meeting room">
-                                                    Download(3 Files)
+                                                    Download(5 Files)
                                                 </button>
                                                 <div class="dropdown-menu"
                                                      aria-labelledby="dropdownMenuButton22">
@@ -231,17 +238,24 @@
                                                     </a>
 
                                                     <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screensharewebm'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download screen share">
+                                                        Screenshare (WEBM)
+                                                    </a>
+
+                                                    <a class="button dropdown-item"
                                                        href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screenshare'])}}"
                                                        data-placement="top"
                                                        title="Click here to download screen share">
-                                                        Screenshare
+                                                        Screenshare (MP4)
                                                     </a>
 
                                                     <a class="button dropdown-item"
                                                        href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'chats'])}}"
                                                        data-placement="top"
                                                        title="Click here to download chat">
-                                                        Chat(s)
+                                                        Chat(s) (TXT)
                                                     </a>
                                                 </div>
                                             </div>

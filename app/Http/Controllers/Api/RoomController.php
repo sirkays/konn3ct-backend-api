@@ -728,8 +728,8 @@ class RoomController extends Controller
 
         $rm_id = "0$i->id";
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-//        $ms = 1;
+//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+        $ms = 1;
 
         if ($ms != 1) {
             return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);

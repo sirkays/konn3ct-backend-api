@@ -89,12 +89,15 @@ Route::get('/recording/{filename}/{type}', function ($filename, $type) {
 
     if ($type == "video") {
         $filenam = "Recording-video-$filename.mp4";
+    } elseif ($type == "videowebm") {
+        $filenam = "Recording-video-$filename.webm";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.webm";
     } elseif ($type == "screenshare") {
         $filenam = "Recording-screenshare-$filename.mp4";
         $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.mp4";
     } elseif ($type == "chats") {
         $filenam = "Recording-chats-$filename.txt";
-        $path = "https://meet3.konn3ct.com/presentation/$filename/aslides_new.xml";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/slides_new.xml";
     } else {
         return redirect()->route('recording')->with('error', 'Type does not exist');
     }

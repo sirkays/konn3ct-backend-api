@@ -85,7 +85,8 @@ Route::get('/chat_files/{filename}', function ($filename) {
 
 Route::get('/recording/{filename}/{type}', function ($filename, $type) {
 
-    $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.mp4";
+//    $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.mp4";
+    $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.webm";
 
     if ($type == "video") {
         $filenam = "Recording-video-$filename.mp4";
@@ -94,7 +95,7 @@ Route::get('/recording/{filename}/{type}', function ($filename, $type) {
         $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.webm";
     } elseif ($type == "screenshare") {
         $filenam = "Recording-screenshare-$filename.mp4";
-        $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.mp4";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.webm";
     } elseif ($type == "screensharewebm") {
         $filenam = "Recording-screenshare-$filename.webm";
         $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.webm";

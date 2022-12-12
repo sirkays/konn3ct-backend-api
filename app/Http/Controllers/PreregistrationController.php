@@ -274,6 +274,7 @@ class PreregistrationController extends Controller
 
         $jobi['name'] = $request->name;
         $jobi['email'] = $request->email;
+        $jobi['phone'] = $request->phone ?? '';
 
         CreateBGAccountJob::dispatch($jobi)->delay(now()->addSecond());
         KCEnrollParticipantJob::dispatch($data['preg']->room_id, $request->email)->delay(now()->addMinutes(2));

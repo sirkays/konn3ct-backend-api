@@ -15,7 +15,17 @@ class PreRegModel extends Model
 
     function room()
     {
-        return $this->belongsTo(RoomModel::class, 'id', 'room_id');
+        return $this->belongsTo(RoomModel::class, 'room_id', 'id');
+    }
+
+    function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    function users()
+    {
+        return $this->belongsToMany(PreRegUserModel::class, 'prereg_id', 'id');
     }
 
 }

@@ -51,21 +51,6 @@
                                             </div>
                                         </td>
 
-                                        {{--                                            <td class="pl-0 py-8">--}}
-                                        {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
-                                        {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
-                                        {{--                                                        @endforeach--}}
-                                        {{--                                            </td>--}}
-
-
-                                        {{--                                            <td class="pl-0 py-8">--}}
-                                        {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
-                                        {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
-                                        {{--                                                @else--}}
-                                        {{--                                                    No Image Preview--}}
-                                        {{--                                                @endif--}}
-                                        {{--                                            </td>--}}
-
                                         <td>
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
@@ -85,10 +70,58 @@
                                                 Play
                                             </a>
 
+                                            <div class="dropdown mr-2 mt-2">
+                                                <button class="btn btn-sm btn-primary dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton22"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        data-placement="top" title="Do more with meeting room">
+                                                    Download(3 Files)
+                                                </button>
+                                                <div class="dropdown-menu"
+                                                     aria-labelledby="dropdownMenuButton22">
+
+                                                    {{--                                                    <a class="button dropdown-item"--}}
+                                                    {{--                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'videowebm'])}}"--}}
+                                                    {{--                                                       data-placement="top"--}}
+                                                    {{--                                                       title="Click here to download video or audio">--}}
+                                                    {{--                                                        Video & Audio (WEBM)--}}
+                                                    {{--                                                    </a>--}}
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'video'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download video or audio">
+                                                        Video & Audio (MP4)
+                                                    </a>
+
+                                                    {{--                                                    <a class="button dropdown-item"--}}
+                                                    {{--                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screensharewebm'])}}"--}}
+                                                    {{--                                                       data-placement="top"--}}
+                                                    {{--                                                       title="Click here to download screen share">--}}
+                                                    {{--                                                        Screenshare (WEBM)--}}
+                                                    {{--                                                    </a>--}}
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screenshare'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download screen share">
+                                                        Screenshare (MP4)
+                                                    </a>
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'chats'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download chat">
+                                                        Chat(s) (TXT)
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                             <input type="hidden" id="c{{$i}}"
                                                    value="{{$record['playback']['format']['url']}}"/>
 
-                                            <div class="dropdown mb-2">
+                                            <div class="dropdown mt-2 mb-2">
                                                 <button class="btn btn-outline-primary dropdown-toggle font-size-10"
                                                         type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false">
@@ -105,12 +138,7 @@
                                                             Email Recording
                                                         </a>
                                                     </div>
-                                                </div>
                                             </div>
-
-                                            <a class="waves-effect waves-light btn btn-danger font-size-10" href="#">
-                                                Delete
-                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -158,55 +186,89 @@
                                             </div>
                                         </td>
 
-                                        {{--                                            <td class="pl-0 py-8">--}}
-                                        {{--                                                        @foreach($record['playback']['format']['preview']['images']['image'] as $im)--}}
-                                        {{--                                                        <img src="{{$im}}" class="img img-thumbnail">--}}
-                                        {{--                                                        @endforeach--}}
-                                        {{--                                            </td>--}}
-
-
-                                        {{--                                            <td class="pl-0 py-8">--}}
-                                        {{--                                                @if(isset($record['playback']['format']['preview']['images']['image']))--}}
-                                        {{--                                                    <img src="{{$record['playback']['format']['preview']['images']['image']}}" class="img img-thumbnail">--}}
-                                        {{--                                                @else--}}
-                                        {{--                                                    No Image Preview--}}
-                                        {{--                                                @endif--}}
-                                        {{--                                            </td>--}}
-
                                         <td style="min-width: 20px; max-width: 50px">
-                                                <span class="text-dark font-weight-600 d-block font-size-16">
-													{{$record['participants']}} Participants
-												</span>
+                                                    <span class="text-dark font-weight-600 d-block font-size-16">
+                                                        {{$record['participants']}} Participants
+                                                    </span>
                                             <span class="text-dark font-weight-600 d-block font-size-16">
-													{{$record['playback']['format']['length']}} Minutes
-												</span>
+                                                        {{$record['playback']['format']['length']}} Minutes
+                                                    </span>
                                             <span class="text-dark font-weight-600 d-block font-size-16">
-													{{ number_format((($record['playback']['format']['size']??1)/1000000))."MB"}}
-												</span>
+                                                        {{ number_format((($record['playback']['format']['size']??1)/1000000))."MB"}}
+                                                    </span>
                                         </td>
                                         <td style="min-width: 50px; max-width: 150px; overflow-wrap: break-word">
-                                            <span
-                                                class="text-dark font-weight-600 d-block font-size-16">{{\Carbon\Carbon::parseFromLocale($record['startTime']/1000)->format('Y/m/d H:i:s')}}</span>
+                                                <span
+                                                    class="text-dark font-weight-600 d-block font-size-16">{{\Carbon\Carbon::parseFromLocale($record['startTime']/1000)->format('Y/m/d H:i:s')}}</span>
                                             <input type="hidden" id="c{{$i}}"
                                                    value="{{$record['playback']['format']['url']}}"/>
                                         </td>
+
                                         <td style="min-width: 50px; max-width: 100px">
 
-                                            <div class="dropdown">
-                                                <a class="waves-effect waves-light btn btn-success"
-                                                   href="{{$record['playback']['format']['url']}}" data-toggle="tooltip"
-                                                   data-placement="top" title="Play meeting recording">
-                                                    Play Video
-                                                </a>
+                                            <a class="waves-effect waves-light btn btn-success"
+                                               href="{{$record['playback']['format']['url']}}" data-toggle="tooltip"
+                                               data-placement="top" title="Play meeting recording">
+                                                Play Video
+                                            </a>
+
+                                            <div class="dropdown mr-2 mt-2">
+                                                <button class="btn btn-sm btn-primary dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton22"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        data-placement="top" title="Do more with meeting room">
+                                                    Download(3 Files)
+                                                </button>
+                                                <div class="dropdown-menu"
+                                                     aria-labelledby="dropdownMenuButton22">
+
+                                                    {{--                                                    <a class="button dropdown-item"--}}
+                                                    {{--                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'videowebm'])}}"--}}
+                                                    {{--                                                       data-placement="top"--}}
+                                                    {{--                                                       title="Click here to download video or audio">--}}
+                                                    {{--                                                        Video & Audio (WEBM)--}}
+                                                    {{--                                                    </a>--}}
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'video'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download video or audio">
+                                                        Video & Audio (MP4)
+                                                    </a>
+
+                                                    {{--                                                    <a class="button dropdown-item"--}}
+                                                    {{--                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screensharewebm'])}}"--}}
+                                                    {{--                                                       data-placement="top"--}}
+                                                    {{--                                                       title="Click here to download screen share">--}}
+                                                    {{--                                                        Screenshare (WEBM)--}}
+                                                    {{--                                                    </a>--}}
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'screenshare'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download screen share">
+                                                        Screenshare (MP4)
+                                                    </a>
+
+                                                    <a class="button dropdown-item"
+                                                       href="{{route('download.recording', ['filename' => $record['recordID'], 'type'=>'chats'])}}"
+                                                       data-placement="top"
+                                                       title="Click here to download chat">
+                                                        Chat(s) (TXT)
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="dropdown mr-2 mt-2">
+
                                                 <button class="btn btn-outline-primary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-toggle="dropdown"
                                                         aria-haspopup="true" aria-expanded="false" data-placement="top"
                                                         title="Do more with the recording">
                                                     Manage
                                                 </button>
-                                                {{--                                                    <a class="waves-effect waves-light btn btn-danger" href="#" data-toggle="tooltip" data-placement="top" title="Delete Meeting Recording">--}}
-                                                {{--                                                        Delete--}}
-                                                {{--                                                    </a>--}}
 
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <Button type="button" class="dropdown-item"
@@ -221,24 +283,12 @@
                                                         Email Recording
                                                     </Button>
 
-
-                                                    {{--                                                        <form action="/deleteroom" method="POST">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="hidden" name="id" value="{{$i->id}}" />--}}
-{{--                                                            <Button type="submit" class="waves-effect waves-light btn">--}}
-{{--                                                                Delete--}}
-{{--                                                            </Button>--}}
-{{--                                                        </form>--}}
                                                 </div>
                                             </div>
                                             <!-- /.modal-content -->
-                                            </form>
                                         </td>
-                        </div>
-                        <!-- /.modal-dialog -->
-                    </div>
-
-                    @endforeach
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

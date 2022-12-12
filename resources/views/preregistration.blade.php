@@ -43,7 +43,7 @@
             <!-- Uncomment below if you prefer to use a text logo -->
             <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
             <a href="#intro" class="scrollto"><img src="@if($preg->logo != "") {{route('show.prereg.image', $preg->logo)}} @else {{'https://konn3ct.com/assets/images/konn3ctIcon.png'}} @endif"
-                                                   alt="Event logo" title=""></a>
+                                                   alt="Event logo" title="" style="max-height: 120px"></a>
         </div>
 
         <nav id="nav-menu-container">

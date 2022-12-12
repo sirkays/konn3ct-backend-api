@@ -7,8 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class PushNotificationJob implements ShouldQueue
+class PushNotificationChatJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -17,13 +18,13 @@ class PushNotificationJob implements ShouldQueue
      *
      * @return void
      */
-    public $user_name, $message, $title;
+    public $enrolledChat, $message, $title;
 
-    public function __construct($user_name, $message, $title)
+    public function __construct($message, $title, $enrolledChat)
     {
-        $this->user_name = $user_name;
         $this->message = $message;
         $this->title = $title;
+        $this->enrolledChat = $enrolledChat;
     }
 
     /**
@@ -33,13 +34,31 @@ class PushNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        $user_name = $this->user_name;
+        $enrolledChat = $this->enrolledChat;
         $message = $this->message;
         $title = $this->title;
 
-        echo "sending push notification to $user_name";
+        $user_name_tr = $enrolledChat->room_id;
 
-        $user_name_tr = str_replace(" ", "", $user_name);
+        echo "sending call push notification to $user_name_tr";
+
+        $payload = '{
+    "to": "/topics/' . $user_name_tr . '",
+    "data": {
+        "priority":"high",
+        "extra_information": "chat",
+        "id":"' . $user_name_tr . '",
+        "sender_id":"' . $enrolledChat->user_id . '"
+    },
+    "notification": {
+        "title": "' . $title . '",
+        "body": "' . $message . '"
+    },
+    "priority":"high"
+}';
+
+        Log::info("Push notification chat");
+        Log::info($payload);
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -52,7 +71,7 @@ class PushNotificationJob implements ShouldQueue
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n\"to\": \"/topics/" . $user_name_tr . "\",\n\"data\": {\n\t\"extra_information\": \"PLANETF\"\n},\n\"notification\":{\n\t\"title\": \"" . $title . "\",\n\t\"body\":\"" . $message . "\"\n\t}\n}\n",
+            CURLOPT_POSTFIELDS => $payload,
             CURLOPT_HTTPHEADER => array(
                 "Authorization: key=" . env('PUSH_NOTIFICATION_KEY'),
                 "Content-Type: application/json",
@@ -64,7 +83,6 @@ class PushNotificationJob implements ShouldQueue
         echo $uresponse;
 
         $json = json_decode($uresponse, true);
-
 
     }
 }

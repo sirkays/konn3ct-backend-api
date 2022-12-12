@@ -43,6 +43,7 @@ class CreateBGAccountJob implements ShouldQueue
     {
         $name = $this->jobi['name'];
         $email = $this->jobi['email'];
+        $phone = $this->jobi['phone'] ?? "";
         $password = Str::random(8);
 
         $fname = explode(" ", $name);
@@ -58,6 +59,7 @@ class CreateBGAccountJob implements ShouldQueue
                 'firstname' => $fname[1] ?? '',
                 'lastname' => $fname[0],
                 'email' => $email,
+                'phone' => $phone,
                 'plan' => $plan,
                 'password' => Hash::make($password),
                 'subscription' => $exp,
@@ -78,7 +80,7 @@ class CreateBGAccountJob implements ShouldQueue
             $input['name'] = $fname[0] . " Room";
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-            $input['url'] = trim(substr($name, 0, 3) . $sfinal);
+            $input['url'] = trim(str_replace(' ', '', substr($name, 0, 3) . $sfinal));
             $input['welcome_message'] = "";
             $input['logout_url'] = url('/leftsession');
             $input['max_participants'] = $max_user;

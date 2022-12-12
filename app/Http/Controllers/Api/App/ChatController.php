@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\App;
 
 use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
+use App\Jobs\PushNotificationCallJob;
+use App\Jobs\PushNotificationChatJob;
 use App\Models\ChatMessage;
 use App\Models\EnrolledChat;
 use App\Models\RoomModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +18,7 @@ class ChatController extends Controller
 {
     function fetchChats()
     {
-        $chats = EnrolledChat::where(['user_id' => Auth::id(), 'status' => 1])->with('room', 'lastMessage.user')->get();
+        $chats = EnrolledChat::where(['user_id' => Auth::id(), 'status' => 1])->with('room', 'lastMessage.user')->latest('updated_at')->get();
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $chats]);
     }
 
@@ -88,6 +91,7 @@ class ChatController extends Controller
                 'type' => "text",
                 'message' => $input['message']
             ]);
+            $msg = Auth::user()->lastname . ": " . $input['message'];
         } else if ($input['type'] == "image") {
 
             $image = $input["message"];
@@ -104,6 +108,7 @@ class ChatController extends Controller
                 'type' => "image",
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent an Image";
         }else if ($input['type'] == "audio") {
 
             $image = $input["message"];
@@ -120,6 +125,7 @@ class ChatController extends Controller
                 'type' => "audio",
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent an Audio";
         } else {
             $image = $input["message"];
             $photo = $input['id'] . Auth::id() . "_" . rand() . "." . $input['type'];
@@ -135,11 +141,15 @@ class ChatController extends Controller
                 'type' => $input['type'],
                 'message' => $message
             ]);
+            $msg = Auth::user()->lastname . ": Sent a file";
         }
 
+        EnrolledChat::where(['room_id' => $input['id']])->update(["status" => 1]);
 
         NewMessageEvent::dispatch($data);
 //        broadcast(new ShippingStatusUpdated($update))->toOthers();
+
+        PushNotificationChatJob::dispatch($msg, $check->room->name, $check);
 
         return response()->json(['success' => true, 'message' => 'Message sent successfully', 'data' => $data]);
     }
@@ -230,4 +240,57 @@ class ChatController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Enrolled successfully']);
     }
+
+    function validateUser(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($request->all(), [
+            'user' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
+        }
+
+        $check = User::where('id', $input['user'])->orwhere('email', $input['user'])->orwhere('phone', $input['user'])->select('id', 'firstname', 'lastname', 'phone', 'email')->first();
+
+        if (!$check) {
+            return response()->json(['success' => false, 'message' => 'User does not exist']);
+        }
+
+        PushNotificationCallJob::dispatch($check->id, Auth::user());
+
+        return response()->json(['success' => true, 'message' => 'User fetched successfully', 'data' => $check]);
+    }
+
+    public function validatePhones(Request $request)
+    {
+
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'phones' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        $pha = explode(",", $input['phones']);
+
+        foreach ($pha as $phone) {
+            $user = User::where("phone", trim($phone))->first();
+
+            if ($user) {
+                $datam["email"] = $user->email;
+                $datam["phone"] = $phone;
+                $datam["name"] = $user->lastname . " " . $user->firstname;
+                $data[] = $datam;
+            }
+        }
+
+
+        return response()->json(['status' => true, 'message' => 'Validated Successfully', 'data' => !empty($data) ? $data : []]);
+    }
+
 }

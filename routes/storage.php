@@ -82,3 +82,47 @@ Route::get('/chat_files/{filename}', function ($filename) {
     $response->header("Content-Type", $type);
     return $response;
 })->name('show.chatFiles');
+
+Route::get('/recording/{filename}/{type}', function ($filename, $type) {
+
+//    $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.mp4";
+    $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.webm";
+
+    if ($type == "video") {
+        $filenam = "Recording-video-$filename.mp4";
+    } elseif ($type == "videowebm") {
+        $filenam = "Recording-video-$filename.webm";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/video/webcams.webm";
+    } elseif ($type == "screenshare") {
+        $filenam = "Recording-screenshare-$filename.mp4";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.webm";
+    } elseif ($type == "screensharewebm") {
+        $filenam = "Recording-screenshare-$filename.webm";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/deskshare/deskshare.webm";
+    } elseif ($type == "chats") {
+        $filenam = "Recording-chats-$filename.txt";
+        $path = "https://meet3.konn3ct.com/presentation/$filename/slides_new.xml";
+    } else {
+        return redirect()->route('recording')->with('error', 'Type does not exist');
+    }
+
+
+    try {
+        $mime = 'application/force-download';
+
+        header('Content-Type: ' . $mime);
+
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename=' . $filenam);
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        ob_clean();
+        flush();
+        readfile($path);
+    } catch (Exception $e) {
+        echo "File not found";
+    }
+
+})->name('download.recording');

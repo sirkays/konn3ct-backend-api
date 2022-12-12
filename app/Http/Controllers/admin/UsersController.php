@@ -113,9 +113,9 @@ class UsersController extends Controller
             return back()->with("error", "User does not exist");
         }
 
-        if ($datas['user']->referral_code != null) {
-            return back()->with("error", "Referral Code already exist");
-        }
+//        if ($datas['user']->referral_code != null) {
+//            return back()->with("error", "Referral Code already exist");
+//        }
 
         $datas['user']->referral_code = trim(substr(date('iym') . rand(), 0, 6));
         $datas['user']->save();

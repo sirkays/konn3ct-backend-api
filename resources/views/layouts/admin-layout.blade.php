@@ -150,6 +150,8 @@
                             class="path2"></span></i>Users</a></li>
             <li><a href="{{route('admin.rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Rooms</a></li>
+            <li><a href="{{route('admin.preregs')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Preregs</a></li>
             {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
             {{--            <li><a href="/recording"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}
             {{--            <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a></li>--}}
@@ -253,8 +255,8 @@
                                 <br>
                                 <p>
                                     <strong>
-                                    $10.99/&#x20A6;4000<sup>Monthly</sup> <br/>
-                                    $120/&#x20A6;46,000<sup>Yearly</sup>
+                                        $10.99/&#x20A6;6,000<sup>Monthly</sup> <br/>
+                                        $120/&#x20A6;66,000<sup>Yearly</sup>
                                     </strong>
                                 </p>
                                 <p></p>
@@ -284,8 +286,8 @@
                                 <br>
                                 <p>
                                     <strong>
-                                        $15.99/&#x20A6;6000<sup>Monthly</sup> <br/>
-                                        $175/&#x20A6;67,000<sup>Yearly</sup>
+                                        $15.99/&#x20A6;8,000<sup>Monthly</sup> <br/>
+                                        $175/&#x20A6;88,000<sup>Yearly</sup>
                                     </strong>
                                 </p>
                                 <p></p>
@@ -357,7 +359,7 @@
 <script src="/user_assets/js/pages/data-table.js"></script>
 <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 
-@if(Request::segment(2) === 'users')
+@if(Request::segment(2) === 'users' || Request::segment(2) === 'preregs')
     <script src="/user_assets/assets/vendor_components/datatable/datatables.min.js"></script>
 @endif
 

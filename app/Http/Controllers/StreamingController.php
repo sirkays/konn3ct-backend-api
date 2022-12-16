@@ -85,7 +85,7 @@ class StreamingController extends Controller
                 "user_id" => Auth::id(),
                 "room_id" => $room->id,
                 "identifier" => $identifier,
-                "type" => $identifier,
+                "type" => $type,
                 "stream_key" => $input['key'],
                 "status" => 1
             ]);

@@ -251,6 +251,8 @@
         <ul id="main-menu" class="sm sm-blue">
             <li><a href="{{route('rooms')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Room(s)</a></li>
+            <li><a href="{{route('streamList')}}"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                            class="path2"></span></i>Streamings</a></li>
             <li><a href="/joinsession"><i class="icon-Layout-4-blocks"><span class="path1"></span><span
                             class="path2"></span></i>Join a Meeting Room</a></li>
             {{--            <li><a href="#"><i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>Recording(s)</a></li>--}}

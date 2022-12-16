@@ -1007,21 +1007,24 @@
                                                         </div>
                                                     </div>
 
+
+                                                    <div class="dropdown mr-2">
+                                                        <a href="{{route('attendance', $room->id)}}"
+                                                           class="btn btn-success"
+                                                           data-toggle="modal"
+                                                           data-target=".dk-streaming-lg-{{$room->id}}"
+                                                           data-placement="top"
+                                                           title="Start Streaming">
+                                                            Start Streaming
+                                                        </a>
+                                                    </div>
+
                                                     <div class="dropdown mr-2">
                                                         <a href="{{route('attendance', $room->id)}}"
                                                            class="btn btn-secondary" data-placement="top"
                                                            title="See people who attended your meetings">
                                                             Attendance
                                                         </a>
-                                                    </div>
-
-                                                    <div class="dropdown mr-2">
-                                                        <Button class="btn btn-secondary" data-toggle="modal"
-                                                                data-target="#dk-limituser{{$room->id}}-modal"
-                                                                data-placement="top"
-                                                                title="Increase or decrease users size for meeting">
-                                                            Users Limit
-                                                        </Button>
                                                     </div>
 
                                                     <div class="dropdown">
@@ -1039,6 +1042,13 @@
                                                                     data-placement="top"
                                                                     title="Add or remove access code">
                                                                 Access Code
+                                                            </Button>
+
+                                                            <Button class="btn btn-secondary" data-toggle="modal"
+                                                                    data-target="#dk-limituser{{$room->id}}-modal"
+                                                                    data-placement="top"
+                                                                    title="Increase or decrease users size for meeting">
+                                                                Users Limit
                                                             </Button>
 
                                                             <Button type="button" class="dropdown-item"
@@ -2642,6 +2652,61 @@
                                                     <!-- /.modal-dialog -->
                                                 </div>
 
+                                                <div class="modal fade dk-streaming-lg-{{$room->id}}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="myLargeModalLabel"
+                                                     aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myLargeModalLabel">Live
+                                                                    Streaming</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                            </div>
+
+                                                            <form method="post" action="{{route('startStreaming')}}">
+                                                                <div class="modal-body">
+                                                                    @csrf
+                                                                    <input type="hidden" id="id" name="room_id"
+                                                                           value="{{$room->id}}"/>
+
+                                                                    <div class="form-group">
+                                                                        <label>Type:</label>
+                                                                        <select class="form-control" id="type"
+                                                                                name="type">
+                                                                            <option>Youtube</option>
+                                                                            <option>Facebook</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Key:</label>
+                                                                        <input type="text" name="key"
+                                                                               class="form-control"
+                                                                               placeholder="Paste Streaming Key"
+                                                                               value=""
+                                                                               required>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-danger text-left"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-success text-left">Start
+                                                                        Streaming
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
 
                                             </td>
 
@@ -2826,12 +2891,18 @@
     <!-- /.modal -->
 
     <script>
+        import Input from "../../js/Jetstream/Input";
+
         function copyToClipboard(element) {
             var $temp = $("<input>");
             $("body").append($temp);
             $temp.val($(element).text()).select();
             document.execCommand("copy");
             $temp.remove();
+        }
+
+        export default {
+            components: {Input}
         }
     </script>
 

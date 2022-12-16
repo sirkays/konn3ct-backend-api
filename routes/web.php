@@ -13,6 +13,7 @@ use App\Http\Controllers\PreregistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecordingController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\StreamingController;
 use App\Mail\WelcomeMailViaJoin;
 use App\Models\Faq;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
@@ -110,6 +111,10 @@ Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])-
     Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 
     Route::post('/preregistration', [PreregistrationController::class, 'prereg'])->name('prereg');
+
+    Route::post('/start-streaming', [StreamingController::class, 'startStreaming'])->name('startStreaming');
+    Route::get('/stop-streaming/{id}', [StreamingController::class, 'stopStreaming'])->name('stopStreaming');
+    Route::get('/streamings', [StreamingController::class, 'list'])->name('streamList');
 
     Route::post('/modify-preregistration', [PreregistrationController::class, 'preregModify'])->name('preregModify');
 

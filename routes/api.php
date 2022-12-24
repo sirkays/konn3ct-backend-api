@@ -39,6 +39,8 @@ Route::post('start-room0', [RoomController::class, 'startRoom']);
 
 Route::post('check-room', [RoomController::class, 'checkRoom']);
 
+Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'meeting']);
+
 
 Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {
     Route::get('users/{id}', [\App\Http\Controllers\Api\PricingController::class, 'getUsers']);

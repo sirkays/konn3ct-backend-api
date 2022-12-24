@@ -1008,16 +1008,18 @@
                                                     </div>
 
 
-                                                    <div class="dropdown mr-2">
-                                                        <a href="{{route('attendance', $room->id)}}"
-                                                           class="btn btn-success"
-                                                           data-toggle="modal"
-                                                           data-target=".dk-streaming-lg-{{$room->id}}"
-                                                           data-placement="top"
-                                                           title="Start Streaming">
-                                                            Start Streaming
-                                                        </a>
-                                                    </div>
+                                                    @if(\Illuminate\Support\Facades\Auth::user()->plan==3)
+                                                        <div class="dropdown mr-2">
+                                                            <a href="{{route('attendance', $room->id)}}"
+                                                               class="btn btn-success"
+                                                               data-toggle="modal"
+                                                               data-target=".dk-streaming-lg-{{$room->id}}"
+                                                               data-placement="top"
+                                                               title="Start Streaming">
+                                                                Start Streaming
+                                                            </a>
+                                                        </div>
+                                                    @endif
 
                                                     <div class="dropdown mr-2">
                                                         <a href="{{route('attendance', $room->id)}}"

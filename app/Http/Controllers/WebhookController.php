@@ -13,8 +13,7 @@ class WebhookController extends Controller
         $event = str_replace("-", "_", $input['event']);
         $data = json_decode($event)[0];
         if ($data->data->id == "meeting_ended") {
-//            $meet_id=substr($data->data->attributes->meeting->external_meeting_id, 1);
-            $meet_id = substr("015", 1);
+            $meet_id = substr($data->data->attributes->meeting->external_meeting_id, 1);
 
             $streamings = Streaming::where(['room_id' => $meet_id, 'status' => 1])->get();
 

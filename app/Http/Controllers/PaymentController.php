@@ -442,11 +442,11 @@ class PaymentController extends Controller
 
                 if ($addons->name == "Whatsapp Invite") {
                     if (Auth::user()->whatsapp_invite == "0") {
-                        $subd = Carbon::now()->addYear();
+                        $subd = Carbon::now()->addMonth();
                     } else if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->whatsapp_invite), false) < 0) {
-                        $subd = Carbon::now()->addYear();
+                        $subd = Carbon::now()->addMonth();
                     } else {
-                        $subd = Carbon::parse(Auth::user()->whatsapp_invite)->addYear();
+                        $subd = Carbon::parse(Auth::user()->whatsapp_invite)->addMonth();
                     }
                     User::where('id', Auth::id())->update(['whatsapp_invite' => $subd]);
                 }
@@ -454,6 +454,18 @@ class PaymentController extends Controller
                 if ($addons->name == "Room Bundles - 10") {
                     $prv = Auth::user()->room_bundles;
                     User::where('id', Auth::id())->update(['room_bundles' => $prv + 10]);
+                }
+
+
+                if ($addons->name == "Streaming Service") {
+                    if (Auth::user()->streaming_service == "0") {
+                        $subd = Carbon::now()->addMonth();
+                    } else if (Carbon::now()->diffInDays(Carbon::parse(Auth::user()->streaming_service), false) < 0) {
+                        $subd = Carbon::now()->addMonth();
+                    } else {
+                        $subd = Carbon::parse(Auth::user()->streaming_service)->addMonth();
+                    }
+                    User::where('id', Auth::id())->update(['streaming_service' => $subd]);
                 }
 
                 return redirect('addonsubscription')->with('success', 'Your payment is successfully!');

@@ -87,9 +87,23 @@
                                                             Expires
                                                             in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false)}}
                                                             days
-                                                            @else
+                                                        @else
                                                             Expired
-                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                </span>
+                                            @elseif($data->name == "Streaming Service")
+                                                <span class="badge badge-pill badge-danger">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->streaming_service=="0")
+                                                        Not yet activated
+                                                    @else
+                                                        @if(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->streaming_service), false) > 0)
+                                                            Expires
+                                                            in {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->streaming_service), false)}}
+                                                            days
+                                                        @else
+                                                            Expired
+                                                        @endif
                                                     @endif
                                                 </span>
                                             @else
@@ -101,7 +115,8 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-primary"
-                                                    onclick="makePayment({{$data->price}}, {{$data->id}})">Subscribe Now
+                                                    onclick="makePayment({{$data->price}}, {{$data->id}})">Make Payment
+                                                Now
                                             </button>
                                         </td>
                                     </tr>

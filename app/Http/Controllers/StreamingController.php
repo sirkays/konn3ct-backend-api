@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RoomModel;
 use App\Models\Streaming;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,13 @@ class StreamingController extends Controller
                 "stream_key" => $input['key'],
                 "status" => 1
             ]);
+
+            $user = User::find(Auth::id());
+            if ($user->streaming_service == "0") {
+                $user->streaming_service = Carbon::now()->addDays(8);
+                $user->save();
+            }
+
             return redirect()->route('streamList')->with('success', 'Streaming started successfully');
         } else {
             return back()->with('error', 'Error starting streaming');

@@ -260,11 +260,11 @@
                             class="path2"></span></i>Recording(s)</a></li>
             <li><a href="/payment"><i class="icon-Incoming-mail"><span class="path1"></span><span class="path2"></span></i>Payment</a>
             </li>
+            <li><a href="/addonsubscription"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Addons</a>
+            </li>
             <li><a href="/profile"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Profile</a>
             </li>
             <li><a href="/referee"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Referee(s)</a>
-            </li>
-            <li><a href="/addonsubscription"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Addons</a>
             </li>
             <li><a href="/invites"><i class="icon-User"><span class="path1"></span><span class="path2"></span></i>Konn3ct
                     Invite

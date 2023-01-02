@@ -504,6 +504,30 @@
                 </div>
             </div>
 
+            <div class="row mt-4">
+                <div class="col-md-3 col-sm-6 col-xs-12 color-1">
+                    <div class="single-table" style="border-color: #012E89; border-width: 2px; border-style: solid">
+                        <div class="plan-header mb-3 text-center">
+                            <h3 class="mt-4" style="font-weight: bolder">ADDONS</h3>
+                            <p></p>
+                        </div>
+
+
+                        <div style="background-color: #FFFFFF; color: #000000">
+                            <ul class="text-justify">
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Streaming Service - ₦20,000
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Room Bundles (10) - ₦15,000
+                                </li>
+                                <li><i class="fa fa-check-circle mr-2" id="ifeatures"></i> Whatsapp Invite - ₦3,000
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mt-5">
                 <div class="text-center">
                     <img src="/assets/images/visa_mastercard.png" class="col-2" alt="pix"/>

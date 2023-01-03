@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PlanPricing;
 use App\Models\Reseller;
 use App\Models\User;
+use App\Models\VisitLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -127,6 +128,12 @@ class PricingController extends Controller
     {
         $users = User::where("reseller_id", 1)->with('plan')->get();
         return response()->json(['success' => true, 'message' => 'Users fetched successfully', 'data' => $users]);
+    }
+
+    function getActivity($countrycode)
+    {
+        $data = VisitLog::where("countryCode", $countrycode)->paginate();
+        return response()->json(['success' => true, 'message' => 'Activities fetched successfully', 'data' => $data]);
     }
 
 }

@@ -43,6 +43,7 @@ Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'me
 
 
 Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {
+    Route::get('activity/country/{countrycode}', [\App\Http\Controllers\Api\PricingController::class, 'getActivity']);
     Route::get('users/{id}', [\App\Http\Controllers\Api\PricingController::class, 'getUsers']);
     Route::get('pricing/{currency}', [\App\Http\Controllers\Api\PricingController::class, 'getPlans']);
     Route::post('user/register', [\App\Http\Controllers\Api\PricingController::class, 'register']);

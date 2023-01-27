@@ -65,7 +65,7 @@ class MyCustomWebSocketHandler implements MessageComponentInterface
         echo $dmsg->event;
 
         Log::info("There is a message");
-        Log::info($dmsg);
+        Log::info($msg);
 
         if ($dmsg->event == "contact-verify") {
             $this->contactVerify($connection, $dmsg->data->phones);

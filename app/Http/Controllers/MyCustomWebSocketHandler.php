@@ -8,6 +8,7 @@ use BeyondCode\LaravelWebSockets\Dashboard\DashboardLogger;
 use BeyondCode\LaravelWebSockets\Facades\StatisticsLogger;
 use BeyondCode\LaravelWebSockets\WebSockets\Channels\ChannelManager;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\RequestInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
@@ -62,6 +63,9 @@ class MyCustomWebSocketHandler implements MessageComponentInterface
         echo "There is a message";
         $dmsg = json_decode($msg);
         echo $dmsg->event;
+
+        Log::info("There is a message");
+        Log::info($dmsg);
 
         if ($dmsg->event == "contact-verify") {
             $this->contactVerify($connection, $dmsg->data->phones);
@@ -119,6 +123,9 @@ class MyCustomWebSocketHandler implements MessageComponentInterface
             }
 
         }
+
+        Log::info("Contact verify response");
+        Log::info(json_encode($data));
 
         $connection->send(json_encode([
             'event' => 'contact-verify',

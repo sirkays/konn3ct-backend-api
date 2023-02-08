@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\App\AuthController;
+use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
 use App\Http\Controllers\Api\App\RoomsController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,9 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('validate-user', [ChatController::class, 'validateUser']);
         Route::post('validate-phones', [ChatController::class, 'validatePhones']);
         Route::post('whatsapp/inviteAll', [RoomsController::class, 'inviteAll']);
+        Route::post('call/initiate', [CallController::class, 'initiateCall']);
+        Route::post('call/update', [CallController::class, 'updateCall']);
+        Route::get('call/list', [CallController::class, 'listCalls']);
     });
 });
 

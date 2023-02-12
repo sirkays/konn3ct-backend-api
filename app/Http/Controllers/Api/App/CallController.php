@@ -74,7 +74,7 @@ class CallController extends Controller
     function listCalls(Request $request)
     {
 
-        $call = CallLog::where('user_id', Auth::id())->get();
+        $call = CallLog::where('user_id', Auth::id())->with('user')->get();
 
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $call]);
     }

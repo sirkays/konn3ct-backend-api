@@ -53,7 +53,11 @@ class MyCustomWebSocketHandler implements MessageComponentInterface
 
     public function onError(ConnectionInterface $connection, \Exception $e)
     {
+        echo "\n\n\n";
+        echo $e;
+        echo "\n\n\n";
         echo "samji error";
+        echo "\n\n\n";
         // TODO: Implement onError() method.
     }
 

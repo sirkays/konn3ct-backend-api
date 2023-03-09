@@ -9,8 +9,20 @@
     <meta content="Register for {{$preg->title ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}" name="description">
 
     <!-- Favicons -->
-    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="icon">
-    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="apple-touch-icon">
+    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}"
+          rel="icon">
+    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}"
+          rel="apple-touch-icon">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}">
+
+    <meta name="author" content="konn3ct">
+    <meta name="og:url" content="https://konn3ct.com">
+    <meta name="og:description" content="Register for {{$preg->title ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}">
+    <meta name="og:type" content="website">
+    <meta name="og:title" content="{{$preg->title ?? "Konn3ct"}} - Pre-registration">
+    <meta name="og:image"
+          content="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}">
 
     <!-- Google Fonts -->
     <link

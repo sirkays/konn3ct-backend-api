@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{$event ?? "Konn3ct"}} - Pre-registration</title>
+    <title>{{$preg->title ?? "Konn3ct"}} - Pre-registration</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="event, registration, konn3ct, event registration" name="keywords">
-    <meta content="Register for {{$event ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}" name="description">
+    <meta content="Register for {{$preg->title ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}" name="description">
 
     <!-- Favicons -->
-    <link href=https://konn3ct.com/assets/images/konn3ctIcon.png" rel="icon">
-    <link href="https://konn3ct.com/assets/images/konn3ctIcon.png" rel="apple-touch-icon">
+    <link href="{{$preg->logo ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="icon">
+    <link href="{{$preg->logo ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -61,7 +61,7 @@
 ============================-->
 <section id="intro">
     <div class="intro-container wow fadeIn">
-        <h1 class="mb-4 pb-0">{{$preg->title ?? "The Konn3ct Training"}}</h1>
+        <h1 class="mb-4 pb-0">{{$preg->title ?? "Konn3ct Event"}}</h1>
         <p class="mb-4 pb-0">Hosted by {{$preg->host_name}}</p>
         {{--        <a href="https://www.youtube.com/watch?v=mLoHB9cltWs" class="venobox play-btn mb-4" data-vbtype="video"--}}
         {{--           data-autoplay="true"></a>--}}

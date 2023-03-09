@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\App;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailReset;
 use App\Mail\EmailVerificationMail;
+use App\Mail\UserWelcomeMail;
 use App\Models\CodeRequest;
 use App\Models\RoomModel;
 use App\Models\User;
@@ -204,6 +205,12 @@ class AuthController extends Controller
 
         $reg->status = 1;
         $reg->save();
+
+        try {
+            Mail::to($reg->email)->send(new UserWelcomeMail());
+        } catch (\Exception $e) {
+//            echo $e;
+        }
 
         return response()->json(['success' => true, 'message' => 'Password reset successfully.']);
     }

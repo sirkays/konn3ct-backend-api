@@ -2,7 +2,6 @@
 
 namespace App\Actions\Fortify;
 
-use App\Jobs\Konn3ctChatCreateAccountJob;
 use App\Mail\UserWelcomeMail;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
@@ -128,7 +127,7 @@ class CreateNewUser implements CreatesNewUsers
 
         RoomModel::create($input);
 
-        Konn3ctChatCreateAccountJob::dispatch($input)->delay(now()->addSecond());
+//        Konn3ctChatCreateAccountJob::dispatch($input)->delay(now()->addSecond());
 
 
         try {

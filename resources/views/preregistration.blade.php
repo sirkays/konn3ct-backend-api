@@ -9,8 +9,8 @@
     <meta content="Register for {{$preg->title ?? "Konn3ct"}} now. {{substr($preg->about, 50)}}" name="description">
 
     <!-- Favicons -->
-    <link href="{{$preg->logo ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="icon">
-    <link href="{{$preg->logo ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="apple-touch-icon">
+    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="icon">
+    <link href="{{route('show.prereg.image', $preg->logo) ?? 'https://konn3ct.com/assets/images/konn3ctIcon.png'}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link

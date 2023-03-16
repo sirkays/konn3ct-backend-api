@@ -149,6 +149,25 @@ class UsersController extends Controller
 
     }
 
+    public function upgradeService(Request $request)
+    {
+        $input = $request->all();
+        $user = User::find($input['user']);
+
+        if ($user->streaming_service == "0") {
+            $subd = Carbon::now()->addMonths($input['duration']);
+        } else if (Carbon::now()->diffInDays(Carbon::parse($user->streaming_service), false) < 0) {
+            $subd = Carbon::now()->addMonths($input['duration']);
+        } else {
+            $subd = Carbon::parse($user->streaming_service)->addMonths($input['duration']);
+        }
+
+        User::where('id', $input['user'])->update(['streaming_service' => $subd]);
+
+        return back()->with("success", "Streaming subscription modified successfully");
+
+    }
+
     public function applyRoomBundle(Request $request)
     {
         $input = $request->all();

@@ -80,20 +80,44 @@
                                                         <input type="hidden" name="user" value="{{$user->id}}">
                                                     <!-- select -->
                                                     <div class="form-group">
-                                                        <label>Select Plan:</label>
+                                                        <label>Select User Plan:</label>
                                                         <select class="form-control" name="plan">
                                                             @foreach($plans as $plan)
                                                                 @if($plan->id=="3")
-                                                                    <option value="{{$plan->id}}" selected>{{$plan->name}}</option>
+                                                                    <option value="{{$plan->id}}"
+                                                                            selected>{{$plan->name}}</option>
                                                                 @else
-                                                                    <option value="{{$plan->id}}">{{$plan->name}}</option>
+                                                                    <option
+                                                                        value="{{$plan->id}}">{{$plan->name}}</option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Months:</label>
+                                                        <label>Month(s):</label>
+                                                        <select class="form-control" name="duration">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <button type="submit" class="btn bg-gradient-success">Upgrade Now
+                                                    </button>
+
+                                                </form>
+
+                                                <form class="mt-5" action="{{route('admin.upgradeService')}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="user" value="{{$user->id}}">
+                                                    <label>Streaming Service:</label>
+                                                    <div class="form-group">
+                                                        <label>Month(s):</label>
                                                         <select class="form-control" name="duration">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -154,7 +178,8 @@
                                                         </select>
                                                     </div>
 
-                                                    <button type="submit" class="btn bg-gradient-success">Upgrade Now</button>
+                                                    <button type="submit" class="btn bg-gradient-success">Upgrade Now
+                                                    </button>
 
                                                 </form>
                                             </div>
@@ -199,6 +224,27 @@
                                         <button type="submit" class="btn bg-gradient-success">Apply Now</button>
 
                                     </form>
+
+                                    <div class="mt-5">
+                                        <form action="{{route('admin.upgradeService')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user" value="{{$user->id}}">
+                                            <div class="form-group">
+                                                <label>Streaming Service: (Month):</label>
+                                                <select class="form-control" name="duration">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn bg-gradient-success">Upgrade Now</button>
+
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
 

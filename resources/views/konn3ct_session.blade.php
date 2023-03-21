@@ -31,8 +31,8 @@
                     </div>
 
                     <div class="col-2">
-                        <img src="/assets/images/animation_500_krj7eu2n.gif" alt="loader" width="85px"
-                             height="85px"/>
+                        {{--                        <img src="/assets/images/animation_500_krj7eu2n.gif" alt="loader" width="85px"--}}
+                        {{--                             height="85px"/>--}}
                     </div>
 
                     <div class="px-3 py-2 col-4 mr-2">

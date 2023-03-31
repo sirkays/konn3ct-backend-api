@@ -291,9 +291,10 @@ class PreregistrationController extends Controller
             abort(404);
         }
 
-        if ($datas['prereg']->user_id != Auth::id()) {
-            abort(404);
-        }
+//        if ($datas['prereg']->user_id != Auth::id()) {
+//            abort(404);
+//        }
+
         $datas['users'] = PreRegUserModel::where("prereg_id", $datas['prereg']->id)->latest()->get();
         $datas['i'] = 1;
         return view('user.prereg_participants', $datas);

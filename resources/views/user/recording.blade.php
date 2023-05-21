@@ -65,10 +65,19 @@
                                         </td>
 
                                         <td>
-                                            <a class="waves-effect waves-light btn btn-success font-size-10 mb-2"
-                                               href="{{$record['playback']['format']['url']}}">
-                                                Play
-                                            </a>
+                                            @php
+                                                try{
+        echo '<a class="waves-effect waves-light btn btn-success font-size-10 mb-2"
+                                                   href="'.$record['playback']['format']['url'].'">
+                                                    Play
+                                                </a>';
+                                                }catch (\Exception $e){
+            echo '<a class="waves-effect waves-light btn btn-info font-size-10 mb-2">
+                                                    Not AV
+                                                </a>';
+                                                }
+
+                                            @endphp
 
                                             <div class="dropdown mr-2 mt-2">
                                                 <button class="btn btn-sm btn-primary dropdown-toggle"

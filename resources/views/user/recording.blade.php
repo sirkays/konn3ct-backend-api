@@ -27,6 +27,9 @@
                                 </thead>
                                 <tbody>
                                 @foreach($recordings as $record)
+                                    @php
+                                        try{
+                                    @endphp
                                     <tr>
                                         <td class="pl-0 py-8">
                                             <div class="d-flex align-items-center">
@@ -65,19 +68,10 @@
                                         </td>
 
                                         <td>
-                                            @php
-                                                try{
-        echo '<a class="waves-effect waves-light btn btn-success font-size-10 mb-2"
-                                                   href="'.$record['playback']['format']['url'].'">
-                                                    Play
-                                                </a>';
-                                                }catch (\Exception $e){
-            echo '<a class="waves-effect waves-light btn btn-info font-size-10 mb-2">
-                                                    Not AV
-                                                </a>';
-                                                }
-
-                                            @endphp
+                                            <a class="waves-effect waves-light btn btn-success font-size-10 mb-2"
+                                               href="{{$record['playback']['format']['url']}}">
+                                                Play
+                                            </a>
 
                                             <div class="dropdown mr-2 mt-2">
                                                 <button class="btn btn-sm btn-primary dropdown-toggle"
@@ -140,16 +134,23 @@
                                                     <Button class="dropdown-item"
                                                             class="waves-effect waves-light btn font-size-10"
                                                             onclick="myFunction('c{{$i++}}')">
-                                                            Copy
-                                                        </Button>
+                                                        Copy
+                                                    </Button>
 
-                                                        <a class="dropdown-item font-size-10" href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}" class="waves-effect waves-light btn btn-primary">
-                                                            Email Recording
-                                                        </a>
-                                                    </div>
+                                                    <a class="dropdown-item font-size-10"
+                                                       href="mailto:?Subject=My Recording on Konn3ct&amp;Body=Hi, view my recording on konn3ct using this link {{$record['playback']['format']['url']}}"
+                                                       class="waves-effect waves-light btn btn-primary">
+                                                        Email Recording
+                                                    </a>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    @php
+                                        }catch(\Exception $e){
+
+                                        }
+                                    @endphp
                                 @endforeach
                                 </tbody>
                             </table>

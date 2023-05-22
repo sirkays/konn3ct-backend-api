@@ -58,9 +58,9 @@
                                                 <span class="text-dark font-weight-600 d-block font-size-10">
 													{{$record['participants']}} Participants
 												</span>
-                                            <span class="text-dark font-weight-600 d-block font-size-10">
-													{{$record['playback']['format']['length']}} Minutes
-												</span>
+                                            {{--                                            <span class="text-dark font-weight-600 d-block font-size-10">--}}
+                                            {{--													{{$record['playback']['format']['length']}} Minutes--}}
+                                            {{--												</span>--}}
 
                                             <span class="text-dark font-weight-600 d-block font-size-10">
 													{{ number_format((($record['playback']['format']['size'] ?? 1)/1000000))."MB"}}

@@ -186,6 +186,9 @@
                                 </thead>
                                 <tbody>
                                 @foreach($recordings as $record)
+                                    @php
+                                        try{
+                                    @endphp
                                     <tr>
                                         <td style="min-width: 20px; max-width: 50px">
                                             <div class="d-flex align-items-center">
@@ -298,6 +301,11 @@
                                             <!-- /.modal-content -->
                                         </td>
                                     </tr>
+                                    @php
+                                        }catch(\Exception $e){
+
+                                        }
+                                    @endphp
                                 @endforeach
                                 </tbody>
                             </table>

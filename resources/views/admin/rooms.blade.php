@@ -189,16 +189,19 @@
 {{--                                            <h4 class="mt-0 mb-20">1. Customer Info:</h4>--}}
                                             <div class="form-group">
                                                 <label>Room Name:</label>
-                                                <input type="text" name="name" class="form-control" placeholder="e.g My Room" required>
+                                                <input type="text" name="name" class="form-control"
+                                                       placeholder="e.g My Room" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Room URL:</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="background-color: #7193AA">konn3ct.com/</span>
+                                                        <span class="input-group-text"
+                                                              style="background-color: #7193AA">{{url('join/')}}</span>
                                                     </div>
-                                                    <input type="text" name="url" class="form-control" placeholder="myroom (optional)">
+                                                    <input type="text" name="url" class="form-control"
+                                                           placeholder="myroom (optional)">
                                                 </div>
                                             </div>
 

@@ -1,6 +1,8 @@
 <?php
 
 use App\Mail\UserWelcomeMail;
+use BigBlueButton\BigBlueButton;
+use BigBlueButton\Parameters\CreateMeetingParameters;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,5 +65,39 @@ Route::get('/ncs', function () {
 Route::get('/nhp', function () {
     return view('new-homepage');
 })->name('new-homepage');
+
+
+Route::get('/nhp0989', function () {
+    $bbb = new BigBlueButton();
+
+    $createMeetingParams = new CreateMeetingParameters("teslt9", "hello0");
+//    $createMeetingParams->setParentMeetingId("hfh88fh");
+    $createMeetingResponse = $bbb->createMeeting($createMeetingParams);
+
+    echo $createMeetingResponse->getRawXml();
+
+    if ($createMeetingResponse->success()) {
+        echo "success";
+    } else {
+        echo "failure";
+    }
+});
+
+
+Route::get('/nhp0989j', function () {
+    $url = \Bigbluebutton::join([
+        'meetingID' => 'tamku',
+        'userName' => 'disa',
+        'password' => 'attendee', //which user role want to join set password here
+        'redirect' => false, //it will not redirect into bigblueserver
+        'userId' => "54575",
+        'customParameters' => [
+            'foo' => 'bar',
+            'key' => 'value'
+        ]
+    ]);
+
+    return $url;
+})->name('new-homepagew');
 
 

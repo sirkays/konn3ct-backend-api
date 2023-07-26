@@ -59,8 +59,8 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email Address</th>
+                                    <th>Service</th>
+                                    <th>Service Description</th>
                                     <th>Status</th>
                                     <th>Amount</th>
                                     <th>Action</th>

@@ -10,6 +10,8 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use BigBlueButton\BigBlueButton;
+use BigBlueButton\Parameters\CreateMeetingParameters;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -69,109 +71,18 @@ class RoomController extends Controller
         if ($input['access_code'] == "") {
             $input['password_attendee'] = "attendee";
             $input['password_moderator'] = "moderator";
-        }else{
+        } else {
             $input['password_attendee'] = $input['access_code'];
             $input['password_moderator'] = "moderator";
         }
 
-        $r=RoomModel::create($input);
+        $input['user_id'] = Auth::id();
 
-        $createMeeting = \Bigbluebutton::initCreateMeeting([
-            'meetingID' => "0$r->id",
-            'meetingName' => $input['name'],
-            'attendeePW' => $input['password_attendee'],
-            'moderatorPW' => $input['password_moderator'],
-            'endCallbackUrl' => url('/leftsession'),
-            'logoutUrl' => url('/leftsession'),
-        ]);
+        $r = RoomModel::create($input);
 
-        $createMeeting->setDuration($duration); //overwrite default configuration
-//        $createMeeting->setLogoutUrl(url('/leftsession')); //overwrite default configuration
-        if($plan->dialin){
-            $createMeeting->setDialNumber($input['dial_number']); //overwrite default configuration
-        }
-        if($plan->recording){
-            $createMeeting->setRecord(true); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(true); //overwrite default configuration
-        }else{
-            $createMeeting->setRecord(false); //overwrite default configuration
-            $createMeeting->setAllowStartStopRecording(false); //overwrite default configuration
-        }
-        $createMeeting->setMaxParticipants($max_user); //overwrite default configuration
-        $createMeeting->setWelcomeMessage('Welcome to <span style="color: #008b8b;"> konn3ct!</span><br><br>Host: '.Auth::user()->firstname.'<br>Meeting Link: <a href="'. url("/join/").'/'.$input["url"].'" <span style="color: #008b8b;">'. url("/join/").'/'.$input["url"].'</span></a><br>Dial-in: <span style="color: #008b8b;">%%DIALNUM%%</span> PIN: <span style="color: #008b8b;">%%CONFNUM%%</span>'); //overwrite default configuration
-//        $createMeeting->setWelcomeMessage("Share this link with people you want in this meeting. <strong>". url('/join/')."/".$input['url']."</strong>"); //overwrite default configuration
+        KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
 
-        if(isset($input['muj'])){
-            $createMeeting->setMuteOnStart(true); //overwrite default configuration
-        }
-
-        if(isset($input['dpuc'])){
-            $createMeeting->setLockSettingsDisablePublicChat(true); //overwrite default configuration
-        }
-
-        if(isset($input['dprc'])){
-            $createMeeting->setLockSettingsDisablePrivateChat(true); //overwrite default configuration
-        }
-
-        if(isset($input['ewma'])){
-            $createMeeting->setLockSettingsDisableCam(true); //overwrite default configuration
-        }
-
-        if(isset($input['dum'])){
-            $createMeeting->setLockSettingsDisableMic(true); //overwrite default configuration
-        }
-
-        if(isset($input['dsn'])){
-            $createMeeting->setLockSettingsDisableNote(true); //overwrite default configuration
-        }
-
-//        $meeting->setWelcome('Welecome message for all')
-//            ->setModeratorOnlyMessage('Only teacher can see this messsage');
-
-//        $meetingParams->setMaxParticipants
-//$meetingParams->setLogoutUrl($
-//$meetingParams->setWelcomeMessage(
-//        $meetingParams->setDialNumber
-//$meetingParams->setBreakout
-//$meetingParams->setModeratorOnlyMessage(
-//    $meetingParams->setAutoStartRecording
-//$meetingParams->setAllowStartStopRecording
-// $meetingParams->setWebcamsOnlyForModerator
-//$meetingParams->setLogo(
-//    $meetingParams->setCopyright
-//$meetingParams->setMuteOnStart
-// $meetingParams->setLockSettingsDisableCam
-//);
-//$meetingParams->setLockSettingsDisableMic
-//$meetingParams->setLockSettingsDisablePrivateChat
-//$meetingParams->setLockSettingsDisablePublicChat
-//$meetingParams->setLockSettingsDisableNote
-//$meetingParams->setLockSettingsLockedLayout
-//$meetingParams->setLockSettingsLockOnJoin
-//    $meetingParams->setFreeJoin
-        $bbb = \Bigbluebutton::create($createMeeting);
-//       $bbb='{"returncode":"SUCCESS","internalMeetingID":"b1d5781111d84f7b3fe45a0852e59758cd7a87e5-1602475017235","parentMeetingID":"bbb-none","createTime":"1602475017235","voiceBridge":"09857","dialNumber":"613-555-1234","createDate":"Mon Oct 12 03:56:57 UTC 2020","hasUserJoined":"false","duration":"100","hasBeenForciblyEnded":"false","messageKey":[],"message":[]}';
-
-        $bba=json_decode($bbb, true);
-        $rm=RoomModel::find($r->id);
-
-        if($bba["returncode"]=="SUCCESS") {
-            $rm->user_id = Auth::id();
-            $rm->bbb_returncode = $bba["returncode"];
-            $rm->internalMeetingID = $bba["internalMeetingID"];
-            $rm->parentMeetingID = $bba["parentMeetingID"];
-            $rm->voiceBridge = $bba["voiceBridge"];
-            $rm->createDate = $bba["createDate"];
-            $rm->createTime = $bba["createTime"];
-            $rm->save();
-
-            KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
-
-            return redirect()->route('rooms')->with('success', 'Room Created Successfully!');
-        }else{
-            $rm->delete();
-            return redirect()->route('rooms')->with('error', 'Server Error while creating Meeting!');
-        }
+        return redirect()->route('rooms')->with('success', 'Room Created Successfully!');
     }
 
     public function show(){
@@ -213,7 +124,7 @@ class RoomController extends Controller
             return back()->with('error', 'Invalid Room!');
         }
 
-        $rm_id = "0$i->id";
+        $rm_id = "$i->id";
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
@@ -285,26 +196,26 @@ class RoomController extends Controller
             $mdata['identifier'] = $i->id . rand();
             MeetingsModel::create($mdata);
 
-            \Bigbluebutton::create([
-                'meetingID' => $rm_id,
-                'moderatorPW' => $i->password_moderator, //moderator password set here
-                'attendeePW' => $up, //attendee password here
-                'meetingName' => $i->name,
-                'endCallbackUrl' => url('/leftsession'),
-                'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => 'Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%',
-                'allowStartStopRecording' => $record,
-                'record' => $record,
-                'duration' => $duration,
-                'maxParticipants' => $max_user,
-                'muteOnStart' => $muj,
-                'lockSettingsDisablePublicChat' => $dpuc,
-                'lockSettingsDisablePrivateChat' => $dprc,
-                'lockSettingsDisableCam' => $ewma,
-                'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote' => $dsn,
-                'logo' => $banner
-            ]);
+            $bbb = new BigBlueButton();
+            $createMeetingParams = new CreateMeetingParameters($rm_id, $i->name);
+            $createMeetingParams->setModeratorPW($i->password_moderator);
+            $createMeetingParams->setAttendeePW($up);
+            $createMeetingParams->setMeetingEndedURL(url('/leftsession'));
+            $createMeetingParams->setLogoutURL(url('/leftsession'));
+            $createMeetingParams->setWelcome('Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%');
+            $createMeetingParams->setAllowStartStopRecording($record);
+            $createMeetingParams->setRecord($record);
+            $createMeetingParams->setDuration($duration);
+            $createMeetingParams->setMaxParticipants($max_user);
+            $createMeetingParams->setMuteOnStart($muj);
+            $createMeetingParams->setLockSettingsDisablePublicChat($dpuc);
+            $createMeetingParams->setLockSettingsDisablePrivateChat($dprc);
+            $createMeetingParams->setLockSettingsDisableCam($ewma);
+            $createMeetingParams->setLockSettingsDisableMic($dum);
+            $createMeetingParams->setLockSettingsDisableNote($dsn);
+            $createMeetingParams->setLogo($banner);
+
+            $createMeetingResponse = $bbb->createMeeting($createMeetingParams);
         }
 
 
@@ -321,6 +232,22 @@ class RoomController extends Controller
                 $dp = $u->profile_photo_url;
             }
         }
+
+
+//        $bbb = new BigBlueButton();
+//        $joinMeetingParams = new JoinMeetingParameters($i->id, Auth::user()->lastname . " " . Auth::user()->firstname, $i->password_moderator);
+//        $joinMeetingParams->setUserID(Auth::user()->email);
+//        $joinMeetingParams->setAvatarURL($dp);
+//        $joinMeetingParams->setRedirect(true);
+//        $joinMeetingParams->setRole('MODERATOR');
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_auto_join_audio",true);
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_enable_video",true);
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_listen_only_mode",true);
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_listen_only_mode",false);
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_force_listen_only",false);
+//        $joinMeetingParams->setCustomParameter("userdata-bbb_skip_check_audio",true);
+
+//        $url = $bbb->getJoinMeetingURL($joinMeetingParams);
 
         $url = \Bigbluebutton::join([
             'meetingID' => $rm_id,
@@ -352,14 +279,16 @@ class RoomController extends Controller
 
         $i = RoomModel::where('url', $url)->orWhere('name', $url)->orWhere('id', $url)->first();
 
-        if(!$i){
+        if (!$i) {
             return back()
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
         $u = User::find($i->user_id);
 
-        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        $rm_id = "$i->id";
+
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 //        $ms=1;
 
         $mdata['meeting_id'] = $i->id;
@@ -386,7 +315,7 @@ class RoomController extends Controller
 //                ->with('error', 'Meeting has not started!');
         }else{
             $mds = \Bigbluebutton::getMeetingInfo([
-                'meetingID' => "0$i->id",
+                'meetingID' => $rm_id,
                 'moderatorPW' => $i->password_moderator //moderator password set here
             ]);
 
@@ -433,23 +362,25 @@ class RoomController extends Controller
                     ->with('error', 'Wrong access code, kindly ask the correct access code from the moderator!');
             }
             $password_attendee = $request->get('accesscode');
-        }else{
+        } else {
             $password_attendee = 'attendee';
         }
 
-        if($i->aujam){
-            $password_attendee="moderator";
+        if ($i->aujam) {
+            $password_attendee = "moderator";
         }
 
-        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        $rm_id = "$i->id";
 
-        $mdata['meeting_id']=$i->id;
-        $mdata['name']=$name;
-        $mdata['email']=$email;
-        $mdata['password_attendee']=$password_attendee;
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
-        if($ms!=1){
-            $mdata['status']="meeting not started";
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $password_attendee;
+
+        if ($ms != 1) {
+            $mdata['status'] = "meeting not started";
 
             MeetingsModel::create($mdata);
 
@@ -497,7 +428,7 @@ class RoomController extends Controller
 
         return redirect()->to(
             \Bigbluebutton::join([
-                'meetingID' => "0$i->id",
+                'meetingID' => $rm_id,
                 'userName' => $name,
                 'userId' => $email,
                 'password' => $password_attendee, //which user role want to join set password here
@@ -600,13 +531,14 @@ class RoomController extends Controller
     public function roomstatus($url)
     {
         $i = RoomModel::where('url', $url)->first();
-        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        $rm_id = "$i->id";
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 //        $ms=0;
-        if($ms!=1){
-            return response()->json(['status'=>0, 'message'=>'Meeting not started']);
+        if ($ms != 1) {
+            return response()->json(['status' => 0, 'message' => 'Meeting not started']);
         }
 
-        return response()->json(['status'=>1, 'message'=>'Meeting not started']);
+        return response()->json(['status' => 1, 'message' => 'Meeting not started']);
     }
 
     public function bannerupload(Request $request)

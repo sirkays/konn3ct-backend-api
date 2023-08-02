@@ -32,12 +32,14 @@ class RoomController extends Controller
 
         $name = Auth::user()->firstname . " " . Auth::user()->lastname;
 
-        $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        $rm = "$i->id";
+
+        $ms = \Bigbluebutton::isMeetingRunning($rm);
 
         if ($ms == 1) {
             $url = redirect()->to(
                 \Bigbluebutton::join([
-                    'meetingID' => "0$i->id",
+                    'meetingID' => $rm,
                     'userName' => $name,
                     'password' => $i->password_moderator //which user role want to join set password here
                 ])
@@ -114,7 +116,7 @@ class RoomController extends Controller
             $message = 'Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%';
 
             $url = \Bigbluebutton::start([
-                'meetingID' => "0$i->id",
+                'meetingID' => $rm,
                 'moderatorPW' => $i->password_moderator, //moderator password set here
                 'attendeePW' => $up, //attendee password here
                 'meetingName' => $i->name,
@@ -170,7 +172,7 @@ class RoomController extends Controller
         $rm = RoomModel::where('name', $room_name)->first();
 
         if ($rm) {
-            $roomid = "0$rm->id";
+            $roomid = "$rm->id";
             $room_name = $rm->name;
         }
 
@@ -332,7 +334,7 @@ class RoomController extends Controller
         }
 
         if ($rm) {
-            $roomid = "0$rm->id";
+            $roomid = "$rm->id";
         }
 
         $ms = \Bigbluebutton::isMeetingRunning($roomid);

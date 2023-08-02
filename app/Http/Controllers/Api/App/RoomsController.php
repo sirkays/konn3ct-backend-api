@@ -57,7 +57,7 @@ class RoomsController extends Controller
             $password = $i->password_attendee;
         }
 
-        $rm_id = "0$i->id";
+        $rm_id = "$i->id";
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 

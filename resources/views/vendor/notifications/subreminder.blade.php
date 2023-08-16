@@ -8,12 +8,11 @@
 
 
     {{-- Action Button --}}
-    @component('mail::button', ['url' => route('payments'), 'color' => "green"])
-        {{ "Pay Now" }}
-    @endcomponent
+    {{--    @component('mail::button', ['url' => route('payments'), 'color' => "green"])--}}
+    {{--        {{ "Pay Now" }}--}}
+    {{--    @endcomponent--}}
 
-    {{ "If you have any questions, kindly visit our support site at "}}
-    <a href="{{route('contact')}}"> {{route('contact')}}</a>
+    {{ "If you have any questions, kindly visit our support site"}}
 
     <br>
     @lang('Thank you'),<br>

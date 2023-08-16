@@ -213,6 +213,7 @@ class RoomController extends Controller
             $createMeetingParams->setLockSettingsDisableCam($ewma);
             $createMeetingParams->setLockSettingsDisableMic($dum);
             $createMeetingParams->setLockSettingsDisableNote($dsn);
+            $createMeetingParams->setLearningDashboardEnabled(false);
             $createMeetingParams->setLogo($banner);
 
             $createMeetingResponse = $bbb->createMeeting($createMeetingParams);

@@ -98,7 +98,7 @@ class RoomsController extends Controller
             'password' => $password, //which user role want to join set password here
             'avatarUrl' => $dp,
             'customParameters' => [
-                'userdata-bbb_auto_join_audio' => 'true',
+                'userdata-bbb_skip_check_audio_on_first_join' => 'true',
                 'userdata-bbb_enable_video' => 'true',
                 'userdata-bbb_listen_only_mode' => 'false',
                 'userdata-bbb_force_listen_only' => 'false',

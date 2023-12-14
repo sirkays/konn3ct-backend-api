@@ -32,16 +32,16 @@ class DonationController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'type' => 'required|string',
-            'amount' => 'required|string',
-            'id' => 'required|string',
+            'type' => 'required',
+            'amount' => 'required',
+            'id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'error' => $validator->errors()]);
         }
 
-        $i = RoomModel::find($id);
+        $i = RoomModel::find($input['id']);
 
         if (!$i) {
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller
 {

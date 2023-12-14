@@ -68,6 +68,7 @@ Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'me
 
 Route::post('k4/donation', [\App\Http\Controllers\Api\DonationController::class, 'store']);
 Route::get('k4/donation/{room_id}', [\App\Http\Controllers\Api\DonationController::class, 'show']);
+Route::patch('k4/donation/{id}', [\App\Http\Controllers\Api\DonationController::class, 'update']);
 
 
 Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {

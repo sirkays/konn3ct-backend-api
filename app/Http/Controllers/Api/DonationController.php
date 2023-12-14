@@ -65,8 +65,9 @@ class DonationController extends Controller
      * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function show(Donation $donation)
+    public function show($room_id)
     {
+        $donation=Donation::where([['room_id',$room_id], ['status',1]])->latest()->get();
         return response()->json(['success' => true, 'message' => 'Donation fetched successfully', 'data'=>$donation]);
     }
 

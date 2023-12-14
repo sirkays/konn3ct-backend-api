@@ -66,7 +66,8 @@ Route::post('check-room', [RoomController::class, 'checkRoom']);
 Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'meeting']);
 
 
-Route::apiResource('k4/donation', \App\Http\Controllers\Api\DonationController::class);
+Route::post('k4/donation', [\App\Http\Controllers\Api\DonationController::class, 'store']);
+Route::get('k4/donation/{room_id}', [\App\Http\Controllers\Api\DonationController::class, 'show']);
 
 
 Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {

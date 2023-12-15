@@ -80,6 +80,9 @@ class DonationController extends Controller
      */
     public function update(Request $request, Donation $donation)
     {
+        $donation->status=$request->status;
+        $donation->save();
+
         return response()->json(['success' => true, 'message' => 'Donation updated successfully', 'data'=>$donation]);
     }
 

@@ -55,7 +55,7 @@ class DonationController extends Controller
             'amount' => $input['amount']
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Donation created successfully', 'data'=>$donation]);
+        return response()->json(['success' => true, 'message' => 'Donation created successfully', 'data'=>$donation->id]);
 
     }
 

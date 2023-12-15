@@ -47,7 +47,7 @@ class DonationController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        Donation::create([
+        $donation=Donation::create([
             'room_id' => $i->id,
             'user_id' => $i->user_id,
             'name' => $input['name'],
@@ -55,7 +55,7 @@ class DonationController extends Controller
             'amount' => $input['amount']
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Donation created successfully']);
+        return response()->json(['success' => true, 'message' => 'Donation created successfully', 'data'=>$donation]);
 
     }
 

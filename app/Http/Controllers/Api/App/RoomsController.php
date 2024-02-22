@@ -102,7 +102,8 @@ class RoomsController extends Controller
                 'userdata-bbb_enable_video' => 'true',
                 'userdata-bbb_listen_only_mode' => 'false',
                 'userdata-bbb_force_listen_only' => 'false',
-                'userdata-bbb_skip_check_audio' => 'true'
+                'userdata-bbb_skip_check_audio' => 'true',
+                'meetingLink' => url('/join/').'/'.$i->url,
             ],
         ]);
 

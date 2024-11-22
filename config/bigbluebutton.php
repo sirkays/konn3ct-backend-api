@@ -253,14 +253,14 @@ return [
         /**
          * var @bool.
          */
-        'redirect'     => true,
+        'redirect'     => false,
 
         /**
          *    Set to “true” to force the HTML5 client to load for the user.
          *
          * var @bool
          */
-        'joinViaHtml5' => true,
+        'joinViaHtml5' => false,
     ],
     'getRecordings'       => [
         /**

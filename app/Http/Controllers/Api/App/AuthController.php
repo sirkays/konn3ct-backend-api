@@ -361,4 +361,27 @@ class AuthController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'access_code' => $room->password_attendee == "attendee" ? false : true, 'data' => $room, 'owner' => $room->owner->firstname . " " . $room->owner->lastname]);
     }
+
+    public function validateMeetingkv4(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Name not found in your request', 'error' => $validator->errors()]);
+        }
+
+        $name = $input['name'];
+
+        $room = RoomModel::where('name', $name)->orwhere("url", $name)->first();
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'access_code' => $room->password_attendee == "attendee" ? false : true, 'data' => ['name' => $room->name, 'id' => $room->internalMeetingID ], 'owner' => $room->owner->firstname . " " . $room->owner->lastname]);
+    }
 }

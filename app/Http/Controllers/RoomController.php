@@ -271,6 +271,19 @@ class RoomController extends Controller
         return redirect()->to($url);
     }
 
+    public function urljoin(Request $request, $url){
+
+        $data['room'] = RoomModel::where('url', $url)->with('owner')->first();
+
+        if (!$data['room']) {
+            return redirect()->route('joinmeeting')->with('error', 'Room url does not exist. Try again!!!');
+        }
+
+        return redirect()->away(env('MJOIN_INTERFACE')."/join/".$url);
+
+//        return view('url_join_session', $data);
+    }
+
     public function ajoin(Request $request){
         $url=$request->input('url');
         $name=$request->input('name');
@@ -285,6 +298,8 @@ class RoomController extends Controller
             return back()
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
+
+        return redirect()->away(env('MJOIN_INTERFACE')."/join/".$url);
 
         $u = User::find($i->user_id);
 

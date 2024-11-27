@@ -63,9 +63,7 @@ Route::get('/leftsession', function () {
     return view('left_session');
 });
 
-Route::get('/join/{url}', function ($url) {
-    return view('join_session', ['url' => $url]);
-});
+Route::get('/join/{url}', [RoomController::class, 'urljoin']);
 
 Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
 

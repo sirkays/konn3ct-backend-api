@@ -382,6 +382,6 @@ class AuthController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'access_code' => $room->password_attendee == "attendee" ? false : true, 'data' => ['name' => $room->name, 'id' => $room->internalMeetingID ], 'owner' => $room->owner->firstname . " " . $room->owner->lastname]);
+        return response()->json(['success' => true, 'message' => 'Meeting validated successfully', 'access_code' => $room->password_attendee == "attendee" ? false : true, 'data' => ['name' => $room->name, 'id' => $room->internalMeetingID, 'display_image' => $room->owner->profile_photo_path ], 'owner' => $room->owner->firstname . " " . $room->owner->lastname]);
     }
 }

@@ -118,7 +118,7 @@ class RoomsController extends Controller
             'room' => 'required|string|min:3',
             'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
-            'access_code' => 'nullable|string|min:6',
+            'access_code' => 'nullable|string',
         );
 
         $validator = Validator::make($input, $rules);
@@ -145,7 +145,7 @@ class RoomsController extends Controller
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
         if ($ms != 1) {
-            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly try again later']);
+            return response()->json(['success' => false, 'message' => 'Room not started. Kindly try again later']);
         }
 
         $u = User::where('email', $email)->first();

@@ -3,17 +3,135 @@
 namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\KCEnrollOwnerJob;
 use App\Jobs\WhatsappAppInviteAllJob;
+use App\Models\EnrolledChat;
 use App\Models\MeetingsModel;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RoomsController extends Controller
 {
+
+    public function create(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'url' => 'nullable|unique:room',
+            'dial_number' => 'nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
+        }
+
+        $plan = PlanModel::where("id", Auth::user()->plan)->first();
+        $r = $plan->rooms + Auth::user()->room_bundles;
+        $duration = $plan->duration;
+        $max_user=$plan->participant;
+
+        $rc=RoomModel::where("user_id",Auth::id())->count();
+
+        if($rc >= $r){
+            return response()->json(['success' => false, 'message' => 'Maximum room(s) exceeded for your current plan!']);
+        }
+
+        if ($input['url']==""){
+            $num=trim(date('siyh'));
+            $shuffled = str_shuffle(substr(Auth::user()->firstname, 0, 2) . substr(str_shuffle($num), 0, 4));
+            $sfinal = substr($shuffled, 0, 6);
+
+            if (Auth::user()->lastname == "") {
+                $input['url'] = trim(substr(Auth::user()->firstname, 0, 3) . $sfinal);
+            } else {
+                $input['url'] = trim(substr(Auth::user()->lastname, 0, 3) . $sfinal);
+            }
+        }
+
+        $input['url'] = str_replace(' ', '', $input['url']);
+
+        $input['welcome_message'] = "";
+        $input['logout_url'] = url('/leftsession');
+        $input['max_participants'] = $max_user;
+        $input['duration'] = $duration;
+        $input['url'] = preg_replace('/\s+/', '', $input['url']);
+
+        if (!isset($input['access_code'])) {
+            $input['password_attendee'] = "attendee";
+            $input['password_moderator'] = "moderator";
+        } else {
+            $input['password_attendee'] = $input['access_code'];
+            $input['password_moderator'] = "moderator";
+        }
+
+        $input['user_id'] = Auth::id();
+
+        $r = RoomModel::create($input);
+
+        KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
+
+        return response()->json(['success' => false, 'message' => 'Room Created Successfully!']);
+    }
+
+    public function show(){
+        $plan = PlanModel::where("id", Auth::user()->plan)->first();
+        $r = $plan->rooms + Auth::user()->room_bundles;
+
+        $datas['max_rooms'] = $r;
+
+        $datas['rooms'] = RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->with('prereg_model')->limit($r)->get();
+        $datas['total_rooms'] = RoomModel::where("user_id", Auth::id())->count();
+        if ($datas['total_rooms'] > $r) {
+            $datas['total_rooms'] = $r;
+        }
+        $datas['plan'] = PlanModel::where("id", Auth::user()->plan)->first();
+
+        $datas['active_rooms'] = 0;
+        $datas['private_rooms'] = 1;
+
+        if (!App::environment(['local', 'staging'])) {
+            foreach ($datas['rooms'] as $i) {
+                $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+                if ($ms) {
+                    $datas['active']++;
+                }
+            }
+        }
+
+        if($datas['active_rooms']>$r){
+            $datas['active_rooms']=$r;
+        }
+
+        return response()->json(['success' => true, 'message' => 'Room fetched successfully', 'data' => $datas]);
+    }
+
+    public function delete(Request $request, $id){
+
+        $i = RoomModel::find($id);
+
+        if (!$i) {
+            return response()->json(['success' => false, 'message' => 'Invalid RoomID!']);
+        }
+
+        if ($i->user_id != Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!']);
+        }
+
+        $i->delete();
+
+        EnrolledChat::where("room_id", $i->id)->update(['status' => '0']);
+
+        return response()->json(['success' => false, 'message' => 'Room Deleted Successfully!']);
+    }
+
     public function joinAppRoom(Request $request)
     {
         $input = $request->all();

@@ -3,7 +3,10 @@
 use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\App\MeetingController;
+use App\Http\Controllers\Api\App\ProfileController;
 use App\Http\Controllers\Api\App\RoomsController;
+use App\Http\Controllers\Api\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +26,7 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('forgot-password-request', [AuthController::class, 'reset_password_request']);
     Route::post('forgot-password', [AuthController::class, 'reset_password_submit']);
     Route::post('verify-code', [AuthController::class, 'verifyCode']);
+
     Route::post('validate-meeting', [AuthController::class, 'validateMeeting']);
     Route::post('join-room', [RoomsController::class, 'joinAppRoom']);
     Route::post('kv4/join-room', [RoomsController::class, 'joinRoomkv4']);
@@ -36,12 +40,24 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('chat', [ChatController::class, 'sendMessage']);
         Route::post('chat/enroll', [ChatController::class, 'enrol2Chat']);
         Route::post('chat/unenroll', [ChatController::class, 'unenrol2Chat']);
+
         Route::post('validate-user', [ChatController::class, 'validateUser']);
         Route::post('validate-phones', [ChatController::class, 'validatePhones']);
         Route::post('whatsapp/inviteAll', [RoomsController::class, 'inviteAll']);
         Route::post('call/initiate', [CallController::class, 'initiateCall']);
         Route::post('call/update', [CallController::class, 'updateCall']);
         Route::get('call/list', [CallController::class, 'listCalls']);
+
+        Route::post('/createroom', [RoomsController::class, 'create']);
+        Route::delete('/deleteroom/{id}', [RoomsController::class, 'delete']);
+        Route::get('/myrooms', [RoomsController::class, 'show']);
+        Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
+
+
+        Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);
+
+        Route::get('/profile', [ProfileController::class, 'show']);
+
     });
 });
 

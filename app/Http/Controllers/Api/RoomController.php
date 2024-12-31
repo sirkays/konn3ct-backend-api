@@ -148,7 +148,7 @@ class RoomController extends Controller
 
             NotifyParticipantMeetingJob::dispatch($i->id);
 
-            return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url]);
+            return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url, 'sessionToken'=> explode("=",$url)[1]]);
         }
 
     }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\App\ChatController;
 use App\Http\Controllers\Api\App\MeetingController;
 use App\Http\Controllers\Api\App\ProfileController;
 use App\Http\Controllers\Api\App\RoomsController;
-use App\Http\Controllers\Api\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,7 +50,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('/createroom', [RoomsController::class, 'create']);
         Route::delete('/deleteroom/{id}', [RoomsController::class, 'delete']);
         Route::get('/myrooms', [RoomsController::class, 'show']);
-        Route::get('start-a-room/{id}', [RoomController::class, 'startaRoom']);
+        Route::get('start-a-room/{id}', [RoomsController::class, 'mStartRoom']);
 
 
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);

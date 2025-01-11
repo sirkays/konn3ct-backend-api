@@ -29,4 +29,8 @@ class PaymentModel extends Model
     protected $fillable = [
         'user_id', 'plan', 'gateway', 'status', 'amount', 'date', 'reference', 'gateway_reference', 'gateway_response', 'duration', 'currency'
     ];
+
+    protected $hidden =[
+        'gateway_response'
+    ];
 }

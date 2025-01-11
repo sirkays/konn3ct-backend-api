@@ -3,9 +3,12 @@
 use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\App\InviteController;
 use App\Http\Controllers\Api\App\MeetingController;
 use App\Http\Controllers\Api\App\ProfileController;
+use App\Http\Controllers\Api\App\RecordingController;
 use App\Http\Controllers\Api\App\RoomsController;
+use App\Http\Controllers\Api\App\StreamingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +59,21 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);
 
         Route::get('/profile', [ProfileController::class, 'show']);
+        Route::get('/payments', [ProfileController::class, 'payments']);
+        Route::get('/pricing-plans', [ProfileController::class, 'plans']);
+        Route::get('/referee', [ProfileController::class, 'referee']);
+
+        Route::post('/start-streaming', [StreamingController::class, 'startStreaming']);
+        Route::get('/stop-streaming/{id}', [StreamingController::class, 'stopStreaming']);
+        Route::get('/streamings', [StreamingController::class, 'list']);
+
+        Route::get('/recording', [RecordingController::class, 'show']);
+        Route::delete('/deleterecording/{id}', [RecordingController::class, 'delete']);
+
+        Route::post('/invite', [InviteController::class, 'invite'])->name('invite');
+        Route::get('/invites', [InviteController::class, 'invites'])->name('invites');
+        Route::put('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
+
 
     });
 });

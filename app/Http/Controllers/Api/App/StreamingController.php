@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\App;
 
+use App\Http\Controllers\Controller;
 use App\Models\RoomModel;
 use App\Models\Streaming;
 use App\Models\User;
@@ -19,20 +20,18 @@ class StreamingController extends Controller
 
         $validator = Validator::make($request->all(), [
             'room_id' => 'required|max:255',
-            'type' => 'required',
+            'type' => 'required|in:Youtube,Facebook',
             'key' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all(),'hint'=>'Valid types are Youtube,Facebook']);
         }
 
         $room = RoomModel::find($input['room_id']);
 
         if (!$room) {
-            return back()->with('error', 'Invalid Room ID!');
+            return response()->json(['success' => false, 'message' => 'Invalid Room ID!']);
         }
 
         $identifier = str_replace(" ", "", $room->url) . rand();
@@ -45,16 +44,16 @@ class StreamingController extends Controller
         } elseif ($type == "Facebook") {
             $url = "rtmps://live-api-s.facebook.com:443/rtmp/$key";
         } else {
-            return back()->with('error', 'Invalid type');
+            return response()->json(['success' => false, 'message' => 'Invalid type']);
         }
 
         $payload = '{
-    "identifier": "' . $identifier . '",
-    "meetingID": "' . $meetingID . '",
-    "rmtpURL" : "' . $url . '",
-    "eurl" : "' . env('BBB_SERVER_BASE_URL') . '",
-    "esalt" : "' . env('BBB_SECURITY_SALT') . '"
-}';
+            "identifier": "' . $identifier . '",
+            "meetingID": "' . $meetingID . '",
+            "rmtpURL" : "' . $url . '",
+            "eurl" : "' . env('BBB_SERVER_BASE_URL') . '",
+            "esalt" : "' . env('BBB_SECURITY_SALT') . '"
+        }';
 
         $curl = curl_init();
 
@@ -99,9 +98,9 @@ class StreamingController extends Controller
                 $user->save();
             }
 
-            return redirect()->route('streamList')->with('success', 'Streaming started successfully');
+            return response()->json(['success' => true, 'message' => 'Streaming started successfully']);
         } else {
-            return back()->with('error', 'Error starting streaming');
+            return response()->json(['success' => false, 'message' => 'Error starting streaming']);
         }
     }
 
@@ -111,14 +110,14 @@ class StreamingController extends Controller
         $st = Streaming::find($id);
 
         if (!$st) {
-            return back()->with('error', 'Invalid Streaming ID!');
+            return response()->json(['success' => false, 'message' => 'Invalid Streaming ID!']);
         }
 
         $identifier = $st->identifier;
 
         $payload = '{
-    "identifier": "' . $identifier . '"
-}';
+            "identifier": "' . $identifier . '"
+        }';
 
         $curl = curl_init();
 
@@ -151,16 +150,15 @@ class StreamingController extends Controller
             $st->status = 0;
             $st->ended_at = Carbon::now();
             $st->save();
-            return back()->with('success', 'Streaming stopped successfully');
+            return response()->json(['success' => true, 'message' => 'Streaming stopped successfully']);
         } else {
-            return back()->with('error', 'Error stopping streaming');
+            return response()->json(['success' => false, 'message' => 'Error stopping streaming']);
         }
     }
 
     function list()
     {
-        $datas['streams'] = Streaming::where('user_id', Auth::id())->with('room')->latest()->paginate(20);
-        $datas['i'] = 1;
-        return view('user.streamings', $datas);
+        $data = Streaming::where('user_id', Auth::id())->with('room')->latest()->paginate(10);
+        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data]);
     }
 }

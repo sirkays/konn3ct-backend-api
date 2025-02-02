@@ -100,6 +100,16 @@ class RoomsController extends Controller
         $datas['active_rooms'] = 0;
         $datas['private_rooms'] = 1;
 
+        $fpr=RoomModel::where([["user_id", Auth::id()], ['default_room', 'yes']])->orderBy('id', 'asc')->first();
+
+        if(!$fpr){
+            $datas['personal_room'] = count($datas['rooms']) > 0 ? $datas['rooms'][0] : null;
+        }else{
+            $datas['personal_room'] = $fpr;
+        }
+
+        $datas['video_link'] = 'https://www.youtube.com/watch?v=xj-0hQJvmPo';
+
         if (!App::environment(['local', 'staging'])) {
             foreach ($datas['rooms'] as $i) {
                 $ms = \Bigbluebutton::isMeetingRunning("0$i->id");

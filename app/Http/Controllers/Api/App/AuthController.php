@@ -37,7 +37,8 @@ class AuthController extends Controller
             return response()->json(['success' => false, 'message' => 'Incorrect credentials']);
         }
 
-        $token = $user->createToken("app")->plainTextToken;
+        $name=$request->userAgent()."||".$request->ip();
+        $token = $user->createToken($name)->plainTextToken;
         return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["type"])], 200);
     }
 

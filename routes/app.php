@@ -59,8 +59,13 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);
 
         Route::get('/profile', [ProfileController::class, 'show']);
+        Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
+        Route::put('/update-password', [ProfileController::class, 'updatePassword']);
+        Route::get('/user-sessions', [ProfileController::class, 'viewSessions']);
+        Route::delete('/user-sessions-delete-others', [ProfileController::class, 'deleteOthersUserSession']);
         Route::get('/payments', [ProfileController::class, 'payments']);
         Route::get('/pricing-plans', [ProfileController::class, 'plans']);
+        Route::get('/addons', [ProfileController::class, 'addons']);
         Route::get('/referee', [ProfileController::class, 'referee']);
 
         Route::post('/start-streaming', [StreamingController::class, 'startStreaming']);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MyCustomWebSocketHandler;
+use App\Http\Controllers\RoomController;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 use Illuminate\Support\Facades\Route;
 
@@ -47,9 +48,9 @@ use Illuminate\Support\Facades\Route;
 //    return view('left_session');
 //});
 //
-//Route::get('/join/{url}', [RoomController::class, 'urljoin']);
+Route::get('/join/{url}', [RoomController::class, 'urljoin']);
 //
-//Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
+Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join');
 //
 //Route::post('/konn3ct', [RoomController::class, 'fjoin'])->name('konn3ct');
 //

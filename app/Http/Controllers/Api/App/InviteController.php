@@ -75,7 +75,7 @@ class InviteController extends Controller
 
     public function invites()
     {
-        $data = InvitesModel::where('user_id', Auth::id())->latest()->simplePaginate(10);
+        $data = InvitesModel::where('user_id', Auth::id())->latest()->paginate(10);
 
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data]);
     }

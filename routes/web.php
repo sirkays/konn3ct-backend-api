@@ -89,7 +89,7 @@ Route::post('/ajoinroom', [RoomController::class, 'ajoin'])->name('attendee_join
 //
 //    Route::post('/deleteroom', [RoomController::class, 'delete'])->name('delete');
 //
-//    Route::get('/myrooms', [RoomController::class, 'show'])->name('rooms');
+    Route::get('/myrooms', [RoomController::class, 'show'])->name('rooms');
 //
 //    Route::get('/dashboard', [RoomController::class, 'show'])->name('dashboard');
 //

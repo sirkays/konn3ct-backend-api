@@ -45,9 +45,8 @@ class ProfileController extends Controller
         $user=User::find(Auth::id());
 
         if ($request->hasFile('image')) {
-            $upload = Storage::put('chat_images', $request->image);
-            $imglink = Storage::url($upload);
-            $user->profile_photo_path=$imglink;
+            $upload = Storage::put('profile-photos', $request->image);
+            $user->profile_photo_path=$upload;
         }
 
         if ($request->has('firstname')) {
@@ -145,7 +144,7 @@ class ProfileController extends Controller
 
     public function payments(Request $request)
     {
-        $datas['payments'] = PaymentModel::where('user_id', Auth::id())->with('planDetails')->OrderBy('id', 'desc')->simplePaginate(10);
+        $datas['payments'] = PaymentModel::where('user_id', Auth::id())->with('planDetails')->OrderBy('id', 'desc')->paginate(10);
         $datas['sumed_payments'] = PaymentModel::where('user_id', Auth::id())->sum('amount');
         $datas['count_payments'] = PaymentModel::where('user_id', Auth::id())->count();
 
@@ -206,8 +205,8 @@ class ProfileController extends Controller
     public function addons(Request $request)
     {
         $data=AddonModel::get();
-        $datas['whatsapp_invite']=\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0" ? "Not yet activated" : (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false) > 0 ? "Expires in " .\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->whatsapp_invite), false). " days" : "Expired");
-        $datas['streaming_service']=\Illuminate\Support\Facades\Auth::user()->streaming_service=="0" ? "Not yet activated" : (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->streaming_service), false) > 0 ? "Expires in " .\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->streaming_service), false). " days" : "Expired");
+        $datas['addon1']=\Illuminate\Support\Facades\Auth::user()->whatsapp_invite=="0" ? "Not yet activated" : (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->whatsapp_invite), false) > 0 ? "Expires in " .\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->whatsapp_invite), false). " days" : "Expired");
+        $datas['addon3']=\Illuminate\Support\Facades\Auth::user()->streaming_service=="0" ? "Not yet activated" : (\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(\Illuminate\Support\Facades\Auth::user()->streaming_service), false) > 0 ? "Expires in " .\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse(Auth::user()->streaming_service), false). " days" : "Expired");
 
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data, 'current_status' => $datas]);
     }
@@ -218,7 +217,7 @@ class ProfileController extends Controller
             return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => []]);
         }
 
-        $datas = User::where('referral', Auth::user()->referral_code)->select('firstname','lastname','email', 'plan','created_at')->with('plan')->simplePaginate(10);
+        $datas = User::where('referral', Auth::user()->referral_code)->select('firstname','lastname','email', 'plan','created_at')->with('plan')->paginate(10);
 
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $datas]);
     }

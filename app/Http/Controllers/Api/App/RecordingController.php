@@ -30,7 +30,11 @@ class RecordingController extends Controller
                 ]);
             }
 
-            return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => json_decode($datas['record'], true)]);
+            $downloads['video']=['name' => 'Video & Audio (MP4)', 'url'=>route('download.recording', ['filename' => 'replaceRecordID', 'type'=>'video'])];
+            $downloads['screenshare']=['name' => 'Screenshare (MP4)', 'url'=>route('download.recording', ['filename' => 'replaceRecordID', 'type'=>'screenshare'])];
+            $downloads['chats']=['name' => 'Chat(s) (TXT)', 'url'=>route('download.recording', ['filename' => 'replaceRecordID', 'type'=>'chats'])];
+
+            return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => json_decode($datas['record'], true), 'download_links' => $downloads]);
 
         } catch (\Exception $e) {
 

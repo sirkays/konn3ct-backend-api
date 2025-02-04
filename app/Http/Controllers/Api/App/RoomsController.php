@@ -108,6 +108,7 @@ class RoomsController extends Controller
             $datas['personal_room'] = $fpr;
         }
 
+        $datas['room_link'] = env('MJOIN_INTERFACE')."/join/replaceRoomURL";
         $datas['video_link'] = 'https://www.youtube.com/watch?v=xj-0hQJvmPo';
 
         if (!App::environment(['local', 'staging'])) {

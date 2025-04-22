@@ -484,12 +484,13 @@ class RoomsController extends Controller
                 ],
             ]);
 
+            $wait=str_contains($url,'guestWait');
+
+            return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' =>explode("=",$url)[1], 'wait'=>$wait]);
+
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Maybe Room not started. Kindly contact the moderator and try again']);
         }
-
-        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' =>explode("=",$url)[1]]);
-
     }
 
     public function inviteAll(Request $request)

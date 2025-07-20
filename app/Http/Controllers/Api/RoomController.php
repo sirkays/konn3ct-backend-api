@@ -153,6 +153,51 @@ class RoomController extends Controller
 
     }
 
+    public function roomStatus($id)
+    {
+
+        $i = RoomModel::find($id);
+
+        if (!$i) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!']);
+        }
+
+        if (Auth::id() != $i->user_id) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!!']);
+        }
+
+        $name = Auth::user()->firstname . " " . Auth::user()->lastname;
+        $u = Auth::user();
+
+        $rm = "$i->id";
+
+        $ms = \Bigbluebutton::isMeetingRunning($rm);
+        $mf = \Bigbluebutton::getMeetingInfo([
+            'meetingID' => $rm,
+            'moderatorPW' => 'moderator'
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Status Checked successfully.', 'roomActive' => $ms, 'data'=> !$ms ? [] : $mf['attendees']]);
+
+    }
+
+    public function deleteRoom($id)
+    {
+        $i = RoomModel::find($id);
+
+        if (!$i) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!']);
+        }
+
+        if (Auth::id() != $i->user_id) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room!!']);
+        }
+
+        $i->delete();
+
+        return response()->json(['success' => true, 'message' => 'Room Deleted Successfully.']);
+    }
+
     public function startRoomO(Request $request)
     {
         $input = $request->all();

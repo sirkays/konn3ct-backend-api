@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
@@ -171,11 +172,16 @@ class RoomController extends Controller
 
         $rm = "$i->id";
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm);
-        $mf = \Bigbluebutton::getMeetingInfo([
-            'meetingID' => $rm,
-            'moderatorPW' => 'moderator'
-        ]);
+        try {
+            $ms = \Bigbluebutton::isMeetingRunning($rm);
+            $mf = \Bigbluebutton::getMeetingInfo([
+                'meetingID' => $rm,
+                'moderatorPW' => 'moderator'
+            ]);
+        }catch (\Exception $e){
+            Log::error("Error on Room_Status",[$e]);
+            return response()->json(['success' => false, 'message' => 'Server Error. Contact Admin']);
+        }
 
         return response()->json(['success' => true, 'message' => 'Status Checked successfully.', 'roomActive' => $ms, 'data'=> !$ms ? [] : $mf['attendees']]);
 

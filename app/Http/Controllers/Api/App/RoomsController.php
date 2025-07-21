@@ -139,7 +139,7 @@ class RoomsController extends Controller
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
-        if ($ms != 1) {
+        if (!$ms) {
             $plan = PlanModel::where("id", Auth::user()->plan)->first();
 
             if ($plan->recording) {
@@ -332,7 +332,7 @@ class RoomsController extends Controller
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
 
-        if ($ms != 1) {
+        if (!$ms) {
             return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
         }
 

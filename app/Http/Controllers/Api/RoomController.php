@@ -394,7 +394,7 @@ class RoomController extends Controller
             $owner = true;
         }
 
-        if ($ms == 1) {
+        if ($ms) {
             return response()->json(['success' => true, 'message' => 'Meeting is active', 'owner' => $owner]);
         }
         return response()->json(['success' => false, 'message' => 'Meeting is inactive', 'owner' => $owner]);
@@ -630,12 +630,11 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        $rm_id = "0$i->id";
+        $rm_id = "$i->id";
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-//        $ms = 1;
 
-        if ($ms == 1) {
+        if ($ms) {
             return response()->json(['success' => true, 'message' => 'The room is opened already. Kindly join the room', '_link' => ['resource' => '/join-room', 'method' => 'POST']]);
         }
 
@@ -779,7 +778,7 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        $rm_id = "0$i->id";
+        $rm_id = "$i->id";
 
 //        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
         $ms = 1;
@@ -848,18 +847,15 @@ class RoomController extends Controller
                     'userdata-bbb_enable_video' => 'true',
                     'userdata-bbb_listen_only_mode' => 'false',
                     'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
+                    'userdata-bbb_skip_check_audio' => 'true',
+                    'meetingLink' => url('/join/').'/'.$i->url,
                 ],
             ]);
 
-            $murl = explode("?", $url);
-            $end = encrypt($murl[1]);
+            return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => $url]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Maybe Room not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
         }
-
-        return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => url('/userjoin') . '/' . $end]);
-
     }
 
     public function roomInfo($id)
@@ -870,14 +866,14 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        $rm_id = "0$room->id";
+        $rm_id = "$room->id";
 
 
-//        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
-//
-//        if ($ms != 1) {
-//            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
-//        }
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+
+        if (!$ms) {
+            return response()->json(['success' => false, 'message' => 'Rooms not started. Kindly start and try again', '_link' => ['resource' => '/start-room', 'method' => 'POST']]);
+        }
 
         try {
 
@@ -891,7 +887,6 @@ class RoomController extends Controller
             $datas['opened'] = $details['running'];
             $datas['duration'] = $details['duration'];
             $datas['hasParticipantJoined'] = $details['hasUserJoined'];
-            $datas['recordingEnabled'] = $details['recording'];
             $datas['recordingEnabled'] = $details['recording'];
             $datas['participants'] = $details['participantCount'];
             $datas['participantsHasVideoOn'] = $details['videoCount'];

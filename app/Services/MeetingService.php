@@ -1,0 +1,245 @@
+<?php
+
+namespace App\Services;
+
+
+use App\Models\MeetingsModel;
+use App\Models\PlanModel;
+use App\Models\RoomModel;
+use App\Models\User;
+use BigBlueButton\BigBlueButton;
+use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\IsMeetingRunningParameters;
+use Illuminate\Support\Facades\Log;
+
+class MeetingService {
+
+    /**
+     * Start Meeting
+     *
+     * @param User   $user  The User
+     * @param RoomModel $name The Room
+     *
+     * @throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
+     * @return bool
+     */
+
+    public static function startMeeting(User $user, RoomModel $room, String $name="", String $logouturl="", String $message="") :bool
+    {
+        $plan = PlanModel::where("id", $user->plan)->first();
+
+        if ($plan->recording) {
+            $record = true;
+        } else {
+            $record = false;
+        }
+
+        $duration = $plan->duration;
+        $max_user = $plan->participant;
+
+        if ($room->muj) {
+            $muj = true;
+        } else {
+            $muj = false;
+        }
+
+        if ($room->dpuc) {
+            $dpuc = true;
+        } else {
+            $dpuc = false;
+        }
+
+        if ($room->dprc) {
+            $dprc = true;
+        } else {
+            $dprc = false;
+        }
+
+        if ($room->ewma) {
+            $ewma = true;
+        } else {
+            $ewma = false;
+        }
+
+        if ($room->dum) {
+            $dum = true;
+        } else {
+            $dum = false;
+        }
+
+        if ($room->dsn) {
+            $dsn = true;
+        } else {
+            $dsn = false;
+        }
+
+        if ($room->aujam) {
+            $up = "moderator";
+        } else {
+            $up = $room->password_attendee;
+        }
+
+        if ($room->banner != "") {
+            $banner = url('/') . "/myroombanner/" . $room->banner;
+        } else {
+            $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
+        }
+
+        $mdata['meeting_id'] = "$room->id";
+        $mdata['name'] = $user->lastname . " " . $user->firstname;
+        $mdata['email'] = $user->email;
+        $mdata['password_attendee'] = $up;
+        $mdata['status'] = "start meeting";
+        $mdata['identifier'] = $room->id . rand();
+        MeetingsModel::create($mdata);
+
+        $rm_id=$room->id;
+
+        if($name == ""){
+            $name=$room->name;
+        }
+
+        if($logouturl == ""){
+            $logouturl=url('/leftsession');
+        }
+
+        if($message == ""){
+            $message='Welcome to konn3ct!<br><br>Host: ' . $user->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $room->url . '"> ' . url("/join/") . '/' . $room->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%';
+        }
+
+        $bbb = new BigBlueButton();
+        $createMeetingParams = new CreateMeetingParameters($rm_id,$name);
+        $createMeetingParams->setModeratorPW($room->password_moderator);
+        $createMeetingParams->setAttendeePW($up);
+        $createMeetingParams->setMeetingEndedURL($logouturl);
+        $createMeetingParams->setLogoutURL($logouturl);
+        $createMeetingParams->setWelcome($message);
+        $createMeetingParams->setAllowStartStopRecording($record);
+        $createMeetingParams->setRecord($record);
+        $createMeetingParams->setDuration($duration);
+        $createMeetingParams->setMaxParticipants($max_user);
+        $createMeetingParams->setMuteOnStart($muj);
+        $createMeetingParams->setLockSettingsDisablePublicChat($dpuc);
+        $createMeetingParams->setLockSettingsDisablePrivateChat($dprc);
+        $createMeetingParams->setLockSettingsDisableCam($ewma);
+        $createMeetingParams->setLockSettingsDisableMic($dum);
+        $createMeetingParams->setLockSettingsDisableNote($dsn);
+        $createMeetingParams->setLearningDashboardEnabled(false);
+        $createMeetingParams->setLogo($banner);
+
+        $createMeetingResponse = $bbb->createMeeting($createMeetingParams);
+
+        Log::info("$room->name | $room->id | Start Meeting | ".$createMeetingResponse->success() . "|".$createMeetingResponse->getMessage());
+
+        if($createMeetingResponse->success()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Join Meeting
+     *
+     * @param RoomModel   $room  The Room
+     * @param String   $email  Joinee Email
+     * @param String   $userName  Joinee name
+     * @param String   $password  Meeting Password/Role
+     *
+     * @throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
+     * @return String
+     */
+
+    public static function joinMeeting(RoomModel $room, String $email, String $userName, String $password):String
+    {
+
+        $u = User::where('email', $email)->first();
+        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+
+        if($u) {
+            if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {
+
+                $resul = $u->profile_photo_url;
+                $findme = 'ui-avatars.com';
+                $pos = strpos($resul, $findme);
+                // Note our use of ===.  Simply == would not work as expected
+                if ($pos === false) {
+                    $dp = $u->profile_photo_url;
+                }
+            }
+        }
+
+        $url = \Bigbluebutton::join([
+            'meetingID' => $room->id,
+            'userName' => $userName,
+            'userId' => $email,
+            'password' => $password, //which user role want to join set password here
+            'avatarUrl' => $dp,
+            'customParameters' => [
+                'userdata-bbb_auto_join_audio' => 'true',
+                'userdata-bbb_enable_video' => 'true',
+                'userdata-bbb_listen_only_mode' => 'false',
+                'userdata-bbb_force_listen_only' => 'false',
+                'userdata-bbb_skip_check_audio' => 'true',
+                'meetingLink' => url('/join/').'/'.$room->url,
+            ],
+        ]);
+
+        Log::info("$room->name | $room->id | $email | Room Join | ".$url);
+
+        return $url;
+    }
+
+    /**
+     * Fetch meeting status
+     *
+     * @param RoomModel  $room  The Room
+     *
+     * @throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
+     * @return bool
+     */
+
+    public static function meetingStatus(RoomModel $room):bool
+    {
+        $bbb = new BigBlueButton();
+        $isMeetingRunningParams = new IsMeetingRunningParameters($room->id);
+        $response = $bbb->isMeetingRunning($isMeetingRunningParams);
+
+
+        Log::info($room->id." | isMeetingRunning |".$response->success() . "|".$response->isRunning());
+
+        if ($response->success() && $response->isRunning()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Count rooms
+     *
+     * @param User   $user  The user to create room for
+     * @param int $private 1 is private; 0 is public; 2 for both
+     *
+     * @throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
+     * @return int
+     */
+
+    public static function count(User $user, int $private=1)
+    {
+        if($private == 1){
+            $r = RoomModel::where("user_id", $user->id)->where('internalMeetingID',$user->id)->count();
+        }elseif($private == 2){
+            $r = RoomModel::where("user_id", $user->id)->orwhere('parentMeetingID',$user->current_team_id)->count();
+        }else{
+            $r = RoomModel::where('parentMeetingID',$user->current_team_id)->count();
+        }
+
+        return $r;
+    }
+
+}

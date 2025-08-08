@@ -234,7 +234,7 @@ require __DIR__ . '/admin.php';
 require __DIR__ . '/storage.php';
 require __DIR__ . '/test.php';
 
-Route::get('{any?}', function () {
-    return redirect()->away('https://dashboard.konn3ct.ng/');
-})->where('any', '.*');
-
+//Route::get('{any?}', function () {
+//    return redirect()->away('https://dashboard.konn3ct.ng/');
+//})->where('any', '.*');
+//

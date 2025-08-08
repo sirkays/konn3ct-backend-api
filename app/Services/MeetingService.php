@@ -9,6 +9,7 @@ use App\Models\RoomModel;
 use App\Models\User;
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\GetRecordingsParameters;
 use BigBlueButton\Parameters\IsMeetingRunningParameters;
 use Illuminate\Support\Facades\Log;
 
@@ -219,27 +220,66 @@ class MeetingService {
     }
 
     /**
-     * Count rooms
+     * Fetch room recordings
      *
-     * @param User   $user  The user to create room for
-     * @param int $private 1 is private; 0 is public; 2 for both
+     * @param RoomModel  $room  The Room
      *
      * @throws \Exception If something interesting cannot happen
      * @author Samji Diamond <sam_is_blessed>
-     * @return int
+     * @return array
      */
 
-    public static function count(User $user, int $private=1)
+    public static function roomRecordings(RoomModel $room):array
     {
-        if($private == 1){
-            $r = RoomModel::where("user_id", $user->id)->where('internalMeetingID',$user->id)->count();
-        }elseif($private == 2){
-            $r = RoomModel::where("user_id", $user->id)->orwhere('parentMeetingID',$user->current_team_id)->count();
-        }else{
-            $r = RoomModel::where('parentMeetingID',$user->current_team_id)->count();
+        $bbb = new BigBlueButton();
+        $recordingParams = new GetRecordingsParameters();
+        $recordingParams->setRecordID($room->id);
+        $recordingParams->setState('published');
+
+        $response = $bbb->getRecordings($recordingParams);
+
+        if (!$response->success()) {
+            return [];
         }
 
-        return $r;
+        $records = $response->getRecords();
+
+        Log::info($room->id." | roomRecordings |".$response->success() . "|".json_encode($records));
+
+        return $records;
     }
+
+    /**
+     * Fetch rooms recordings
+     *
+     * @param RoomModel[]  $room  The Rooms
+     *
+     * @throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
+     * @return array
+     */
+
+    public static function roomsRecordings($rooms):array
+    {
+        $bbb = new BigBlueButton();
+        $recordingParams = new GetRecordingsParameters();
+
+        foreach ($rooms as $room){
+            $recordingParams->setRecordID($room->id);
+        }
+        $recordingParams->setState('published');
+        $response = $bbb->getRecordings($recordingParams);
+
+        if (!$response->success()) {
+            return [];
+        }
+
+        $records = $response->getRecords();
+
+        Log::info("Many | roomsRecordings |".$response->success() . "|".json_encode($records));
+
+        return $records;
+    }
+
 
 }

@@ -490,9 +490,7 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        $recordings = \Bigbluebutton::getRecordings([
-            'meetingID' => "0$room->id",
-        ]);
+        $recordings=MeetingService::roomRecordings($room);
 
         return response()->json(['success' => true, 'message' => 'Rooms recording fetched successfully', 'data' => $recordings]);
     }
@@ -501,16 +499,7 @@ class RoomController extends Controller
     {
         $rooms = RoomModel::where("user_id", Auth::id())->get();
 
-        $fer = [];
-
-        foreach ($rooms as $r) {
-            array_push($fer, $r->id);
-            array_push($fer, "0$r->id");
-        }
-
-        $recordings = \Bigbluebutton::getRecordings([
-            'meetingID' => $fer,
-        ]);
+        $recordings=MeetingService::roomsRecordings($rooms);
 
         return response()->json(['success' => true, 'message' => 'All Rooms recording fetched successfully', 'data' => $recordings]);
     }

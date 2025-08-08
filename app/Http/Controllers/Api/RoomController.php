@@ -34,125 +34,19 @@ class RoomController extends Controller
 
         $name = Auth::user()->firstname . " " . Auth::user()->lastname;
 
-        $rm = "$i->id";
+        $ms = MeetingService::meetingStatus($i);
 
-        $ms = \Bigbluebutton::isMeetingRunning($rm);
-
-        if ($ms == 1) {
-            $url = redirect()->to(
-                \Bigbluebutton::join([
-                    'meetingID' => $rm,
-                    'userName' => $name,
-                    'password' => $i->password_moderator //which user role want to join set password here
-                ])
-            );
-
+        if ($ms) {
+            $url=MeetingService::joinMeeting($i,Auth::user()->email,$name,$i->password_moderator);
             return response()->json(['success' => true, 'message' => 'Meeting is still opened.', 'url' => $url]);
-        } else {
-            $plan = PlanModel::where("id", 2)->first();
-            if ($plan->recording) {
-                $record = true; //overwrite default configuration
-            } else {
-                $record = false; //overwrite default configuration
-            }
-
-            $duration = $plan->duration;
-            $max_user = $plan->participant;
-
-            if ($i->muj) {
-                $muj = true;
-            } else {
-                $muj = false;
-            }
-
-            if ($i->dpuc) {
-                $dpuc = true;
-            } else {
-                $dpuc = false;
-            }
-
-            if ($i->dprc) {
-                $dprc = true;
-            } else {
-                $dprc = false;
-            }
-
-            if ($i->ewma) {
-                $ewma = true;
-            } else {
-                $ewma = false;
-            }
-
-            if ($i->dum) {
-                $dum = true;
-            } else {
-                $dum = false;
-            }
-
-            if ($i->dsn) {
-                $dsn = true;
-            } else {
-                $dsn = false;
-            }
-
-            if ($i->aujam) {
-                $up = "moderator";
-            } else {
-                $up = $i->password_attendee;
-            }
-
-            if ($i->banner != "") {
-                $banner = url('/') . "/myroombanner/" . $i->banner;
-            } else {
-                $banner = "https://konn3ct.com/assets/images/konn3ct_logo.png";
-            }
-
-            $mdata['meeting_id'] = $i->id;
-            $mdata['name'] = $name;
-            $mdata['email'] = Auth::user()->email;
-            $mdata['password_attendee'] = $up;
-            $mdata['status'] = "start meeting";
-            $mdata['identifier'] = $i->id . rand();
-            MeetingsModel::create($mdata);
-
-            $message = 'Welcome to konn3ct!<br><br>Host: ' . Auth::user()->firstname . ' <br/> Meeting Link: <a href="' . url("/join/") . '/' . $i->url . '"> ' . url("/join/") . '/' . $i->url . '</a>  <br/>Dial-In: <span style="color: #008b8b;">%%DIALNUM%%</span> <br/>SIP: ' . env('SIP_URI') . ' <br/>PIN: %%CONFNUM%%';
-
-            $url = \Bigbluebutton::start([
-                'meetingID' => $rm,
-                'moderatorPW' => $i->password_moderator, //moderator password set here
-                'attendeePW' => $up, //attendee password here
-                'meetingName' => $i->name,
-                'userName' => $name,//for join meeting
-                'endCallbackUrl' => url('/leftsession'),
-                'logoutUrl' => url('/leftsession'),
-                'welcomeMessage' => $message,
-//                'welcomeMessage'=> "Share this link with people you want in this meeting. <strong>". url('/join/')."/".$i->url."</strong>",
-                'allowStartStopRecording' => $record,
-                'record' => $record,
-                'duration' => $duration,
-                'maxParticipants' => $max_user,
-                'muteOnStart' => $muj,
-                'lockSettingsDisablePublicChat' => $dpuc,
-                'lockSettingsDisablePrivateChat' => $dprc,
-                'lockSettingsDisableCam' => $ewma,
-                'lockSettingsDisableMic' => $dum,
-                'lockSettingsDisableNote' => $dsn,
-                'logo' => $banner,
-                'avatarUrl' => 'https://konn3ct.com/assets/images/konn3ctIcon.png',
-                'customParameters' => [
-                    'userdata-bbb_auto_join_audio' => 'true',
-                    'userdata-bbb_enable_video' => 'true',
-                    'userdata-bbb_listen_only_mode' => 'false',
-                    'userdata-bbb_force_listen_only' => 'false',
-                    'userdata-bbb_skip_check_audio' => 'true'
-                ]
-            ]);
-
-            NotifyParticipantMeetingJob::dispatch($i->id);
-
-            return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url, 'sessionToken'=> explode("=",$url)[1]]);
         }
 
+        MeetingService::startMeeting(Auth::user(),$i);
+        $url=MeetingService::joinMeeting($i,Auth::user()->email,$name,$i->password_moderator);
+
+        NotifyParticipantMeetingJob::dispatch($i->id);
+
+        return response()->json(['success' => true, 'message' => 'Meeting started successfully.', 'url' => $url, 'sessionToken'=> explode("=",$url)[1]]);
     }
 
     public function roomStatus($id)

@@ -233,8 +233,8 @@ class MeetingService {
     {
         $bbb = new BigBlueButton();
         $recordingParams = new GetRecordingsParameters();
-        $recordingParams->setRecordID($room->id);
-        $recordingParams->setState('published');
+        $recordingParams->setMeetingID($room->id);
+        $recordingParams->setState('any');
 
         $response = $bbb->getRecordings($recordingParams);
 
@@ -264,10 +264,14 @@ class MeetingService {
         $bbb = new BigBlueButton();
         $recordingParams = new GetRecordingsParameters();
 
-        foreach ($rooms as $room){
-            $recordingParams->setRecordID($room->id);
+        $fer = [];
+
+        foreach ($rooms as $r) {
+            array_push($fer, $r->id);
         }
-        $recordingParams->setState('published');
+
+        $recordingParams->setMeetingID(implode(',',$fer));
+        $recordingParams->setState('any');
         $response = $bbb->getRecordings($recordingParams);
 
         if (!$response->success()) {

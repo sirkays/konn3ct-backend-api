@@ -225,12 +225,12 @@ class MeetingService {
      *
      * @param RoomModel  $room  The Room
      *
-     * @throws \Exception If something interesting cannot happen
-     * @author Samji Diamond <sam_is_blessed>
      * @return array
+     *@throws \Exception If something interesting cannot happen
+     * @author Samji Diamond <sam_is_blessed>
      */
 
-    public static function roomRecordings(RoomModel $room):array
+    public static function roomRecordings(RoomModel $room): array
     {
         $bbb = new BigBlueButton();
         $recordingParams = new GetRecordingsParameters();
@@ -243,7 +243,7 @@ class MeetingService {
             return [];
         }
 
-        $records = $response->getRecords();
+        $records = self::convertXmlRecordings($response->getRawXml()->recordings);
 
         Log::info($room->id." | roomRecordings |".$response->success() . "|".json_encode($records));
 
@@ -279,11 +279,44 @@ class MeetingService {
             return [];
         }
 
-        $records = $response->getRecords();
+        $records = self::convertXmlRecordings($response->getRawXml()->recordings);
 
         Log::info("Many | roomsRecordings |".$response->success() . "|".json_encode($records));
 
         return $records;
+    }
+
+
+
+    /**
+     * @param $xmlrecordings
+     * required fields
+     * meetingID
+     *
+     * optional fields
+     * recordID
+     * state
+     * @return array
+     */
+    private static function convertXmlRecordings(\SimpleXMLElement $xmlrecordings): array
+    {
+        if (! is_null($xmlrecordings->recording) && count($xmlrecordings->recording) > 0) {
+            $recordings = [];
+            foreach ($xmlrecordings->recording as $r) {
+                $av=XmlToArray($r);
+                //Want to remove some values
+                unset($av['internalMeetingID']);
+                unset($av['metadata']);
+                unset($av['breakout']);
+                unset($av['data']);
+                unset($av['rawSize']);
+                $recordings[] = $av;
+            }
+
+            return $recordings;
+        }
+
+        return [];
     }
 
 

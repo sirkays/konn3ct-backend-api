@@ -127,7 +127,7 @@ class MeetingService {
         $createMeetingParams->setLockSettingsDisableMic($dum);
         $createMeetingParams->setLockSettingsDisableNote($dsn);
         $createMeetingParams->setLearningDashboardEnabled(false);
-        $createMeetingParams->setGuestPolicyAskModerator();
+//        $createMeetingParams->setGuestPolicyAskModerator();
         $createMeetingParams->setLogo($banner);
 
         $createMeetingResponse = $bbb->createMeeting($createMeetingParams);

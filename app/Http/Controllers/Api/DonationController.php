@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
+use App\Models\DonationPayment;
 use App\Models\RoomModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class DonationController extends Controller
@@ -32,7 +34,7 @@ class DonationController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'type' => 'required',
+            'type' => 'required|in:0,1',
             'amount' => 'required',
             'id' => 'required',
         ]);
@@ -97,4 +99,121 @@ class DonationController extends Controller
     {
         //
     }
+
+
+    /**
+     * Make Payment.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Donation  $donation
+     * @return \Illuminate\Http\Response
+     */
+    public function pay(Request $request, Donation $donation)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:200',
+            'email' => 'required|string|max:200',
+            'amount' => 'required',
+            'id' => 'required|string|max:200',
+            'meetid' => 'required|string|max:200',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'error' => $validator->errors()]);
+        }
+
+        if($donation->type == 1){
+            $amount=$donation->amount;
+        }else{
+            $amount=$input['amount'];
+        }
+
+        $dp=DonationPayment::create([
+            'donation_id' => $donation->id,
+            'meeting_id' => $input['meetid'],
+            'amount' => $amount,
+            'payee_id' => $input['id'],
+            'payee_email' => $input['email'],
+            'payee_name' => $input['name'],
+            'provider' => "vulte",
+        ]);
+
+        $payload='{
+    "amount": '.$amount.',
+    "walletId": "master",
+    "currency": "'.$donation->currency.'",
+    "metadata": {
+        "pay_type": "donation",
+        "payment_id": "'.$dp->id.'",
+        "payee_id": "'.$input['id'].'",
+        "payee_name": "'.$input['name'].'",
+        "payee_email":"'.$input['email'].'"
+    }
+}';
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('VULTE_BASEURL').'/v1/checkout/initialize',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_POSTFIELDS =>$payload,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: '.env('VULTE_KEY')
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        Log::info("Donation Payment: Payload $payload; Response $response");
+
+        $rep=json_decode($response, true);
+
+        $dp->provider_response = $response;
+
+        if($rep['success']){
+            $dp->reference = $rep['data']['reference'];
+            $dp->save();
+            return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'data'=>$rep['data']['authorization_url'], 'reference'=>$dp->reference]);
+        }else{
+            $dp->save();
+            return response()->json(['success' => false, 'message' => 'Unable to make payment at this time']);
+        }
+    }
+
+
+    /**
+     * Make Payment.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $ref
+     * @return \Illuminate\Http\Response
+     */
+    public function paymentCheck(Request $request, $ref)
+    {
+        $dp=DonationPayment::where("reference",$ref)->first();
+
+        if(!$dp){
+            return response()->json(['success' => false, 'message' => 'Invalid Payment Reference']);
+        }
+
+        if($dp->status==1){
+            return response()->json(['success' => true, 'message' => 'Payment Successful', 'data'=>$dp->status, 'amount'=>$dp->amount]);
+        }else{
+            return response()->json(['success' => true, 'message' => 'Payment Pending', 'data'=>$dp->status, 'amount'=>$dp->amount]);
+        }
+    }
+
+
 }

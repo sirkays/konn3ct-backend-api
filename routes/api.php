@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\DeployController;
-use App\Http\Controllers\PaystackHookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,8 +51,6 @@ Route::post('deploy', [DeployController::class, 'deploy']);
 
 Route::get('enrolAll', [ChatController::class, 'autoProcessEnrolment']);
 
-Route::post('paystackhook', [PaystackHookController::class, 'index']);
-
 Route::post('create-token', [UserController::class, 'createToken']);
 
 Route::post('register', [UserController::class, 'createUser']);
@@ -63,10 +61,10 @@ Route::post('start-room0', [RoomController::class, 'startRoom']);
 
 Route::post('check-room', [RoomController::class, 'checkRoom']);
 
-Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'meeting']);
 
-
-Route::apiResource('k4/donation', \App\Http\Controllers\Api\DonationController::class);
+Route::apiResource('k4/donation', DonationController::class);
+Route::post('k4/donation/pay/{donation}', [DonationController::class, 'pay']);
+Route::get('k4/donation/ref/{ref}', [DonationController::class, 'paymentCheck']);
 
 
 Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function () {
@@ -99,3 +97,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 require __DIR__ . '/api_integration.php';
 require __DIR__ . '/app.php';
+require __DIR__ . '/hook.php';

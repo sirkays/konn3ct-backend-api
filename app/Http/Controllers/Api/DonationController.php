@@ -37,6 +37,7 @@ class DonationController extends Controller
             'type' => 'required|in:0,1',
             'amount' => 'required',
             'id' => 'required',
+            'enableFlashNotification' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -54,7 +55,8 @@ class DonationController extends Controller
             'user_id' => $i->user_id,
             'name' => $input['name'],
             'type' => $input['type'],
-            'amount' => $input['amount']
+            'amount' => $input['amount'],
+            'enableFlashNotification' => $input['enableFlashNotification']
         ]);
 
         return response()->json(['success' => true, 'message' => 'Donation created successfully', 'data'=>$donation->id]);
@@ -69,8 +71,12 @@ class DonationController extends Controller
      */
     public function show($room_id)
     {
-        $donation=Donation::where([['room_id',$room_id], ['status',1]])->latest()->get();
-        return response()->json(['success' => true, 'message' => 'Donation fetched successfully', 'data'=>$donation]);
+        $donation=Donation::where([['room_id',$room_id], ['status',1]])->latest()->get()->makeHidden(['room_id','user_id', 'updated_at']);
+        if(count($donation) > 0){
+            $donated_amount=DonationPayment::where([['donation_id',$donation[0]['id']], ['status',1]])->sum('amount');
+        }
+
+        return response()->json(['success' => true, 'message' => 'Donation fetched successfully', 'data'=>$donation, 'donated_amount'=>$donated_amount ?? 0]);
     }
 
     /**
@@ -118,6 +124,7 @@ class DonationController extends Controller
             'amount' => 'required',
             'id' => 'required|string|max:200',
             'meetid' => 'required|string|max:200',
+            'description' => 'nullable|string|max:200',
         ]);
 
         if ($validator->fails()) {
@@ -137,6 +144,7 @@ class DonationController extends Controller
             'payee_id' => $input['id'],
             'payee_email' => $input['email'],
             'payee_name' => $input['name'],
+            'description' => $input['description'],
             'provider' => "vulte",
         ]);
 

@@ -131,7 +131,7 @@ class DonationController extends Controller
             return response()->json(['success' => false, 'message' => 'Check your inputs and try again', 'error' => $validator->errors()]);
         }
 
-        if($donation->type == 1){
+        if($donation->type == 0){
             $amount=$donation->amount;
         }else{
             $amount=$input['amount'];

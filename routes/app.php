@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
 use App\Http\Controllers\Api\App\InviteController;
+use App\Http\Controllers\Api\App\KycController;
 use App\Http\Controllers\Api\App\MeetingController;
 use App\Http\Controllers\Api\App\ProfileController;
 use App\Http\Controllers\Api\App\RecordingController;
@@ -78,6 +79,11 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('/invite', [InviteController::class, 'invite'])->name('invite');
         Route::get('/invites', [InviteController::class, 'invites'])->name('invites');
         Route::put('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
+
+        Route::get('/kyc/fetch', [KycController::class, 'fetchKyc']);
+        Route::get('/banks', [KycController::class, 'banks']);
+        Route::post('/verify-bank', [KycController::class, 'verifyBank']);
+        Route::post('/kyc/submit', [KycController::class, 'individualKyc']);
 
 
     });

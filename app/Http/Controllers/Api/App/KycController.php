@@ -139,6 +139,8 @@ class KycController extends Controller
             'user_id' => Auth::id(),
             'type' => $input['type'],
             'address' => $input['address'],
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
             'bvn' => $input['bvn'],
             'bank_name' => $input['bank_name'],
             'bank_code' => $input['bank_code'],

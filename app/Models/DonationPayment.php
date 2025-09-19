@@ -10,4 +10,8 @@ class DonationPayment extends Model
     use HasFactory;
 
     protected $guarded =[];
+
+    function donation(){
+        return $this->belongsTo(Donation::class);
+    }
 }

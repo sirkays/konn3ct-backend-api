@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\App\DonationController;
 use App\Http\Controllers\Api\App\InviteController;
 use App\Http\Controllers\Api\App\KycController;
 use App\Http\Controllers\Api\App\MeetingController;
@@ -85,6 +86,9 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('/verify-bank', [KycController::class, 'verifyBank']);
         Route::post('/kyc/submit', [KycController::class, 'individualKyc']);
         Route::post('/kyc-corporate/submit', [KycController::class, 'corporateKyc']);
+
+        Route::get('/donation/stats', [DonationController::class, 'stats']);
+        Route::get('/donation/in', [DonationController::class, 'donationsIn']);
 
     });
 });

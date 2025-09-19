@@ -15,7 +15,8 @@ class KycController extends Controller
         $k=Kyc::where('user_id',Auth::id())->first();
 
         if(!$k){
-            return response()->json(['success' => false, 'message' => 'No KYC yet', 'type' => 'individual']);
+            $type = isset(Auth::user()->lastname) ? 'individual' : 'corporate';
+            return response()->json(['success' => false, 'message' => 'No KYC yet', 'type' => $type]);
         }
         return response()->json(['success' => true, 'message' => 'KYC found', 'status' => $k->status, 'data' =>$k]);
     }
@@ -117,7 +118,7 @@ class KycController extends Controller
             'bank_account_number' => 'required',
             'bank_account_name' => 'required',
             'id_type' => 'required',
-//            'id_document' => 'required',
+            'id_document' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -147,6 +148,66 @@ class KycController extends Controller
             'id_document' => '',
         ]);
 
+
+        return response()->json(['success' => true, 'message' => 'KYC submitted successfully', 'data' => $k]);
+    }
+
+    function corporateKyc(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'type' => 'required',
+            'company_name' => 'required',
+            'company_email' => 'required',
+            'company_phone' => 'required',
+            'company_address' => 'required',
+            'company_taxid' => 'required',
+            'bvn' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'bank_name' => 'required',
+            'bank_code' => 'required',
+            'bank_account_number' => 'required',
+            'bank_account_name' => 'required',
+            'id_type' => 'required',
+            'id_document' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
+        }
+
+        $fk=Kyc::where('bvn',$input['bvn'])->first();
+
+        if($fk){
+            if($fk->user_id != Auth::id()){
+                return response()->json(['success' => false, 'message' => 'BVN has been used by another customer']);
+            }
+            return response()->json(['success' => false, 'message' => 'You have submitted your KYC already']);
+        }
+
+        $k=Kyc::create([
+            'user_id' => Auth::id(),
+            'type' => $input['type'],
+            'company_name' => $input['company_name'],
+            'company_email' => $input['company_email'],
+            'company_phone' => $input['company_phone'],
+            'company_address' => $input['company_address'],
+            'company_taxid' => $input['company_taxid'],
+            'bvn' => $input['bvn'],
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'email' => $input['email'],
+            'phone' => $input['phone'],
+            'bank_name' => $input['bank_name'],
+            'bank_code' => $input['bank_code'],
+            'bank_account_number' => $input['bank_account_number'],
+            'bank_account_name' => $input['bank_account_name'],
+            'id_type' => $input['id_type'],
+            'id_document' => '',
+        ]);
 
         return response()->json(['success' => true, 'message' => 'KYC submitted successfully', 'data' => $k]);
     }

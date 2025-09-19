@@ -84,7 +84,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('/banks', [KycController::class, 'banks']);
         Route::post('/verify-bank', [KycController::class, 'verifyBank']);
         Route::post('/kyc/submit', [KycController::class, 'individualKyc']);
-
+        Route::post('/kyc-corporate/submit', [KycController::class, 'corporateKyc']);
 
     });
 });

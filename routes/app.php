@@ -56,6 +56,10 @@ Route::group(['prefix' => 'app'], function () {
         Route::delete('/deleteroom/{id}', [RoomsController::class, 'delete']);
         Route::get('/myrooms', [RoomsController::class, 'show']);
         Route::get('start-a-room/{id}', [RoomsController::class, 'mStartRoom']);
+        Route::post('accesscode', [RoomsController::class, 'accesscode']);
+        Route::post('limituser', [RoomsController::class, 'limituser']);
+        Route::post('bannerupload', [RoomsController::class, 'bannerupload']);
+        Route::post('transfer-room', [RoomsController::class, 'transferRoom']);
 
 
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);

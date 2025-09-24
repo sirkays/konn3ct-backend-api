@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Jobs\KCEnrollOwnerJob;
 use App\Jobs\WhatsappAppInviteAllJob;
 use App\Models\EnrolledChat;
+use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
+use App\Models\User;
 use App\Services\MeetingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -310,4 +312,180 @@ class RoomsController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Invite has started sending in background']);
     }
+
+    public function accesscode(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'type' => 'required|string|in:manual,auto,remove',
+            'accesscode' => 'nullable|string',
+            'id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        $r = RoomModel::find($input['id']);
+
+        if($r->user_id != Auth::id()){
+            return response()->json(['status' => false, 'message' => "Permission denied"]);
+        }
+
+        if ($input['type'] == "remove") {
+            $r->password_attendee = "attendee";
+            $r->save();
+        } else if ($input['type'] == "auto") {
+            $code = rand(11111, 9999999999);
+            $r->password_attendee = $code;
+            $r->save();
+        } else {
+            if ($input['accesscode'] == "") {
+                return response()->json(['status' => false, 'message' => "Access code can not be empty"]);
+            } else {
+                $r->password_attendee = $input['accesscode'];
+                $r->save();
+            }
+        }
+
+        return response()->json(['status' => true, 'message' => "Access code changed Successfully!"]);
+    }
+
+    public function transferRoom(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'email' => 'required|email',
+            'id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        $r = RoomModel::find($input['id']);
+
+        if($r->user_id != Auth::id()){
+            return response()->json(['status' => false, 'message' => "Permission denied"]);
+        }
+
+        $tu = User::where('email', $input['email'])->first();
+
+        if (!$tu) {
+            return response()->json(['status' => false, 'message' => "User does not exist"]);
+        }
+
+        $r->user_id = $tu->id;
+        $r->save();
+
+        return response()->json(['status' => true, 'message' => "Room has been transferred Successfully!"]);
+    }
+
+    public function limituser(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'users' => 'required|string',
+            'id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        $r = RoomModel::find($input['id']);
+
+        if($r->user_id != Auth::id()){
+            return response()->json(['status' => false, 'message' => "Permission denied"]);
+        }
+
+        $r->max_participants = $input['users'];
+        $r->save();
+
+        return response()->json(['status' => true, 'message' => "User Limit changed Successfully!"]);
+    }
+
+    public function roomstatus($url)
+    {
+        $i = RoomModel::where('url', $url)->first();
+        $rm_id = "$i->id";
+        $ms = \Bigbluebutton::isMeetingRunning($rm_id);
+//        $ms=0;
+        if ($ms != 1) {
+            return response()->json(['status' => 0, 'message' => 'Meeting not started']);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Meeting not started']);
+    }
+
+    public function bannerupload(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'banner' => 'required|mimes:jpeg,jpg,png|max:5000',
+            'id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        $r = RoomModel::find($input['id']);
+
+        if($r->user_id != Auth::id()){
+            return response()->json(['status' => false, 'message' => "Permission denied"]);
+        }
+
+        if (!$request->hasFile('banner')) {
+            return response()->json(['status' => false, 'message' => 'Upload file not found']);
+        }
+
+        $file = $request->file('banner');
+        if (!$file->isValid()) {
+            return response()->json(['status' => false, 'message' => 'Invalid file upload']);
+        }
+
+        if ($file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
+            return response()->json(['status' => false, 'message' => 'Kindly upload a png/jpg/jpeg file']);
+        }
+
+
+//        $path = Storage::put('roombanner', $input['banner']);
+//        $fName = explode("/", $path);
+
+
+        $fName = rand() . ".jpg";
+        $path = storage_path('roombanner/');
+        $file->move($path, $fName);
+
+
+        $i = RoomModel::find($request->id);
+        $i->banner = $fName;
+        $i->save();
+
+        return response()->json(['status' => true, 'message' => 'Banner has been uploaded successfully']);
+    }
+
+    public function attendance($id)
+    {
+        $room = RoomModel::find($id);
+        if ($room->user_id != Auth::id()) {
+            abort(404);
+        }
+        $datas['meetings'] = MeetingsModel::where([["meeting_id", $id], ["status", "=", "start meeting"]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance', $datas);
+    }
+
+    public function participants($id)
+    {
+        $datas['meetings'] = MeetingsModel::where([["identifier", "=", $id]])->orderBy('id', 'desc')->get();
+        $datas['i'] = 1;
+        return view('user.attendance_participants', $datas);
+    }
+
 }

@@ -112,7 +112,7 @@ class DonationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Donation  $donation
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function pay(Request $request, Donation $donation)
     {
@@ -125,6 +125,7 @@ class DonationController extends Controller
             'id' => 'required|string|max:200',
             'meetid' => 'required|string|max:200',
             'description' => 'nullable|string|max:200',
+            'medium' => 'nullable|string|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -148,17 +149,107 @@ class DonationController extends Controller
             'provider' => "vulte",
         ]);
 
+        if(isset($input['medium']) && $input['medium'] == "bank"){
+
+//            $rr="rr_".$dp->id;
+//            $ref="ref_".$dp->id;
+//            $payload='{
+//                "request_ref": "'.$rr.'",
+//                "request_type": "open_account",
+//                "auth": {
+//                    "type": null,
+//                    "secure": null,
+//                    "auth_provider": "PolarisVirtual",
+//                    "route_mode": null
+//                },
+//                "transaction": {
+//                    "mock_mode": "Live",
+//                    "transaction_ref": "'.$ref.'",
+//                    "transaction_desc": "A random transaction",
+//                    "transaction_ref_parent": null,
+//                    "amount": 1000,
+//                    "customer": {
+//                        "customer_ref": "2348033000989",
+//                        "firstname": "John",
+//                        "surname": "Doe",
+//                        "email": "john@doe.com",
+//                        "mobile_no": "2348033000989"
+//                    },
+//                    "meta": {
+//                        "a_key": "a_meta_value_1",
+//                        "b_key": "a_meta_value_2"
+//                    },
+//                    "details": {
+//                        "name_on_account": "John J. Doe",
+//                        "middlename": "Jane",
+//                        "dob": "2005-05-13",
+//                        "gender": "M",
+//                        "title": "Mr",
+//                        "address_line_1": "23, Okon street, Ikeja",
+//                        "address_line_2": "Ikeja",
+//                        "city": "Mushin",
+//                        "state": "Lagos State",
+//                        "country": "Nigeria"
+//                    }
+//                }
+//            }';
+//
+//            $curl = curl_init();
+//
+//            curl_setopt_array($curl, array(
+//                CURLOPT_URL => env('VULTE_BASEURL').'/v1/checkout/initialize',
+//                CURLOPT_RETURNTRANSFER => true,
+//                CURLOPT_ENCODING => '',
+//                CURLOPT_MAXREDIRS => 10,
+//                CURLOPT_TIMEOUT => 0,
+//                CURLOPT_FOLLOWLOCATION => true,
+//                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//                CURLOPT_CUSTOMREQUEST => 'POST',
+//                CURLOPT_SSL_VERIFYHOST => false,
+//                CURLOPT_POSTFIELDS =>$payload,
+//                CURLOPT_HTTPHEADER => array(
+//                    'Content-Type: application/json',
+//                    'Authorization: '.env('VULTE_KEY')
+//                ),
+//            ));
+//
+//            $response = curl_exec($curl);
+//
+//            curl_close($curl);
+//
+//            Log::info("Donation Payment: Payload $payload; Response $response");
+//
+//            $rep=json_decode($response, true);
+//
+//            $dp->provider_response = $response;
+//
+//            if($rep['success']){
+//                $dp->reference = $rep['data']['reference'];
+//                $dp->save();
+//                return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'data'=>$rep['data']['authorization_url'], 'reference'=>$dp->reference]);
+//            }else{
+//                $dp->save();
+//                return response()->json(['success' => false, 'message' => 'Unable to make payment at this time']);
+//            }
+
+            return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'type'=>$input['medium'], 'data'=>[
+                'account_number' => '0000000',
+                'bank_name' => 'Polaris Bank',
+                'account_name' => 'Williams Soft Foundation',
+            ], 'reference'=>$dp->reference]);
+        }
+
         $payload='{
-    "amount": '.$amount.',
-    "walletId": "master",
-    "currency": "'.$donation->currency.'",
-    "metadata": {
-        "pay_type": "donation",
-        "payment_id": "'.$dp->id.'",
-        "payee_id": "'.$input['id'].'",
-        "payee_name": "'.$input['name'].'",
-        "payee_email":"'.$input['email'].'"
-    }
+        "amount": '.$amount.',
+        "walletId": "master",
+        "currency": "'.$donation->currency.'",
+        "metadata": {
+            "pay_type": "donation",
+            "payment_id": "'.$dp->id.'",
+            "payee_id": "'.$input['id'].'",
+            "payee_name": "'.$input['name'].'",
+            "payee_email":"'.$input['email'].'"
+        }
 }';
 
         $curl = curl_init();

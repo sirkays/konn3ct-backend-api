@@ -367,7 +367,7 @@
 
 
                             <div class="text-center mb-4">
-                                <a href="/register" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
+                                <a href="{{route('dashboard_register')}}" class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Choose Plan
                                 </a>
@@ -420,7 +420,7 @@
                             </ul>
 
                             <div class="text-center mb-4">
-                                <a id="liteLink" href="/register/2"
+                                <a id="liteLink" href="{{route('dashboard_register')}}"
                                    class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #ffff; color: #628F41; font-weight: bolder">
                                     Choose Plan
@@ -464,7 +464,7 @@
                             </ul>
 
                             <div class="text-center mb-4">
-                                <a id="proLink" href="/register/3"
+                                <a id="proLink" href="{{route('dashboard_register')}}"
                                    class="btn px-3 py-3 mr-3 mt-2 hvr-bubble-float-right"
                                    style="border-radius: 10px; width: 200px; background-color: #012E89; color: white; font-weight: bolder">
                                     Choose Plan

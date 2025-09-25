@@ -35,6 +35,23 @@ Route::get('/userjoin/{params}', function ($params) {
     return redirect()->away(env('BBB_SERVER_BASE_URL') . 'api/join?' . decrypt($params));
 });
 
+Route::get('/register-new', function () {
+    return redirect()->away(env('DASHBOARD_INTERFACE') . '/register');
+})->name('dashboard_register');
+
+Route::get('/login-new', function () {
+    return redirect()->away(env('DASHBOARD_INTERFACE') . '/login');
+})->name('dashboard_login');
+
+Route::get('/joinsession-new', function () {
+    return redirect()->away(env('DASHBOARD_INTERFACE') . '/join');
+})->name('dashboard_joinmeeting');
+
+Route::get('/rooms-new', function () {
+    return redirect()->away(env('DASHBOARD_INTERFACE') . '/rooms');
+})->name('dashboard_rooms');
+
+
 Route::get('/offline', function () {
     return view('vendor/laravelpwa/offline');
 });

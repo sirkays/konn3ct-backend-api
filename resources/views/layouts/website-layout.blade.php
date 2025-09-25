@@ -417,19 +417,19 @@ src="https://www.facebook.com/tr?id=1543717222676161&ev=PageView&noscript=1"
             <div class="d-flex">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a id="@yield('join','navLink')" class="nav-link" href="{{route('joinmeeting')}}">Join a
+                        <a id="@yield('join','navLink')" class="nav-link" href="{{route('dashboard_joinmeeting')}}">Join a
                             Meeting Room</a>
                     </li>
                     <li class="nav-item">
                         @auth
                             <a id="navLink" class="nav-link" href="{{route('logouts')}}">Signout</a>
                         @else
-                            <a id="navLink" class="nav-link" href="{{route('login')}}">Log in</a>
+                            <a id="navLink" class="nav-link" href="{{route('dashboard_login')}}">Log in</a>
                         @endif
                     </li>
                 </ul>
 
-                <a href="@auth {{route('rooms')}} @else {{route('register')}} @endif"
+                <a href="@auth {{route('dashboard_rooms')}} @else {{route('dashboard_register')}} @endif"
                    class="btn text-center"
                    style="border-radius: 30px; background-color: #012E89; color: white; border-color: #012E89; max-height: 50px">
                     <span>@auth Meeting Room @else Sign Up, It’s FREE @endif</span>

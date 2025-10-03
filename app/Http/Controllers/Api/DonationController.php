@@ -179,8 +179,11 @@ class DonationController extends Controller
                         "mobile_no": "2348033000989"
                     },
                     "meta": {
-                        "a_key": "a_meta_value_1",
-                        "b_key": "a_meta_value_2"
+                        "pay_type": "donation",
+                        "payment_id": "'.$dp->id.'",
+                        "payee_id": "'.$input['id'].'",
+                        "payee_name": "'.$input['name'].'",
+                        "payee_email":"'.$input['email'].'"
                     },
                     "details": {
                         "name_on_account": "'.$dp->payee_name.'",

@@ -37,4 +37,34 @@ class VulteHookController extends Controller
 
         return "Noted";
     }
+
+    public function bankTransfer(Request $request){
+        $input = $request->all();
+
+        Log::info("Bank Transfer VulteHookController:".json_encode($input));
+
+        if(!isset($input['details'])){
+            return "Not allowed";
+        }
+
+        if($input['details']['status'] != "Successful"){
+            return "ok";
+        }
+
+        if(isset($input['details']['meta']['pay_type'])  && $input['details']['meta']['pay_type'] == "donation"){
+            $dp=DonationPayment::where([["id",$input['details']['meta']['payment_id']], ["status",0]])->first();
+
+            if($dp){
+                $dp->status=1;
+                $dp->amount=$input['details']['amount']/100;
+                $dp->paid_at=Carbon::now();
+                $dp->notification_response=json_encode($input);
+                $dp->save();
+
+                return "Payment Successful";
+            }
+        }
+
+        return "Noted";
+    }
 }

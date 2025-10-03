@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('paystackhook', [PaystackHookController::class, 'index']);
 Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'meeting']);
 Route::post('hook/vulte', [\App\Http\Controllers\VulteHookController::class, 'index']);
+Route::post('hook/polaris', [\App\Http\Controllers\VulteHookController::class, 'bankTransfer']);

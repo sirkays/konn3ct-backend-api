@@ -151,92 +151,94 @@ class DonationController extends Controller
 
         if(isset($input['medium']) && $input['medium'] == "bank"){
 
-//            $rr="rr_".$dp->id;
-//            $ref="ref_".$dp->id;
-//            $payload='{
-//                "request_ref": "'.$rr.'",
-//                "request_type": "open_account",
-//                "auth": {
-//                    "type": null,
-//                    "secure": null,
-//                    "auth_provider": "PolarisVirtual",
-//                    "route_mode": null
-//                },
-//                "transaction": {
-//                    "mock_mode": "Live",
-//                    "transaction_ref": "'.$ref.'",
-//                    "transaction_desc": "A random transaction",
-//                    "transaction_ref_parent": null,
-//                    "amount": 1000,
-//                    "customer": {
-//                        "customer_ref": "2348033000989",
-//                        "firstname": "John",
-//                        "surname": "Doe",
-//                        "email": "john@doe.com",
-//                        "mobile_no": "2348033000989"
-//                    },
-//                    "meta": {
-//                        "a_key": "a_meta_value_1",
-//                        "b_key": "a_meta_value_2"
-//                    },
-//                    "details": {
-//                        "name_on_account": "John J. Doe",
-//                        "middlename": "Jane",
-//                        "dob": "2005-05-13",
-//                        "gender": "M",
-//                        "title": "Mr",
-//                        "address_line_1": "23, Okon street, Ikeja",
-//                        "address_line_2": "Ikeja",
-//                        "city": "Mushin",
-//                        "state": "Lagos State",
-//                        "country": "Nigeria"
-//                    }
-//                }
-//            }';
-//
-//            $curl = curl_init();
-//
-//            curl_setopt_array($curl, array(
-//                CURLOPT_URL => env('VULTE_BASEURL').'/v1/checkout/initialize',
-//                CURLOPT_RETURNTRANSFER => true,
-//                CURLOPT_ENCODING => '',
-//                CURLOPT_MAXREDIRS => 10,
-//                CURLOPT_TIMEOUT => 0,
-//                CURLOPT_FOLLOWLOCATION => true,
-//                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//                CURLOPT_CUSTOMREQUEST => 'POST',
-//                CURLOPT_SSL_VERIFYHOST => false,
-//                CURLOPT_POSTFIELDS =>$payload,
-//                CURLOPT_HTTPHEADER => array(
-//                    'Content-Type: application/json',
-//                    'Authorization: '.env('VULTE_KEY')
-//                ),
-//            ));
-//
-//            $response = curl_exec($curl);
-//
-//            curl_close($curl);
-//
-//            Log::info("Donation Payment: Payload $payload; Response $response");
-//
-//            $rep=json_decode($response, true);
-//
-//            $dp->provider_response = $response;
-//
-//            if($rep['success']){
-//                $dp->reference = $rep['data']['reference'];
-//                $dp->save();
-//                return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'data'=>$rep['data']['authorization_url'], 'reference'=>$dp->reference]);
-//            }else{
-//                $dp->save();
-//                return response()->json(['success' => false, 'message' => 'Unable to make payment at this time']);
-//            }
+            $rr="rr_".$dp->id;
+            $ref="ref_".$dp->id;
 
-            return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'type'=>$input['medium'], 'data'=>[
-                'account_number' => '0000000',
-                'bank_name' => 'Polaris Bank',
-                'account_name' => 'Williams Soft Foundation',
-            ], 'reference'=>$dp->reference]);
+            $signature=md5($rr.";".env('POLARIS_SECRET_KEY'));
+
+            $payload='{
+                "request_ref": "'.$rr.'",
+                "request_type": "open_account",
+                "auth": {
+                    "type": null,
+                    "secure": null,
+                    "auth_provider": "PolarisVirtual",
+                    "route_mode": null
+                },
+                "transaction": {
+                    "mock_mode": "'.env('POLARIS_MODE').'",
+                    "transaction_ref": "'.$ref.'",
+                    "transaction_desc": "Donation Payment",
+                    "transaction_ref_parent": null,
+                    "amount": '.$dp->amount.',
+                    "customer": {
+                        "customer_ref": "2348033000989",
+                        "firstname": "'.$dp->payee_name.'",
+                        "surname": "Donation",
+                        "email": "'.$dp->payee_email.'",
+                        "mobile_no": "2348033000989"
+                    },
+                    "meta": {
+                        "a_key": "a_meta_value_1",
+                        "b_key": "a_meta_value_2"
+                    },
+                    "details": {
+                        "name_on_account": "'.$dp->payee_name.'",
+                        "middlename": "Jane",
+                        "dob": "2005-05-13",
+                        "gender": "M",
+                        "title": "Mr",
+                        "address_line_1": "23, Okon street, Ikeja",
+                        "address_line_2": "Ikeja",
+                        "city": "Mushin",
+                        "state": "Lagos State",
+                        "country": "Nigeria"
+                    }
+                }
+            }';
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('POLARIS_BASEURL').'/transact',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_POSTFIELDS =>$payload,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: Bearer '.env('POLARIS_KEY'),
+                    'Signature: '.$signature
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            Log::info("Bank Donation Payment: Payload $payload; Response $response");
+
+            $rep=json_decode($response, true);
+
+            $dp->provider_response = $response;
+
+            if($rep['status'] == "Successful"){
+                $dp->reference = $rep['data']['provider_response']['reference'];
+                $dp->save();
+                return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'type'=>$input['medium'], 'data'=>[
+                    'account_number' => $rep['data']['provider_response']['account_number'],
+                    'bank_name' => $rep['data']['provider_response']['bank_name'],
+                    'account_name' => $rep['data']['provider_response']['account_name'],
+                ], 'reference'=>$dp->reference]);
+            }else{
+                $dp->save();
+                return response()->json(['success' => false, 'message' => 'Unable to make payment at this time']);
+            }
         }
 
         $payload='{
@@ -275,7 +277,7 @@ class DonationController extends Controller
 
         curl_close($curl);
 
-        Log::info("Donation Payment: Payload $payload; Response $response");
+        Log::info("Card Donation Payment: Payload $payload; Response $response");
 
         $rep=json_decode($response, true);
 
@@ -284,7 +286,7 @@ class DonationController extends Controller
         if($rep['success']){
             $dp->reference = $rep['data']['reference'];
             $dp->save();
-            return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'data'=>$rep['data']['authorization_url'], 'reference'=>$dp->reference]);
+            return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'type'=>$input['medium'], 'data'=>$rep['data']['authorization_url'], 'reference'=>$dp->reference]);
         }else{
             $dp->save();
             return response()->json(['success' => false, 'message' => 'Unable to make payment at this time']);

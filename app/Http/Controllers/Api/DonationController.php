@@ -9,6 +9,7 @@ use App\Models\RoomModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class DonationController extends Controller
 {
@@ -151,8 +152,9 @@ class DonationController extends Controller
 
         if(isset($input['medium']) && $input['medium'] == "bank"){
 
-            $rr="rr_".$dp->id;
-            $ref="ref_".$dp->id;
+            $gr=Str::random(5);
+            $rr="rr".$dp->id."0".$gr;
+            $ref="ref".$dp->id."0".$gr;
 
             $signature=md5($rr.";".env('POLARIS_SECRET_KEY'));
 
@@ -170,7 +172,7 @@ class DonationController extends Controller
                     "transaction_ref": "'.$ref.'",
                     "transaction_desc": "Donation Payment",
                     "transaction_ref_parent": null,
-                    "amount": '.$dp->amount.',
+                    "amount": 0,
                     "customer": {
                         "customer_ref": "2348033000989",
                         "firstname": "'.$dp->payee_name.'",

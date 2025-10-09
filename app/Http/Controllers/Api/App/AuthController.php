@@ -42,6 +42,39 @@ class AuthController extends Controller
         return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["type"])], 200);
     }
 
+    public function loginSocial(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|max:200',
+            'name' => 'required|string|min:3',
+            'avatar' => 'required|string|min:3',
+            'accessstoken' => 'required|string|min:3',
+            'provider' => 'required|string|in:facebook,apple,google',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => implode(",", $validator->errors()->all()), 'errors' => $validator->errors()]);
+        }
+
+        $name=explode(" ",$request->name);
+
+        $user = User::firstOrCreate([
+            'email' => $request->email
+        ], [
+            'firstname' => $name[0]??'',
+            'lastname' => $name[1]??'',
+            'password' => Hash::make($request->accessstoken),
+            'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
+            'plan' => 1,
+            'remember_token' => $request->provider.":".$request->accessstoken,
+            'profile_photo_path' => $request->avatar,
+        ]);
+
+        $name=$request->userAgent()."||".$request->ip();
+        $token = $user->createToken($name)->plainTextToken;
+        return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["type"])], 200);
+    }
+
     //Registration
     public function register(Request $request)
     {

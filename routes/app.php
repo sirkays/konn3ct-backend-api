@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'app'], function () {
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('login-social', [AuthController::class, 'loginSocial']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('forgot-password-request', [AuthController::class, 'reset_password_request']);
     Route::post('forgot-password', [AuthController::class, 'reset_password_submit']);

@@ -252,12 +252,6 @@ class RoomsController extends Controller
             return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
         }
 
-        $ms = MeetingService::meetingStatus($i);
-
-        if (!$ms) {
-            return response()->json(['success' => false, 'message' => 'Room not started. Kindly try again later']);
-        }
-
         if ($i->password_attendee != "attendee") {
             if (isset($input['access_code'])) {
                 if ($input['access_code'] == $i->password_attendee) {
@@ -280,13 +274,35 @@ class RoomsController extends Controller
             }
         }
 
+        $mdata['meeting_id'] = $i->id;
+        $mdata['name'] = $name;
+        $mdata['email'] = $email;
+        $mdata['password_attendee'] = $password;
+
+
+        $ms = MeetingService::meetingStatus($i);
+
+        if (!$ms) {
+            $mdata['status'] = "meeting not started";
+            MeetingsModel::create($mdata);
+            return response()->json(['success' => false, 'message' => 'Room not started. Kindly try again later']);
+        }
+
         $url=MeetingService::joinMeeting($i,$email,$name,$password);
 
         if(!$url){
+            $mdata['status'] = "Unable to join";
+            MeetingsModel::create($mdata);
             return response()->json(['success' => false, 'message' => 'Unable to join']);
         }
 
         $wait=str_contains($url,'guestWait');
+
+        $fm=MeetingsModel::where('meeting_id','=',$i->id)->latest()->first();
+
+        $mdata['identifier']=$fm->identifier;
+        $mdata['status']="joined";
+        MeetingsModel::create($mdata);
 
         return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' =>explode("=",$url)[1], 'wait'=>$wait]);
     }
@@ -487,5 +503,28 @@ class RoomsController extends Controller
         $datas['i'] = 1;
         return view('user.attendance_participants', $datas);
     }
+
+
+    public function listAttendance()
+    {
+        $attendance = MeetingsModel::orderBy('id', 'desc')
+            ->where('status', '=', 'start meeting')
+            ->where('email', '=', Auth::user()->email)
+            ->with("roomInfo")
+            ->latest()->paginate(20);
+
+        return response()->json(['success' => true, 'message' => 'Room attendance fetched successfully', 'data' => $attendance]);
+    }
+
+    public function attendanceDetails($id, $identifier)
+    {
+        $attendance = MeetingsModel::orderBy('id', 'desc')
+            ->where('identifier', '=', $identifier)
+            ->where('meeting_id', '=', $id)
+            ->simplepaginate(30);
+
+        return response()->json(['success' => true, 'message' => 'Attendance fetched successfully', 'data' => $attendance]);
+    }
+
 
 }

@@ -25,8 +25,23 @@ class MeetingsModel extends Model
         'meeting_id', 'name', 'email', 'password_attendee', 'status', 'identifier', 'keyword'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password_attendee',
+        'updated_at'
+    ];
+
+
     function room()
     {
         return $this->belongsTo(RoomModel::class, 'meeting_id');
+    }
+    function roomInfo()
+    {
+        return $this->belongsTo(RoomModel::class, 'meeting_id')->select("id","name");
     }
 }

@@ -62,6 +62,9 @@ Route::group(['prefix' => 'app'], function () {
         Route::post('bannerupload', [RoomsController::class, 'bannerupload']);
         Route::post('transfer-room', [RoomsController::class, 'transferRoom']);
 
+        Route::get('meeting-attendance', [RoomsController::class, 'listAttendance']);
+        Route::get('attendance-details/{id}/{identifier}', [RoomsController::class, 'attendanceDetails']);
+
 
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);
 

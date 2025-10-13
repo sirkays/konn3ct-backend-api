@@ -174,7 +174,7 @@ class DonationController extends Controller
                     "transaction_ref_parent": null,
                     "amount": 0,
                     "customer": {
-                        "customer_ref": "2348033000989",
+                        "customer_ref": "'.$gr.'",
                         "firstname": "'.$dp->payee_name.'",
                         "surname": "Donation",
                         "email": "'.$dp->payee_email.'",

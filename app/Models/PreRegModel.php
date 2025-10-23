@@ -15,12 +15,12 @@ class PreRegModel extends Model
 
     function room()
     {
-        return $this->belongsTo(RoomModel::class, 'room_id', 'id');
+        return $this->belongsTo(RoomModel::class, 'room_id', 'id')->select('id','name','url');
     }
 
     function owner()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id')->select('id','firstname','lastname');
     }
 
     function users()

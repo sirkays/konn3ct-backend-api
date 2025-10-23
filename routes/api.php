@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\App\PreregistrationController;
 use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\UserController;
@@ -60,6 +61,10 @@ Route::get('rooms/{email}', [RoomController::class, 'fetchRooms']);
 Route::post('start-room0', [RoomController::class, 'startRoom']);
 
 Route::post('check-room', [RoomController::class, 'checkRoom']);
+
+Route::get('pre-registration/{reference}', [PreregistrationController::class, 'preregshow']);
+Route::post('pre-registration-search', [PreregistrationController::class, 'preregshowSearch']);
+Route::post('pre-registration', [PreregistrationController::class, 'registerprereg']);
 
 
 Route::apiResource('k4/donation', DonationController::class);

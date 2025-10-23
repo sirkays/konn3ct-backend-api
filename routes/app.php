@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\App\DonationController;
 use App\Http\Controllers\Api\App\InviteController;
 use App\Http\Controllers\Api\App\KycController;
 use App\Http\Controllers\Api\App\MeetingController;
+use App\Http\Controllers\Api\App\PreregistrationController;
 use App\Http\Controllers\Api\App\ProfileController;
 use App\Http\Controllers\Api\App\RecordingController;
 use App\Http\Controllers\Api\App\RoomsController;
@@ -64,6 +65,11 @@ Route::group(['prefix' => 'app'], function () {
 
         Route::get('meeting-attendance', [RoomsController::class, 'listAttendance']);
         Route::get('attendance-details/{id}/{identifier}', [RoomsController::class, 'attendanceDetails']);
+
+        Route::get('pre-reg-list', [PreregistrationController::class, 'preregList']);
+        Route::get('pre-reg-summary', [PreregistrationController::class, 'preregListSummary']);
+        Route::get('pre-reg-participants/{reference}', [PreregistrationController::class, 'prereParticipants']);
+        Route::post('pre-reg', [PreregistrationController::class, 'prereg']);
 
 
         Route::get('upcoming-meetings', [MeetingController::class, 'upcomingMeetings']);

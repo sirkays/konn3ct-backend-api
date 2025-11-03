@@ -210,7 +210,7 @@ class PreregistrationController extends Controller
     public function preregshow($reference)
     {
 
-        $data['preg'] = PreRegModel::where('reference', $reference)->with('owner')->first()->makeHidden('reference','reminder','updated_at','id','user_id','room_id');
+        $data['preg'] = PreRegModel::where('reference', $reference)->with('owner')->first();
 
         if (!$data['preg']) {
             return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
@@ -222,7 +222,7 @@ class PreregistrationController extends Controller
 
         $data['faqs'] = Faq::where('status', 1)->get();
 
-        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data]);
+        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data->makeHidden('reference','reminder','updated_at','id','user_id','room_id')]);
     }
     public function preregshowSearch(Request $request)
     {

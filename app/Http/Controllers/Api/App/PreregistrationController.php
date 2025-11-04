@@ -213,11 +213,11 @@ class PreregistrationController extends Controller
         $data['preg'] = PreRegModel::where('reference', $reference)->with('owner')->first();
 
         if (!$data['preg']) {
-            return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
+            return response()->json(['success' => false, 'message' => 'Invalid Reference!']);
         }
 
         if ($data['preg']->status != 1) {
-            return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
+            return response()->json(['success' => false, 'message' => 'The Event has ended']);
         }
 
         $data['faqs'] = Faq::where('status', 1)->get();

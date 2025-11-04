@@ -95,7 +95,7 @@ class MeetingService {
         $mdata['identifier'] = $room->id . rand();
         MeetingsModel::create($mdata);
 
-        $rm_id=$room->id;
+        $rm_id="0".$room->id;
 
         if($name == ""){
             $name=$room->name;
@@ -173,8 +173,10 @@ class MeetingService {
             }
         }
 
+        $rm_id="0".$room->id;
+
         $url = \Bigbluebutton::join([
-            'meetingID' => $room->id,
+            'meetingID' => $rm_id,
             'userName' => $userName,
             'userId' => $email,
             'password' => $password, //which user role want to join set password here
@@ -206,8 +208,10 @@ class MeetingService {
 
     public static function meetingStatus(RoomModel $room):bool
     {
+        $rm_id="0".$room->id;
+
         $bbb = new BigBlueButton();
-        $isMeetingRunningParams = new IsMeetingRunningParameters($room->id);
+        $isMeetingRunningParams = new IsMeetingRunningParameters($rm_id);
         $response = $bbb->isMeetingRunning($isMeetingRunningParams);
 
 
@@ -232,9 +236,10 @@ class MeetingService {
 
     public static function roomRecordings(RoomModel $room): array
     {
+        $rm_id="0".$room->id.",".$room->id;
         $bbb = new BigBlueButton();
         $recordingParams = new GetRecordingsParameters();
-        $recordingParams->setMeetingID($room->id);
+        $recordingParams->setMeetingID($rm_id);
         $recordingParams->setState('any');
 
         $response = $bbb->getRecordings($recordingParams);
@@ -269,6 +274,7 @@ class MeetingService {
 
         foreach ($rooms as $r) {
             array_push($fer, $r->id);
+            array_push($fer, "0".$r->id);
         }
 
         $recordingParams->setMeetingID(implode(',',$fer));

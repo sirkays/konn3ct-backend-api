@@ -49,24 +49,26 @@ class InviteController extends Controller
             $accesscode = "No Access Code";
         }
 
-        $roomlink=url('/join/')."/".$room->url;
+        $input['roomlink']=url('/join/')."/".$room->url;
+        $input['accesscode']=$accesscode;
+        $input['roomname']=$room->name;
 
         InvitesModel::create([
             "user_id" => Auth::id(),
             "type" => "email",
             "hostname" => $input['hostname'],
-            "roomlink" => $roomlink,
-            "accesscode" => $accesscode,
+            "roomlink" => $input['roomlink'],
+            "accesscode" => $input['accesscode'],
             "date" => $input['date'],
             "time" => $input['time'],
             "timezone" => $input['timezone'],
             "title" => $input['title'],
-            "roomname" => $room->name,
+            "roomname" => $input['roomname'],
             "additional" => $input['additional'],
             "guest" => $input['guest']
         ]);
 
-        EmailInviteJob::dispatch($input)->delay(now()->addMinutes(1));
+        EmailInviteJob::dispatch($input);
 
 
         return response()->json(['success' => true, 'message' => 'Invite Sent Successfully!']);

@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class SendEventReminderJob implements ShouldQueue
 {
@@ -80,10 +81,45 @@ class SendEventReminderJob implements ShouldQueue
 
             $input['guest'] = $user->phone;
 
-            WhatsappInviteJob::dispatch($input)->delay(now()->addSeconds(5));
+//            WhatsappInviteJob::dispatch($input)->delay(now()->addSeconds(5));
 
+            $s=$this->generateMeetingICS($dat);
             echo "Sending event reminder to " . $user->email;
-            Mail::to($user->email)->send(new EventReminderMail($dat));
+            Mail::to($user->email)->send(new EventReminderMail($dat,$s));
         }
     }
+
+
+    private function generateMeetingICS($data):string{
+        $ranName=time().rand();
+        $filename=$ranName.".ics";
+        $cdt=Carbon::parse($data['date']." ".$data['time'], $data['timezone'])->setTimezone('UTC');
+        $dt=$cdt->format('Ymd\THis\Z');
+        $de=$cdt->addHours(2)->format('Ymd\THis\Z');
+
+        $eContent='BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:'.$data["event_name"].'
+DTSTART:'.$dt.'
+DTEND:'.$de.'
+DTSTAMP:'.$de.'
+UID:'.$ranName.'-conference
+DESCRIPTION:Pre-check Your Setup: Test your microphone, camera, and connection before joining to ensure a smooth experience.
+LOCATION:'.$data["url"].'
+ORGANIZER;CN='.$data['host'].':mailto:info@konn3ct.com
+STATUS:TENTATIVE
+PRIORITY:1
+END:VEVENT
+END:VCALENDAR
+';
+        Storage::put($filename,$eContent);
+
+        return Storage::path($filename);
+    }
+
+    private function removeMeetingICS($path){
+        Storage::delete($path);
+    }
+
 }

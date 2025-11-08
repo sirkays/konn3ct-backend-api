@@ -94,7 +94,7 @@ DTSTAMP:'.$de.'
 UID:'.$ranName.'-conference
 DESCRIPTION:Pre-check Your Setup: Test your microphone, camera, and connection before joining to ensure a smooth experience.
 LOCATION:'.$data["ilink"].'
-ORGANIZER;CN='.$data['ihost'].':mailto:info@1gov.ng
+ORGANIZER;CN='.$data['ihost'].':mailto:info@konn3ct.com
 STATUS:TENTATIVE
 PRIORITY:1
 END:VEVENT

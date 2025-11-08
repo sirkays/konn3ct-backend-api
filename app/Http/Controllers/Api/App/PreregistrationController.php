@@ -382,16 +382,16 @@ class PreregistrationController extends Controller
 
         $datas['prereg'] = PreRegModel::where("reference", $reference)->first();
         if ($datas['prereg'] == null) {
-            return redirect()->route('dashboard')->with('error', 'Invalid request');
+            return response()->json(['success' => false, 'message' => 'Invalid request']);
         }
 
         if ($datas['prereg']->user_id != Auth::id()) {
-            return redirect()->route('dashboard')->with('error', 'Invalid request');
+            return response()->json(['success' => false, 'message' => 'Invalid request']);
         }
 
         SendEventReminderJob::dispatch($datas['prereg']);
 
-        return redirect()->route('prereParticipants', $reference)->with('success', 'Reminder will be sent out in some minutes time');
+        return response()->json(['success' => true, 'message' => 'Reminder will be sent out in some minutes time']);
     }
 
 }

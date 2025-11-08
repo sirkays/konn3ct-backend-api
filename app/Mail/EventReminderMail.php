@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -17,9 +16,11 @@ class EventReminderMail extends Mailable
      * @return void
      */
     public $data;
-    public function __construct($data)
+    public $ifile;
+    public function __construct($data,$ifile)
     {
         $this->data=$data;
+        $this->ifile=$ifile;
     }
 
     /**
@@ -31,6 +32,8 @@ class EventReminderMail extends Mailable
     {
         return $this->markdown('vendor.notifications.eventreminder')
             ->with(['data'=>$this->data])
-            ->subject('Event Reminder!');
+            ->subject('Event Reminder - '.$this->data['event_name'])->attach($this->ifile, [
+                'as' => 'Event.ics'
+            ]);
     }
 }

@@ -69,6 +69,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('pre-reg-list', [PreregistrationController::class, 'preregList']);
         Route::get('pre-reg-summary', [PreregistrationController::class, 'preregListSummary']);
         Route::get('pre-reg-participants/{reference}', [PreregistrationController::class, 'prereParticipants']);
+        Route::post('sendPreregReminder/{reference}', [PreregistrationController::class, 'sendReminder']);
         Route::post('pre-reg', [PreregistrationController::class, 'prereg']);
 
 

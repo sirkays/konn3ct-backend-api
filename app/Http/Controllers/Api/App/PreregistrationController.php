@@ -289,6 +289,7 @@ class PreregistrationController extends Controller
         $dat['url'] = url("/join/" . $data['room']->url);
         $dat['hphone'] = $host->phone;
         $dat['hemail'] = $host->email;
+        $dat['event_name'] = $data['preg']->title;
 
         $jobi['name'] = $request->name;
         $jobi['email'] = $request->email;

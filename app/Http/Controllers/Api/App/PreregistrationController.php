@@ -210,19 +210,19 @@ class PreregistrationController extends Controller
     public function preregshow($reference)
     {
 
-        $data['preg'] = PreRegModel::where('reference', $reference)->with('owner')->first();
+        $data['preg'] = PreRegModel::where('reference', $reference)->with('owner')->get()->makeHidden('reference','reminder','updated_at','id','user_id','room_id');
 
-        if (!$data['preg']) {
+        if (count($data['preg']) == 0) {
             return response()->json(['success' => false, 'message' => 'Invalid Reference!']);
         }
 
-        if ($data['preg']->status != 1) {
+        if ($data['preg'][0]->status != 1) {
             return response()->json(['success' => false, 'message' => 'The Event has ended']);
         }
 
         $data['faqs'] = Faq::where('status', 1)->get();
 
-        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data->makeHidden('reference','reminder','updated_at','id','user_id','room_id')]);
+        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $data]);
     }
     public function preregshowSearch(Request $request)
     {

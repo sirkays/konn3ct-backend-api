@@ -113,7 +113,7 @@ class RoomsController extends Controller
             foreach ($datas['rooms'] as $i) {
                 $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
                 if ($ms) {
-                    $datas['active']++;
+                    $datas['active_rooms']++;
                 }
             }
         }

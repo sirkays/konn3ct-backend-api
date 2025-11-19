@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\PlanPricing;
 use App\Models\User;
@@ -154,6 +155,11 @@ class PaystackHookController extends Controller
 
         $data['plan']=$user->plan;
 
+        $addons=$input['data']['metadata']['custom_fields'][0]['value'];
+        if($addons == "addons"){
+            return $this->addons($input['data']['metadata']['custom_fields'],$user,$data);
+        }
+
         $plan=PlanPricing::where([['currency', $data['currency']], ['price', $data['amount']], ['payment_gateway','paystack']])->first();
 
         if(!$plan){
@@ -190,5 +196,49 @@ class PaystackHookController extends Controller
 
         return "subscribed";
 
+    }
+
+    private function addons($custom_fields,$user,$data){
+
+        $plan=$custom_fields[1]['value'];
+        $planName=$custom_fields[2]['value'];
+
+        $data['type']= "Addons ".$planName;
+        PaymentModel::create($data);
+
+        $addons = AddonModel::find($plan);
+
+        if ($addons->name == "Whatsapp Invite") {
+            if ($user->whatsapp_invite == "0") {
+                $subd = Carbon::now()->addMonth();
+            } else if (Carbon::now()->diffInDays(Carbon::parse($user->whatsapp_invite), false) < 0) {
+                $subd = Carbon::now()->addMonth();
+            } else {
+                $subd = Carbon::parse($user->whatsapp_invite)->addMonth();
+            }
+            $user->whatsapp_invite = $subd;
+            $user->save();
+        }
+
+        if ($addons->name == "Room Bundles - 10") {
+            $prv = $user->room_bundles;
+            $user->room_bundles = $prv + 10;
+            $user->save();
+        }
+
+
+        if ($addons->name == "Streaming Service") {
+            if ($user->streaming_service == "0") {
+                $subd = Carbon::now()->addMonth();
+            } else if (Carbon::now()->diffInDays(Carbon::parse($user->streaming_service), false) < 0) {
+                $subd = Carbon::now()->addMonth();
+            } else {
+                $subd = Carbon::parse($user->streaming_service)->addMonth();
+            }
+            $user->streaming_service = $subd;
+            $user->save();
+        }
+
+        return "Addons success";
     }
 }

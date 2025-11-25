@@ -54,6 +54,10 @@ class InviteController extends Controller
         $input['roomname']=$room->name;
 
         $input['date']=explode("T",$input['date'])[0];
+        $input['timezone']=explode("GMT",$input['timezone'])[0];
+        $input['timezone']=explode("AST",$input['timezone'])[0];
+        $input['timezone']=explode("CST",$input['timezone'])[0];
+        $input['timezone']=explode("EST",$input['timezone'])[0];
 
         InvitesModel::create([
             "user_id" => Auth::id(),

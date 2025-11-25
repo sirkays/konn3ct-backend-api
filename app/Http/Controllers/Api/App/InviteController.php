@@ -53,6 +53,8 @@ class InviteController extends Controller
         $input['accesscode']=$accesscode;
         $input['roomname']=$room->name;
 
+        $input['date']=explode("T",$input['date'])[0];
+
         InvitesModel::create([
             "user_id" => Auth::id(),
             "type" => "email",

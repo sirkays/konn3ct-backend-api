@@ -61,7 +61,7 @@ class EmailInviteJob implements ShouldQueue
 
                     $data['iroom'] = $this->input['roomname'];
 
-                    $data['itimezone'] = $this->input['timezone'];
+                    $data['itimezone'] = trim($this->input['timezone']);
 
                     $data['iadditional'] = $this->input['additional'] ?? '';
 

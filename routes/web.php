@@ -57,16 +57,31 @@ Route::get('/offline', function () {
 });
 
 Route::get('/', function () {
+    return redirect()->away(env('LANDING_INTERFACE'));
     \LaravelFacebookPixel::createEvent('Home Page Visit', $parameters = []);
     return view('welcome');
 })->name('welcome');
 
-Route::get('/register/{id}', [MyAuthController::class, 'register']);
-
 Route::get('/pricing', function () {
+    return redirect()->away(env('LANDING_INTERFACE').'/Pricing');
     \LaravelFacebookPixel::createEvent('Pricing', $parameters = []);
     return view('pricing');
 })->name('pricing');
+
+Route::get('/features', function () {
+    return redirect()->away(env('LANDING_INTERFACE').'/Features');
+    return view('features');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
+
+
+Route::get('/register/{id}', [MyAuthController::class, 'register']);
+
 
 Route::get('/joinsession', function () {
     return view('join_session');
@@ -100,16 +115,6 @@ Route::get('/preregistrationsuccess', function () {
     $data['faqs'] = Faq::where('status', 1)->get();
     return view('success', $data);
 })->name('preregsuccess');
-
-Route::get('/features', function () {
-    return view('features');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::post('/contact', [ContactController::class, 'index'])->name('contactsent');
 
 Route::middleware(['auth:sanctum', 'verified', 'NewUserPlanCheck', 'checksub'])->group(function () {
 

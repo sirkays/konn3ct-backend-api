@@ -65,7 +65,7 @@ class RoomController extends Controller
         $name = Auth::user()->firstname . " " . Auth::user()->lastname;
         $u = Auth::user();
 
-        $rm = "$i->id";
+        $rm = "0$i->id";
 
         try {
             $ms = \Bigbluebutton::isMeetingRunning($rm);

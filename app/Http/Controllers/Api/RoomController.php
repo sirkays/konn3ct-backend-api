@@ -376,6 +376,18 @@ class RoomController extends Controller
         return response()->json(['success' => true, 'message' => 'Rooms fetched successfully', 'data' => $rooms]);
     }
 
+    public function listRoomswStatus()
+    {
+        $rooms = RoomModel::where("user_id", Auth::id())->latest()->select('id', 'name', 'url', 'logout_url', 'welcome_message', 'max_participants', 'duration', 'banner', 'created_at')->get();
+
+        $rooms->map(function($room){
+            $ms = MeetingService::meetingStatus($room);
+            $room->roomActive = $ms;
+        });
+
+        return response()->json(['success' => true, 'message' => 'Rooms fetched with their status successfully', 'data' => $rooms]);
+    }
+
     public function roomRecordings($id)
     {
         $room = RoomModel::where([['id', $id], ["user_id", Auth::id()]])->first();

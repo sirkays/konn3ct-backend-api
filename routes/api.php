@@ -82,6 +82,7 @@ Route::group(['middleware' => 'resellerAuth', 'prefix' => 'reseller'], function 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('list-rooms', [RoomController::class, 'listRooms']);
+    Route::get('list-rooms-withstatus', [RoomController::class, 'listRoomswStatus']);
     Route::get('room-recordings/{id}', [RoomController::class, 'roomRecordings']);
     Route::get('rooms-recordings', [RoomController::class, 'allRecordings']);
     Route::get('room-details/{id}', [RoomController::class, 'roomInfo']);

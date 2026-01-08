@@ -104,6 +104,99 @@ class StreamingController extends Controller
         }
     }
 
+    function startComboStreaming(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'room_id' => 'required|max:255',
+            'youtube_key' => 'required',
+            'facebook_key' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all())]);
+        }
+
+        $room = RoomModel::find($input['room_id']);
+
+        if (!$room) {
+            return response()->json(['success' => false, 'message' => 'Invalid Room ID!']);
+        }
+
+        $identifier = str_replace(" ", "", $room->url) . rand();
+        $meetingID = "0$room->id";
+
+        $yurl = "rtmp://a.rtmp.youtube.com/live2/".$input['youtube_key'];
+        $furl = "rtmps://live-api-s.facebook.com:443/rtmp/".$input['facebook_key'];
+
+        $payload = '{
+            "identifier": "' . $identifier . '",
+            "meetingID": "' . $meetingID . '",
+            "rmtpURL" : "' . $yurl . '",
+            "rmtpURL2" : "' . $furl . '",
+            "eurl" : "' . env('BBB_SERVER_BASE_URL') . '",
+            "esalt" : "' . env('BBB_SECURITY_SALT') . '"
+        }';
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('KONN3CT_STREAMING_ENDPOINT') . 'start-streaming',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        Log::info("=======Start Streaming=====");
+        Log::info($payload);
+        Log::info($response);
+
+        $rep = json_decode($response, true);
+
+        if ($rep['success'] == 1) {
+            Streaming::create([
+                "user_id" => Auth::id(),
+                "room_id" => $room->id,
+                "identifier" => $identifier,
+                "type" => "Youtube",
+                "stream_key" => $input['youtube_key'],
+                "status" => 1
+            ]);
+
+            Streaming::create([
+                "user_id" => Auth::id(),
+                "room_id" => $room->id,
+                "identifier" => $identifier,
+                "type" => "Facebook",
+                "stream_key" => $input['facebook_key'],
+                "status" => 1
+            ]);
+
+            $user = User::find(Auth::id());
+            if ($user->streaming_service == "0") {
+                $user->streaming_service = Carbon::now()->addDays(8);
+                $user->save();
+            }
+
+            return response()->json(['success' => true, 'message' => 'Streaming started successfully']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Error starting streaming']);
+        }
+    }
+
     function stopStreaming($id)
     {
 

@@ -86,6 +86,7 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('/referee', [ProfileController::class, 'referee']);
 
         Route::post('/start-streaming', [StreamingController::class, 'startStreaming']);
+        Route::post('/start-streaming-combo', [StreamingController::class, 'startComboStreaming']);
         Route::get('/stop-streaming/{id}', [StreamingController::class, 'stopStreaming']);
         Route::get('/streamings', [StreamingController::class, 'list']);
 

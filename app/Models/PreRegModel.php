@@ -13,6 +13,15 @@ class PreRegModel extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['event_url'];
+
+    public function getEventUrlAttribute()
+    {
+        return $this->reference
+            ? 'https://www.konn3ct.com/event/' . $this->reference
+            : null;
+    }
+
     function room()
     {
         return $this->belongsTo(RoomModel::class, 'room_id', 'id')->select('id','name','url');

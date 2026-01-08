@@ -17,6 +17,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -58,6 +59,9 @@ class PreregistrationController extends Controller
             'about' => 'required',
             'reminder' => 'required',
             'public' => 'sometimes|numeric|in:0,1',
+            'free' => 'sometimes|numeric|in:0,1',
+            'currency' => 'sometimes|string|in:NGN,USD',
+            'amount' => 'sometimes|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -102,6 +106,16 @@ class PreregistrationController extends Controller
         date_sub($date,date_interval_create_from_date_string($input['reminder']." days"));
         $reminder= date_format($date,"Y-m-d");
 
+        if(isset($input['free']) && $input['free'] == 0){
+            if(!isset($input['currency']) || !isset($input['amount'])){
+                return response()->json(['success' => false, 'message' => "Amount and currency are required for paid events"]);
+            }
+
+            if($input['amount'] < 1){
+                return response()->json(['success' => false, 'message' => "Valid amount is required for Paid Events"]);
+            }
+        }
+
         PreRegModel::create([
             "user_id" => Auth::id(),
             "room_id" => $input['room_id'],
@@ -116,12 +130,15 @@ class PreregistrationController extends Controller
             "reminder" => $reminder,
             "tags" => $input['tags'] ?? "",
             "public" => $input['public'] ?? 1,
+            "free" => $input['free'] ?? 1,
+            "currency" => $input['currency'] ?? "NGN",
+            "amount" => $input['amount'] ?? "0",
         ]);
 
         $r->prereg = $reglink;
         $r->save();
 
-        return response()->json(['success' => true, 'message' => 'Processed successfully', 'data' => url("/preregistration/") . "/" . $reglink ]);
+        return response()->json(['success' => true, 'message' => 'Processed successfully', 'data' => "https://www.konn3ct.com/event/" . $reglink ]);
     }
 
     public function preregModify(Request $request)
@@ -270,12 +287,69 @@ class PreregistrationController extends Controller
             return response()->json(['success' => false, 'message' => 'You have register for this event already.']);
         }
 
-        PreRegUserModel::create([
+        $prum=PreRegUserModel::create([
             "prereg_id" => $data['preg']->id,
             "name" => $request->name,
             "email" => $request->email,
             "phone" => $request->phone,
         ]);
+
+        if($data['preg']->free == 0){
+
+            $reff=$data['preg']->reference.'-'.$prum->id;
+
+            $payload='{
+            "amount": '.$data['preg']->amount.',
+            "walletId": "master",
+            "currency": "'.$data['preg']->currency.'",
+            "metadata": {
+                "pay_type": "event",
+                "payment_id": "'.$reff.'",
+                "payee_id": "'.$prum->id.'",
+                "payee_name": "'.$input['name'].'",
+                "payee_email":"'.$input['email'].'"
+                    }
+            }';
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('VULTE_BASEURL').'/v1/checkout/initialize',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_POSTFIELDS =>$payload,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: '.env('VULTE_KEY')
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            Log::info("Card Event Payment: Payload $payload; Response $response");
+
+            $rep=json_decode($response, true);
+
+            $prum->payment_reference = $reff;
+            $prum->payment_provider = "vulte";
+            $prum->payment_provider_response = $response;
+            $prum->save();
+
+            if($rep['success']){
+                return response()->json(['success' => true, 'message' => 'Proceed to Payment', 'free'=>$data['preg']->free, 'type'=>'card', 'data'=>$rep['data']['authorization_url'], 'reference'=>$reff]);
+            }else{
+                $prum->delete();
+                return response()->json(['success' => false, 'message' => 'Unable to make payment at this time. Try again']);
+            }
+        }
 
         $data['room'] = RoomModel::find($data['preg']->room_id);
         $host = User::find($data['room']->user_id);
@@ -300,7 +374,7 @@ class PreregistrationController extends Controller
 
         Mail::to($request->email)->queue(new PreregParticipantMail($dat));
 
-        return response()->json(['success' => true, 'message' => 'Registered Successfully']);
+        return response()->json(['success' => true, 'message' => 'Registered Successfully', 'free'=>$data['preg']->free]);
     }
 
     public function prereParticipants($reference)

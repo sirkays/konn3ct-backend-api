@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DonationPayment;
+use App\Models\PreRegUserModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -32,6 +33,19 @@ class VulteHookController extends Controller
                 $dp->save();
 
                 return "Payment Successful";
+            }
+        }
+
+        if(isset($input['data']['metadata']['pay_type'])  && $input['data']['metadata']['pay_type'] == "event"){
+            $dp=PreRegUserModel::where([["id",$input['data']['metadata']['payment_id']], ["paid",0]])->first();
+
+            if($dp){
+                $dp->amount=$input['data']['amount'];
+                $dp->paid=1;
+                $dp->paid_at=Carbon::now();
+                $dp->save();
+
+                return "Event Payment Successful";
             }
         }
 

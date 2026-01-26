@@ -79,7 +79,7 @@ class RoomsController extends Controller
 
         KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
 
-        return response()->json(['success' => false, 'message' => 'Room Created Successfully!']);
+        return response()->json(['success' => true, 'message' => 'Room Created Successfully!']);
     }
 
     public function show(){

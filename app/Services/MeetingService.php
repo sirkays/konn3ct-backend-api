@@ -158,7 +158,7 @@ class MeetingService {
     {
 
         $u = User::where('email', $email)->first();
-        $dp = 'https://konn3ct.com/assets/images/konn3ctIcon.png';
+        $dp = "https://ui-avatars.com/api/?name=".urlencode($userName)."&background=random&color=fff&size=200";
 
         if($u) {
             if ($u->profile_photo_url != "" && $u->profile_photo_url != NULL) {

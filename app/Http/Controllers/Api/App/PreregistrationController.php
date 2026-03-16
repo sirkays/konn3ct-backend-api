@@ -336,11 +336,15 @@ class PreregistrationController extends Controller
 
             Log::info("Card Event Payment: Payload $payload; Response $response");
 
+            if($response == null){
+                return response()->json(['success' => false, 'message' => 'Unable to process payment']);
+            }
+
             $rep=json_decode($response, true);
 
             $prum->payment_reference = $reff;
             $prum->payment_provider = "vulte";
-            $prum->payment_provider_response = $response;
+            $prum->payment_provider_response = json_encode($response);
             $prum->save();
 
             if($rep['success']){
@@ -352,6 +356,11 @@ class PreregistrationController extends Controller
         }
 
         $data['room'] = RoomModel::find($data['preg']->room_id);
+
+        if(!$data['room']){
+            return response()->json(['success' => false, 'message' => 'Unable to complete process']);
+        }
+
         $host = User::find($data['room']->user_id);
 
         $dat['pname'] = explode(" ", $request->name)[0];

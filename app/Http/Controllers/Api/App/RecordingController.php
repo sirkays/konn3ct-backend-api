@@ -14,6 +14,10 @@ class RecordingController extends Controller
 
         $r2=RoomModel::where('user_id', Auth::id())->select('id')->get();
 
+        if(empty($r2)){
+            return response()->json(['success' => true, 'message' => 'You have no recording yet', 'data' => []]);
+        }
+
         try {
             $fer = [];
 

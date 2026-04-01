@@ -7,6 +7,7 @@ use App\Mail\EmailReset;
 use App\Mail\EmailVerificationMail;
 use App\Mail\UserWelcomeMail;
 use App\Models\CodeRequest;
+use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
 use Carbon\Carbon;
@@ -85,6 +86,7 @@ class AuthController extends Controller
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|numeric|min:9',
             'password' => 'required|string|min:8',
+            'referral' => 'nullable|string|min:6|exists:users,referral_code',
         ]);
 
         if ($validator->fails()) {
@@ -107,7 +109,7 @@ class AuthController extends Controller
             }
         }
 
-        User::create([
+        $u=User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
@@ -116,6 +118,36 @@ class AuthController extends Controller
             'referral_code' => trim(substr(date('iym') . rand(), 0, 8)),
             'plan' => 1,
         ]);
+
+        if(isset($input['referral'])){
+            $u->referral=$input['referral'];
+            $u->save();
+        }
+
+
+        $plan = PlanModel::where("id", $u->plan)->first();
+        $duration = $plan->duration;
+        $max_user = $plan->participant;
+
+        $num = trim(date('siyh'));
+        $shuffled = str_shuffle($num);
+        $sfin = substr($shuffled, 0, 4);
+        $sfina = substr(strtolower($input['firstname']), 0, 2);
+        $sfinal = str_shuffle($sfin . $sfina);
+        $input['name'] = $input['firstname'] . " Room";
+        $input['password_attendee'] = "attendee";
+        $input['password_moderator'] = "moderator";
+
+        $input['url'] = str_replace(' ', '',trim(substr($input['firstname'], 0, 3) . $sfinal));
+
+        $input['welcome_message'] = "";
+        $input['logout_url'] = url('/leftsession');
+        $input['max_participants'] = $max_user;
+        $input['duration'] = $duration;
+        $input['user_id'] = $u->id;
+        $input['default_room'] = "yes";
+
+        RoomModel::create($input);
 
         $code = substr(rand(), 0, 4);
 
@@ -128,7 +160,7 @@ class AuthController extends Controller
 
         Mail::to($input['email'])->send(new EmailVerificationMail($code));
 
-        return response()->json(['success' => true, 'message' => 'Your Registration is Successful']);
+        return response()->json(['success' => true, 'message' => 'Your Registration is Successful', 'data'=>$u]);
     }
 
     //Forgot Password

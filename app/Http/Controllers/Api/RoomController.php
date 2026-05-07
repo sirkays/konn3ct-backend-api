@@ -623,7 +623,7 @@ class RoomController extends Controller
             return response()->json(['success' => false, 'message' => 'Rooms does not exist']);
         }
 
-        $rm_id = "$room->id";
+        $rm_id = "0$room->id";
 
 
         $ms = \Bigbluebutton::isMeetingRunning($rm_id);

@@ -10,6 +10,7 @@ use App\Models\MeetingsModel;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use App\Services\Konn3ctMeetingService;
 use App\Services\MeetingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -133,19 +134,21 @@ class RoomsController extends Controller
             return response()->json(['success' => false, 'message' => 'Invalid Room!']);
         }
 
-        $ms = MeetingService::meetingStatus($i);
+        // $ms = MeetingService::meetingStatus($i);
 
-        if (!$ms) {
-            MeetingService::startMeeting(Auth::user(),$i);
-        }
+        // if (!$ms) {
+        //     MeetingService::startMeeting(Auth::user(),$i);
+        // }
 
-        $url=MeetingService::joinMeeting($i,Auth::user()->email,Auth::user()->lastname . " " . Auth::user()->firstname,$i->password_moderator);
+        // $url=MeetingService::joinMeeting($i,Auth::user()->email,Auth::user()->lastname . " " . Auth::user()->firstname,$i->password_moderator);
 
-        if(!$url){
+        $res=(new Konn3ctMeetingService())->createAndJoin(Auth::user()->lastname . " " . Auth::user()->firstname,Auth::user()->email,$i->name,$i->url);
+
+        if(!$res){
             return response()->json(['success' => false, 'message' => 'Unable to join']);
         }
 
-        return response()->json(['success' => true, 'message' => 'Meeting started and joined successfully.', 'url' => $url, 'sessionToken'=> explode("=",$url)[1]]);
+        return response()->json(['success' => true, 'message' => 'Meeting started and joined successfully.', 'url' => env('KONN3CT_JOIN_URL').$res['joinPath'], 'sessionToken'=> $res['sessionToken']]);
     }
 
     public function delete(Request $request, $id){

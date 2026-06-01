@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Konn3ctMeetingService
 {
@@ -24,7 +25,7 @@ class Konn3ctMeetingService
      */
     protected function client()
     {
-        return Http::withToken($this->apiKey)
+        return Http::withHeaders(['x-api-key' => $this->apiKey])
             ->baseUrl($this->baseUrl)
             ->acceptJson();
     }
@@ -35,6 +36,7 @@ class Konn3ctMeetingService
      * @param string|null $name Optional meeting title
      * @param string|null $ownerEmail Email of the meeting owner
      * @param bool $isWaitingRoomEnabled Whether to enable the waiting room
+    //  * @param string $mode Meeting mode (meeting or webinar)
      * @return array
      * @throws RequestException
      */
@@ -43,7 +45,20 @@ class Konn3ctMeetingService
         $response = $this->client()->post('/api/external/v1/meetings', [
             'name' => $name,
             'ownerEmail' => $ownerEmail,
+            'isWaitingRoomEnabled' => false,
+            'mode' => 'meeting',
+            'recordingSetting' => 'on',
+            'guestJoinAllowed' => true,
+            'maxParticipants' => 100,
+            'maxWebinarAudience' => 1000,
+            'maxActiveCameras' => 15,
+        ]);
+
+        Log::info('Konn3ct Meeting Created', [
+            'name' => $name,
+            'ownerEmail' => $ownerEmail,
             'isWaitingRoomEnabled' => $isWaitingRoomEnabled,
+            'response' => $response->throw()->json(),
         ]);
 
         return $response->throw()->json();
@@ -101,6 +116,13 @@ class Konn3ctMeetingService
             'roomName' => $roomName,
             'role' => 'host',
             'meetingSlug' => $roomUrl,
+            'isWaitingRoomEnabled' => false,
+            'mode' => 'meeting',
+            'recordingSetting' => 'paid',
+            'guestJoinAllowed' => true,
+            'maxParticipants' => 100,
+            'maxWebinarAudience' => 1000,
+            'maxActiveCameras' => 15,
         ]);
 
         return $response->throw()->json();

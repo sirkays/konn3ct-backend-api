@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\EmailInviteJob;
+use App\Jobs\ProcessInviteContactsJob;
 use App\Jobs\WhatsappInviteJob;
 use App\Models\InvitesModel;
 use App\Models\RoomModel;
@@ -18,25 +19,24 @@ class InviteController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($request->all(), [
-            'room_id' => 'required|max:255',
-            'hostname' => 'required|max:255',
-            'date' => 'required',
-            'time' => 'required',
-            'timezone' => 'required',
+            'room_id' => 'required|int',
             'title' => 'required',
-            'additional' => 'required',
+            'description' => 'nullable|string|max:200',
+            'date' => 'required|date',
+            'fromtime' => 'required|date_format:H:i',
+            'totime' => 'required|date_format:H:i',
+            'timezone' => 'required|string',
+            'recurrence' => 'required|in:once,daily,weekly,monthly',
+            'guest' => 'required|string',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all(),'hint'=>'Valid types are Youtube,Facebook']);
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
         }
 
         if ($input['guest'] == "") {
-            return response()->json(['success' => false, 'message' => 'Guest emails can not be empty']);
+            return response()->json(['success' => false, 'message' => 'Emails can not be empty']);
         }
-
-        #TODO: save all emails sent to one table for campaigns later
-        $input['guest'] .= "," . Auth::user()->email;
 
         $room=RoomModel::where([["id",$input['room_id']], ["user_id",Auth::id()]])->first();
         if(!$room){
@@ -59,22 +59,32 @@ class InviteController extends Controller
         $input['timezone']=explode("CST",$input['timezone'])[0];
         $input['timezone']=explode("EST",$input['timezone'])[0];
 
-        InvitesModel::create([
-            "user_id" => Auth::id(),
+        // Fix hostname to use correct User columns (firstname/lastname instead of first_name/last_name)
+        $hostUser = Auth::user();
+        
+        $im=InvitesModel::create([
+            "user_id" => $hostUser->id,
             "type" => "email",
-            "hostname" => $input['hostname'],
+            "shedule_type" => "meeting",
+            "hostname" => $hostUser->firstname . " " . $hostUser->lastname,
             "roomlink" => $input['roomlink'],
             "accesscode" => $input['accesscode'],
             "date" => $input['date'],
-            "time" => $input['time'],
+            "time" => $input['fromtime'],
+            "totime" => $input['totime'],
             "timezone" => $input['timezone'],
             "title" => $input['title'],
             "roomname" => $input['roomname'],
-            "additional" => $input['additional'],
+            "additional" => $input['description'],
+            "recurrence" => $input['recurrence'],
             "guest" => $input['guest']
         ]);
 
-        EmailInviteJob::dispatch($input);
+        // Dispatch the email job
+        EmailInviteJob::dispatch($im);
+        
+        // Dispatch the new job to create invite entries for existing Konn3ct users
+        ProcessInviteContactsJob::dispatch($im);
 
 
         return response()->json(['success' => true, 'message' => 'Invite Sent Successfully!']);
@@ -123,13 +133,16 @@ class InviteController extends Controller
             $input['accesscode'] = $iv->accesscode;
             $input['date'] = $iv->date;
             $input['time'] = $iv->time;
+            $input['totime'] = $iv->totime;
             $input['timezone'] = $iv->timezone;
             $input['title'] = $iv->title;
             $input['roomname'] = $iv->roomname;
             $input['additional'] = $iv->additional;
             $input['guest'] = $iv->guest;
+            $input['recurrence'] = $iv->recurrence;
+            $input['shedule_type'] = $iv->shedule_type;
 
-            InvitesModel::create([
+            $newInvite = InvitesModel::create([
                 "user_id" => Auth::id(),
                 "type" => "email",
                 "hostname" => $input['hostname'],
@@ -137,14 +150,17 @@ class InviteController extends Controller
                 "accesscode" => $input['accesscode'],
                 "date" => $input['date'],
                 "time" => $input['time'],
+                "totime" => $input['totime'],
                 "timezone" => $input['timezone'],
                 "title" => $input['title'],
                 "roomname" => $input['roomname'],
                 "additional" => $input['additional'],
-                "guest" => $input['guest']
+                "guest" => $input['guest'],
+                "recurrence" => $input['recurrence'],
+                "shedule_type" => $input['shedule_type']
             ]);
 
-            EmailInviteJob::dispatch($input)->delay(now()->addMinutes(1));
+            EmailInviteJob::dispatch($newInvite)->delay(now()->addMinutes(1));
 
         }
 

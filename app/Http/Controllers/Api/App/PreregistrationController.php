@@ -26,23 +26,91 @@ class PreregistrationController extends Controller
 {
     public function preregList(Request $request)
     {
-        $datas=PreRegModel::where([
+        $datas = PreRegModel::where([
             "user_id" => Auth::id(),
-        ])->with('room','owner')->latest()->simplepaginate(10);
+        ])->latest()->simplepaginate(10);
 
-        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $datas]);
+        // For each event, calculate registrations and revenue
+        $datas->getCollection()->transform(function($event) {
+            // Count total registrations for this event
+            $event->total_registrations = PreRegUserModel::where('prereg_id', $event->id)->count();
+            
+            // Count paid registrations for this event (use 'paid' column)
+            $paidUsers = PreRegUserModel::where('prereg_id', $event->id)
+                ->where('paid', 1)
+                ->get();
+            
+            $event->paid_registrations = $paidUsers->count();
+            
+            // Calculate total revenue for this event
+            if ($event->free == 0) {
+                // Sum the 'amount' column from paid users for accuracy
+                $event->total_revenue = $paidUsers->sum('amount');
+               
+            } else {
+                $event->total_revenue = 0;
+            }
+
+             $event->revenue_currency = $event->currency;
+
+            return $event;
+        });
+
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'Fetched successfully',
+            'data' => $datas
+        ]);
     }
+
+    public function recentRegistration(Request $request)
+    {
+
+        // Get all the user's events
+        $userEvents = PreRegModel::where("user_id", Auth::id())->latest()->pluck('id');
+
+        // Total Registrations: across all events for this user
+        $RecentRegistrations = PreRegUserModel::whereIn('prereg_id', $userEvents)->with('preReg')->latest()->limit(10)->get();
+
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'Fetched successfully', 
+            'data' => $RecentRegistrations
+        ]);
+    }
+
     public function preregListSummary(Request $request)
     {
-        $datas['events']=PreRegModel::where([
-            "user_id" => Auth::id(),
-        ])->count();
+        
+        // Get all the user's events
+        $userEvents = PreRegModel::where("user_id", Auth::id())->pluck('id');
 
-        $datas['participants']=PreRegModel::where([
+        // Active Events: event date greater than today
+        $activeEvents = PreRegModel::where([
             "user_id" => Auth::id(),
-        ])->count();
+        ])->where('date', '>', Carbon::today()->toDateString())->count();
 
-        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $datas]);
+        // Total Registrations: across all events for this user
+        $totalRegistrations = PreRegUserModel::whereIn('prereg_id', $userEvents)->count();
+
+        // Revenue (30d): participants who have paid in last 30 days (use 'paid_at' or 'paid' column)
+        $revenue30d = PreRegUserModel::whereIn('prereg_id', $userEvents)
+            ->where('paid', 1)
+            ->where(function($query) {
+                $query->where('paid_at', '>=', Carbon::now()->subDays(30))
+                      ->orWhere('created_at', '>=', Carbon::now()->subDays(30));
+            })
+            ->count();
+
+        return response()->json(['success' => true, 'message' => 'Fetched successfully', 
+        'data' => [
+            'active_events' => $activeEvents,
+            'total_registrations' => $totalRegistrations,
+            'revenue_30d_participants' => $revenue30d
+        ],
+        ]);
     }
 
     public function prereg(Request $request)
@@ -390,8 +458,12 @@ class PreregistrationController extends Controller
     {
         $datas['prereg'] = PreRegModel::where([["reference", $reference], ['user_id',Auth::id()]])->first();
         if ($datas['prereg'] == null) {
-            return response()->json(['success' => false, 'message' => 'Pre-registration not found']);
+            return response()->json(['success' => false, 'message' => 'Event not found']);
         }
+
+        $datas['revenue'] = PreRegUserModel::where('prereg_id', $datas['prereg']->id)
+            ->where('paid', 1)
+            ->count();
 
         $datas['users'] = PreRegUserModel::where("prereg_id", $datas['prereg']->id)->latest()->get();
         return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $datas]);

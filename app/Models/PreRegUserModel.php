@@ -11,4 +11,9 @@ class PreRegUserModel extends Model
 
     protected $table = "prereg_users";
     protected $guarded = [];
+
+    public function preReg()
+    {
+        return $this->belongsTo(PreRegModel::class, 'prereg_id')->select('id','title','free');
+    }
 }

@@ -28,7 +28,10 @@ class RoomsController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'url' => 'nullable|unique:room',
-            'dial_number' => 'nullable',
+            'mode' => 'required|in:meeting,webinar',
+            'privacy' => 'required|in:0,1',
+            'color' => 'nullable|string',
+            'access_code' => 'nullable|string'
         ]);
 
         if ($validator->fails()) {
@@ -66,19 +69,17 @@ class RoomsController extends Controller
         $input['duration'] = $duration;
         $input['url'] = preg_replace('/\s+/', '', $input['url']);
 
-        if (!isset($input['access_code'])) {
-            $input['password_attendee'] = "attendee";
-            $input['password_moderator'] = "moderator";
-        } else {
+        if (isset($input['access_code'])) {
             $input['password_attendee'] = $input['access_code'];
-            $input['password_moderator'] = "moderator";
+            $input['password_moderator'] = $input['access_code'];
+        }else{
+            $input['password_attendee'] = "";
+            $input['password_moderator'] = "";
         }
 
         $input['user_id'] = Auth::id();
 
         $r = RoomModel::create($input);
-
-        KCEnrollOwnerJob::dispatch($r->id, Auth::id())->delay(now()->addSeconds(1));
 
         return response()->json(['success' => true, 'message' => 'Room Created Successfully!']);
     }
@@ -87,41 +88,29 @@ class RoomsController extends Controller
         $plan = PlanModel::where("id", Auth::user()->plan)->first();
         $r = $plan->rooms + Auth::user()->room_bundles;
 
+        $datas['total_rooms'] = RoomModel::where("user_id", Auth::id())->count();
+        $datas['active_rooms'] = 0;
+        $datas['private_rooms'] = RoomModel::where([["user_id", Auth::id()], ['default_room', 'yes']])->orderBy('id', 'asc')->count();
         $datas['max_rooms'] = $r;
 
         $datas['rooms'] = RoomModel::where("user_id", Auth::id())->orderBy('id', 'asc')->with('prereg_model')->limit($r)->get();
-        $datas['total_rooms'] = RoomModel::where("user_id", Auth::id())->count();
-        if ($datas['total_rooms'] > $r) {
-            $datas['total_rooms'] = $r;
-        }
-        $datas['plan'] = PlanModel::where("id", Auth::user()->plan)->first();
 
-        $datas['active_rooms'] = 0;
-        $datas['private_rooms'] = 1;
+        // if (!App::environment(['local', 'staging'])) {
+        //     foreach ($datas['rooms'] as $i) {
+        //         $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
+        //         if ($ms) {
+        //             $datas['active_rooms']++;
+        //         }
+        //     }
+        // }
 
-        $fpr=RoomModel::where([["user_id", Auth::id()], ['default_room', 'yes']])->orderBy('id', 'asc')->first();
+        // if($datas['active_rooms']>$r){
+        //     $datas['active_rooms']=$r;
+        // }
 
-        if(!$fpr){
-            $datas['personal_room'] = count($datas['rooms']) > 0 ? $datas['rooms'][0] : null;
-        }else{
-            $datas['personal_room'] = $fpr;
-        }
-
+    
         $datas['room_link'] = env('MJOIN_INTERFACE')."/join/replaceRoomURL";
         $datas['video_link'] = 'https://www.youtube.com/watch?v=xj-0hQJvmPo';
-
-        if (!App::environment(['local', 'staging'])) {
-            foreach ($datas['rooms'] as $i) {
-                $ms = \Bigbluebutton::isMeetingRunning("0$i->id");
-                if ($ms) {
-                    $datas['active_rooms']++;
-                }
-            }
-        }
-
-        if($datas['active_rooms']>$r){
-            $datas['active_rooms']=$r;
-        }
 
         return response()->json(['success' => true, 'message' => 'Room fetched successfully', 'data' => $datas]);
     }

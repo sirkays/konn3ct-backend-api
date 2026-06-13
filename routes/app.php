@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\CallController;
 use App\Http\Controllers\Api\App\ChatController;
+use App\Http\Controllers\Api\App\DashboardController;
 use App\Http\Controllers\Api\App\DonationController;
 use App\Http\Controllers\Api\App\InviteController;
 use App\Http\Controllers\Api\App\KycController;
@@ -39,6 +40,12 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('kv4/validate-meeting', [AuthController::class, 'validateMeetingkv4']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::get('stats', [DashboardController::class, 'stats']);
+            Route::get('today-meeting', [DashboardController::class, 'todayMeeting']);
+        });
+
         Route::get('chats', [ChatController::class, 'fetchChats']);
         Route::get('chats/participants/{id}', [ChatController::class, 'fetchParticipants']);
         Route::get('chats/messages/{id}', [ChatController::class, 'fetchMessages']);
@@ -66,9 +73,10 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('meeting-attendance', [RoomsController::class, 'listAttendance']);
         Route::get('attendance-details/{id}/{identifier}', [RoomsController::class, 'attendanceDetails']);
 
-        Route::get('pre-reg-list', [PreregistrationController::class, 'preregList']);
-        Route::get('pre-reg-summary', [PreregistrationController::class, 'preregListSummary']);
-        Route::get('pre-reg-participants/{reference}', [PreregistrationController::class, 'prereParticipants']);
+        Route::get('event-list', [PreregistrationController::class, 'preregList']);
+        Route::get('event-recent-registrations', [PreregistrationController::class, 'recentRegistration']);
+        Route::get('event-summary', [PreregistrationController::class, 'preregListSummary']);
+        Route::get('event-participants/{reference}', [PreregistrationController::class, 'prereParticipants']);
         Route::post('sendPreregReminder/{reference}', [PreregistrationController::class, 'sendReminder']);
         Route::post('pre-reg', [PreregistrationController::class, 'prereg']);
 

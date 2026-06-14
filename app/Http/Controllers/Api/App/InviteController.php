@@ -61,6 +61,32 @@ class InviteController extends Controller
 
         // Fix hostname to use correct User columns (firstname/lastname instead of first_name/last_name)
         $hostUser = Auth::user();
+
+        // Check for duplicate or overlapping invites for the same room and date
+        $existingInvites = InvitesModel::where([
+            ['user_id', $hostUser->id],
+            ['date', $input['date']],
+        ])->get();
+
+        foreach ($existingInvites as $existing) {
+            $existingStart = strtotime($existing->time);
+            $existingEnd = strtotime($existing->totime);
+            $newStart = strtotime($input['fromtime']);
+            $newEnd = strtotime($input['totime']);
+
+            // Check for overlapping time intervals
+            if (
+                ($newStart >= $existingStart && $newStart < $existingEnd) ||
+                ($newEnd > $existingStart && $newEnd <= $existingEnd) ||
+                ($newStart <= $existingStart && $newEnd >= $existingEnd)
+            ) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You already have a meeting scheduled for this room that overlaps with the requested time (' . 
+                                date('g:i A', $existingStart) . ' - ' . date('g:i A', $existingEnd) . ').'
+                ]);
+            }
+        }
         
         $im=InvitesModel::create([
             "user_id" => $hostUser->id,
@@ -157,7 +183,8 @@ class InviteController extends Controller
                 "additional" => $input['additional'],
                 "guest" => $input['guest'],
                 "recurrence" => $input['recurrence'],
-                "shedule_type" => $input['shedule_type']
+                "shedule_type" => $input['shedule_type'],
+                "room_id" => $iv->room_id
             ]);
 
             EmailInviteJob::dispatch($newInvite)->delay(now()->addMinutes(1));

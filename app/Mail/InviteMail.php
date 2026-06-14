@@ -61,7 +61,7 @@ class InviteMail extends Mailable
 
     public function build()
     {
-        return $this->view('vendor.notifications.invite')
+        return $this->markdown('vendor.notifications.invite')
             ->with($this->formattedData)
             ->subject('Konn3ct Invite: ' . $this->invite->title)
             ->attach($this->icsFile, [

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CancelInviteContactsJob;
 use App\Jobs\EmailInviteJob;
 use App\Jobs\ProcessInviteContactsJob;
+use App\Jobs\UpdateInviteContactsJob;
 use App\Jobs\WhatsappInviteJob;
 use App\Models\InvitesModel;
 use App\Models\RoomModel;
@@ -107,14 +109,12 @@ class InviteController extends Controller
         ]);
 
         // Dispatch the email job
-        EmailInviteJob::dispatch($im);
+        EmailInviteJob::dispatch($im, 'create');
         
         // Dispatch the new job to create invite entries for existing Konn3ct users
         ProcessInviteContactsJob::dispatch($im);
 
-
         return response()->json(['success' => true, 'message' => 'Invite Sent Successfully!']);
-
     }
 
     public function invites()
@@ -187,11 +187,147 @@ class InviteController extends Controller
                 "room_id" => $iv->room_id
             ]);
 
-            EmailInviteJob::dispatch($newInvite)->delay(now()->addMinutes(1));
+            EmailInviteJob::dispatch($newInvite, 'create')->delay(now()->addMinutes(1));
 
         }
 
         return response()->json(['success' => true, 'message' => 'Invite Sent Successfully!']);
+    }
+
+    public function recentGuests()
+    {
+        $invites = InvitesModel::where('user_id', Auth::id())->latest()->limit(50)->get();
+        
+        $allGuests = [];
+        
+        foreach ($invites as $invite) {
+            $guestEmails = explode(',', $invite->guest);
+            foreach ($guestEmails as $email) {
+                $email = trim($email);
+                if (!empty($email) && !in_array($email, $allGuests)) {
+                    $allGuests[] = $email;
+                }
+            }
+        }
+
+        return response()->json(['success' => true, 'message' => 'Fetched successfully', 'data' => $allGuests]);
+    }
+
+    public function editInvite(Request $request, $id)
+    {
+        $input = $request->all();
+
+        // Find the invite
+        $invite = InvitesModel::find($id);
+
+        if (!$invite || $invite->user_id !== Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'Invalid invite ID']);
+        }
+
+        // Validate input
+        $validator = Validator::make($input, [
+            'title' => 'required',
+            'description' => 'nullable|string|max:200',
+            'date' => 'required|date',
+            'fromtime' => 'required|date_format:H:i',
+            'totime' => 'required|date_format:H:i',
+            'timezone' => 'required|string',
+            'recurrence' => 'required|in:once,daily,weekly,monthly',
+            'guest' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => implode(",", $validator->errors()->all()), 'error' => $validator->errors()->all()]);
+        }
+
+        // Check if date or time is changing
+        $dateChanged = $invite->date !== explode('T', $input['date'])[0];
+        $timeChanged = $invite->time !== $input['fromtime'];
+        $totimeChanged = $invite->totime !== $input['totime'];
+        $shouldNotifyGuests = $dateChanged || $timeChanged || $totimeChanged;
+
+        // If date or time is changing, check for overlapping invites
+        if ($shouldNotifyGuests) {
+            $newDate = explode('T', $input['date'])[0];
+            
+            $existingInvites = InvitesModel::where([
+                ['user_id', Auth::id()],
+                ['date', $newDate],
+                ['id', '!=', $id]
+            ])->get();
+
+            foreach ($existingInvites as $existing) {
+                $existingStart = strtotime($existing->time);
+                $existingEnd = strtotime($existing->totime);
+                $newStart = strtotime($input['fromtime']);
+                $newEnd = strtotime($input['totime']);
+
+                // Check for overlapping time intervals
+                if (
+                    ($newStart >= $existingStart && $newStart < $existingEnd) ||
+                    ($newEnd > $existingStart && $newEnd <= $existingEnd) ||
+                    ($newStart <= $existingStart && $newEnd >= $existingEnd)
+                ) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'You already have a meeting scheduled that overlaps with the requested time (' . 
+                                    date('g:i A', $existingStart) . ' - ' . date('g:i A', $existingEnd) . ').'
+                    ]);
+                }
+            }
+        }
+
+        // Process timezone
+        $timezone = explode("GMT", $input['timezone'])[0];
+        $timezone = explode("AST", $timezone)[0];
+        $timezone = explode("CST", $timezone)[0];
+        $timezone = explode("EST", $timezone)[0];
+
+        // Update the invite
+        $invite->update([
+            'title' => $input['title'],
+            'additional' => $input['description'],
+            'date' => explode('T', $input['date'])[0],
+            'time' => $input['fromtime'],
+            'totime' => $input['totime'],
+            'timezone' => $timezone,
+            'recurrence' => $input['recurrence'],
+            'guest' => $input['guest']
+        ]);
+
+        $invite->refresh();
+
+        // If date/time changed, notify guests
+        if ($shouldNotifyGuests) {
+            // Send updated email to guests
+            EmailInviteJob::dispatch($invite, 'update');
+            
+            // Update received invites for existing Konn3ct users
+            UpdateInviteContactsJob::dispatch($invite, Auth::id());
+        }
+
+        return response()->json(['success' => true, 'message' => 'Invite updated successfully']);
+    }
+
+    public function cancelInvite($id)
+    {
+        // Find the invite
+        $invite = InvitesModel::find($id);
+
+        if (!$invite || $invite->user_id !== Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'Invalid invite ID']);
+        }
+
+        // Send cancellation email to guests
+        EmailInviteJob::dispatch($invite, 'cancel');
+        
+        // Delete received invites for existing Konn3ct users
+        CancelInviteContactsJob::dispatch($invite, Auth::id());
+
+        // Delete the original invite
+        $invite->delete();
+
+        return response()->json(['success' => true, 'message' => 'Invite cancelled successfully']);
     }
 
 }

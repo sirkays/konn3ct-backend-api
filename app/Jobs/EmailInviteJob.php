@@ -6,7 +6,6 @@ use App\Mail\InviteMail;
 use App\Models\InvitesModel;
 use App\Models\User;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,99 +19,87 @@ class EmailInviteJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public InvitesModel $input;
+    public InvitesModel $inviteData;
+    public string $type;
 
-    public function __construct(InvitesModel $input)
+    public function __construct(InvitesModel $inviteData, string $type = 'create')
     {
-        $this->input = $input;
+        $this->inviteData = $inviteData;
+        $this->type = $type;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
-        // use of explode
-        $guestEmails = explode(",", trim($this->input->guest));
-        $icsFile = $this->generateMeetingICS($this->input);
-        $host = User::find($this->input->user_id);
+        Log::info("Running EmailInviteJob for " . $this->inviteData->guest);
 
+        // Create ICS file
+        $icsFile = $this->generateMeetingICS($this->inviteData, $this->type);
+
+        // Get guest emails
+        $guestEmails = explode(",", $this->inviteData->guest);
+
+        //Get user email
+        $user=User::find($this->inviteData->user_id);
+        
         try {
-            Mail::to($host->email)->cc($guestEmails)->send(new InviteMail($this->input, $icsFile));
-        } catch (Exception $e) {
+            Mail::to($user->email)->cc($guestEmails)->send(new InviteMail($this->inviteData, $icsFile, $this->type));
+            Log::info("Email sent successfully to " . $this->inviteData->guest);
+        } catch (\Exception $e) {
             Log::error("Error when sending Konn3ct invite email: " . $e->getMessage());
-        } finally {
-            $this->removeMeetingICS($icsFile);
+        }
+
+        // Clean up the ICS file
+        if (file_exists($icsFile)) {
+            unlink($icsFile);
         }
     }
 
-
-    private function generateMeetingICS(InvitesModel $input):string{
-        $ranName = "konn3ct_event_" . $input->id . "_" . time() . "_" . rand();
+    private function generateMeetingICS(InvitesModel $input, string $type = 'create'): string
+    {
+        $ranName = time() . rand() . '-' . $input->id;
         $filename = $ranName . ".ics";
         
-        // Parse dates and times with correct property names (date, time, totime, timezone)
+        // Parse start and end times with timezone
         $dt = Carbon::parse($input->date . " " . $input->time, $input->timezone)->setTimezone('UTC')->format('Ymd\THis\Z');
         
-        // If totime exists, use it; otherwise add 30 minutes as default duration
-        if (isset($input->totime) && !empty($input->totime)) {
-            $de = Carbon::parse($input->date . " " . $input->totime, $input->timezone)->setTimezone('UTC')->format('Ymd\THis\Z');
-        } else {
-            $de = Carbon::parse($input->date . " " . $input->time, $input->timezone)->addMinutes(30)->setTimezone('UTC')->format('Ymd\THis\Z');
-        }
-        
-        // Build recurrence rule if recurrence is not 'once'
-        $rrule = '';
-        if (isset($input->recurrence) && $input->recurrence != 'once') {
-            switch ($input->recurrence) {
-                case 'daily':
-                    $rrule = 'RRULE:FREQ=DAILY';
-                    break;
-                case 'weekly':
-                    $rrule = 'RRULE:FREQ=WEEKLY;BYDAY=' . strtoupper(substr(Carbon::parse($input->date, $input->timezone)->format('D'), 0, 2));
-                    break;
-                case 'monthly':
-                    $rrule = 'RRULE:FREQ=MONTHLY;BYMONTHDAY=' . Carbon::parse($input->date, $input->timezone)->day;
-                    break;
-            }
-        }
-        
+        // Handle totime (fallback to 30 minutes if not set)
+        $endTime = !empty($input->totime) ? $input->totime : Carbon::parse($input->time, $input->timezone)->addMinutes(30)->format('H:i');
+        $de = Carbon::parse($input->date . " " . $endTime, $input->timezone)->setTimezone('UTC')->format('Ymd\THis\Z');
+
+        $status = $type === 'cancel' ? 'CANCELLED' : ($type === 'update' ? 'CONFIRMED' : 'CONFIRMED');
+        $method = $type === 'cancel' ? 'CANCEL' : 'REQUEST';
+
         $eContent = 'BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//konn3ct//Conference//EN
+PRODID:-//Konn3ct//EN
 CALSCALE:GREGORIAN
-METHOD:PUBLISH
+METHOD:' . $method . '
 BEGIN:VEVENT
 DTSTART:' . $dt . '
 DTEND:' . $de . '
-DTSTAMP:' . $dt . '
-UID:' . $ranName . '-konn3ct@konn3ct.com
-CREATED:' . $dt . '
-DESCRIPTION:Pre-check Your Setup: Test your microphone, camera, and connection before joining to ensure a smooth experience.\n\nJoin link: ' . $input->roomlink . '
+DTSTAMP:' . $de . '
+UID:' . $ranName . '-conference
+DESCRIPTION:Pre-check Your Setup: Test your microphone, camera, and connection before joining to ensure a smooth experience.
 SUMMARY:' . $input->title . '
-ORGANIZER;CN=' . $input->hostname . ':mailto:info@konn3ct.com
 LOCATION:' . $input->roomlink . '
-URL:' . $input->roomlink . '
-STATUS:CONFIRMED
-TRANSP:OPAQUE' . ($rrule ? "\n" . $rrule : '') . '
+ORGANIZER;CN=' . $input->hostname . ':mailto:info@konn3ct.com
+STATUS:' . $status . '
+PRIORITY:1';
+
+        // Add recurrence rule if needed and not cancelled
+        if ($type !== 'cancel' && !empty($input->recurrence) && $input->recurrence !== 'once') {
+            $freq = strtoupper($input->recurrence);
+            $eContent .= '
+RRULE:FREQ=' . $freq . ';INTERVAL=1';
+        }
+
+        $eContent .= '
 END:VEVENT
 END:VCALENDAR
 ';
-        
+
         Storage::put($filename, $eContent);
 
         return Storage::path($filename);
     }
-
-    private function removeMeetingICS($path){
-        Storage::delete($path);
-    }
-
 }

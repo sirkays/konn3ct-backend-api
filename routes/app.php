@@ -101,8 +101,11 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('/recording', [RecordingController::class, 'show']);
         Route::delete('/deleterecording/{id}', [RecordingController::class, 'delete']);
 
-        Route::post('/invite', [InviteController::class, 'invite'])->name('invite');
-        Route::get('/invites', [InviteController::class, 'invites'])->name('invites');
+        Route::post('/schedule', [InviteController::class, 'invite'])->name('invite');
+        Route::get('/schedule', [InviteController::class, 'invites'])->name('invites');
+        Route::get('/schedule-recent-emails', [InviteController::class, 'recentGuests'])->name('recentEmails');
+        Route::put('/schedule-edit/{id}', [InviteController::class, 'editInvite'])->name('editInvite');
+        Route::delete('/schedule-cancel/{id}', [InviteController::class, 'cancelInvite'])->name('cancelInvite');
         Route::put('/resendinvites/{id}', [InviteController::class, 'resendinvite'])->name('resendinvites');
 
         Route::get('/kyc/fetch', [KycController::class, 'fetchKyc']);

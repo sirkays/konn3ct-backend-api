@@ -24,55 +24,6 @@ class InviteMail extends Mailable
         $this->type = $type;
     }
 
-    private function generateMeetingICS(InvitesModel $input, string $type = 'create'): string
-    {
-        $ranName = time() . rand();
-        $filename = $ranName . ".ics";
-
-        // Parse start and end times with timezone
-        $dt = Carbon::parse($input->date . " " . $input->time, $input->timezone)->setTimezone('UTC')->format('Ymd\THis\Z');
-
-        // Handle totime (fallback to 30 minutes if not set)
-        $endTime = !empty($input->totime) ? $input->totime : Carbon::parse($input->time, $input->timezone)->addMinutes(30)->format('H:i');
-        $de = Carbon::parse($input->date . " " . $endTime, $input->timezone)->setTimezone('UTC')->format('Ymd\THis\Z');
-
-        $status = $type === 'cancel' ? 'CANCELLED' : ($type === 'update' ? 'CONFIRMED' : 'CONFIRMED');
-        $method = $type === 'cancel' ? 'CANCEL' : 'REQUEST';
-
-        $eContent = 'BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Konn3ct//EN
-CALSCALE:GREGORIAN
-METHOD:' . $method . '
-BEGIN:VEVENT
-DTSTART:' . $dt . '
-DTEND:' . $de . '
-DTSTAMP:' . $de . '
-UID:' . $ranName . '-conference
-DESCRIPTION:Pre-check Your Setup: Test your microphone, camera, and connection before joining to ensure a smooth experience.
-SUMMARY:' . $input->title . '
-LOCATION:' . $input->roomlink . '
-ORGANIZER;CN=' . $input->hostname . ':mailto:info@konn3ct.com
-STATUS:' . $status . '
-PRIORITY:1';
-
-        // Add recurrence rule if needed and not cancelled
-        if ($type !== 'cancel' && !empty($input->recurrence) && $input->recurrence !== 'once') {
-            $freq = strtoupper($input->recurrence);
-            $eContent .= '
-RRULE:FREQ=' . $freq . ';INTERVAL=1';
-        }
-
-        $eContent .= '
-END:VEVENT
-END:VCALENDAR
-';
-
-        Storage::put($filename, $eContent);
-
-        return Storage::path($filename);
-    }
-
     private function getFormattedData(): array
     {
         $host = $this->invite->hostname;

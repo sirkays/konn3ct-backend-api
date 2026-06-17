@@ -22,7 +22,7 @@ class RoomModel extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'url', 'password_attendee', 'password_moderator', 'welcome_message', 'dial_number', 'logout_url', 'max_participants', 'duration', 'muj', 'dpuc', 'dprc', 'ewma', 'dum', 'dsn', 'default_room', 'prereg'
+        'user_id', 'name', 'url', 'password_attendee', 'password_moderator', 'welcome_message', 'dial_number', 'logout_url', 'max_participants', 'duration', 'muj', 'dpuc', 'dprc', 'ewma', 'dum', 'dsn', 'default_room', 'prereg', 'privacy', 'color', 'mode'
     ];
 
     function owner()

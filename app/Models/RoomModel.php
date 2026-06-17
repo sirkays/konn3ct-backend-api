@@ -41,6 +41,6 @@ class RoomModel extends Model
      * @var array
      */
     protected $hidden = [
-        'password_attendee', 'password_moderator',
+        'password_moderator',
     ];
 }

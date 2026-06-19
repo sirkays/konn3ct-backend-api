@@ -117,6 +117,24 @@ Route::group(['prefix' => 'app'], function () {
         Route::get('/donation/stats', [DonationController::class, 'stats']);
         Route::get('/donation/in', [DonationController::class, 'donationsIn']);
 
+        Route::group(['prefix' => 'teams'], function () {
+            Route::post('invite', [\App\Http\Controllers\Api\App\TeamsController::class, 'invite']);
+            Route::get('list', [\App\Http\Controllers\Api\App\TeamsController::class, 'list']);
+            Route::put('update-role/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'updateRole']);
+            Route::delete('remove/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'remove']);
+            Route::put('suspend/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'suspend']);
+            Route::put('unsuspend/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'unsuspend']);
+            Route::put('reset-password/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'resetPassword']);
+            Route::get('profile/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'viewProfile']);
+            Route::get('rooms/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'viewRooms']);
+            Route::get('recordings/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'viewRecordings']);
+            Route::get('sessions/{id}', [\App\Http\Controllers\Api\App\TeamsController::class, 'viewSessions']);
+        });
+
+        Route::get('teams/activate/{token}', [\App\Http\Controllers\Api\App\TeamsController::class, 'activate']);
+        Route::get('teams/check-token/{token}', [\App\Http\Controllers\Api\App\TeamsController::class, 'checkToken']);
+
+
     });
 });
 

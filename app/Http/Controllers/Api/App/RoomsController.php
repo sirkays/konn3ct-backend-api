@@ -342,7 +342,7 @@ class RoomsController extends Controller
         }
 
         if ($input['type'] == "remove") {
-            $r->password_attendee = "attendee";
+            $r->password_attendee = "";
             $r->save();
         } else if ($input['type'] == "auto") {
             $code = rand(11111, 9999999999);

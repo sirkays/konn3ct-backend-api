@@ -158,7 +158,7 @@ class AuthController extends Controller
             'type' => "register"
         ]);
 
-        Mail::to($input['email'])->send(new EmailVerificationMail($code));
+        Mail::to($input['email'])->queue(new EmailVerificationMail($code));
 
         return response()->json(['success' => true, 'message' => 'Your Registration is Successful', 'data'=>$u]);
     }

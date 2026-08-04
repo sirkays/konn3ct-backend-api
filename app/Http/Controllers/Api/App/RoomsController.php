@@ -223,6 +223,9 @@ class RoomsController extends Controller
             'name' => 'required|string|min:3|max:200',
             'email' => 'required|email|min:3',
             'access_code' => 'nullable|string',
+            'cam' => 'required|boolean',
+            'mic' => 'required|boolean',
+            'mobile' => 'required|boolean',
         );
 
         $validator = Validator::make($input, $rules);
@@ -244,7 +247,7 @@ class RoomsController extends Controller
             return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
         }
 
-        if ($i->password_attendee != "attendee") {
+        if ($i->password_attendee != "") {
             if (isset($input['access_code'])) {
                 if ($input['access_code'] == $i->password_attendee) {
                     if ($role == $roles[0]) {
@@ -272,23 +275,26 @@ class RoomsController extends Controller
         $mdata['password_attendee'] = $password;
 
 
-        $ms = MeetingService::meetingStatus($i);
+        // $ms = MeetingService::meetingStatus($i);
 
-        if (!$ms) {
-            $mdata['status'] = "meeting not started";
-            MeetingsModel::create($mdata);
-            return response()->json(['success' => false, 'message' => 'Room not started. Kindly try again later']);
+        // if (!$ms) {
+        //     $mdata['status'] = "meeting not started";
+        //     MeetingsModel::create($mdata);
+        //     return response()->json(['success' => false, 'message' => 'Room not started. Kindly try again later']);
+        // }
+
+        try{
+            $res=(new Konn3ctMeetingService())->joinMeeting($i->url,$name,$email,$input['mobile'],$input['cam'],$input['mic']);
+        }catch(\Exception $e){
+            Log::error("Unable to join meeting via app " . $e->getMessage());
+            return response()->json(['success' => false, 'message' => "Meeting Service currently not available"]);
         }
 
-        $url=MeetingService::joinMeeting($i,$email,$name,$password);
-
-        if(!$url){
+        if(!$res){
             $mdata['status'] = "Unable to join";
             MeetingsModel::create($mdata);
             return response()->json(['success' => false, 'message' => 'Unable to join']);
         }
-
-        $wait=str_contains($url,'guestWait');
 
         $fm=MeetingsModel::where('meeting_id','=',$i->id)->latest()->first();
 

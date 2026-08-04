@@ -70,10 +70,10 @@ class Konn3ctMeetingService
      * @param string $roomId The room slug
      * @param string $name The display name of the joining user
      * @param string $email The email of the joining user
-     * @param string $role The role (e.g. 'host' or 'attendee')
      * @param bool $isMobile Is the user on mobile?
      * @param bool $camera Start with camera enabled?
      * @param bool $mic Start with mic enabled?
+     * @param string $role The role (e.g. 'host' or 'attendee')
      * @return array
      * @throws RequestException
      */
@@ -81,10 +81,10 @@ class Konn3ctMeetingService
         string $roomId,
         string $name,
         string $email,
-        string $role = 'attendee',
         bool $isMobile = false,
         bool $camera = true,
-        bool $mic = true
+        bool $mic = true,
+        string $role = 'attendee',
     ): array {
         $response = $this->client()->post('/api/external/v1/meetings/join', [
             'roomId' => $roomId,
@@ -123,6 +123,7 @@ class Konn3ctMeetingService
             'maxParticipants' => 100,
             'maxWebinarAudience' => 1000,
             'maxActiveCameras' => 15,
+            "logoutUrl" => env('ONEGOV_URL'),
         ]);
 
         return $response->throw()->json();

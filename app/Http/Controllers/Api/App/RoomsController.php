@@ -302,7 +302,7 @@ class RoomsController extends Controller
         $mdata['status']="joined";
         MeetingsModel::create($mdata);
 
-        return response()->json(['success' => true, 'message' => 'Room joined successfully', 'data' =>explode("=",$url)[1], 'wait'=>$wait]);
+        return response()->json(['success' => true, 'message' => 'Room joined successfully',  'url' => env('KONN3CT_JOIN_URL').$res['joinPath'], 'sessionToken'=> $res['sessionToken'], 'wait'=>false, 'signalUrl' => str_replace("https://","wss://",env('KONN3CT_BASE_URL'))]);
     }
 
     public function inviteAll(Request $request)

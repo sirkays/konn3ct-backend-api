@@ -296,11 +296,17 @@ class RoomsController extends Controller
             return response()->json(['success' => false, 'message' => 'Unable to join']);
         }
 
-        $fm=MeetingsModel::where('meeting_id','=',$i->id)->latest()->first();
+        // $fm=MeetingsModel::where('meeting_id','=',$i->id)->latest()->first();
 
-        $mdata['identifier']=$fm->identifier;
-        $mdata['status']="joined";
-        MeetingsModel::create($mdata);
+        // if($fm == null ){
+        //     $fi = rand().rand();
+        // }else{
+        //     $fi = $fm->identifier;
+        // }
+        
+        // $mdata['identifier']=$fi;
+        // $mdata['status']="joined";
+        // MeetingsModel::create($mdata);
 
         return response()->json(['success' => true, 'message' => 'Room joined successfully',  'url' => env('KONN3CT_JOIN_URL').$res['joinPath'], 'sessionToken'=> $res['sessionToken'], 'wait'=>false, 'signalUrl' => str_replace("https://","wss://",env('KONN3CT_BASE_URL'))]);
     }

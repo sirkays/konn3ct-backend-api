@@ -279,7 +279,7 @@ class RoomController extends Controller
             return redirect()->route('joinmeeting')->with('error', 'Room url does not exist. Try again!!!');
         }
 
-        return redirect()->away(env('MJOIN_INTERFACE')."/join/".$url);
+        return redirect()->away(env('KONN3CT_JOIN_URL')."/join/".$url);
 
 //        return view('url_join_session', $data);
     }
@@ -299,7 +299,7 @@ class RoomController extends Controller
                 ->with('error', 'Room url or name does not exist, kindly check your input and try again!');
         }
 
-        return redirect()->away(env('MJOIN_INTERFACE')."/join/".$url);
+        return redirect()->away(env('KONN3CT_JOIN_URL')."/join/".$url);
 
         $u = User::find($i->user_id);
 

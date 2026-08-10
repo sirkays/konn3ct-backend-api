@@ -123,7 +123,7 @@ class Konn3ctMeetingService
             'maxParticipants' => 100,
             'maxWebinarAudience' => 1000,
             'maxActiveCameras' => 15,
-            "logoutUrl" => env('ONEGOV_URL'),
+            "logoutUrl" => url('/'),
         ]);
 
         return $response->throw()->json();

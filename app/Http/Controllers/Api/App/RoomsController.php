@@ -109,7 +109,7 @@ class RoomsController extends Controller
         // }
 
     
-        $datas['room_link'] = env('MJOIN_INTERFACE')."/join/replaceRoomURL";
+        $datas['room_link'] = env('KONN3CT_JOIN_URL')."/join/replaceRoomURL";
         $datas['video_link'] = 'https://www.youtube.com/watch?v=xj-0hQJvmPo';
 
         return response()->json(['success' => true, 'message' => 'Room fetched successfully', 'data' => $datas]);

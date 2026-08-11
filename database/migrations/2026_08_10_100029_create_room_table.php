@@ -33,7 +33,7 @@ class CreateRoomTable extends Migration
             $table->string('dum', 5)->nullable();
             $table->string('dsn', 5)->nullable();
             $table->string('dwr', 5)->nullable();
-            $table->enum('mode', ['meeting','webinar','',''])->default('meeting');
+            $table->enum('mode', ['meeting','webinar',''])->default('meeting');
             $table->integer('privacy')->default(1);
             $table->string('color', 20)->default('#00d492');
             $table->text('banner')->nullable();

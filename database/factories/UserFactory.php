@@ -23,11 +23,44 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'firstname' => $this->faker->firstName,
+            'lastname' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'plan' => 1,
+            'type' => 'user',
+            'status' => null,
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Indicate that the user is an administrator.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type' => 'admin',
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user has two factor authentication enabled.
+     *
+     * @param string $secret
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withTwoFactor(string $secret = 'K44XG4ZVLNEVG3LM')
+    {
+        return $this->state(function (array $attributes) use ($secret) {
+            return [
+                'two_factor_secret' => encrypt($secret),
+            ];
+        });
     }
 }

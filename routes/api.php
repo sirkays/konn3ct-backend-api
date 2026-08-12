@@ -104,3 +104,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 require __DIR__ . '/api_integration.php';
 require __DIR__ . '/app.php';
 require __DIR__ . '/hook.php';
+
+Route::prefix('v1/admin/auth')->group(function () {
+    Route::post('login', [\App\Http\Controllers\Api\V1\Admin\AuthController::class, 'login'])
+        ->name('api.v1.admin.auth.login');
+});

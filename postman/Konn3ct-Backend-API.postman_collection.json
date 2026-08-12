@@ -1,0 +1,591 @@
+{
+	"info": {
+		"_postman_id": "87ca140a-5d78-4c56-9233-2f95770b8ea5",
+		"name": "Konn3ct Backend API",
+		"description": "Master Postman Collection for Konn3ct Backend API (Task 1: Admin Auth Login)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "admin_email",
+			"value": "admin@example.com",
+			"type": "string"
+		},
+		{
+			"key": "admin_password",
+			"value": "password",
+			"type": "string"
+		},
+		{
+			"key": "admin_mfa_email",
+			"value": "admin_mfa@example.com",
+			"type": "string"
+		},
+		{
+			"key": "admin_mfa_password",
+			"value": "password",
+			"type": "string"
+		},
+		{
+			"key": "admin_mfa_code",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "admin_access_token",
+			"value": "<redacted>",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Admin API",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Valid Administrator Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "200 Success Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"<redacted>\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, private"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "konn3ct_admin_refresh_token=<redacted>; expires=Wed, 19-Aug-2026 01:44:58 GMT; Max-Age=604800; path=/api/v1/admin/auth; httponly; samesite=lax"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": true,\n  \"message\": \"Login successful.\",\n  \"data\": {\n    \"access_token\": \"<redacted>\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 900,\n    \"admin\": {\n      \"id\": 1,\n      \"firstname\": \"System\",\n      \"lastname\": \"Administrator\",\n      \"email\": \"admin@example.com\",\n      \"role\": \"admin\",\n      \"permissions\": [\n        \"admin.*\"\n      ],\n      \"profile_photo_url\": null\n    }\n  }\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test('Response has correct structure', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.eql(true);",
+											"    pm.expect(jsonData.data.token_type).to.eql('Bearer');",
+											"    pm.expect(jsonData.data.expires_in).to.eql(900);",
+											"    pm.expect(jsonData.data.admin.role).to.eql('admin');",
+											"    pm.expect(jsonData.data.admin.permissions).to.be.an('array');",
+											"    if (jsonData.data.access_token) {",
+											"        pm.collectionVariables.set('admin_access_token', jsonData.data.access_token);",
+											"    }",
+											"});",
+											"pm.test('Refresh cookie is set', function () {",
+											"    pm.expect(pm.cookies.has('konn3ct_admin_refresh_token')).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Validation Failure",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"not-an-email\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "422 Validation Error Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"not-an-email\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\n      \"The email must be a valid email address.\"\n    ],\n    \"password\": [\n      \"The password field is required.\"\n    ]\n  }\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 422', function () {",
+											"    pm.response.to.have.status(422);",
+											"});",
+											"pm.test('Validation errors returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.eql(false);",
+											"    pm.expect(jsonData.errors).to.have.property('email');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Invalid Credentials",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"wrongpassword\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "401 Invalid Credentials Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"message\": \"Invalid credentials.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic error message returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.eql(false);",
+											"    pm.expect(jsonData.message).to.eql('Invalid credentials.');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Non-Admin Account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"userpassword\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "401 Non-Admin Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"userpassword\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"message\": \"Invalid credentials.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic error message returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.eql(false);",
+											"    pm.expect(jsonData.message).to.eql('Invalid credentials.');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "MFA Required",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "202 MFA Required Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"admin_mfa@example.com\",\n  \"password\": \"password\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Accepted",
+									"code": 202,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"code\": \"MFA_REQUIRED\",\n  \"message\": \"Multi-factor authentication is required.\",\n  \"data\": {\n    \"mfa_required\": true\n  }\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 202', function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"pm.test('MFA required flag returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.code).to.eql('MFA_REQUIRED');",
+											"    pm.expect(jsonData.data.mfa_required).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "MFA Success",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"{{admin_mfa_code}}\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "200 MFA Success Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"admin_mfa@example.com\",\n  \"password\": \"password\",\n  \"mfa_code\": \"123456\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": true,\n  \"message\": \"Login successful.\",\n  \"data\": {\n    \"access_token\": \"<redacted>\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 900,\n    \"admin\": {\n      \"id\": 2,\n      \"firstname\": \"MFA\",\n      \"lastname\": \"Admin\",\n      \"email\": \"admin_mfa@example.com\",\n      \"role\": \"admin\",\n      \"permissions\": [\n        \"admin.*\"\n      ],\n      \"profile_photo_url\": null\n    }\n  }\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test('Tokens returned after valid MFA', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.true;",
+											"    pm.expect(jsonData.data).to.have.property('access_token');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "MFA Failure",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"000000\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "401 MFA Failure Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"admin_mfa@example.com\",\n  \"password\": \"password\",\n  \"mfa_code\": \"000000\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"message\": \"Invalid credentials.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic error message returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.false;",
+											"    pm.expect(jsonData.message).to.eql('Invalid credentials.');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Rate-Limit Verification",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"ratelimit@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+								},
+								"url": "{{base_url}}/api/v1/admin/auth/login"
+							},
+							"response": [
+								{
+									"name": "429 Rate Limit Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"ratelimit@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+										},
+										"url": "{{base_url}}/api/v1/admin/auth/login"
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Retry-After",
+											"value": "900"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"code\": \"TOO_MANY_LOGIN_ATTEMPTS\",\n  \"message\": \"Too many login attempts. Please try again in 900 seconds.\",\n  \"retry_after\": 900\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 429 after 5 failed attempts', function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([401, 429]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -6,10 +6,13 @@ use App\Models\AddonModel;
 use App\Models\PaymentModel;
 use App\Models\PlanPricing;
 use App\Models\User;
+use App\Services\Odoo\OdooPayloadFactory;
+use App\Services\Odoo\OdooSignalDispatcher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PaystackHookController extends Controller
 {
@@ -193,6 +196,31 @@ class PaystackHookController extends Controller
         }
 
         PaymentModel::create($data);
+
+        // --- Odoo API-028: PAYMENT_SUCCESS ---
+        // Emit only after PaymentModel is persisted with verified success status.
+        try {
+            $factory    = app(OdooPayloadFactory::class);
+            $dispatcher = app(OdooSignalDispatcher::class);
+            $payload    = $factory->paymentSuccess(
+                $reference,
+                (int) $user->id,
+                (float) ($data['amount'] ?? 0),
+                $data['currency'] ?? 'NGN',
+                (int) ($data['plan'] ?? 0),
+                OdooPayloadFactory::normalizeGateway($data['gateway'] ?? 'paystack')
+            );
+            $dispatcher->dispatch(
+                'PAYMENT_SUCCESS',
+                'payment_success',
+                'PAYMENT_SUCCESS:paystack:' . $reference,
+                $payload
+            );
+        } catch (\Exception $e) {
+            Log::error('Odoo PAYMENT_SUCCESS dispatch failed in PaystackHookController::webHook', [
+                'error' => substr($e->getMessage(), 0, 300),
+            ]);
+        }
 
         return "subscribed";
 

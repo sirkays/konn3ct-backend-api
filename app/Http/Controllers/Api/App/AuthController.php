@@ -10,10 +10,13 @@ use App\Models\CodeRequest;
 use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\User;
+use App\Services\Odoo\OdooPayloadFactory;
+use App\Services\Odoo\OdooSignalDispatcher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,6 +76,39 @@ class AuthController extends Controller
 
         $name=$request->userAgent()."||".$request->ip();
         $token = $user->createToken($name)->plainTextToken;
+
+        // --- Odoo API-026: USER_REGISTERED (social) ---
+        // Emit only for newly created users. A returning social login must not re-emit.
+        if ($user->wasRecentlyCreated) {
+            try {
+                $factory    = app(OdooPayloadFactory::class);
+                $dispatcher = app(OdooSignalDispatcher::class);
+                $provider   = $request->provider ?? 'social';
+                $leadSource = 'social_' . strtolower($provider); // social_google, social_apple, social_facebook
+                $fullName   = trim(($user->firstname ?? '') . ' ' . ($user->lastname ?? ''));
+                $payload    = $factory->userRegistered(
+                    $user->id,
+                    $fullName,
+                    $user->email ?? '',
+                    $user->country ?? null,  // users.country (3-char ISO code)
+                    $user->referral ?? null,
+                    $leadSource,
+                    $request->ip()
+                );
+                $dispatcher->dispatch(
+                    'USER_REGISTERED',
+                    'user_registered',
+                    'USER_REGISTERED:' . $user->id,
+                    $payload
+                );
+            } catch (\Exception $e) {
+                Log::error('Odoo USER_REGISTERED dispatch failed in loginSocial', [
+                    'user_id' => $user->id ?? null,
+                    'error'   => substr($e->getMessage(), 0, 300),
+                ]);
+            }
+        }
+
         return response()->json(['success' => true, 'message' => 'Login successfully', 'token' => $token, 'data' => $user->makeHidden(["type"])], 200);
     }
 
@@ -159,6 +195,33 @@ class AuthController extends Controller
         ]);
 
         Mail::to($input['email'])->queue(new EmailVerificationMail($code));
+
+        // --- Odoo API-026: USER_REGISTERED (mobile app) ---
+        try {
+            $factory    = app(OdooPayloadFactory::class);
+            $dispatcher = app(OdooSignalDispatcher::class);
+            $fullName   = trim(($u->firstname ?? '') . ' ' . ($u->lastname ?? ''));
+            $payload    = $factory->userRegistered(
+                $u->id,
+                $fullName,
+                $u->email ?? '',
+                $u->country ?? null,  // users.country (3-char ISO code)
+                $u->referral ?? null,
+                'mobile_app',
+                $request->ip()
+            );
+            $dispatcher->dispatch(
+                'USER_REGISTERED',
+                'user_registered',
+                'USER_REGISTERED:' . $u->id,
+                $payload
+            );
+        } catch (\Exception $e) {
+            Log::error('Odoo USER_REGISTERED dispatch failed in AuthController::register', [
+                'user_id' => $u->id ?? null,
+                'error'   => substr($e->getMessage(), 0, 300),
+            ]);
+        }
 
         return response()->json(['success' => true, 'message' => 'Your Registration is Successful', 'data'=>$u]);
     }

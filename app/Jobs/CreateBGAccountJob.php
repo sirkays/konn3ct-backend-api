@@ -7,6 +7,8 @@ use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\SettingsModel;
 use App\Models\User;
+use App\Services\Odoo\OdooPayloadFactory;
+use App\Services\Odoo\OdooSignalDispatcher;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -15,6 +17,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -103,7 +106,34 @@ class CreateBGAccountJob implements ShouldQueue
             } catch (Exception $e) {
                 echo $e;
             }
-        }
 
+            // --- Odoo API-026: USER_REGISTERED (paid_event_registration) ---
+            // No trustworthy IP is available in a background queue job.
+            try {
+                $factory    = app(OdooPayloadFactory::class);
+                $dispatcher = app(OdooSignalDispatcher::class);
+                $fullName   = trim(($u->firstname ?? '') . ' ' . ($u->lastname ?? ''));
+                $payload    = $factory->userRegistered(
+                    $u->id,
+                    $fullName,
+                    $u->email ?? '',
+                    null,
+                    $u->referral ?? null,
+                    'paid_event_registration',
+                    null  // No trustworthy IP in a background job
+                );
+                $dispatcher->dispatch(
+                    'USER_REGISTERED',
+                    'user_registered',
+                    'USER_REGISTERED:' . $u->id,
+                    $payload
+                );
+            } catch (Exception $e) {
+                Log::error('Odoo USER_REGISTERED dispatch failed in CreateBGAccountJob', [
+                    'user_id' => $u->id ?? null,
+                    'error'   => substr($e->getMessage(), 0, 300),
+                ]);
+            }
+        }
     }
 }

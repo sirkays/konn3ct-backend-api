@@ -7,6 +7,8 @@ use App\Models\PlanModel;
 use App\Models\RoomModel;
 use App\Models\SettingsModel;
 use App\Models\User;
+use App\Services\Odoo\OdooPayloadFactory;
+use App\Services\Odoo\OdooSignalDispatcher;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -134,6 +136,39 @@ class CreateNewUser implements CreatesNewUsers
             Mail::to($u->email)->send(new UserWelcomeMail());
         } catch (Exception $e) {
 //            echo $e;
+        }
+
+        // --- Odoo API-026: USER_REGISTERED ---
+        // Dispatch after user and room are persisted. Fortify actions run in
+        // request context but IP is not reliably available here, so IP is null.
+        // Lead source is 'web' for Fortify-based web registration.
+        try {
+            $factory    = app(OdooPayloadFactory::class);
+            $dispatcher = app(OdooSignalDispatcher::class);
+
+            $fullName = trim(($u->firstname ?? '') . ' ' . ($u->lastname ?? ''));
+            $payload  = $factory->userRegistered(
+                $u->id,
+                $fullName,
+                $u->email ?? '',
+                $u->country ?? null,  // users.country (3-char ISO code, e.g. 'NG')
+                $u->referral ?? null,  // acquisition referral code (users.referral)
+                'web',
+                null             // IP: not available in Fortify context — queue job
+            );
+
+            $dispatcher->dispatch(
+                'USER_REGISTERED',
+                'user_registered',
+                'USER_REGISTERED:' . $u->id,
+                $payload
+            );
+        } catch (Exception $e) {
+            // Odoo signal failure must never break user registration.
+            \Illuminate\Support\Facades\Log::error('Odoo USER_REGISTERED dispatch failed in CreateNewUser', [
+                'user_id' => $u->id ?? null,
+                'error'   => substr($e->getMessage(), 0, 300),
+            ]);
         }
 
         return $u;

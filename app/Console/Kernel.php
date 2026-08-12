@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\DispatchOdooUsageMetrics;
 use App\Console\Commands\SubscriptionReminderCommand;
 use App\Http\Controllers\PreregistrationController;
 use Illuminate\Console\Scheduling\Schedule;
@@ -15,7 +16,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        SubscriptionReminderCommand::class
+        SubscriptionReminderCommand::class,
+        DispatchOdooUsageMetrics::class,
     ];
 
     /**
@@ -39,6 +41,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('samji:subscriptionreminder')
             ->withoutOverlapping()
             ->dailyAt('05:30');
+
+        // Odoo 19 — API-027 USAGE_METRICS daily dispatch.
+        // Enabled only when ODOO19_USAGE_METRICS_ENABLED=true.
+        $schedule->command('odoo:dispatch-usage-metrics')
+            ->withoutOverlapping()
+            ->dailyAt(config('odoo.usage_metrics_time', '01:00'));
 
     }
 

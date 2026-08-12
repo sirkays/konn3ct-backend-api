@@ -13,8 +13,8 @@ return [
     */
 
     'jwt' => [
-        'access_secret' => env('ADMIN_JWT_ACCESS_SECRET', 'konn3ct_admin_jwt_access_secret_key_32bytes_min!'),
-        'refresh_secret' => env('ADMIN_JWT_REFRESH_SECRET', 'konn3ct_admin_jwt_refresh_secret_key_32bytes_min!'),
+        'access_secret' => env('ADMIN_JWT_ACCESS_SECRET'),
+        'refresh_secret' => env('ADMIN_JWT_REFRESH_SECRET'),
         'issuer' => env('ADMIN_JWT_ISSUER', 'konn3ct-api'),
         'audience' => env('ADMIN_JWT_AUDIENCE', 'konn3ct-admin'),
         'access_ttl' => (int) env('ADMIN_ACCESS_TOKEN_TTL', 900), // 15 minutes

@@ -108,4 +108,6 @@ require __DIR__ . '/hook.php';
 Route::prefix('v1/admin/auth')->group(function () {
     Route::post('login', [\App\Http\Controllers\Api\V1\Admin\AuthController::class, 'login'])
         ->name('api.v1.admin.auth.login');
+    Route::post('refresh', [\App\Http\Controllers\Api\V1\Admin\AuthController::class, 'refresh'])
+        ->name('api.v1.admin.auth.refresh');
 });

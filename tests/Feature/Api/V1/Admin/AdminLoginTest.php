@@ -2,15 +2,14 @@
 
 namespace Tests\Feature\Api\V1\Admin;
 
+use App\Http\Middleware\VisitLogMiddleware;
 use App\Models\User;
+use App\Services\Admin\AdminJwtService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Signer\Key\InMemory;
 use Mockery;
 use Tests\TestCase;
 
@@ -18,9 +17,22 @@ class AdminLoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $jwtService;
+
     protected function setUp(): void
     {
         parent::setUp();
+        $this->withoutMiddleware(VisitLogMiddleware::class);
+
+        config([
+            'admin_auth.jwt.access_secret' => 'testing_admin_jwt_access_secret_key_32bytes_min!',
+            'admin_auth.jwt.refresh_secret' => 'testing_admin_jwt_refresh_secret_key_32bytes_different_min!',
+            'admin_auth.jwt.issuer' => 'konn3ct-api',
+            'admin_auth.jwt.audience' => 'konn3ct-admin',
+            'admin_auth.cookie.name' => 'konn3ct_admin_refresh_token',
+        ]);
+
+        $this->jwtService = new AdminJwtService();
         RateLimiter::clear('admin_login_failed:' . md5('admin@example.com') . ':127.0.0.1');
     }
 
@@ -87,35 +99,31 @@ class AdminLoginTest extends TestCase
 
         $response->assertStatus(200)
             ->assertHeader('Pragma', 'no-cache');
-        $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
+        $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
         $response->assertJson([
-                'success' => true,
-                'message' => 'Login successful.',
-                'data' => [
-                    'token_type' => 'Bearer',
-                    'expires_in' => 900,
-                    'admin' => [
-                        'id' => $admin->id,
-                        'firstname' => 'System',
-                        'lastname' => 'Admin',
-                        'email' => 'admin@example.com',
-                        'role' => 'admin',
-                        'permissions' => ['admin.*'],
-                    ],
+            'success' => true,
+            'message' => 'Login successful.',
+            'data' => [
+                'token_type' => 'Bearer',
+                'expires_in' => 900,
+                'admin' => [
+                    'id' => $admin->id,
+                    'firstname' => 'System',
+                    'lastname' => 'Admin',
+                    'email' => 'admin@example.com',
+                    'role' => 'admin',
+                    'permissions' => ['admin.*'],
                 ],
-            ]);
+            ],
+        ]);
 
         $json = $response->json();
         $accessTokenString = $json['data']['access_token'];
         $this->assertNotEmpty($accessTokenString);
 
-        // Verify access JWT details using Lcobucci
-        $accessConfig = Configuration::forSymmetricSigner(
-            new Sha256(),
-            InMemory::plainText(config('admin_auth.jwt.access_secret'))
-        );
-        $accessToken = $accessConfig->parser()->parse($accessTokenString);
-        $claims = $accessToken->claims();
+        // Cryptographically validate access JWT signature and constraints via AdminJwtService
+        $validatedAccessToken = $this->jwtService->validateAccessToken($accessTokenString);
+        $claims = $validatedAccessToken->claims();
 
         $this->assertEquals((string) $admin->id, $claims->get('sub'));
         $this->assertEquals(config('admin_auth.jwt.issuer'), $claims->get('iss'));
@@ -136,13 +144,9 @@ class AdminLoginTest extends TestCase
         $this->assertEquals('/api/v1/admin/auth', $cookie->getPath());
         $this->assertEquals('lax', $cookie->getSameSite());
 
-        // Verify Refresh JWT structure
-        $refreshConfig = Configuration::forSymmetricSigner(
-            new Sha256(),
-            InMemory::plainText(config('admin_auth.jwt.refresh_secret'))
-        );
-        $refreshToken = $refreshConfig->parser()->parse($cookie->getValue());
-        $refreshClaims = $refreshToken->claims();
+        // Cryptographically validate refresh JWT signature and constraints via AdminJwtService
+        $validatedRefreshToken = $this->jwtService->validateRefreshToken($cookie->getValue());
+        $refreshClaims = $validatedRefreshToken->claims();
         $this->assertEquals((string) $admin->id, $refreshClaims->get('sub'));
         $this->assertEquals('refresh', $refreshClaims->get('token_type'));
     }

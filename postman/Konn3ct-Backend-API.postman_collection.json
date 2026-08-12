@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "87ca140a-5d78-4c56-9233-2f95770b8ea5",
 		"name": "Konn3ct Backend API",
-		"description": "Master Postman Collection for Konn3ct Backend API (Task 1: Admin Auth Login)",
+		"description": "Master Postman Collection for Konn3ct Backend API (Task 1: Admin Login & Task 2: Admin Refresh Token Rotation)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
@@ -128,6 +128,277 @@
 											"});",
 											"pm.test('Refresh cookie is set', function () {",
 											"    pm.expect(pm.cookies.has('konn3ct_admin_refresh_token')).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Refresh Session – Success",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": "{{base_url}}/api/v1/admin/auth/refresh"
+							},
+							"response": [
+								{
+									"name": "200 Refresh Success Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": "{{base_url}}/api/v1/admin/auth/refresh"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, private"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "konn3ct_admin_refresh_token=<redacted>; expires=Wed, 19-Aug-2026 02:30:00 GMT; Max-Age=604800; path=/api/v1/admin/auth; httponly; samesite=lax"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": true,\n  \"message\": \"Session refreshed successfully.\",\n  \"data\": {\n    \"access_token\": \"<redacted>\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 900,\n    \"admin\": {\n      \"id\": 1,\n      \"firstname\": \"System\",\n      \"lastname\": \"Administrator\",\n      \"email\": \"admin@example.com\",\n      \"role\": \"admin\",\n      \"permissions\": [\n        \"admin.*\"\n      ],\n      \"profile_photo_url\": null\n    }\n  }\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test('Refreshed access token and profile returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.true;",
+											"    pm.expect(jsonData.message).to.eql('Session refreshed successfully.');",
+											"    pm.expect(jsonData.data.token_type).to.eql('Bearer');",
+											"    pm.expect(jsonData.data.expires_in).to.eql(900);",
+											"    pm.expect(jsonData.data.admin.role).to.eql('admin');",
+											"    pm.expect(jsonData.data.admin.permissions).to.be.an('array');",
+											"    pm.expect(jsonData.data).to.not.have.property('refresh_token');",
+											"    pm.expect(jsonData).to.not.have.property('refresh_token');",
+											"    if (jsonData.data.access_token) {",
+											"        pm.collectionVariables.set('admin_access_token', jsonData.data.access_token);",
+											"    }",
+											"});",
+											"pm.test('Rotated HTTP-only refresh cookie is present', function () {",
+											"    pm.expect(pm.cookies.has('konn3ct_admin_refresh_token')).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Refresh Session – Missing Cookie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": "{{base_url}}/api/v1/admin/auth/refresh"
+							},
+							"response": [
+								{
+									"name": "401 Missing Cookie Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": "{{base_url}}/api/v1/admin/auth/refresh"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, private"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"code\": \"INVALID_REFRESH_TOKEN\",\n  \"message\": \"Authentication session is invalid or has expired.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic invalid refresh token error returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.false;",
+											"    pm.expect(jsonData.code).to.eql('INVALID_REFRESH_TOKEN');",
+											"    pm.expect(jsonData.message).to.eql('Authentication session is invalid or has expired.');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Refresh Session – Tampered Cookie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "konn3ct_admin_refresh_token=tampered_invalid_jwt_token"
+									}
+								],
+								"url": "{{base_url}}/api/v1/admin/auth/refresh"
+							},
+							"response": [
+								{
+									"name": "401 Tampered Cookie Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Cookie",
+												"value": "konn3ct_admin_refresh_token=tampered_invalid_jwt_token"
+											}
+										],
+										"url": "{{base_url}}/api/v1/admin/auth/refresh"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, private"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"code\": \"INVALID_REFRESH_TOKEN\",\n  \"message\": \"Authentication session is invalid or has expired.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic invalid refresh token error returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.false;",
+											"    pm.expect(jsonData.code).to.eql('INVALID_REFRESH_TOKEN');",
+											"    pm.expect(jsonData.message).to.eql('Authentication session is invalid or has expired.');",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							]
+						},
+						{
+							"name": "Refresh Session – Revoked Token Replay",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": "{{base_url}}/api/v1/admin/auth/refresh"
+							},
+							"response": [
+								{
+									"name": "401 Replay Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": "{{base_url}}/api/v1/admin/auth/refresh"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, private"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": false,\n  \"code\": \"INVALID_REFRESH_TOKEN\",\n  \"message\": \"Authentication session is invalid or has expired.\"\n}"
+								}
+							],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401 for replayed token', function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test('Generic invalid refresh token error returned', function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.success).to.be.false;",
+											"    pm.expect(jsonData.code).to.eql('INVALID_REFRESH_TOKEN');",
+											"    pm.expect(jsonData.message).to.eql('Authentication session is invalid or has expired.');",
 											"});"
 										],
 										"type": "text/javascript"

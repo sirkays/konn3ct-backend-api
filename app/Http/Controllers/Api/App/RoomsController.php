@@ -247,6 +247,21 @@ class RoomsController extends Controller
             return response()->json(['success' => false, 'message' => 'Room url or name does not exist, kindly check your input and try again!']);
         }
 
+        // Account-status enforcement: reject registered users who are SUSPENDED or BANNED.
+        // Guest/unregistered users (email not in users table) retain access.
+        // NOTE: Anonymous users can still join with another identity until the external
+        // meeting service provides an enforceable identity contract.
+        $registeredUser = \App\Models\User::where('email', strtolower(trim($email)))->first();
+        if ($registeredUser && $registeredUser->account_status !== null) {
+            $acctStatus = strtoupper((string) $registeredUser->account_status);
+            if (in_array($acctStatus, ['SUSPENDED', 'BANNED'], true)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your account has been restricted. Please contact support.',
+                ], 403);
+            }
+        }
+
         if ($i->password_attendee != "") {
             if (isset($input['access_code'])) {
                 if ($input['access_code'] == $i->password_attendee) {

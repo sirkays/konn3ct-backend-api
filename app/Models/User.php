@@ -33,7 +33,8 @@ class User extends Authenticatable
         'referral',
         'referral_code',
         'freetrial',
-        'reseller_id'
+        'reseller_id',
+        'account_status', // Moderation status: ACTIVE, SUSPENDED, BANNED (null = ACTIVE)
     ];
 
     function reseller()

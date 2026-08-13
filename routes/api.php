@@ -111,3 +111,34 @@ Route::prefix('v1/admin/auth')->group(function () {
     Route::post('refresh', [\App\Http\Controllers\Api\V1\Admin\AuthController::class, 'refresh'])
         ->name('api.v1.admin.auth.refresh');
 });
+
+// ── Protected Admin API routes ──────────────────────────────────────────────
+// All routes in this group require a valid Admin JWT access token.
+// Login and Refresh remain public above.
+Route::prefix('v1/admin')
+    ->middleware(['admin.jwt'])
+    ->group(function () {
+
+    // User Management — requires users:read permission
+    Route::get('users', [\App\Http\Controllers\Api\V1\Admin\UserManagementController::class, 'index'])
+        ->middleware('admin.permission:users:read')
+        ->name('api.v1.admin.users.index');
+
+    // User Suspension — requires users:suspend permission
+    Route::post('users/{id}/suspend', [\App\Http\Controllers\Api\V1\Admin\UserManagementController::class, 'suspend'])
+        ->middleware('admin.permission:users:suspend')
+        ->name('api.v1.admin.users.suspend')
+        ->where('id', '[0-9]+');
+
+    // User Ban — requires users:ban permission
+    Route::post('users/{id}/ban', [\App\Http\Controllers\Api\V1\Admin\UserManagementController::class, 'ban'])
+        ->middleware('admin.permission:users:ban')
+        ->name('api.v1.admin.users.ban')
+        ->where('id', '[0-9]+');
+
+    // Financial Transactions — requires financials:read permission
+    Route::get('financials/transactions', [\App\Http\Controllers\Api\V1\Admin\FinancialsController::class, 'transactions'])
+        ->middleware('admin.permission:financials:read')
+        ->name('api.v1.admin.financials.transactions');
+});
+

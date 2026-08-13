@@ -1,716 +1,947 @@
 {
-    "info": {
-        "_postman_id": "87ca140a-5d78-4c56-9233-2f95770b8ea5",
-        "name": "Konn3ct Backend API",
-        "description": "Konn3ct Backend API — Admin Auth and Odoo 19 Outbound Signals (API-026, API-027, API-028)",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  "info": {
+    "_postman_id": "87ca140a-5d78-4c56-9233-2f95770b8ea5",
+    "name": "Konn3ct Backend API",
+    "description": "Konn3ct Backend API \u00e2\u20ac\u201d Admin Auth and Odoo 19 Outbound Signals (API-026, API-027, API-028)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "id": "64159a46-5bbf-498f-a8a0-2c4585b8ce6a",
+      "name": "Admin API",
+      "item": [
+        {
+          "id": "0efbc824-9017-46c8-9eb8-330daeaba808",
+          "name": "Authentication",
+          "item": [
+            {
+              "id": "5e26cd70-21be-44d1-a923-e085f6292bee",
+              "name": "Admin Login \u00e2\u20ac\u201c Success",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "f3906ee3-41a7-4360-8f12-87790996251f",
+                  "listen": "test",
+                  "script": {
+                    "id": "47275f47-3b89-4ba7-aacd-b30b88d7c2c2",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var json = pm.response.json();",
+                      "if (json.data && json.data.access_token) {",
+                      "    pm.collectionVariables.set('admin_access_token', json.data.access_token);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9178043d-e37a-40f7-a407-acdb20df7531",
+              "name": "Admin Login \u00e2\u20ac\u201c Invalid Credentials",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"wrong_password\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "60e21e85-99e6-4f6a-b3c9-46bed02fafbc",
+                  "listen": "test",
+                  "script": {
+                    "id": "f45bb81a-f8bf-4cc9-93bc-432552b8cc87",
+                    "exec": [
+                      "pm.test('Status code is 401', function () {",
+                      "    pm.response.to.have.status(401);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "61757dff-bc1b-49fb-b16f-f159bdfd32f8",
+              "name": "Admin Login \u00e2\u20ac\u201c Missing Email (422)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"{{admin_password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "22fdc6bb-32f2-4457-8691-c8f1bcb7b243",
+                  "listen": "test",
+                  "script": {
+                    "id": "88fbdd57-f0e4-4b79-8eb2-30f10ce885ea",
+                    "exec": [
+                      "pm.test('Status code is 422', function () {",
+                      "    pm.response.to.have.status(422);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "bd4f1b2d-2dff-40b9-9708-31c0a14a299e",
+              "name": "Admin Login \u00e2\u20ac\u201c MFA Required, No Code (202)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "b224366b-7164-4490-b25e-a0738285cb2e",
+                  "listen": "test",
+                  "script": {
+                    "id": "67d14c55-7fe3-4e07-b8fc-762237fa3fe2",
+                    "exec": [
+                      "pm.test('Status code is 202', function () {",
+                      "    pm.response.to.have.status(202);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "fa895ef7-b20a-47ad-9b75-fec7707e0b2c",
+              "name": "Admin Login \u00e2\u20ac\u201c MFA Success",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"{{admin_mfa_code}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "d74841b9-9c9d-405e-b754-15a451ce41c2",
+                  "listen": "test",
+                  "script": {
+                    "id": "52b27a4b-8c00-4ea9-9cb2-c1606b13b105",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "936cbca1-e75c-4e2e-a8fc-6c43f89f7195",
+              "name": "Admin Login \u00e2\u20ac\u201c MFA Wrong Code (401)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "6994834b-ee7a-434e-9e50-9f9399982f73",
+                  "listen": "test",
+                  "script": {
+                    "id": "42dcb616-e60b-4354-8b5c-efb15adc5944",
+                    "exec": [
+                      "pm.test('Status code is 401', function () {",
+                      "    pm.response.to.have.status(401);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "19e2eb91-4ec2-4c89-8605-23d1e6dc3644",
+              "name": "Admin Refresh Token \u00e2\u20ac\u201c Success",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/refresh"
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "fd76ae9b-5ec4-4173-91ae-528812ecb397",
+                  "listen": "test",
+                  "script": {
+                    "id": "36c7c67e-6409-449e-bd52-f61553e4e18b",
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var json = pm.response.json();",
+                      "if (json.data && json.data.access_token) {",
+                      "    pm.collectionVariables.set('admin_access_token', json.data.access_token);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "4f268778-7bbe-43eb-b789-2e698ea80358",
+              "name": "Admin Refresh Token \u00e2\u20ac\u201c No Cookie (401)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{base_url}}/api/v1/admin/auth/refresh"
+              },
+              "response": [],
+              "event": [
+                {
+                  "id": "9425e695-bd16-47dd-b37f-ab79d6132ceb",
+                  "listen": "test",
+                  "script": {
+                    "id": "15ee2ccc-07ec-454e-8fb5-3e2efd8a7c3d",
+                    "exec": [
+                      "pm.test('Status code is 401', function () {",
+                      "    pm.response.to.have.status(401);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "User Management",
+          "item": [
+            {
+              "name": "List Users",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_access_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/admin/users?page=1&limit=25",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "",
+                      "description": "Name/email/ID search"
+                    },
+                    {
+                      "key": "role",
+                      "value": "",
+                      "description": "Filter by type (user, admin)"
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "description": "ACTIVE, SUSPENDED, BANNED"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "createdAt"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "desc"
+                    }
+                  ]
+                },
+                "description": "GET /api/v1/admin/users\nPermission: users:read or admin.*\nReturns status (account_status) and subscription_status (users.status) separately."
+              },
+              "response": []
+            },
+            {
+              "name": "Suspend User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_access_token}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Repeated violation of platform policies.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/admin/users/:id/suspend",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "users",
+                    ":id",
+                    "suspend"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "POST /api/v1/admin/users/{id}/suspend\nPermission: users:suspend or admin.*\nSets account_status=SUSPENDED. Revokes Sanctum + admin tokens. Idempotent.\nResponse enforcement.complete=false until meeting service contract is confirmed."
+              },
+              "response": []
+            },
+            {
+              "name": "Ban User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_access_token}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Confirmed severe abuse of the platform.\",\n  \"confirmationCode\": \"CONFIRM BAN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/admin/users/:id/ban",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "users",
+                    ":id",
+                    "ban"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "POST /api/v1/admin/users/{id}/ban\nPermission: users:ban or admin.*\nconfirmationCode must be exactly \"CONFIRM BAN\" (case-sensitive).\nSets account_status=BANNED. Revokes all Sanctum + admin tokens. Idempotent.\nAudit priority: HIGH. enforcement.complete=false (meeting service contract pending)."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Financials",
+          "item": [
+            {
+              "name": "List Transactions",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{admin_access_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/admin/financials/transactions?page=1&limit=25",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "financials",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "description": "success, failed, pending"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "",
+                      "description": "Subscription, Donation"
+                    },
+                    {
+                      "key": "gateway",
+                      "value": "",
+                      "description": "Paystack, Flutterwave"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "",
+                      "description": "YYYY-MM-DD (inclusive)"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "",
+                      "description": "YYYY-MM-DD (inclusive, >= startDate)"
+                    }
+                  ]
+                },
+                "description": "GET /api/v1/admin/financials/transactions\nPermission: financials:read or admin.*\nDefault order: date DESC, id DESC.\nraw_webhook_payload maps payment.gateway_response (decoded JSON or safe fallback)."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
     },
-    "item": [
+    {
+      "id": "628e4f3c-12d8-430d-8c6b-9e2b6cf8ee92",
+      "name": "Odoo 19 Integration Contract Requests",
+      "item": [
         {
-            "id": "64159a46-5bbf-498f-a8a0-2c4585b8ce6a",
-            "name": "Admin API",
-            "item": [
-                {
-                    "id": "0efbc824-9017-46c8-9eb8-330daeaba808",
-                    "name": "Authentication",
-                    "item": [
-                        {
-                            "id": "5e26cd70-21be-44d1-a923-e085f6292bee",
-                            "name": "Admin Login – Success",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "f3906ee3-41a7-4360-8f12-87790996251f",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "47275f47-3b89-4ba7-aacd-b30b88d7c2c2",
-                                        "exec": [
-                                            "pm.test('Status code is 200', function () {",
-                                            "    pm.response.to.have.status(200);",
-                                            "});",
-                                            "var json = pm.response.json();",
-                                            "if (json.data && json.data.access_token) {",
-                                            "    pm.collectionVariables.set('admin_access_token', json.data.access_token);",
-                                            "}"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "9178043d-e37a-40f7-a407-acdb20df7531",
-                            "name": "Admin Login – Invalid Credentials",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"wrong_password\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "60e21e85-99e6-4f6a-b3c9-46bed02fafbc",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "f45bb81a-f8bf-4cc9-93bc-432552b8cc87",
-                                        "exec": [
-                                            "pm.test('Status code is 401', function () {",
-                                            "    pm.response.to.have.status(401);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "61757dff-bc1b-49fb-b16f-f159bdfd32f8",
-                            "name": "Admin Login – Missing Email (422)",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"password\": \"{{admin_password}}\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "22fdc6bb-32f2-4457-8691-c8f1bcb7b243",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "88fbdd57-f0e4-4b79-8eb2-30f10ce885ea",
-                                        "exec": [
-                                            "pm.test('Status code is 422', function () {",
-                                            "    pm.response.to.have.status(422);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "bd4f1b2d-2dff-40b9-9708-31c0a14a299e",
-                            "name": "Admin Login – MFA Required, No Code (202)",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "b224366b-7164-4490-b25e-a0738285cb2e",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "67d14c55-7fe3-4e07-b8fc-762237fa3fe2",
-                                        "exec": [
-                                            "pm.test('Status code is 202', function () {",
-                                            "    pm.response.to.have.status(202);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "fa895ef7-b20a-47ad-9b75-fec7707e0b2c",
-                            "name": "Admin Login – MFA Success",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"{{admin_mfa_code}}\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "d74841b9-9c9d-405e-b754-15a451ce41c2",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "52b27a4b-8c00-4ea9-9cb2-c1606b13b105",
-                                        "exec": [
-                                            "pm.test('Status code is 200', function () {",
-                                            "    pm.response.to.have.status(200);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "936cbca1-e75c-4e2e-a8fc-6c43f89f7195",
-                            "name": "Admin Login – MFA Wrong Code (401)",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/login",
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n  \"email\": \"{{admin_mfa_email}}\",\n  \"password\": \"{{admin_mfa_password}}\",\n  \"mfa_code\": \"000000\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                }
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "6994834b-ee7a-434e-9e50-9f9399982f73",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "42dcb616-e60b-4354-8b5c-efb15adc5944",
-                                        "exec": [
-                                            "pm.test('Status code is 401', function () {",
-                                            "    pm.response.to.have.status(401);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "19e2eb91-4ec2-4c89-8605-23d1e6dc3644",
-                            "name": "Admin Refresh Token – Success",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/refresh"
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "fd76ae9b-5ec4-4173-91ae-528812ecb397",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "36c7c67e-6409-449e-bd52-f61553e4e18b",
-                                        "exec": [
-                                            "pm.test('Status code is 200', function () {",
-                                            "    pm.response.to.have.status(200);",
-                                            "});",
-                                            "var json = pm.response.json();",
-                                            "if (json.data && json.data.access_token) {",
-                                            "    pm.collectionVariables.set('admin_access_token', json.data.access_token);",
-                                            "}"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": "4f268778-7bbe-43eb-b789-2e698ea80358",
-                            "name": "Admin Refresh Token – No Cookie (401)",
-                            "request": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": "{{base_url}}/api/v1/admin/auth/refresh"
-                            },
-                            "response": [],
-                            "event": [
-                                {
-                                    "id": "9425e695-bd16-47dd-b37f-ab79d6132ceb",
-                                    "listen": "test",
-                                    "script": {
-                                        "id": "15ee2ccc-07ec-454e-8fb5-3e2efd8a7c3d",
-                                        "exec": [
-                                            "pm.test('Status code is 401', function () {",
-                                            "    pm.response.to.have.status(401);",
-                                            "});"
-                                        ],
-                                        "type": "text/javascript"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+          "id": "272d7266-2093-47cd-9f12-7fcd3c91c943",
+          "name": "API-026: USER_REGISTERED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ODOO19_API_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "USER_REGISTERED:123"
+              },
+              {
+                "key": "X-Konn3ct-Event-Id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "X-Konn3ct-Event-Name",
+                "value": "USER_REGISTERED"
+              },
+              {
+                "key": "X-Konn3ct-Schema-Version",
+                "value": "1.0"
+              }
+            ],
+            "url": "{{ODOO19_BASE_URL}}/api/v1/user/registered",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": 123,\n    \"name\": \"Amina Bello\",\n    \"email\": \"amina@example.com\",\n    \"country_code\": \"NG\",\n    \"referral_code\": \"ABC123\",\n    \"lead_source\": \"web\",\n    \"ip\": \"192.168.1.1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
                 }
-            ]
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "id": "f3a41fdc-5e58-4fd7-8f89-c0358a0f9deb",
+              "listen": "test",
+              "script": {
+                "id": "e926696e-b679-4c9f-9578-edbd83f4ee5c",
+                "exec": [
+                  "pm.test('Status code is 2xx', function () {",
+                  "    pm.response.to.be.success;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         },
         {
-            "id": "628e4f3c-12d8-430d-8c6b-9e2b6cf8ee92",
-            "name": "Odoo 19 Integration Contract Requests",
-            "item": [
-                {
-                    "id": "272d7266-2093-47cd-9f12-7fcd3c91c943",
-                    "name": "API-026: USER_REGISTERED",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{ODOO19_API_TOKEN}}"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Idempotency-Key",
-                                "value": "USER_REGISTERED:123"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Id",
-                                "value": "{{$guid}}"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Name",
-                                "value": "USER_REGISTERED"
-                            },
-                            {
-                                "key": "X-Konn3ct-Schema-Version",
-                                "value": "1.0"
-                            }
-                        ],
-                        "url": "{{ODOO19_BASE_URL}}/api/v1/user/registered",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"user_id\": 123,\n    \"name\": \"Amina Bello\",\n    \"email\": \"amina@example.com\",\n    \"country_code\": \"NG\",\n    \"referral_code\": \"ABC123\",\n    \"lead_source\": \"web\",\n    \"ip\": \"192.168.1.1\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": [],
-                    "event": [
-                        {
-                            "id": "f3a41fdc-5e58-4fd7-8f89-c0358a0f9deb",
-                            "listen": "test",
-                            "script": {
-                                "id": "e926696e-b679-4c9f-9578-edbd83f4ee5c",
-                                "exec": [
-                                    "pm.test('Status code is 2xx', function () {",
-                                    "    pm.response.to.be.success;",
-                                    "});"
-                                ],
-                                "type": "text/javascript"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": "549fef49-1124-4d89-a426-1654813ff6ab",
-                    "name": "API-027: USAGE_METRICS",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{ODOO19_API_TOKEN}}"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Idempotency-Key",
-                                "value": "USAGE_METRICS:123:2026-08-12"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Id",
-                                "value": "{{$guid}}"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Name",
-                                "value": "USAGE_METRICS"
-                            },
-                            {
-                                "key": "X-Konn3ct-Schema-Version",
-                                "value": "1.0"
-                            }
-                        ],
-                        "url": "{{ODOO19_BASE_URL}}/api/v1/usage",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"user_id\": 123,\n    \"meetings_hosted\": 5\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": [],
-                    "event": [
-                        {
-                            "id": "9eb9aa6d-e2f3-438f-bdcd-636f23e1ab00",
-                            "listen": "test",
-                            "script": {
-                                "id": "ab8e25fc-e5ca-4b0b-8197-fcf227a0e171",
-                                "exec": [
-                                    "pm.test('Status code is 2xx', function () {",
-                                    "    pm.response.to.be.success;",
-                                    "});"
-                                ],
-                                "type": "text/javascript"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": "80e1c8b3-6f32-43d3-9811-e02913ee7ae9",
-                    "name": "API-028: PAYMENT_SUCCESS",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{ODOO19_API_TOKEN}}"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Idempotency-Key",
-                                "value": "PAYMENT_SUCCESS:paystack:TX001"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Id",
-                                "value": "{{$guid}}"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Name",
-                                "value": "PAYMENT_SUCCESS"
-                            },
-                            {
-                                "key": "X-Konn3ct-Schema-Version",
-                                "value": "1.0"
-                            }
-                        ],
-                        "url": "{{ODOO19_BASE_URL}}/api/v1/payment/success",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"transaction_reference\": \"TX001\",\n    \"user_id\": 123,\n    \"amount\": 27000,\n    \"currency\": \"NGN\",\n    \"plan_or_event_id\": 3,\n    \"gateway\": \"paystack\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": [],
-                    "event": [
-                        {
-                            "id": "ddf8d243-e630-4463-9090-56e714c07e96",
-                            "listen": "test",
-                            "script": {
-                                "id": "fc248815-5bdd-4302-b758-aa8d74634325",
-                                "exec": [
-                                    "pm.test('Status code is 2xx', function () {",
-                                    "    pm.response.to.be.success;",
-                                    "});"
-                                ],
-                                "type": "text/javascript"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": "b3972093-a6e4-4876-996f-0eb0fc72796a",
-                    "name": "API-028: PAYMENT_FAILED",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{ODOO19_API_TOKEN}}"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Idempotency-Key",
-                                "value": "PAYMENT_FAILED:paystack:TX002"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Id",
-                                "value": "{{$guid}}"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Name",
-                                "value": "PAYMENT_FAILED"
-                            },
-                            {
-                                "key": "X-Konn3ct-Schema-Version",
-                                "value": "1.0"
-                            }
-                        ],
-                        "url": "{{ODOO19_BASE_URL}}/api/v1/payment/failed",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"transaction_reference\": \"TX002\",\n    \"user_id\": 123,\n    \"amount\": 27000,\n    \"gateway\": \"paystack\",\n    \"error_code\": \"insufficient_funds\",\n    \"abandoned_cart\": false\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": [],
-                    "event": [
-                        {
-                            "id": "40d08134-7696-4327-8f97-bf9f876f33f6",
-                            "listen": "test",
-                            "script": {
-                                "id": "db5c9735-c233-4eac-a6c8-9cfd04ea6dc9",
-                                "exec": [
-                                    "pm.test('Status code is 2xx', function () {",
-                                    "    pm.response.to.be.success;",
-                                    "});"
-                                ],
-                                "type": "text/javascript"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": "fb0c07ff-2dd2-4fa5-baa6-d45a40d0d17c",
-                    "name": "API-028: PAID_EVENT_PURCHASE",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{ODOO19_API_TOKEN}}"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Idempotency-Key",
-                                "value": "PAID_EVENT_PURCHASE:45:REF001"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Id",
-                                "value": "{{$guid}}"
-                            },
-                            {
-                                "key": "X-Konn3ct-Event-Name",
-                                "value": "PAID_EVENT_PURCHASE"
-                            },
-                            {
-                                "key": "X-Konn3ct-Schema-Version",
-                                "value": "1.0"
-                            }
-                        ],
-                        "url": "{{ODOO19_BASE_URL}}/api/v1/payment/event",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"user_id\": 123,\n    \"event_id\": 45,\n    \"ticket_price\": 5000,\n    \"payment_status\": \"paid\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": [],
-                    "event": [
-                        {
-                            "id": "dc5e175a-977a-4930-a3e6-ddda6a19117d",
-                            "listen": "test",
-                            "script": {
-                                "id": "bc2332cc-ceec-4367-bb5f-58b72aea5ede",
-                                "exec": [
-                                    "pm.test('Status code is 2xx', function () {",
-                                    "    pm.response.to.be.success;",
-                                    "});"
-                                ],
-                                "type": "text/javascript"
-                            }
-                        }
-                    ]
+          "id": "549fef49-1124-4d89-a426-1654813ff6ab",
+          "name": "API-027: USAGE_METRICS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ODOO19_API_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "USAGE_METRICS:123:2026-08-12"
+              },
+              {
+                "key": "X-Konn3ct-Event-Id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "X-Konn3ct-Event-Name",
+                "value": "USAGE_METRICS"
+              },
+              {
+                "key": "X-Konn3ct-Schema-Version",
+                "value": "1.0"
+              }
+            ],
+            "url": "{{ODOO19_BASE_URL}}/api/v1/usage",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": 123,\n    \"meetings_hosted\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
                 }
-            ]
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "id": "9eb9aa6d-e2f3-438f-bdcd-636f23e1ab00",
+              "listen": "test",
+              "script": {
+                "id": "ab8e25fc-e5ca-4b0b-8197-fcf227a0e171",
+                "exec": [
+                  "pm.test('Status code is 2xx', function () {",
+                  "    pm.response.to.be.success;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "80e1c8b3-6f32-43d3-9811-e02913ee7ae9",
+          "name": "API-028: PAYMENT_SUCCESS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ODOO19_API_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "PAYMENT_SUCCESS:paystack:TX001"
+              },
+              {
+                "key": "X-Konn3ct-Event-Id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "X-Konn3ct-Event-Name",
+                "value": "PAYMENT_SUCCESS"
+              },
+              {
+                "key": "X-Konn3ct-Schema-Version",
+                "value": "1.0"
+              }
+            ],
+            "url": "{{ODOO19_BASE_URL}}/api/v1/payment/success",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"transaction_reference\": \"TX001\",\n    \"user_id\": 123,\n    \"amount\": 27000,\n    \"currency\": \"NGN\",\n    \"plan_or_event_id\": 3,\n    \"gateway\": \"paystack\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "id": "ddf8d243-e630-4463-9090-56e714c07e96",
+              "listen": "test",
+              "script": {
+                "id": "fc248815-5bdd-4302-b758-aa8d74634325",
+                "exec": [
+                  "pm.test('Status code is 2xx', function () {",
+                  "    pm.response.to.be.success;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "b3972093-a6e4-4876-996f-0eb0fc72796a",
+          "name": "API-028: PAYMENT_FAILED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ODOO19_API_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "PAYMENT_FAILED:paystack:TX002"
+              },
+              {
+                "key": "X-Konn3ct-Event-Id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "X-Konn3ct-Event-Name",
+                "value": "PAYMENT_FAILED"
+              },
+              {
+                "key": "X-Konn3ct-Schema-Version",
+                "value": "1.0"
+              }
+            ],
+            "url": "{{ODOO19_BASE_URL}}/api/v1/payment/failed",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"transaction_reference\": \"TX002\",\n    \"user_id\": 123,\n    \"amount\": 27000,\n    \"gateway\": \"paystack\",\n    \"error_code\": \"insufficient_funds\",\n    \"abandoned_cart\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "id": "40d08134-7696-4327-8f97-bf9f876f33f6",
+              "listen": "test",
+              "script": {
+                "id": "db5c9735-c233-4eac-a6c8-9cfd04ea6dc9",
+                "exec": [
+                  "pm.test('Status code is 2xx', function () {",
+                  "    pm.response.to.be.success;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "id": "fb0c07ff-2dd2-4fa5-baa6-d45a40d0d17c",
+          "name": "API-028: PAID_EVENT_PURCHASE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ODOO19_API_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "PAID_EVENT_PURCHASE:45:REF001"
+              },
+              {
+                "key": "X-Konn3ct-Event-Id",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "X-Konn3ct-Event-Name",
+                "value": "PAID_EVENT_PURCHASE"
+              },
+              {
+                "key": "X-Konn3ct-Schema-Version",
+                "value": "1.0"
+              }
+            ],
+            "url": "{{ODOO19_BASE_URL}}/api/v1/payment/event",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": 123,\n    \"event_id\": 45,\n    \"ticket_price\": 5000,\n    \"payment_status\": \"paid\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "id": "dc5e175a-977a-4930-a3e6-ddda6a19117d",
+              "listen": "test",
+              "script": {
+                "id": "bc2332cc-ceec-4367-bb5f-58b72aea5ede",
+                "exec": [
+                  "pm.test('Status code is 2xx', function () {",
+                  "    pm.response.to.be.success;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         }
-    ],
-    "variable": [
-        {
-            "key": "base_url",
-            "value": "http://127.0.0.1:8000",
-            "type": "string"
-        },
-        {
-            "key": "admin_email",
-            "value": "admin@example.com",
-            "type": "string"
-        },
-        {
-            "key": "admin_password",
-            "value": "password",
-            "type": "string"
-        },
-        {
-            "key": "admin_mfa_email",
-            "value": "admin_mfa@example.com",
-            "type": "string"
-        },
-        {
-            "key": "admin_mfa_password",
-            "value": "password",
-            "type": "string"
-        },
-        {
-            "key": "admin_mfa_code",
-            "value": "123456",
-            "type": "string"
-        },
-        {
-            "key": "admin_access_token",
-            "value": "",
-            "type": "string"
-        },
-        {
-            "key": "ODOO19_BASE_URL",
-            "value": "https://odoo.example.com",
-            "type": "string"
-        },
-        {
-            "key": "ODOO19_API_TOKEN",
-            "value": "",
-            "type": "string"
-        }
-    ]
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "admin_email",
+      "value": "admin@example.com",
+      "type": "string"
+    },
+    {
+      "key": "admin_password",
+      "value": "password",
+      "type": "string"
+    },
+    {
+      "key": "admin_mfa_email",
+      "value": "admin_mfa@example.com",
+      "type": "string"
+    },
+    {
+      "key": "admin_mfa_password",
+      "value": "password",
+      "type": "string"
+    },
+    {
+      "key": "admin_mfa_code",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "admin_access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "ODOO19_BASE_URL",
+      "value": "https://odoo.example.com",
+      "type": "string"
+    },
+    {
+      "key": "ODOO19_API_TOKEN",
+      "value": "",
+      "type": "string"
+    }
+  ]
 }

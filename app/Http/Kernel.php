@@ -69,5 +69,8 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminCheckMiddleware::class,
         'checksub' => \App\Http\Middleware\CheckSubscriptionMiddleware::class,
         'resellerAuth' => \App\Http\Middleware\ResellerAuthMiddleware::class,
+        // Admin Portal API middleware
+        'admin.jwt' => \App\Http\Middleware\AdminJwtMiddleware::class,
+        'admin.permission' => \App\Http\Middleware\AdminPermissionMiddleware::class,
     ];
 }

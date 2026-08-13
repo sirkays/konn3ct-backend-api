@@ -64,10 +64,20 @@ class AuthController extends Controller
         $isAdminRole = $user && strtolower((string) $user->type) === 'admin';
 
         $isBlockedOrSuspended = false;
-        if ($user && $user->status !== null) {
-            $status = strtolower((string) $user->status);
+
+        // Check new account_status field (authoritative moderation status)
+        if ($user && $user->account_status !== null) {
+            $accountStatus = strtoupper((string) $user->account_status);
+            if (in_array($accountStatus, ['SUSPENDED', 'BANNED'], true)) {
+                $isBlockedOrSuspended = true;
+            }
+        }
+
+        // Legacy backward-compat: also check users.status
+        if (!$isBlockedOrSuspended && $user && $user->status !== null) {
+            $legacyStatus = strtolower((string) $user->status);
             $disabledStatuses = ['suspended', 'disabled', 'blocked', 'inactive', 'deactivated', 'banned'];
-            if (in_array($status, $disabledStatuses, true)) {
+            if (in_array($legacyStatus, $disabledStatuses, true)) {
                 $isBlockedOrSuspended = true;
             }
         }
@@ -277,18 +287,37 @@ class AuthController extends Controller
                     return null;
                 }
 
+                // Check new account_status field (authoritative moderation status)
+                if ($user->account_status !== null) {
+                    $accountStatus = strtoupper((string) $user->account_status);
+                    if (in_array($accountStatus, ['SUSPENDED', 'BANNED'], true)) {
+                        Log::warning('Admin refresh failed: account moderation status', [
+                            'event'          => 'admin_refresh_failed',
+                            'reason'         => 'account_moderation_status',
+                            'jti_hash'       => $tokenHash,
+                            'user_id'        => $sub,
+                            'ip'             => $request->ip(),
+                            'user_agent'     => $request->userAgent() ? Str::limit($request->userAgent(), 200) : null,
+                            'timestamp'      => now()->toIso8601String(),
+                        ]);
+
+                        return null;
+                    }
+                }
+
+                // Legacy backward-compat: also check users.status
                 if ($user->status !== null) {
-                    $status = strtolower((string) $user->status);
+                    $legacyStatus = strtolower((string) $user->status);
                     $disabledStatuses = ['suspended', 'disabled', 'blocked', 'inactive', 'deactivated', 'banned'];
-                    if (in_array($status, $disabledStatuses, true)) {
-                        Log::warning('Admin refresh failed: account suspended or disabled', [
-                            'event' => 'admin_refresh_failed',
-                            'reason' => 'account_suspended_or_disabled',
-                            'jti_hash' => $tokenHash,
-                            'user_id' => $sub,
-                            'ip' => $request->ip(),
-                            'user_agent' => $request->userAgent() ? Str::limit($request->userAgent(), 200) : null,
-                            'timestamp' => now()->toIso8601String(),
+                    if (in_array($legacyStatus, $disabledStatuses, true)) {
+                        Log::warning('Admin refresh failed: legacy status blocks access', [
+                            'event'         => 'admin_refresh_failed',
+                            'reason'        => 'legacy_status_blocked',
+                            'jti_hash'      => $tokenHash,
+                            'user_id'       => $sub,
+                            'ip'            => $request->ip(),
+                            'user_agent'    => $request->userAgent() ? Str::limit($request->userAgent(), 200) : null,
+                            'timestamp'     => now()->toIso8601String(),
                         ]);
 
                         return null;

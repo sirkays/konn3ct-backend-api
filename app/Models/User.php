@@ -35,6 +35,8 @@ class User extends Authenticatable
         'freetrial',
         'reseller_id',
         'account_status', // Moderation status: ACTIVE, SUSPENDED, BANNED (null = ACTIVE)
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
 
     function reseller()

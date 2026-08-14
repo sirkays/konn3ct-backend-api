@@ -1,0 +1,787 @@
+{
+  "info": {
+    "_postman_id": "konn3ct-payment-replay-v1",
+    "name": "Konn3ct API — Payment & Replay v1",
+    "description": "Production-quality collection covering:\n- GeoLocation detection\n- Checkout initialization (Paystack + Stripe)\n- Payment webhooks (Paystack + Stripe)\n- Replay access tokens\n- Ticket verification\n- Legacy Paystack webhook security\n\nAll requests include pre-request scripts where applicable.\nSet the {{base_url}} and {{auth_token}} variables before running.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url",         "value": "https://api.konn3ct.com", "type": "string" },
+    { "key": "auth_token",       "value": "",                        "type": "string", "description": "Sanctum bearer token from login" },
+    { "key": "paystack_secret",  "value": "sk_test_REPLACE_ME",      "type": "string", "description": "Paystack secret key (for HMAC generation)" },
+    { "key": "stripe_secret",    "value": "sk_test_REPLACE_ME",      "type": "string", "description": "Stripe secret key" },
+    { "key": "event_id",         "value": "1",                       "type": "string", "description": "prereg.id of the paid event to test" },
+    { "key": "recording_id",     "value": "",                        "type": "string", "description": "BBB recordID (from event_recordings table)" },
+    { "key": "local_reference",  "value": "",                        "type": "string", "description": "Populated by checkout initialize response" },
+    { "key": "replay_token",     "value": "",                        "type": "string", "description": "Populated by replay access token response" },
+    { "key": "ticket_number",    "value": "",                        "type": "string", "description": "Ticket number (from event_transactions)" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "01 — GeoLocation",
+      "item": [
+        {
+          "name": "Detect Country & Currency",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/geo/detect",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "geo", "detect"]
+            },
+            "description": "Public endpoint. Returns detected country code and suggested checkout currency.\n\nResolution priority:\n1. CF-IPCountry header (if TRUST_CLOUDFLARE_HEADERS=true)\n2. MaxMind GeoLite2 database\n3. Configured fallback (DEFAULT_COUNTRY_CODE)\n\nThis is a suggestion only — price and currency are always server-side locked at checkout."
+          },
+          "response": [
+            {
+              "name": "200 — Detected (Nigeria via Cloudflare)",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Cache-Control", "value": "no-store" }],
+              "body": "{\n  \"country_code\": \"NG\",\n  \"currency\": \"NGN\"\n}"
+            },
+            {
+              "name": "200 — Fallback (US)",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"country_code\": \"US\",\n  \"currency\": \"USD\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Detect with CF-IPCountry Header (simulate Cloudflare)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "CF-IPCountry", "value": "NG", "description": "Simulated Cloudflare country header" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/geo/detect",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "geo", "detect"]
+            },
+            "description": "Only honoured when TRUST_CLOUDFLARE_HEADERS=true in .env."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 — Checkout",
+      "item": [
+        {
+          "name": "Initialize — Paystack",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    if (body.local_reference) {",
+                  "        pm.collectionVariables.set('local_reference', body.local_reference);",
+                  "        console.log('Saved local_reference:', body.local_reference);",
+                  "    }",
+                  "    pm.test('Has payment_url', () => pm.expect(body).to.have.property('payment_url'));",
+                  "    pm.test('Has local_reference', () => pm.expect(body).to.have.property('local_reference'));",
+                  "    pm.test('Provider is paystack', () => pm.expect(body.provider).to.equal('paystack'));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+            },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept",       "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_id\": {{event_id}},\n  \"provider\": \"paystack\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/checkout/initialize",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "checkout", "initialize"]
+            },
+            "description": "Initializes a Paystack checkout session.\n\n**Security invariants:**\n- Amount and currency are ALWAYS read from prereg.amount / prereg.currency\n- The client only supplies event_id (lookup key) and provider\n- User identity comes from the Bearer token (Auth::user())\n\n**Returns:** payment_url, access_code, local_reference\n\nPending transactions for the same user+event are reused."
+          },
+          "response": [
+            {
+              "name": "201 — Checkout initialized",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"payment_url\": \"https://checkout.paystack.com/access_code_here\",\n  \"access_code\": \"access_code_here\",\n  \"local_reference\": \"KNT-ABCDEFGHIJKLMNOP\",\n  \"provider\": \"paystack\"\n}"
+            },
+            {
+              "name": "401 — Unauthenticated",
+              "status": "Unauthorized",
+              "code": 401,
+              "body": "{\n  \"message\": \"Unauthenticated.\"\n}"
+            },
+            {
+              "name": "404 — Not a paid event",
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"message\": \"Event not found or is not a paid event.\"\n}"
+            },
+            {
+              "name": "422 — Already paid",
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "body": "{\n  \"message\": \"You have already paid for this event.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Initialize — Stripe",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    if (body.local_reference) {",
+                  "        pm.collectionVariables.set('local_reference', body.local_reference);",
+                  "    }",
+                  "    pm.test('Provider is stripe', () => pm.expect(body.provider).to.equal('stripe'));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+            },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept",       "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_id\": {{event_id}},\n  \"provider\": \"stripe\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/checkout/initialize",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "checkout", "initialize"]
+            },
+            "description": "Initializes a Stripe Checkout Session.\nReturns payment_url (Stripe-hosted checkout page) and the session ID as access_code."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 — Payment Webhooks",
+      "item": [
+        {
+          "name": "Paystack — charge.success (with valid HMAC)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate the HMAC-SHA512 signature over the raw request body.",
+                  "// In production, Paystack sends this header automatically.",
+                  "// This script simulates it for testing with a known reference.",
+                  "",
+                  "const secret = pm.collectionVariables.get('paystack_secret');",
+                  "const ref = pm.collectionVariables.get('local_reference') || 'KNT-TEST-REF';",
+                  "",
+                  "const body = JSON.stringify({",
+                  "    event: 'charge.success',",
+                  "    data: {",
+                  "        status: 'success',",
+                  "        reference: ref,",
+                  "        amount: 500000,",
+                  "        currency: 'NGN',",
+                  "        customer: { email: pm.environment.get('test_email') || 'buyer@example.com' }",
+                  "    }",
+                  "});",
+                  "",
+                  "// CryptoJS is available in Postman's sandbox.",
+                  "const hash = CryptoJS.HmacSHA512(body, secret);",
+                  "const sig  = CryptoJS.enc.Hex.stringify(hash);",
+                  "",
+                  "pm.variables.set('paystack_sig', sig);",
+                  "pm.variables.set('paystack_webhook_body', body);",
+                  "console.log('Generated HMAC-SHA512:', sig.substring(0, 32) + '...');"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 200 ok', () => pm.response.to.have.status(200));",
+                  "pm.test('Body is ok', () => pm.expect(pm.response.json().message).to.equal('ok'));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type",          "value": "application/json" },
+              { "key": "X-Paystack-Signature",  "value": "{{paystack_sig}}", "description": "Generated by pre-request script" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{paystack_webhook_body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/webhooks/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "webhooks", "payment"]
+            },
+            "description": "Unified payment webhook — Paystack path.\n\n**Security:** HMAC-SHA512 is verified over the raw request body using hash_equals.\nThe pre-request script generates a valid HMAC.\n\n**Idempotency:** Sending the same payload twice returns 200 both times but only provisions once.\n\n**Transition guard:** Only PENDING → PAID is allowed. Already-PAID transactions are silently skipped."
+          },
+          "response": [
+            {
+              "name": "200 — Processed",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"ok\"\n}"
+            },
+            {
+              "name": "401 — Invalid signature",
+              "status": "Unauthorized",
+              "code": 401,
+              "body": "{\n  \"message\": \"Invalid signature.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Paystack — Forged (no signature) [Security Test]",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Forged request is rejected', () => {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([400, 401]);",
+                  "});",
+                  "pm.test('Does not return 200', () => pm.response.to.not.have.status(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"charge.success\",\n  \"data\": {\n    \"status\": \"success\",\n    \"reference\": \"FORGED-REF-XYZ\",\n    \"amount\": 500000,\n    \"currency\": \"NGN\",\n    \"customer\": { \"email\": \"victim@example.com\" }\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/webhooks/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "webhooks", "payment"]
+            },
+            "description": "**Security test:** A forged Paystack payload with NO X-Paystack-Signature header.\nExpected: 400 (unknown provider) — the endpoint requires a provider signature header."
+          },
+          "response": []
+        },
+        {
+          "name": "Paystack — Forged (wrong HMAC) [Security Test]",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Wrong HMAC is rejected with 401', () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type",         "value": "application/json" },
+              { "key": "X-Paystack-Signature", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"charge.success\",\n  \"data\": {\n    \"status\": \"success\",\n    \"reference\": \"FORGED-REF-XYZ\",\n    \"amount\": 500000,\n    \"currency\": \"NGN\",\n    \"customer\": { \"email\": \"victim@example.com\" }\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/webhooks/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "webhooks", "payment"]
+            },
+            "description": "**Security test:** A forged Paystack payload with a fabricated (wrong) HMAC.\nExpected: 401 Unauthorized."
+          },
+          "response": []
+        },
+        {
+          "name": "Stripe — checkout.session.completed",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// NOTE: Stripe webhook signature (Stripe-Signature) uses a timestamp + payload HMAC.",
+                  "// Full Stripe signature generation requires the stripe-signature library.",
+                  "// For local testing, use the Stripe CLI: `stripe listen --forward-to <url>`",
+                  "// which sends correctly signed events.",
+                  "//",
+                  "// This request sends an UNSIGNED payload for illustration only.",
+                  "// It will return 401 from the server (expected).",
+                  "console.log('NOTE: Stripe signature requires Stripe CLI for accurate testing.');"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// With a real Stripe-signed event, this should return 200.",
+                  "// Without a valid signature, expect 401.",
+                  "pm.test('Response received', () => pm.response.to.not.have.status(500));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type",    "value": "application/json" },
+              { "key": "Stripe-Signature","value": "t=1234567890,v1=REPLACE_WITH_REAL_STRIPE_SIG", "description": "Use `stripe listen` CLI to generate real signatures" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"evt_test_REPLACE_ME\",\n  \"type\": \"checkout.session.completed\",\n  \"data\": {\n    \"object\": {\n      \"id\": \"cs_test_REPLACE_ME\",\n      \"object\": \"checkout.session\",\n      \"client_reference_id\": \"{{local_reference}}\",\n      \"payment_status\": \"paid\",\n      \"customer_email\": \"buyer@example.com\"\n    }\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/webhooks/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "webhooks", "payment"]
+            },
+            "description": "**Note:** Stripe webhook signatures cannot be easily hand-crafted.\n\nFor real testing use:\n```\nstripe listen --forward-to {{base_url}}/api/v1/webhooks/payment\nstripe trigger checkout.session.completed\n```\n\nOr use webhook.site for smoke testing by setting STRIPE_WEBHOOK_SECRET to the webhook.site test secret."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 — Replay Access",
+      "item": [
+        {
+          "name": "Issue Replay Access Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    pm.collectionVariables.set('replay_token', body.token);",
+                  "    console.log('Saved replay token (first 16 chars):', body.token.substring(0, 16) + '...');",
+                  "    pm.test('Token is 64 hex chars', () => pm.expect(body.token).to.match(/^[a-f0-9]{64}$/));",
+                  "    pm.test('Has expires_at', () => pm.expect(body).to.have.property('expires_at'));",
+                  "    pm.test('Cache-Control contains no-store', () => {",
+                  "        const cc = pm.response.headers.get('Cache-Control') || '';",
+                  "        pm.expect(cc).to.include('no-store');",
+                  "    });",
+                  "}",
+                  "if (pm.response.code === 403) {",
+                  "    pm.test('403 — not entitled or recording not mapped', () => pm.response.to.have.status(403));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+            },
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/api/v1/replays/{{recording_id}}/access",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "replays", "{{recording_id}}", "access"]
+            },
+            "description": "Issues a short-lived (default 5 min) opaque replay access token.\n\n**Entitlement check:**\n- Recording must be in event_recordings (server-side mapping)\n- Auth user's email must have prereg_users.paid=1 for the associated event\n- User identity from Auth::user() — never from request body\n\n**Token security:**\n- 32 bytes CSPRNG entropy → 64-char hex\n- Only SHA-256 hash stored in DB (never plaintext)\n- Use the token immediately to call /stream\n\n**Returns 403** if not entitled or recording not mapped."
+          },
+          "response": [
+            {
+              "name": "200 — Token issued",
+              "status": "OK",
+              "code": 200,
+              "header": [
+                { "key": "Cache-Control", "value": "no-store" }
+              ],
+              "body": "{\n  \"token\": \"a3f8b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1\",\n  \"expires_at\": \"2026-08-13T21:05:00.000000Z\"\n}"
+            },
+            {
+              "name": "403 — Not entitled",
+              "status": "Forbidden",
+              "code": 403,
+              "body": "{\n  \"message\": \"Access denied.\"\n}"
+            },
+            {
+              "name": "401 — Unauthenticated",
+              "status": "Unauthorized",
+              "code": 401,
+              "body": "{\n  \"message\": \"Unauthenticated.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Stream — Exchange Token for BBB URL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    pm.test('Has playback_url', () => pm.expect(body).to.have.property('playback_url'));",
+                  "    pm.test('Cache-Control contains no-store', () => {",
+                  "        const cc = pm.response.headers.get('Cache-Control') || '';",
+                  "        pm.expect(cc).to.include('no-store');",
+                  "    });",
+                  "    console.log('BBB playback URL:', body.playback_url);",
+                  "    console.log('NOTE: This URL is permanently public on the BBB server (API-layer protection only).');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+            },
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/api/v1/replays/{{recording_id}}/stream?token={{replay_token}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "replays", "{{recording_id}}", "stream"],
+              "query": [{ "key": "token", "value": "{{replay_token}}" }]
+            },
+            "description": "Exchanges a valid replay access token for the BBB playback URL.\n\n**Token validation rejects if:**\n- Token not found or expired\n- Token revoked\n- Token.user_id ≠ current Auth user (cross-user rejection)\n- Token.recording_id ≠ requested recording_id (cross-recording rejection)\n\n**⚠️ BBB Protection: PARTIAL**\nThe returned URL is permanently public on the BBB server.\nThis endpoint provides API-layer sharing resistance only — not full content protection.\n\nAlternative: Pass token via `X-Replay-Token` header instead of query param."
+          },
+          "response": [
+            {
+              "name": "200 — Playback URL",
+              "status": "OK",
+              "code": 200,
+              "header": [
+                { "key": "Cache-Control", "value": "no-store" }
+              ],
+              "body": "{\n  \"playback_url\": \"https://bbb.konn3ct.com/playback/presentation/2.3/a3f8b2c1d4e5f6...\"\n}"
+            },
+            {
+              "name": "401 — Invalid/expired token",
+              "status": "Unauthorized",
+              "code": 401,
+              "body": "{\n  \"message\": \"Invalid, expired, or revoked token.\"\n}"
+            },
+            {
+              "name": "401 — No token",
+              "status": "Unauthorized",
+              "code": 401,
+              "body": "{\n  \"message\": \"Token required.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Stream — Cross-User Token Rejection [Security Test]",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Cross-user token is rejected with 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Does not return 200', () => pm.response.to.not.have.status(200));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{auth_token}}", "type": "string" }]
+            },
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/api/v1/replays/{{recording_id}}/stream?token=ANOTHER_USERS_TOKEN_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "replays", "{{recording_id}}", "stream"],
+              "query": [{ "key": "token", "value": "ANOTHER_USERS_TOKEN_HERE" }]
+            },
+            "description": "**Security test:** Attempt to use a token issued to a different user.\nExpected: 401 — cross-user rejection enforced by token.user_id check."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 — Ticket Verification",
+      "item": [
+        {
+          "name": "Verify Ticket (Signed URL)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// NOTE: The verify URL is a Laravel signed URL.",
+                  "// Generate it from the server side using:",
+                  "//   URL::signedRoute('tickets.verify', ['number' => $ticketNumber])",
+                  "//",
+                  "// The URL includes a `signature` query parameter.",
+                  "// Replace the url variable with the full signed URL from the ticket PDF or email.",
+                  "console.log('Use a complete signed URL from a ticket email or PDF attachment.');"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 200 or 403', () => {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 403, 404]);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    pm.test('Has valid field', () => pm.expect(body).to.have.property('valid'));",
+                  "    pm.test('No PII in response', () => {",
+                  "        const text = JSON.stringify(body);",
+                  "        pm.expect(text).to.not.include('email');",
+                  "        pm.expect(text).to.not.include('amount');",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/api/v1/tickets/{{ticket_number}}/verify?signature=REPLACE_WITH_REAL_SIGNED_URL_SIGNATURE&expires=REPLACE_WITH_EXPIRES",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tickets", "{{ticket_number}}", "verify"],
+              "query": [
+                { "key": "signature", "value": "REPLACE_WITH_REAL_SIGNED_URL_SIGNATURE" },
+                { "key": "expires",   "value": "REPLACE_WITH_EXPIRES" }
+              ]
+            },
+            "description": "Verifies an event ticket by number via a Laravel signed URL.\n\n**Public endpoint** — no Bearer token required.\n\n**Signature required:** The URL must include a valid `?signature=` from `URL::signedRoute()`.\nUnsigned requests return 403.\n\n**Response contains ONLY:**\n- `valid` (boolean)\n- `status` (paid/pending/failed)\n- `event_title`\n- `event_date`\n\n**Never returns:** email, payment amount, replay tokens, or join URLs."
+          },
+          "response": [
+            {
+              "name": "200 — Valid ticket",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Cache-Control", "value": "no-store" }],
+              "body": "{\n  \"valid\": true,\n  \"status\": \"paid\",\n  \"event_title\": \"Advanced Laravel Security Workshop\",\n  \"event_date\": \"2026-09-15\"\n}"
+            },
+            {
+              "name": "403 — Invalid/expired signature",
+              "status": "Forbidden",
+              "code": 403,
+              "body": "{\n  \"valid\": false,\n  \"message\": \"This verification link is invalid or has expired.\"\n}"
+            },
+            {
+              "name": "404 — Ticket not found",
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"valid\": false,\n  \"message\": \"Ticket not found.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06 — Legacy Webhook Security",
+      "item": [
+        {
+          "name": "Legacy paystackhook — Valid HMAC",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const secret = pm.collectionVariables.get('paystack_secret');",
+                  "const ref = pm.collectionVariables.get('local_reference') || 'KNT-LEGACY-TEST';",
+                  "const body = JSON.stringify({",
+                  "    event: 'charge.success',",
+                  "    data: {",
+                  "        domain: 'live',",
+                  "        status: 'success',",
+                  "        reference: ref,",
+                  "        amount: 500000,",
+                  "        fees: 5000,",
+                  "        currency: 'NGN',",
+                  "        customer: { email: pm.environment.get('test_email') || 'user@example.com' },",
+                  "        plan: { interval: 'monthly' },",
+                  "        metadata: { custom_fields: [{ value: 'not-addons', display_name: 'addon' }] }",
+                  "    }",
+                  "});",
+                  "const hash = CryptoJS.HmacSHA512(body, secret);",
+                  "pm.variables.set('legacy_sig', CryptoJS.enc.Hex.stringify(hash));",
+                  "pm.variables.set('legacy_body', body);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Legacy handler may return various codes after HMAC passes.",
+                  "// The important assertion is: NOT 401 (HMAC not rejected).",
+                  "pm.test('HMAC accepted — not 401', () => pm.response.to.not.have.status(401));",
+                  "console.log('Response status:', pm.response.code);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type",         "value": "application/json" },
+              { "key": "X-Paystack-Signature", "value": "{{legacy_sig}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{legacy_body}}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/paystackhook",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paystackhook"]
+            },
+            "description": "Tests the legacy Paystack webhook route (`/api/paystackhook`).\nHMAC-SHA512 verification is applied here — valid signature passes, invalid fails."
+          },
+          "response": []
+        },
+        {
+          "name": "Legacy paystackhook — Forged (no sig) [Security Test]",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Forged request rejected — not 200', () => pm.response.to.not.have.status(200));",
+                  "pm.test('Returns 401', () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"charge.success\",\n  \"data\": {\n    \"domain\": \"live\",\n    \"status\": \"success\",\n    \"reference\": \"FORGED-REFERENCE-001\",\n    \"amount\": 500000,\n    \"fees\": 5000,\n    \"currency\": \"NGN\",\n    \"customer\": { \"email\": \"victim@example.com\" },\n    \"plan\": { \"interval\": \"monthly\" },\n    \"metadata\": { \"custom_fields\": [{ \"value\": \"not-addons\" }] }\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/paystackhook",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paystackhook"]
+            },
+            "description": "**Security test:** Forged payload with NO X-Paystack-Signature.\nExpected: 401 Unauthorized (HMAC check fires before any business logic)."
+          },
+          "response": []
+        },
+        {
+          "name": "Vulte — Forged from Unknown IP [Security Test]",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// In a real environment, the IP allowlist only activates when",
+                  "// the request comes from a non-allowlisted IP.",
+                  "// Locally (127.0.0.1), you may need to set VULTE_WEBHOOK_IP_ALLOWLIST=1.2.3.4",
+                  "// to test the rejection. With '*' in allowlist, this will pass.",
+                  "pm.test('Received response', () => pm.response.to.not.have.status(500));",
+                  "console.log('Vulte IP allowlist status:', pm.response.code);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"transaction.charge\",\n  \"data\": {\n    \"status\": \"successful\",\n    \"pay_type\": \"event\",\n    \"email\": \"victim@example.com\",\n    \"amount\": 100000\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/hook/vulte",
+              "host": ["{{base_url}}"],
+              "path": ["api", "hook", "vulte"]
+            },
+            "description": "**Security test:** Forged Vulte payload.\n\n**⚠️ Vulte Security Blocker:**\nVulte does NOT publish an HMAC signature contract.\nThe IP allowlist (`VULTE_WEBHOOK_IP_ALLOWLIST`) is the only mitigation.\n\nExpected: 403 if the request IP is not in the allowlist.\n\nContact Vulte support to obtain a signature verification contract before production."
+          },
+          "response": [
+            {
+              "name": "403 — IP not allowlisted",
+              "status": "Forbidden",
+              "code": 403,
+              "body": "{\n  \"message\": \"Forbidden.\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

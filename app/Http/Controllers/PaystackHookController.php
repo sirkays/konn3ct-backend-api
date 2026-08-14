@@ -21,14 +21,31 @@ class PaystackHookController extends Controller
 
         $data2= json_encode($input);
 
+        // SECURITY: Verify Paystack HMAC-SHA512 signature over the raw request body.
+        // This is Paystack's published and confirmed webhook verification contract.
+        // Ref: https://paystack.com/docs/payments/webhooks/#verify-event-origin
+        $rawBody = $request->attributes->get('raw_body', $request->getContent());
+        $paystackSecret = config('paystack.secretKey');
+
+        if (empty($paystackSecret)) {
+            Log::critical('PaystackHookController::index: PAYSTACK_SECRET_KEY is not configured — rejecting webhook');
+            return response('configuration error', 500);
+        }
+
+        if (!$request->headers->has('X-Paystack-Signature')) {
+            return response('invalid request', 401);
+        }
+
+        $expectedSignature = hash_hmac('sha512', $rawBody, $paystackSecret);
+        if (!hash_equals($expectedSignature, $request->header('X-Paystack-Signature'))) {
+            Log::warning('PaystackHookController::index: HMAC signature mismatch — possible forgery attempt');
+            return response('invalid signature', 401);
+        }
+
         echo "52.31.139.75, 52.49.173.169, 52.214.14.220<br/>";
 
         DB::table('paystackhook')->insert(['data'=> $data2]);
 
-        // only a post with paystack signature header gets our attention
-        if (!$request->headers->has('X-Paystack-Signature')) {
-            return "invalid request";
-        }
 
         if($input['event']!="charge.success"){
             return "charge->success expected";
@@ -107,14 +124,26 @@ class PaystackHookController extends Controller
 
         $data2= json_encode($input);
 
-//        echo "52.31.139.75, 52.49.173.169, 52.214.14.220<br/>";
+        // SECURITY: Verify Paystack HMAC-SHA512 signature over the raw request body.
+        // This was previously commented out — re-enabled and hardened with hash_equals.
+        $rawBody = $request->attributes->get('raw_body', $request->getContent());
+        $paystackSecret = config('paystack.secretKey');
 
-        DB::table('paystackhook')->insert(['data'=> $data2]);
+        if (empty($paystackSecret)) {
+            Log::critical('PaystackHookController::webHook: PAYSTACK_SECRET_KEY is not configured — rejecting webhook');
+            return response('configuration error', 500);
+        }
 
-        // only a post with paystack signature header gets our attention
-//        if (!$request->headers->has('X-Paystack-Signature')) {
-//            return "invalid request";
-//        }
+        if (!$request->headers->has('X-Paystack-Signature')) {
+            return response('invalid request', 401);
+        }
+
+        $expectedSignature = hash_hmac('sha512', $rawBody, $paystackSecret);
+        if (!hash_equals($expectedSignature, $request->header('X-Paystack-Signature'))) {
+            Log::warning('PaystackHookController::webHook: HMAC signature mismatch — possible forgery attempt');
+            return response('invalid signature', 401);
+        }
+
 
         if($input['event']!="charge.success"){
             return "charge->success expected";

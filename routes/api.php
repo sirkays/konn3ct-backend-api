@@ -142,3 +142,36 @@ Route::prefix('v1/admin')
         ->name('api.v1.admin.financials.transactions');
 });
 
+// ============================================================================
+// API V1 — New Payment & Replay Capabilities
+// ============================================================================
+
+// --- Task 2: GeoLocation Detection (public, no auth required) ---
+Route::get('v1/geo/detect', [\App\Http\Controllers\Api\V1\GeoLocationController::class, 'detect'])
+    ->name('v1.geo.detect');
+
+// --- Task 1: Replay Access (authenticated) ---
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('v1/replays/{recordingId}/access', [\App\Http\Controllers\Api\V1\ReplayAccessController::class, 'issueToken'])
+        ->name('v1.replays.access')
+        ->where('recordingId', '[a-zA-Z0-9\-]+');
+
+    Route::get('v1/replays/{recordingId}/stream', [\App\Http\Controllers\Api\V1\ReplayAccessController::class, 'stream'])
+        ->name('v1.replays.stream')
+        ->where('recordingId', '[a-zA-Z0-9\-]+');
+
+    // --- Task 3: Checkout Initialization (authenticated) ---
+    Route::post('v1/checkout/initialize', [\App\Http\Controllers\Api\V1\CheckoutController::class, 'initialize'])
+        ->name('v1.checkout.initialize');
+});
+
+// --- Task 4: Payment Webhook (no auth — HMAC/signature verified in controller) ---
+// raw.body middleware preserves the exact request body for signature verification.
+Route::post('v1/webhooks/payment', [\App\Http\Controllers\Api\V1\PaymentWebhookController::class, 'handle'])
+    ->name('v1.webhooks.payment')
+    ->middleware('raw.body');
+
+// --- Task 1: Ticket Verification (signed URL, no auth required) ---
+Route::get('v1/tickets/{number}/verify', [\App\Http\Controllers\Api\V1\TicketVerificationController::class, 'verify'])
+    ->name('tickets.verify')
+    ->where('number', '[A-Z0-9\-]+');

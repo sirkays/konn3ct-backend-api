@@ -72,5 +72,8 @@ class Kernel extends HttpKernel
         // Admin Portal API middleware
         'admin.jwt' => \App\Http\Middleware\AdminJwtMiddleware::class,
         'admin.permission' => \App\Http\Middleware\AdminPermissionMiddleware::class,
+        // Payment / webhook middleware
+        'raw.body' => \App\Http\Middleware\PreserveRawBody::class,
+        'vulte.ip' => \App\Http\Middleware\VulteIpAllowlist::class,
     ];
 }

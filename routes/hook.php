@@ -6,16 +6,24 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Hook Routes
 |--------------------------------------------------------------------------
+| Webhook routes for payment providers. All routes in this file are
+| exempt from CSRF (applied in VerifyCsrfToken::$except).
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
+| SECURITY NOTE — Vulte routes:
+|   The vulte.ip middleware applies an IP allowlist as interim mitigation.
+|   Vulte does not provide a published HMAC/signature contract. See:
+|   config/vulte.php and app/Http/Middleware/VulteIpAllowlist.php
 */
-Route::post('paystackhook', [PaystackHookController::class, 'index']);
-Route::post('paystackhookweb', [PaystackHookController::class, 'webHook']);
+
+// Paystack webhooks: raw body preserved before JSON parsing for HMAC-SHA512 verification.
+Route::post('paystackhook',    [PaystackHookController::class, 'index'])  ->middleware('raw.body');
+Route::post('paystackhookweb', [PaystackHookController::class, 'webHook'])->middleware('raw.body');
+
 Route::post('hook/meeting', [\App\Http\Controllers\WebhookController::class, 'meeting']);
-Route::post('hook/vulte', [\App\Http\Controllers\VulteHookController::class, 'index']);
-Route::post('hook/polaris', [\App\Http\Controllers\VulteHookController::class, 'bankTransfer']);
+
+// Vulte webhooks: IP allowlist applied. Live flow preserved — do NOT add signature
+// verification without confirming the contract with Vulte support.
+Route::post('hook/vulte',   [\App\Http\Controllers\VulteHookController::class, 'index'])       ->middleware('vulte.ip');
+Route::post('hook/polaris', [\App\Http\Controllers\VulteHookController::class, 'bankTransfer'])->middleware('vulte.ip');

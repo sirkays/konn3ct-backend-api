@@ -34,6 +34,31 @@ class AdminTestUsersSeeder extends Seeder
             ]
         );
 
+        $u3 = User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'firstname'      => 'Admin',
+                'lastname'       => 'User',
+                'password'       => Hash::make('password'),
+                'type'           => 'admin',
+                'plan'           => 1,
+                'account_status' => null,
+            ]
+        );
+
+        $u4 = User::updateOrCreate(
+            ['email' => 'admin_mfa@example.com'],
+            [
+                'firstname'         => 'Admin',
+                'lastname'          => 'MFA',
+                'password'          => Hash::make('password'),
+                'type'              => 'admin',
+                'plan'              => 1,
+                'two_factor_secret' => encrypt('JBSWY3DPEHPK3PXP'),
+                'account_status'    => null,
+            ]
+        );
+
         $this->command->info('');
         $this->command->info('✅ Test users created:');
         $this->command->info('');
@@ -44,6 +69,15 @@ class AdminTestUsersSeeder extends Seeder
         $this->command->info('  [BAN THIS ONE]');
         $this->command->info('  ID:    ' . $u2->id);
         $this->command->info('  Email: ' . $u2->email);
+        $this->command->info('');
+        $this->command->info('  [STANDARD ADMIN]');
+        $this->command->info('  ID:    ' . $u3->id);
+        $this->command->info('  Email: ' . $u3->email);
+        $this->command->info('');
+        $this->command->info('  [MFA ADMIN]');
+        $this->command->info('  ID:    ' . $u4->id);
+        $this->command->info('  Email: ' . $u4->email);
+        $this->command->info('  2FA Secret Key: JBSWY3DPEHPK3PXP');
         $this->command->info('');
     }
 }
